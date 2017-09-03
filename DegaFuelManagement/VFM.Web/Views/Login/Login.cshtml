@@ -1,0 +1,221 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="content" ng-class="login.changeLayout()" data-ng-controller="loginController as login" style="display: none;" show-on-link>
+    <div class="container" ng-if="login.clientName == 'LargentFuel'">
+        <largent-fuel></largent-fuel>
+    </div>
+    <div class="container" ng-if="login.clientName != 'LargentFuel'">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
+                <h1 class="txt-color-red login-header-big">{{login.siteName}} Login</h1>
+                <div class="hero">
+                    <div class="pull-left login-desc-box-l">
+                        <h4 class="paragraph-header">Experience the simplicity of {{login.siteName}}, everywhere you go!</h4>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <h5 class="about-heading">About {{login.siteName}} - Are your prices up to date?</h5>
+                        <p>
+                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa.
+                        </p>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <h5 class="about-heading">Fuel Management Like No Other!</h5>
+                        <p>
+                            Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi voluptatem accusantium!
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <div id="loginCtrl" data-ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model))">
+                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+                    <div class="well no-padding">
+                        <form id="loginForm" data-ng-submit="login.onLoginData()" name="login.loginForm" class="smart-form client-form" novalidate="novalidate">
+                            <header>
+                                Sign In
+                            </header>
+
+                            <fieldset>
+
+                                <section>
+                                    <label class="label">E-mail</label>
+                                    <label class="input">
+                                        <i class="icon-append fa fa-user"></i>
+                                        <input type="text"
+                                               id="login-username"
+                                               name="username"
+                                               ng-model="login.myData.username"
+                                               class="form-control ng-class:{'error': login.showLoginFormErrors && !login.loginForm.username.$valid}"
+                                               required
+                                               ng-required="true"
+                                               placeholder="Username">
+                                        @*<div role="alert" class="help-inline error" style="color:red">
+                                                <span class="error has-error" ng-show="login.showLoginFormErrors && login.loginForm.username.$error.required">Please enter your UserName</span>
+                                            </div>*@
+                                        <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter email address/username</b>
+                                    </label>
+                                </section>
+
+                                <section>
+                                    <label class="label">Password</label>
+                                    <label class="input">
+                                        <i class="icon-append fa fa-lock"></i>
+                                        <input type="password"
+                                               id="login-password"
+                                               ng-model="login.myData.Password"
+                                               name="Password"
+                                               class="form-control ng-class:{'error': login.showLoginFormErrors && !login.loginForm.Password.$valid}"
+                                               required
+                                               ng-required="true"
+                                               placeholder="Password">
+                                        @*<div role="alert" class="help-inline error">
+                                                <span class="error has-error" ng-show="login.showLoginFormErrors && login.loginForm.Password.$error.required">Please enter your Password</span>
+                                            </div>*@
+                                        <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b>
+                                    </label>
+                                    <div class="note">
+                                        <a href="forgotpassword.html">Forgot password?</a>
+                                    </div>
+                                </section>
+
+                                <section>
+                                    <label class="checkbox">
+                                        <input type="checkbox" name="remember" checked="">
+                                        <i></i>Stay signed in
+                                    </label>
+                                </section>
+                            </fieldset>
+                            <footer>
+                                <button type="submit" id="cmdLogin" class="btn btn-primary">
+                                    Sign in
+                                </button>
+                            </footer>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+
+
+    <script src="~/Scripts/AngularJS/Directives/partials.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/login.js?ref=@Model.DateReference"></script>
+
+    <script type="text/javascript">
+
+        degatech.page.startUp = function () {
+            degatech.page.userController = degatech.ng.getControllerInstance($("#loginCtrl"));
+        };
+
+        degatech.services.loginFactory = function ($baseService) {
+            var serviceObject = degatech.services.login;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.ng.addService(degatech.ng.app.module, "$loginService", ["$baseService"], degatech.services.loginFactory);
+
+        degatech.page.loginControllerFactory = function(
+            $scope, $rootScope, $baseController, $loginService, Notification) {
+
+            var vm = this;
+            $baseController.merge(vm, $baseController);
+
+            vm.$scope = $scope;
+            vm.$rootScope = $rootScope;
+            vm.$loginService = $loginService;
+
+            vm.settings = _settings;
+
+            vm.onLoginData = _onLoginData;
+            vm.loginSuccess = _loginSuccess;
+            vm.loginError = _loginError;
+            vm.getClientNameSuccess = _getClientNameSuccess;
+            vm.getClientNameError = _getClientNameError;
+            vm.changeLayout = _changeLayout;
+
+            vm.notify = vm.$loginService.getNotifier($scope);
+
+            render();
+
+            function render() {
+                //vm.settings();
+                //window.onpopstate = function (e) { window.history.forward(1); }
+                _loadSiteName();
+                console.log("Launching Login Form");
+            };
+
+            function _onLoginData() {
+                console.log('Logging in');
+                vm.$loginService.add(vm.myData, vm.loginSuccess, vm.loginError);
+            };
+
+            function _changeLayout() {
+                switch (vm.clientName) {
+                    case 'LargentFuel':
+                        return 'largent-login';
+                        break;
+                }
+            }
+
+            function _loginSuccess(data, status, xhr) {
+                vm.success = "You have successfully logged in!";
+                Notification.success({
+                    model: this,
+                    scope: $scope,
+                    //templateUrl: '/Partials/Common/Notifications/Login.html',
+                    message: vm.success,
+                    delay: 60000,
+                    closeOnClick: false
+                });
+                window.setTimeout(location.href = "/Home/" + data.Item.Id, 1000);
+            }
+
+            function _loginError(jqXHR, textStatus, errorThrown) {
+                vm.error = jqXHR.responseJSON.Errors[0];
+                Notification.error({
+                    model: this,
+                    scope: $scope,
+                    //templateUrl: '/Partials/Common/Notifications/Login.html',
+                    message: vm.error,
+                    delay: 3000,
+                    closeOnClick: false
+                });
+            }
+
+            function _getClientNameSuccess(data, status, xhr) {
+                vm.notify(function () {
+                    vm.clientName = data.Item;
+                });
+            }
+
+            function _getClientNameError(jqXHR, textStatus, errorThrown) {
+
+            }
+
+            function _settings() {
+                vm.data = {};
+                vm.showLoginFormErrors = false;
+            }
+
+            function _loadSiteName() {
+                vm.siteName = "Dega Fuel Management";
+                if (window.location.hostname.toLowerCase().indexOf('largent') > -1)
+                    vm.siteName = 'Largent Fuels';
+                vm.$loginService.getclientname(vm.getClientNameSuccess, vm.getClientNameError);
+            }
+
+        }
+
+        degatech.ng.addController(degatech.ng.app.module, "loginController", ['$scope', '$rootScope', '$baseController', "$loginService", "Notification"], degatech.page.loginControllerFactory);
+    </script>
+}

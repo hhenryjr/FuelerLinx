@@ -1,0 +1,24 @@
+﻿/* MOONJET */
+
+body {
+}
+
+aside {
+background: #5e1c7f;
+}
+
+nav ul li a {
+    color: #8bca1d;
+}
+
+#left-panel nav ul li .active {
+    background: #8bca1d;
+    color: #fff;
+    font-weight: 600;
+}
+
+#logo-group .logo {
+    content:url('/img/moonjet-logo.png');
+    padding-right: 20px;
+    padding-top: 6px;
+}

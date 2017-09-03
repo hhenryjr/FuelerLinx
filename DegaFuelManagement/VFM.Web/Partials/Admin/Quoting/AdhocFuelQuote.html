@@ -1,0 +1,166 @@
+﻿
+<div class="jarviswidget jarviswidget-color-blueDark adhoc-fuel-quote col-xs-12 col-lg-12" id="" data-widget-editbutton="true">
+
+    <header class="background-lightblue">
+        <h2>
+            <span ng-show="customerDetails.$usersService.user.Client.ClientType == 1">Ad Hoc Fuel Quote</span>
+            <span ng-show="customerDetails.$usersService.user.Client.ClientType == 2">Enter Trip Information</span>
+        </h2>
+    </header>
+
+    <div class="padding-top-none padding-right-none padding-left-none">
+        <div class="text-center white-font" id="adhocrequirementmessage" ng-if="(!customerDetails.customer.IsActive || !customerDetails.customer.CustomerPriceMargin.PriceMarginID) || customerDetails.customer.Aircrafts.length == 0">           
+            <div>
+                To enable fuel quoting:
+                <ul id="adhocmessages">
+                    <li ng-if="!customerDetails.customer.IsActive">
+                        This company needs to be enabled
+                    </li>
+                    <li ng-if="!customerDetails.customer.CustomerPriceMargin.PriceMarginID">
+                        A margin needs to be assigned to this company
+                    </li>
+                    <li ng-if="customerDetails.customer.Aircrafts.length == 0">
+                        An aircraft needs to be added below
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row ad-hoc-info" ng-class="{'blur-5' : (!customerDetails.customer.IsActive || !customerDetails.customer.CustomerPriceMargin.PriceMarginID) || customerDetails.customer.Aircrafts.length == 0}">
+            
+            <div class="col-xs-12 col-sm-6">
+                <div class="inline-block margin-right-5">
+                    <label><span class="red-font">*</span>Tail</label>
+                </div>
+
+                <div id="adHocDropDown" class="inline-block" ng-show="customerDetails.$usersService.user.Client.ClientType == 1">
+                    <select ui-select2 chosen class="form-control" name="TailNumber" ng-model="customerDetails.fuelOrder.Aircraft" ng-change="customerDetails.aircraftChanged()" ng-options="aircraft as (aircraft.TailNumber + ' - ' + aircraft.MakeAndModel.Make + ' ' + aircraft.MakeAndModel.Model) for aircraft in filteredAircrafts = (customerDetails.customer.Aircrafts | filter:customerDetails.aircraftFilter:aircraft)" required>
+                        <option></option>
+                    </select>
+                </div>
+
+                <div class="inline-block" ng-show="customerDetails.$usersService.user.Client.ClientType == 2">
+                    <select ui-select2 chosen class="form-control" name="TailNumber" ng-model="customerDetails.fuelOrder.Aircraft" ng-change="customerDetails.aircraftChanged()" ng-options="aircraft as (aircraft.TailNumber + ' - ' + aircraft.MakeAndModel.Make + ' ' + aircraft.MakeAndModel.Model) for aircraft in filteredAircrafts = (customerDetails.customer.Aircrafts | filter:customerDetails.aircraftFilter:aircraft)" required>
+                        <option></option>
+                    </select>
+                </div>
+
+                <div role="alert" class="help-inline error" style="color: red">
+                    <span class="error" ng-show="customerDetails.showFormErrors && customerDetails.quoteForm.TailNumber.$error.required">Please enter TailNumber</span>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-3">
+                <div class="inline-block margin-right-5">
+                    <label><span class="red-font">*</span>Airport</label>
+                </div>
+                <div ng-hide="customerDetails.loadingAirports" class="inline-block">
+                    <input placeholder="ICAO" type="text" name="ICAO" class="form-control" ng-model="customerDetails.fuelOrder.ICAO" typeahead-on-select="customerDetails.icaoChanged(customerDetails.fuelOrder)"
+                           uib-typeahead="airport.ICAO as (airport.label) for airport in customerDetails.airports | filter:$viewValue | limitTo:8" required>
+                </div>
+                <div ng-show="customerDetails.loadingAirports" class="inline-block">
+                    <loading-icon></loading-icon>
+                </div>
+                <div role="alert" class="help-inline error" style="color: red">
+                    <span class="error" ng-show="customerDetails.showFormErrors && customerDetails.quoteForm.ICAO.$error.required">Please enter Airport</span>
+                    <!--<span class="error" ng-show="customerDetails.showFormErrors && customerDetails.quoteForm.ICAO.$error.minlength">Patient ID is required to be at least 5 characters</span>-->
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-3">
+                <div class="inline-block margin-right-5">
+                    <label>Gallons</label>
+                </div>
+                <div class="inline-block">
+                    <input type="text" class="form-control" ng-model="customerDetails.fuelOrder.QuotedVolume" select-on-focus />
+                </div>
+            </div>
+
+        </div>
+        <div class="ad-hoc-content" ng-class="{'blur-5' : (!customerDetails.customer.IsActive || !customerDetails.customer.CustomerPriceMargin.PriceMarginID) || customerDetails.customer.Aircrafts.length == 0}">
+            <saving-notification ng-if="customerDetails.gettingPrices" saving-text="Fetching Prices"></saving-notification>
+            <div class="row padding-bottom-5">
+                <div class="col-xs-6 padding-left-none">
+                    <label>Fuel Price Selection</label>
+                </div>
+                <div class="col-xs-3">
+                    <label>Service Date</label>
+                </div>
+                <div class="col-xs-3">
+                    <label>Time</label>
+                </div>
+            </div>
+            <div class="row fuel-selection">
+                <!--<div class="col-xs-8 padding-left-none margin-bottom-10" ng-if="(!customerDetails.fuelOrder.Aircraft == null || !customerDetails.fuelOrder.Aircraft.TailNumber.length == 0) && (!customerDetails.fuelOrder.ICAO == null || !customerDetails.fuelOrder.ICAO.length == 0) || (filteredPrices.length == 0)">
+                <select class="form-control" ui-select2 ng-disabled="filteredPrices.length == 0" ng-model="customerDetails.fuelOrder.Quote" ng-options="price as ((price.Price | currency) + ' at ' + price.SupplierPrices.FBOName) for price in filteredPrices = (customerDetails.fuelOrder.prices | filter:customerDetails.fuelPriceFilter:price)">-->
+                <!-- admin only dropdown -->
+                <!-- admin -->
+                <div ng-show="customerDetails.$usersService.user.Client.ClientType == 1" class="admin col-xs-6 padding-left-none margin-bottom-10" ng-if="(!customerDetails.fuelOrder.Aircraft == null || !customerDetails.fuelOrder.Aircraft.TailNumber.length == 0) && (!customerDetails.fuelOrder.ICAO == null || !customerDetails.fuelOrder.ICAO.length == 0) || (filteredPrices.length == 0)">
+                    <select class="form-control" ui-select2 ng-disabled="filteredPrices.length == 0" ng-model="customerDetails.fuelOrder.Quote" ng-change="customerDetails.onFuelOrderQuoteChanged()" ng-options="price as ((price.Price | currency) + ' at ' + price.FBOName + ' '+ '. Vendor: ' + price.Vendor + '. Type: ' + price.Product) for price in filteredPrices = (customerDetails.fuelOrder.prices | filter:customerDetails.fuelPriceFilter:price)">
+                        <option value="">{{customerDetails.fuelOrder.prices.length > 0 ? '--Select Fuel--' : '--No pricing found--'}}</option>
+                    </select>
+                </div>
+
+                <!-- flight dept login -->
+                <div ng-show="customerDetails.$usersService.user.Client.ClientType == 2" class="customer col-xs-6 padding-left-none margin-bottom-10" ng-if="(!customerDetails.fuelOrder.Aircraft == null || !customerDetails.fuelOrder.Aircraft.TailNumber.length == 0) && (!customerDetails.fuelOrder.ICAO == null || !customerDetails.fuelOrder.ICAO.length == 0) || (filteredPrices.length == 0)">
+                    <select class="form-control" ui-select2 ng-disabled="filteredPrices.length == 0" ng-model="customerDetails.fuelOrder.Quote" ng-change="customerDetails.onFuelOrderQuoteChanged()" ng-options="price as ((price.Price | currency) + ' at ' + price.FBOName + '. Type: ' + price.Product) for price in filteredPrices = (customerDetails.fuelOrder.prices | filter:customerDetails.fuelPriceFilter:price)">
+                        <option value="">{{customerDetails.fuelOrder.prices.length > 0 ? '--Select Fuel--' : '--No pricing found--'}}</option>
+                    </select>
+                </div>
+
+
+                <div class="col-xs-6" ng-if="(customerDetails.fuelOrder.Aircraft == null || customerDetails.fuelOrder.Aircraft.TailNumber.length == 0) && (customerDetails.fuelOrder.ICAO == null || customerDetails.fuelOrder.ICAO.length == 0) || (customerDetails.fuelOrder.Aircraft == null || customerDetails.fuelOrder.Aircraft.TailNumber.length == 0) || (customerDetails.fuelOrder.ICAO == null || customerDetails.fuelOrder.ICAO.length == 0)">
+                    <i class="inline-block">
+                        <span class="label label-warning">Note</span>
+                        Select <span class="red-font">*</span><span class="font-600">Tail #</span> and <span class="red-font">*</span><span class="font-600">Airport</span> to receive pricing.
+                    </i>
+                </div>
+                <div class="col-xs-3">
+                    <input type="text" uib-datepicker-popup="{{customerDetails.dateFormat}}" class="form-control" ng-model="customerDetails.fuelOrder.FuelingDateString" style="width: 90px;"
+                           ng-disabled="customerDetails.$usersService.user.Permission.CompanyDetail == 1" is-open="customerDetails.fuelOrder.isDateOpened" ng-click="customerDetails.fuelOrder.isDateOpened = true" />
+                    
+                </div>
+                <div class="col-xs-3">
+                    <select class="form-control" ng-init="customerDetails.fuelOrder.FuelingTimeString = '12:00'"
+                            ng-disabled="customerDetails.$usersService.user.Permission.CompanyDetail == 1"
+                            ng-model="customerDetails.fuelOrder.FuelingTimeString" time-options></select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="margin-left-5">
+                    <label>Fuel Vendor Notes</label>
+                </div>
+                <div class="">
+                    <textarea class="form-control margin-bottom-10" ng-disabled="customerDetails.$usersService.user.Permission.CompanyDetail == 1" ng-model="customerDetails.fuelOrder.Quote.Notes"></textarea>
+                </div>
+            </div>
+
+
+            <!-- admin -->
+            <div class="row margin-top-5" ng-if="customerDetails.$usersService.user.Client.ClientType == 1 && customerDetails.fuelOrder.pricesForAllVendors.length > 0">
+                <div class="margin-left-5">
+                    <label>Volume Discounts</label>
+                </div>
+                <div class="margin-bottom-10">
+
+                    <select class="form-control" ui-select2 ng-model="customerDetails.fuelOrder.selectedVolumeDiscount" ng-options="price as (price.PriceTierMin + '+ ' + (price.Price | currency) + ' ' + price.Vendor + ' at ' + price.FBOName + ' ' + price.Product) group by ('FBO: ' + price.FBOName + ' - Vendor: ' + price.Vendor) for price in filteredPricesForAllVendors = (customerDetails.fuelOrder.pricesForAllVendors | filter:customerDetails.fuelPriceForAllVendorsFilter:price) | orderBy: ['FBOName','Vendor','PriceTierMin']">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- flight dept login -->
+            <div class="row margin-top-5" ng-if="customerDetails.$usersService.user.Client.ClientType == 2 && customerDetails.fuelOrder.pricesForAllVendors.length > 0">
+                <div class="margin-left-5">
+                    <label>Volume Discounts</label>
+                </div>
+                <div class="margin-bottom-10">
+
+                    <select class="form-control" ui-select2 ng-model="customerDetails.fuelOrder.selectedVolumeDiscount" ng-options="price as (price.PriceTierMin + '+ ' + (price.Price | currency) + ' at ' + price.FBOName + ' ' + price.Product) group by ('FBO: ' + price.FBOName) for price in filteredPricesForAllVendors = (customerDetails.fuelOrder.pricesForAllVendors | filter:customerDetails.fuelPriceForAllVendorsFilter:price) | orderBy: ['FBOName','Vendor','PriceTierMin']">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

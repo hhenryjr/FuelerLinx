@@ -1,0 +1,57 @@
+﻿<div class="btn-group green-button-group float-left status-dropdown-menu" uib-dropdown>
+    <button type="button" class="btn dropdown-toggle btn-green" uib-dropdown-toggle>
+        <span ng-if="viewStatusModel.SelectedStatus == 'IsPendingShown'">Pending</span>
+        <span ng-if="viewStatusModel.SelectedStatus == 'IsReconciledShown'">Reconciled</span>
+        <span ng-if="viewStatusModel.SelectedStatus == 'IsDiscrepancyShown'">Discrepency</span>
+        <span ng-if="viewStatusModel.SelectedStatus == 'IsCancelledShown'">Cancelled</span>
+        <span ng-if="viewStatusModel.SelectedStatus == 'IsArchivedShown'">Archived</span>
+        <span ng-if="viewStatusModel.SelectedStatus == 'IsBatchedShown'">Staged</span>
+        <span ng-if="viewStatusModel.SelectedStatus == 'ShowAll'">Show All</span>
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+        <li role="menuitem" class="padding-left-5">
+            <!--<label class="inline leftpaddedlarge">
+                <input ng-model="viewStatusModel.IsPendingShown" ng-change="onStatusChange(viewStatusModel)" type="checkbox" class="" ng-value="true"/>
+            </label>-->
+            <span ng-click="OnShowOneViewStatusClicked('IsPendingShown')" class="pendingcolor invoicestatus cursor-pointer">Pending</span>
+        </li>
+        <li role="menuitem" class="padding-left-5">
+            <!--<label class="inline leftpaddedlarge">
+                <input ng-model="viewStatusModel.IsReconciledShown" ng-change="onStatusChange(viewStatusModel)" type="checkbox" ng-value="true"/>
+
+            </label>-->
+            <span ng-click="OnShowOneViewStatusClicked('IsReconciledShown')" class="reconciledcolor invoicestatus cursor-pointer">Reconciled</span>
+        </li>
+        <li role="menuitem" class="padding-left-5">
+            <!--<label class="inline leftpaddedlarge">
+                <input ng-model="viewStatusModel.IsDiscrepancyShown" ng-change="onStatusChange(viewStatusModel)" type="checkbox" ng-value="true"/>
+            </label>-->
+            <span ng-click="OnShowOneViewStatusClicked('IsDiscrepancyShown')" class="discrepancycolor invoicestatus cursor-pointer">Discrepency</span>
+
+        </li>
+        <li role="menuitem" class="padding-left-5" ng-if="pageSettings.CanEdit">
+            <!--<label class="inilne leftpaddedlarge">
+                <input ng-model="viewStatusModel.IsCancelledShown" ng-change="onStatusChange(viewStatusModel)" type="checkbox" ng-value="true"/>
+
+            </label>-->
+            <span ng-click="OnShowOneViewStatusClicked('IsCancelledShown')" class="canceledcolor invoicestatus cursor-pointer">Canceled</span>
+        </li>
+        <li role="menuitem" class="padding-left-5" ng-if="pageSettings.CanEdit">
+            <!--<label class="inilne leftpaddedlarge">
+                <input ng-model="viewStatusModel.IsArchivedShown" ng-change="onStatusChange(viewStatusModel)" type="checkbox" ng-value="true"/>
+
+            </label>-->
+            <span ng-click="OnShowOneViewStatusClicked('IsArchivedShown')" class="archivedcolor invoicestatus whitefont cursor-pointer">Archived</span>
+        </li>
+        <li role="menuitem" class="padding-left-5" ng-if="pageSettings.CanEdit">
+            <!--<label class="inilne leftpaddedlarge">
+                <input ng-model="viewStatusModel.IsBatchedShown" ng-change="onStatusChange(viewStatusModel)" type="checkbox" ng-value="true"/>
+            </label>-->
+            <span ng-click="OnShowOneViewStatusClicked('IsBatchedShown')" class="batchedcolor invoicestatus whitefont cursor-pointer">Batched</span>
+        </li>
+        <li role="menuitem" class="padding-left-5">
+            <span ng-click="OnShowAllViewStatusClicked()" class="showallcolor invoicestatus cursor-pointer">Show All</span>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,72 @@
+﻿
+
+<div class="col-xs-12 padding-left-none padding-right-none">
+    <h1 class="page-title blue-font">
+        <i class="fa-fw fa fa-group"></i>
+        Task Scheduler <span class="default-grey-font">> Agenda</span>
+    </h1>
+</div>
+
+<div class="row">
+
+    <div class="col-lg-3">
+
+        <task-editor ng-if="task.$usersService.user.Permission.TaskScheduler == 0"></task-editor>
+
+        <!-- draggable events start -->
+        <div class="well well-sm hidden" id="event-container" ng-if="task.$usersService.user.Permission.TaskScheduler == 0">
+            <form>
+                <fieldset>
+                    <legend>
+                        Draggable Events
+                    </legend>
+                    <div class="row list-unstyled">
+                        <div style="min-height:30px;" ng-class="draggableEvent.className" class="col-xs-4 margin-5 draggable-flight" fl-ng-draggable style="position: relative;"
+                             ng-style="{'background-color': draggableEvent.color}"
+                             fl-ng-draggable-options="task.draggleTaskConfig"
+                             fl-ng-draggable-model="draggableEvent"
+                             fl-ng-draggable-data-key="event"
+                             ng-repeat="draggableEvent in task.dataSources.DraggableEvents">
+                            <div class="padding-5">
+                                <span>{{draggableEvent.title}}</span>
+                                <span class="delete-common-event" ng-click="task.deleteDraggableEvent(draggableEvent)">
+                                    <a><i class="fa fa-times"></i></a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<ul id="external-events" class="list-unstyled">
+                        <li class="ui-draggable" style="position: relative;">
+                            <span class="bg-color-darken txt-color-white" data-description="Currently busy" data-icon="fa-time">Office Meeting</span>
+                        </li>
+                        <li class="ui-draggable" style="position: relative;">
+                            <span class="bg-color-blue txt-color-white" data-description="No Description" data-icon="fa-pie">Lunch Break</span>
+                        </li>
+                        <li class="ui-draggable" style="position: relative;">
+                            <span class="bg-color-red txt-color-white" data-description="Urgent Tasks" data-icon="fa-alert">URGENT</span>
+                        </li>
+                    </ul>-->
+                    <!--<div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="drop-remove" class="checkbox style-0" checked="checked">
+                            <span>remove after drop</span>
+                        </label>
+
+                    </div>-->
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-lg-9">
+        <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3" data-widget-editbutton="false">
+            <header>
+                <span class="widget-icon"><i class="fa fa-home"></i></span>
+                <h2>My Events</h2>
+            </header>
+            <div id="task-calendar" ui-calendar="task.calendarConfig.calendar" calendar="EventCalendar" ng-model="task.eventSources">
+                <!-- calendar div -->
+            </div>
+        </div>
+    </div>
+</div>

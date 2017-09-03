@@ -1,0 +1,96 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<header class="content">
+    <h2>Clients</h2>
+</header>
+
+<div data-ng-controller="clientsController as dashboard" id="clientsCtrl">
+    <div class="row"> {{dashboard.test}}
+        <table style="width: 50%">
+            <tr>
+                <th>Client ID</th>
+                <th>Client Type</th>
+                <th>Credentials</th>
+                <th>Date Added</th>
+            </tr>
+            <tr data-ng-repeat="client in dashboard.clients">
+                <th>{{client.Id}}</th>
+                <th>{{client.ClientType}}</th>
+                <th>{{client.Credentials}}</th>
+                <th>{{client.DateAdded | date: "M/d/yyyy"}}</th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/AngularJS/Services/clients.js"></script>
+    <script type="text/javascript">
+
+        degatech.page.startUp = function() {
+            degatech.page.userController = degatech.ng.getControllerInstance($("#clientsCtrl"));
+        }
+
+        degatech.services.clientsFactory = function($baseService) {
+            var serviceObject = degatech.services.clients;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.ng.addService(degatech.ng.app.module,
+            "$clientsService",
+            ["$baseService"],
+            degatech.services.clientsFactory);
+
+        degatech.page.clientsControllerFactory = function($scope, $baseController, $clientsService) {
+
+            var vm = this;
+
+            $baseController.merge(vm, $baseController);
+
+            vm.$clientService = $clientsService;
+            vm.$scope = $scope;
+
+            vm.test = "This is a test";
+            vm.onGetListSuccess = _onGetListSuccess;
+            vm.onError = _onError;
+
+            vm.clients = null;
+            vm.notify = vm.$clientService.getNotifier($scope);
+
+            render();
+
+            function render() {
+                vm.$clientService.getListOfClients(vm.onGetListSuccess, vm.onError);
+                //vm.$clientService.getListOfClients(data);
+                //vm.notify(function () {
+                //    vm.clients = data.Items;
+                //    console.log(vm.clients);
+                //});
+
+            }
+
+            function _onGetListSuccess(data) {
+                vm.notify(function() {
+                    vm.clients = data.Items;
+                    console.log(vm.clients);
+                });
+            }
+
+            function _onError(jqXHR, textStatus, errorThrown) {
+                vm.error = "An error has occurred!";
+                console.log(vm.error);
+                window.alert(vm.error);
+            }
+
+        }
+
+        degatech.ng.addController(degatech.ng.app.module,
+            "clientsController",
+            ['$scope', '$baseController', "$clientsService"],
+            degatech.page.clientsControllerFactory);
+    </script>
+
+}

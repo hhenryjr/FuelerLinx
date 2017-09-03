@@ -1,0 +1,342 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Add New Company</h3>
+</div>
+
+<div class="modal-body" id="modal-body">
+
+
+    <!--Add Company Start-->
+    <div ng-if="modal.State.CurrentStep == 1">
+        <form class="smart-form" name="modal.companyForm" novalidate>
+            <fieldset>
+                <div class="row margin-bottom-10">
+                    <div class="pull-left margin-right-5">
+                        <h6>Company Details</h6>
+                    </div>
+                    <!-- Company Detail Modal Accounting Terms -->
+                    <div id="CompanyDetail-Modal-AccountingTerms">
+                        <div class="pull-left margin-right-5">
+                            <!-- Company Detail Modal Credit Card Fee -->
+                            <span class="state-required" ng-class="modal.companyForm.CreditCardFee.$valid ? '' : 'state-error'">
+                                <select class="padding-5 input-group" placeholder="Credit Card Fee" name="CreditCardFee" ng-model="modal.NewCompany.Accounting.CreditCardFee" ng-options="fee for fee in modal.creditCardFee" required>
+                                    <option value="">Credit Card Fee</option>
+                                </select>
+                            </span>
+
+                            <div role="alert" class="hidden help-inline error" style="color: red">
+                                <span class="error" ng-show="modal.showFormErrors && modal.companyForm.CreditCardFee.$error.required">Please enter Credit Card Fee</span>
+                            </div>
+                       </div>
+
+                        <div class="pull-left margin-right-5">
+                            <!-- Company Detail Modal Payment Terms -->
+                            <span ng-class="modal.companyForm.PaymentTerms.$valid ? '' : 'state-error'">
+
+                                <select class="padding-5 pull-left input-group" name="PaymentTerms" ng-model="modal.NewCompany.Accounting.PaymentTerms" ng-options="term for term in modal.paymentTerms" required>
+                                    <option value="">Payment Terms</option>
+                                </select>
+                            </span>
+
+                            <div role="alert" class="hidden help-inline error" style="color: red">
+                                <span class="error" ng-show="modal.showFormErrors && modal.companyForm.PaymentTerms.$error.required">Please enter Payment Terms</span>
+                            </div>
+
+                        </div>
+
+                        <div class="pull-left margin-right-5">
+                            <!-- Company Detail Modal Bill to Setup -->
+                            <span ng-class="modal.companyForm.BillToSetup.$valid ? '' : 'state-error'">
+                                <select class="padding-5 pull-left input-group" name="BillToSetup" ng-model="modal.NewCompany.Accounting.BillToSetup" ng-options="setup for setup in modal.billToSetup" required>
+                                    <option value="">Bill to Setup</option>
+                                </select>
+                            </span>
+
+                            <div role="alert" class="hidden help-inline error" style="color: red">
+                                <span class="error" ng-show="modal.showFormErrors && modal.companyForm.BillToSetup.$error.required">Please enter Bill Setup</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Company Detail Modal Company Name-->
+                    <section class="col col-6">
+                        
+                        <span ng-class="modal.companyForm.Name.$valid ? '' : 'state-error'">
+                            <label class="input">
+                                <input class="form-control" name="Name" placeholder="Company Name" ng-model="modal.NewCompany.Company.Name" required>
+                            </label>
+                        </span>
+
+                        <div role="alert" class="hidden help-inline error" style="color: red">
+                            <span class="error" ng-show="modal.showFormErrors && modal.companyForm.Name.$error.required">Please enter Company Name</span>
+                        </div>
+                    </section>
+
+                    <!-- Company Detail Modal Parent Company -->
+                    <section class="col col-6">
+                        <span ng-class="modal.companyForm.ParentName.$valid ? '' : ''">
+                            <label class="input">
+                                <input class="form-control" name="ParentName" placeholder="Parent Company" ng-model="modal.NewCompany.Company.ParentName" />
+                            </label>
+                        </span>
+
+                            <div role="alert" class="hidden help-inline error" style="color: red">
+                                <span class="error" ng-show="modal.showFormErrors && modal.companyForm.ParentName.$error.required">Please enter Parent Name</span>
+                            </div>
+                    </section>
+                </div>
+
+                <div class="row">
+                    <!-- Company Detail Modal Username-->    
+                    <section class="col col-6">
+                        <span ng-class="modal.companyForm.Username.$valid ? '' : 'state-error'">
+                            <label class="input">
+                                <i class="icon-prepend fa fa-user"></i>
+                                <input class="form-control" name="Username" placeholder="Username" ng-model="modal.NewCompany.Registration.Username" required>
+                            </label>
+                        </span>
+                        <div role="alert" class="hidden help-inline error" style="color: red">
+                            <span class="error" ng-show="modal.showFormErrors && modal.companyForm.Username.$error.required">Please enter Username</span>
+                        </div>
+                    </section>
+
+                    <!-- Company Detail Modal Password -->
+                    <section class="col col-6">
+                        <span ng-class="modal.companyForm.Password.$valid ? '' : 'state-error'">                        
+                            <label class="input">
+                                <i class="icon-prepend fa fa-user"></i>
+                                <input class="form-control" name="Password" placeholder="Password" ng-model="modal.NewCompany.Registration.Password" required>
+                            </label>
+                        </span>
+
+                        <div role="alert" class="hidden help-inline error" style="color: red">
+                            <span class="error" ng-show="modal.showFormErrors && modal.companyForm.Password.$error.required">Please enter Password</span>
+                        </div>
+
+                    </section>
+                </div>
+                <div class="row">
+                    <!-- Company Detail Modal Main Phone -->
+                    <section class="col col-6">
+                        <label class="input">
+                            <i class="icon-prepend fa fa-phone"></i>
+                            <input class="form-control" placeholder="Main Phone" ng-model="modal.NewCompany.Company.Phone" />
+                        </label>
+                    </section>
+                    <!-- Company Detail Modal Certificate Type -->
+                    <section class="col col-6">
+                        <label class="input">
+                            <select class="input-group form-control" ng-model="modal.NewCompany.Company.CertificateType" ng-options="type for type in modal.certificateType">
+                                <option value="">Certificate Type</option>
+                            </select>
+                        </label>
+                    </section>
+                </div>
+
+                <div class="row">
+                    <!-- Company Detail Modal Base ICAO -->
+                    <section class="col col-6">
+                        <label class="input">
+                            <input class="form-control" placeholder="Base ICAO" ng-model="modal.NewCompany.Company.BaseICAO" />
+                        </label>
+                    </section>
+
+                    <!-- Company Detail Modal Scheduling System -->
+                    <section class="col col-6">
+                        <label class="input">
+                            <select class="input-group form-control" name="SchedulingSystem" ng-model="modal.NewCompany.Accounting.SchedulingSystem" ng-options="system for system in modal.schedulingSystem">
+                                <option value="">Scheduling System</option>
+                            </select>
+                        </label>
+                        <div role="alert" class="help-inline error" style="color:red">
+                            <span class="error" ng-show="modal.showFormErrors && modal.companyForm.SchedulingSystem.$error.required">Please enter Scheduling System</span>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="row">
+                    <!-- Company Detail Modal Account Rep-->
+                    <section class="col col-6">
+                        <label class="input">
+                            <input class="form-control" placeholder="Everest Account Rep" ng-model="modal.NewCompany.Accounting.AccountRep" />
+                        </label>
+                    </section>
+
+                    <section class="col col-6">
+                        <label class="input">
+                            <input class="form-control" placeholder="Everest Billing Rep" ng-model="modal.NewCompany.Accounting.BillingRep" />
+                        </label>
+                    </section>
+                </div>
+                <div class="row">
+
+                    <section class="col col-6">
+                        <label class="input">
+                            <input class="form-control" placeholder="Accounting Code" ng-model="modal.NewCompany.Accounting.AccountingCode" />
+                        </label>
+                    </section>
+
+                    <section class="col col-6">
+                        <label class="input">
+                            <input type="text" uib-datepicker-popup="{{'MM/dd/yyyy'}}" class="form-control" ng-model="modal.NewCompany.Accounting.StartDate" auto-open />
+                        </label>
+                    </section>
+                </div>
+                <div class="row">
+                    <section class="col col-6">
+
+                        <div style="width: 100%;" class="pull-left">
+                            <span ng-class="modal.companyForm.MarginSetting.$valid ? '' : 'state-error'">
+                                <select class="input-group form-control" name="MarginSetting" ng-model="modal.NewCompany.CustomerPriceMargin.MarginSetting" ng-options="margin.Id as margin.Name for margin in modal.items.priceMargins" required>
+                                    <option value="">Margin Level</option>
+                                </select>
+                            </span>
+                        </div>
+
+                        <div role="alert" class="help-inline error" style="color: red">
+                            <span class="error" ng-show="modal.showFormErrors && modal.companyForm.MarginSetting.$error.required">Please enter Margin Level</span>
+                        </div>
+                    </section>
+
+                    <section class="col col-6">
+                    </section>
+                </div>
+                <div class="row">
+                    <section class="col col-6">
+                        <!--<div class="col-sm-6">
+                            <span>FuelerLinx Customer</span> <input type="radio" name="radio-toggle"/>
+                        </div>-->
+
+                        <div class="col-sm-3 input-group float-right">
+                            <span class="no-wrap margin-right">FuelerLinx Customer</span>
+                            <span class="input-group-addon border-left-fix">
+                                <span class="onoffswitch">
+                                    <input type="checkbox" name="start_interval" class="onoffswitch-checkbox" id="st-x" ng-model="modal.NewCompany.Accounting.IsFuelerLinxCustomer" />
+                                    <label class="onoffswitch-label" for="st-x">
+                                        <span class="onoffswitch-inner" data-swchon-text="YES" data-swchoff-text="NO"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </span>
+                            </span>
+                        </div>
+                    </section>
+                    <section class="col col-6">
+                        
+                        <!--<div class="col-sm-6">
+                            Active <input type="radio"/>
+                        </div>-->
+
+                        <div class="col-sm-2 input-group">
+                            <span class="margin-right">Active</span>
+                            <span class="input-group-addon border-left-fix">
+                                <span class="onoffswitch">
+                                    <input type="checkbox" name="start_interval" class="onoffswitch-checkbox" id="st-x2" ng-model="modal.NewCompany.Company.IsActive">
+                                    <label class="onoffswitch-label" for="st-x2">
+                                        <span class="onoffswitch-inner" data-swchon-text="YES" data-swchoff-text="NO"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </span>
+                            </span>
+                        </div>
+                    </section>
+                </div>
+            </fieldset>
+        </form>
+
+        <form class="smart-form">
+            <fieldset>
+                <section>
+                    <h6>Address Information</h6>
+                </section>
+                <section>
+                    <label class="input">
+                        <input type="text" id="Line1" name="Line1" class="form-control" placeholder="Billing Street" ng-model="modal.NewCompany.Company.Address1">
+                    </label>
+                </section>
+                <section>
+                    <label class="input">
+                        <input type="text" id="Line2" name="Line2" class="form-control" placeholder="Street 2" ng-model="modal.NewCompany.Company.Address2">
+                    </label>
+                </section>
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="input">
+                            <input type="text" id="City" name="City" class="form-control" placeholder="Billing City" ng-model="modal.NewCompany.Company.City">
+                        </label>
+
+                    </section>
+                    <section class="col col-3">
+                        <label class="input">
+                            <input type="text" id="City" name="State" class="form-control" placeholder="State" ng-model="modal.NewCompany.Company.State">
+                        </label>
+                    </section>
+                    <section class="col col-3">
+                        <label class="input">
+                            <input type="text" id="City" name="State" class="form-control" placeholder="Billing Zip" ng-model="modal.NewCompany.Company.ZipCode">
+                        </label>
+                    </section>
+                </div>
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="input">
+                            <input type="text" id="City" name="City" class="form-control" placeholder="Billing Country" ng-model="modal.NewCompany.Company.Country">
+                        </label>
+                    </section>
+                </div>
+                <section>
+                    <label class="textarea">
+                        <textarea rows="3" class="form-control" ng-model="modal.NewCompany.Company.Note" placeholder="Company Description"></textarea>
+                    </label>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+    <!--Add Company End-->
+    <!--Aircraft Additions-->
+    <div ng-if="modal.State.CurrentStep == 2">
+        <table st-table="modal.customer.Aircrafts" class="table table-responsive table-striped table-bordered" width="100%">
+            <thead>
+                <tr>
+                    <th st-sort="TailNumber">Tail Number</th>
+                    <th st-sort="MakeModelID">Make &amp; Model</th>
+                    <th st-sort="Size">Size</th>
+                    <th colspan="2" st-sort="Margin">Margin</th>
+                    <th><a class="btn btn-primary addAircraft" ng-click="modal.addAircraft()">Add Aircraft</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="aircraft in modal.NewCompany.Aircrafts">
+                    <td>
+                        <input type="text" ng-model="aircraft.TailNumber" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                    </td>
+                    <td>
+                        <select ui-select2 chosen id="aircraftID{{$index}}" ng-model="aircraft.MakeModelID" ng-change="modal.changeMakeModel(aircraft)"
+                                ng-options="makeModel.AircraftID as (makeModel.Make + ' ' + makeModel.Model) for makeModel in modal.items.aircraftData">
+                            <option></option>
+                        </select>
+                    </td>
+                    <td>{{aircraft.MakeAndModel.SizeName}}</td>
+                    <td>
+                        <input type="text" step="0.0001" ng-model="aircraft.Margin" style="width: 75px" ng-class="{'red': aircraft.Margin < 0}" 
+                               decimal show-currency="true" select-on-focus require-decimal="true" />
+                    </td>
+                    <td>
+                        <input type="checkbox" ng-model="aircraft.IsMarginEnabled" />
+                    </td>
+                    <td>
+                        <button class="btn btn-xs btn-primary btn-danger deleteAircraft" ng-click="modal.deleteAircraft(aircraft)"><i class="fa fa-remove"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-default" type="button" ng-click="modal.back()" ng-if="modal.State.CurrentStep > 1">Back</button>
+    <button class="btn btn-default" type="button" ng-click="modal.cancel()">Cancel</button>
+    <button class="btn btn-primary" type="button" ng-click="modal.next()" ng-if="modal.State.CurrentStep < modal.State.MaxSteps">Next</button>
+    <button class="btn btn-success" type="button" ng-click="modal.saveAll()" ng-if="modal.State.CurrentStep === modal.State.MaxSteps" ng-disabled="modal.IsSaving">Save</button>
+</div>

@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FuelSheets>
+  <FuelSheet>
+    <Column Name="IATA">
+      <ColumnLetter>B</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">4</Filter>
+        <Filter Type="MinLength">3</Filter>
+        <Filter Type="NotEqual">IATA</Filter>
+        <Filter Type="NotEqual">ICAO</Filter>
+        <Filter Type="NotEqual">Loc</Filter>
+      </Filters>
+    </Column>
+    <Column Name="ICAO">
+      <ColumnLetter>C</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">4</Filter>
+        <Filter Type="MinLength">3</Filter>
+        <Filter Type="NotEqual">IATA</Filter>
+        <Filter Type="NotEqual">ICAO</Filter>
+        <Filter Type="NotEqual">Loc</Filter>
+      </Filters>
+    </Column>
+    <Column Name="FBOName">
+      <StaticValue>Petrobas</StaticValue>
+    </Column>
+    <Column Name="TotalWithTax">
+      <ColumnLetter>H</ColumnLetter>
+      <IsNumeric>True</IsNumeric>
+      <Calculations>
+        <Calculation Type="Division" Condition="GreaterThan100">
+          <Amount>100</Amount>
+        </Calculation>
+      </Calculations>
+    </Column>
+    <Column Name="AdminClientID">
+      <StaticValue>0</StaticValue>
+    </Column>
+    <Column Name="SupplierID">
+      <StaticValue>0</StaticValue>
+    </Column>
+  </FuelSheet>
+  <FuelSheet>
+    <Column Name="IATA">
+      <ColumnLetter>B</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">4</Filter>
+        <Filter Type="MinLength">3</Filter>
+        <Filter Type="NotEqual">IATA</Filter>
+        <Filter Type="NotEqual">ICAO</Filter>
+        <Filter Type="NotEqual">Loc</Filter>
+      </Filters>
+    </Column>
+    <Column Name="ICAO">
+      <ColumnLetter>C</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">4</Filter>
+        <Filter Type="MinLength">3</Filter>
+        <Filter Type="NotEqual">IATA</Filter>
+        <Filter Type="NotEqual">ICAO</Filter>
+        <Filter Type="NotEqual">Loc</Filter>
+      </Filters>
+    </Column>
+    <Column Name="FBOName">
+      <StaticValue>Petrobas</StaticValue>
+    </Column>
+    <Column Name="Product">
+      <ColumnLetter>E</ColumnLetter>
+    </Column>
+    <Column Name="TotalWithTax">
+      <ColumnLetter>I</ColumnLetter>
+      <IsNumeric>True</IsNumeric>
+      <Calculations>
+        <Calculation Type="Division" Condition="GreaterThan100">
+          <Amount>100</Amount>
+        </Calculation>
+      </Calculations>
+    </Column>
+    <Column Name="Expires">
+      <ColumnLetter>J</ColumnLetter>
+      <DateParse>en-US</DateParse>
+    </Column>
+    <Column Name="AdminClientID">
+      <StaticValue>0</StaticValue>
+    </Column>
+    <Column Name="SupplierID">
+      <StaticValue>0</StaticValue>
+    </Column>
+  </FuelSheet>
+</FuelSheets>

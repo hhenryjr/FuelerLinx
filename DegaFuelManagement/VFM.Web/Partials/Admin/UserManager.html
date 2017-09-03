@@ -1,0 +1,48 @@
+﻿<div>
+    <div class="row padding-left-none padding-right-none">
+        <h1 class="page-title txt-color-blueDark blue-font">
+            <!--<a class="btn btn-primary" ng-click="customerDetails.back()"><i class="fa fa-arrow-left"></i> Back</a>-->
+            USER PERMISSIONS <span class="default-grey-font">> INTERNAL USER GRID </span>
+        </h1>
+    </div>
+    <div>
+        <div class="row">
+            <!-- MOVE CODE START -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="row well" ng-if="manager.$usersService.user.Permission.IsMainAdmin">
+                    <button type="button" class="btn btn-blue" ng-click="manager.addNewUser()">
+                        <i class="fa fa-plus"></i> Add New User
+                    </button>
+                    </div>
+                    
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Username</th>
+                                <th>Password</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="user in manager.adminUsers" ng-click="manager.addNewUser(user)">
+                                <td>{{user.Registration.FirstName}}</td>
+                                <td>{{user.Registration.LastName}}</td>
+                                <td>{{user.Registration.Username}}</td>
+                                <td class="font-xs">{{user.Registration.Password}}</td>
+                                <td ng-if="user.IsActive == false"><span class="invoicestatus" ng-class="manager.getIsActiveClass(user)">Not Active</span></td>
+                                <td ng-if="user.IsActive == true"><span class="invoicestatus" ng-class="manager.getIsActiveClass(user)">Active</span></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr></tr>
+                        <tfoot>
+                    </table>
+                </div>
+
+            </div>
+            <!-- MOVE CODE END -->
+        </div>
+    </div>
+</div>

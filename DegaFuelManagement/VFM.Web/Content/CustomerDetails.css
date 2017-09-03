@@ -1,0 +1,298 @@
+﻿/* Backgrounds */
+.background-lightblue {
+  background-color: #2196F3 !important;
+}
+
+.background-darkgreen {
+  background-color: #005826 !important;
+  color: white
+}
+
+/* Font Colors */
+.font-purple {
+  color: #AF61D6;
+}
+
+.font-blue-awkward {
+  color: #AFB8D0;
+}
+
+/* Bootstrap overrides */
+.row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+/* Labels */
+label {
+  font-weight: 600;
+}
+
+.chosen-container {
+    width: 200px !important;
+}
+
+.chosen-container .chosen-results li {
+    font-size:11px !important;
+    line-height:9px !important;
+}
+/* Adhoc Fuel Quote 
+.adhoc-fuel-quote div.row {
+  line-height: 36px;
+}*/
+
+/* Generic Styles */
+.inline-block {
+  display: inline-block;
+}
+
+/* Input Boxes */
+input.small-input {
+  width: 65px;
+}
+
+/* Header */
+h1, h2, h3, h4 {
+  margin: 0;
+}
+
+/* Customer Details Table */
+
+div.row > div.jarviswidget div.no-border > div.widget-body.no-padding {
+  margin: -3px -6px -7px -6px;
+}
+
+.border-right-none {
+  border-right: none !important;
+}
+
+#CompanyDetailAdminTable {
+
+  border-left: 5px solid #EDECEC;
+}
+
+.admin-content .col-xs-5 {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+} 
+
+.admin-content .col-xs-2 {
+   padding-right: 0 !important;
+}
+
+.admin-content .col-xs-2 i.fa {
+  color: #999;
+}
+
+.admin-content .col-xs-2 i {
+  color: #999;
+  margin-left: 5px;
+}
+
+.admin-content .col-xs-5 label {
+  color: #9fb4c9;
+  font-weight: 400;
+}
+
+
+.admin-content div.row {
+  border-bottom: 1px dashed #ccc;
+}
+
+.admin-heading {
+  background: #fafafa !important;
+  padding-top: 5px;
+  padding-bottom: 5px;
+      border-bottom: 1px solid #ddd;
+}
+
+.admin-heading > div > h4 {
+  padding-top: 3px;
+}
+
+#CompanyDetailAdminTable .form-control {
+  height: 25px;
+  font-size: 12px;
+  padding: 0px 12px;
+}
+
+.company-information {
+  background: #fafafa;
+  min-height: 303px;
+}
+
+.admin-content h5 {
+    margin: 5px 0 0 0;
+}
+
+.admin-content i.fa.fa-usd {
+  padding-left: 4px;
+}
+
+.admin-content i.fa.fa-user {
+  padding-left: 2px;
+} 
+
+.admin-content div.row {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.admin-content .smart-form .toggle {
+  padding-right: 52px;
+}
+
+header.borderless-header {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+}
+
+div.adhoc-fuel-quote div.ad-hoc-content {
+    min-height: 100px;
+    height: auto;
+    background: #f4f4f4;
+    position: relative;
+}
+
+.dispatch-fuel {
+  margin-bottom: 60px;
+  margin-top: 10px;
+}
+
+.dispatch-fuel > div {
+  padding-right: 5px;
+}
+
+.adhoc-fuel-quote input.form-control {
+  height: 33px;
+  width: 80px;
+  padding: 6px 6px;
+}
+
+.adhoc-fuel-quote select.form-control {
+  height: 33px;
+  width: 95%;
+  padding: 1px 5px;
+}
+
+
+.adhoc-fuel-quote .chosen-container {
+  height: 33px;
+}
+
+
+
+.ad-hoc-info {
+    background: #fafafa;
+    border-bottom: 1px solid #ddd;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.ad-hoc-content .chosen-container {
+  vertical-align: baseline !important;
+}
+
+.ad-hoc-content {
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.adhoc-fuel-quote {
+  /*box-shadow: 5px 3px 2px #686868, 2px 2px 2px #686868;
+  -webkit-box-shadow: 5px 3px 2px #686868, 2px 2px 2px #686868;*/
+}
+
+.aircraft-fleet-container input.form-control {
+  height: 25px;
+}
+
+
+.aircraft-fleet-container span.input-group-addon {
+    width: 20%;
+}
+
+.aircraft-fleet-container table tbody tr td,
+.aircraft-fleet-container table thead tr.bordered-header th {
+      border-right: 1px solid #ddd;
+}
+
+.aircraft-fleet-container table thead tr.bordered-header {
+  background: #eee !important;
+}
+
+.aircraft-fleet-container div.widget-body.no-padding {
+    margin: -3px -6px -7px -6px;
+}
+
+.aircraft-fleet-container table > tbody div.chosen-container {
+  max-width: 131px !important;
+}
+
+.aircraft-fleet-container {
+  box-shadow: 5px 3px 2px #686868, 2px 2px 2px #686868;
+  -webkit-box-shadow: 5px 3px 2px #686868, 2px 2px 2px #686868;
+}
+
+.customer-detials-back {
+  cursor: pointer;
+}
+
+a.customer-detials-back i:hover {
+  color: #1f6bbc !important;
+}
+
+div.company-contacts-container div.no-border {
+  max-height: 240px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.company-detials-container .jarviswidget {
+  margin: 0px 0px 0px;
+}
+
+.fuel-selection .label {
+    vertical-align: middle;
+}
+
+
+
+/*#CompanyDetailAdminTable tbody {
+  background-color: #F9F9F9;
+  border-top: 2px solid #EDECEC;
+}
+
+#CompanyDetailAdminTable tbody tr td:nth-child(1) {
+  width: 10%;
+  color: #999999;
+  padding-left: 10px;
+}
+
+#CompanyDetailAdminTable tbody tr td:nth-child(2) {
+  width: 50%;
+  color: #AFB8D0;
+  font-size: 105%;
+}
+
+#CompanyDetailAdminTable tbody tr td:nth-child(3) {
+  width: 40%;
+}
+
+#CompanyDetailAdminTable tbody tr td:nth-child(3) {
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+#CompanyDetailAdminTable thead {
+  background-color: white;
+}
+
+#CompanyDetailAdminTable thead div.pull-left {
+  padding-left: 5px;
+}
+
+#CompanyDetailAdminTable thead div.pull-right {
+  padding-right: 10px;
+}*/

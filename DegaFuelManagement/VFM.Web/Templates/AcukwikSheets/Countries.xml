@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AcukwikSheets>
+  <AcukwikSheet>
+    <Column Name="COUNTRY_ID">
+      <ColumnLetter>A</ColumnLetter>
+    </Column>
+    <Column Name="Country">
+      <ColumnLetter>B</ColumnLetter>
+    </Column>
+    <Column Name="FullCountryName">
+      <ColumnLetter>C</ColumnLetter>
+    </Column>
+    <Column Name="ISOCountryID">
+      <ColumnLetter>D</ColumnLetter>
+      <IsNumeric>True</IsNumeric>
+    </Column>
+    <Column Name="ISO_Name">
+      <ColumnLetter>E</ColumnLetter>
+    </Column>
+    <Column Name="ISOCode2">
+      <ColumnLetter>F</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">2</Filter>
+        <Filter Type="MinLength">2</Filter>
+        <Filter Type="NotEqual">ISOCode3</Filter>
+      </Filters>
+    </Column>
+    <Column Name="ISOCode3">
+      <ColumnLetter>G</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">3</Filter>
+        <Filter Type="MinLength">3</Filter>
+        <Filter Type="NotEqual">ISOCode2</Filter>
+      </Filters>
+    </Column>
+    <Column Name="Region">
+      <ColumnLetter>H</ColumnLetter>
+    </Column>
+  </AcukwikSheet>
+</AcukwikSheets>

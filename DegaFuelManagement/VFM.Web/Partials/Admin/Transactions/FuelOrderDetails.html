@@ -1,0 +1,173 @@
+﻿<link rel="stylesheet" type="text/css" href="/Content/Transactions.css" />
+<article class="col-xs-12 padding-left-none padding-right-none">
+    <h1 class="page-title blue-font">
+        <i class="fa-fw fa fa-exchange"></i>
+        TRANSACTIONS <span class="default-grey-font">
+            >
+            <span ng-if="ActiveTab == 1">Invoice Details</span>
+            <span ng-if="ActiveTab == 2">Services (Non-Fuel)</span>
+            <span ng-if="ActiveTab == 3">Messenger</span>
+        </span>
+    </h1>
+    <form name="fuelOrderInfo.transactionForm">
+        <div id="content-details" class="divtransactiondetails">
+            <div class="row transactiondetailscontainer hidden-xs">
+                <div class="col-xs-1">
+                </div>
+                <div class="col-xs-11" ng-hide="fuelOrderInfo.fuelOrder.Id == 0">
+                    <ul id="sparks">
+                        <li class="sparks-info">
+                            <h5>
+                                FUELER INV. #
+                                <span class="txt-color-purple">
+                                    <input tabindex="3" type="text" class="form-control" style="height: 25px;" ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1" ng-model="fuelOrderInfo.fuelOrder.InvoiceNumber" />
+                                </span>
+                            </h5>
+                        </li>
+                        <li class="sparks-info">
+                            <h5>
+                                Tail #
+                                <span class="orange-font padding-top-5">{{fuelOrderInfo.fuelOrder.TailNumber}}</span>
+                            </h5>
+                        </li>
+                        <li class="sparks-info set-width">
+                            <h5>
+                                ICAO
+                                <span class="blue-font padding-top-5">{{fuelOrderInfo.fuelOrder.ICAO}}</span>
+                            </h5>
+                        </li>
+                        <li class="sparks-info fbo-width">
+                            <h5>
+                                FBO
+                                <span class="greenfont padding-top-5">
+                                    <span class="nowrap green-font">{{fuelOrderInfo.fuelOrder.FBO}}</span>
+                                </span>
+                            </h5>
+                        </li>
+                        <li class="sparks-info" ng-if="fuelOrderInfo.$userService.user.Client.ClientType == 1">
+                            <h5>
+                                FUEL VENDOR
+                                <span class="bloodorangefont padding-top-5">{{fuelOrderInfo.fuelOrder.Vendor}}</span>
+                            </h5>
+                        </li>
+                        <li class="sparks-info">
+                            <h5>
+                                FUELING DATE
+                                <span class="bloodorangefont padding-top-5">{{fuelOrderInfo.fuelOrder.FuelingDateTime | date: "MM/dd/yyyy"}}</span>
+                            </h5>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row transactiondetailscontainer padding-10 hidden-sm hidden-md hidden-lg">
+                <div>
+                    <span class="col-xs-4 font-500">Fueler Inv. Number:</span>
+                    <span>
+                        <input type="text" class="form-control" ng-model="fuelOrderInfo.fuelOrder.InvoiceNumber" />
+                    </span>
+                </div>
+                <div>
+                    <span class="col-xs-4 font-500">Tail Number:</span>
+                    <span class="bloodorangefont">{{fuelOrderInfo.fuelOrder.TailNumber}}</span>
+                </div>
+                <div>
+                    <span class="col-xs-4 font-500">ICAO:</span>
+                    <span class="blue-font">{{fuelOrderInfo.fuelOrder.ICAO}}</span>
+                </div>
+                <div>
+                    <span class="col-xs-4 font-500">FBO:</span>
+                    <span class="greenfont">
+                        <span class="nowrap">{{fuelOrderInfo.fuelOrder.FBO}}</span>
+                    </span>
+                </div>
+                <div>
+                    <span class="col-xs-4 font-500">Fueling Date:</span>
+                    <span class="bloodorangefont">{{fuelOrderInfo.fuelOrder.FuelingDate}}</span>
+                </div>
+            </div>
+            <section sa-jarvis-widget-grid id="jarviswidget-grid{{$index}}">
+                <div class="row">
+                    <article class="ui-sortable">
+                        <div class="jarviswidget" id="jarviswidget-transaction-details{{$index}}" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="true" data-widget-custombutton="false" data-widget-sortable="false">
+                            <header role="heading">
+                                <ul class="pull-left" tabset>
+                                    <li>
+                                        <a data-toggle="tab">
+                                            <i class="fa fa-lg fa-usd"></i> <span class="hidden-xs hidden-sm"> Invoice Details </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" id="Services-Tab">
+                                            <i class="fa fa-lg fa-users"></i> <span class="hidden-xs hidden-sm"> Services (Non-fuel) </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab">
+                                            <i class="fa fa-lg fa-envelope"></i> <span class="hidden-xs hidden-sm"> Messenger </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="jarviswidget-ctrls pull-right" role="menu">
+                                    <!--<a class="button-icon" ng-click="fuelOrderInfo.editTransactionIconClicked()" uib-tooltip="Edit/Diverted">
+                                        <i class="fa fa-lg fa-edit"></i>
+                                    </a>-->
+                                    <a class="button-icon" ng-click="fuelOrderInfo.closeDetails(fuelOrderInfo.fuelOrder)">
+                                        <i class="fa fa-lg fa-times"></i>
+                                    </a>
+                                </div>
+                                <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
+                            </header>
+                            <!-- widget div-->
+                            <div role="content" class="no-padding">
+                                <!-- widget edit box -->
+                                <div class="jarviswidget-editbox">
+                                    <!-- This area used as dropdown edit box -->
+                                </div>
+                                <!-- end widget edit box -->
+                                <!-- widget content -->
+                                <div class="widget-body transactiondetailswidget">
+                                    <!-- widget body text-->
+                                    <div class="tab-content">
+                                        <div ng-if="fuelOrderInfo.fuelOrder == null">
+                                            <loading-icon></loading-icon>
+                                        </div>
+                                        <div class="tab-pane fade active in no-padding-bottom" ng-if="fuelOrderInfo.fuelOrder">
+                                            <div ng-if="ActiveTab == 1">
+                                                <div>
+                                                    <transaction-invoice-details></transaction-invoice-details>
+                                                </div>
+                                            </div>
+                                            <div ng-if="ActiveTab == 2">
+                                                <div>
+                                                    <transaction-service-details></transaction-service-details>
+                                                </div>
+                                            </div>
+                                            <div ng-if="ActiveTab == 3">
+                                                <div>
+                                                    <transaction-messenger></transaction-messenger>
+                                                </div>
+                                            </div>
+                                            <div ng-if="ActiveTab == 4">
+                                                <div>
+                                                    <transaction-tax-back-status></transaction-tax-back-status>
+                                                </div>
+                                            </div>
+                                            <div class="pull-right">
+                                                <transaction-info-details></transaction-info-details>
+                                            </div>
+                                        </div>
+                                        <!--Hidden dropzone previewer-->
+                                        <div style="display: none;" id="divPreviewContainer"></div>
+                                        <!-- end widget body text-->
+                                    </div>
+                                    <!-- end widget content -->
+                                </div>
+                                <!-- end widget div -->
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </form>
+</article>

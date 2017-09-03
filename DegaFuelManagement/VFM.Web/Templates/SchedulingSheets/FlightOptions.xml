@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SchedulingSheets>
+  <SchedulingSheet>
+    <Column Name="SchedulingPlatform">
+      <StaticValue>3</StaticValue>
+    </Column>
+    <Column Name="AdminClientID">
+      <StaticValue>0</StaticValue>
+    </Column>
+    <Column Name="CustClientID">
+      <StaticValue>0</StaticValue>
+    </Column>
+    <Column Name="TripNumber">
+      <ColumnLetter>A</ColumnLetter>
+      <Filters>
+        <Filter Type="NotEqual">Trip_NUMBER</Filter>
+      </Filters>
+    </Column>
+    <Column Name="TailNumber">
+      <ColumnLetter>C</ColumnLetter>
+    </Column>
+    <Column Name="ICAO">
+      <ColumnLetter>D</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">4</Filter>
+        <Filter Type="MinLength">3</Filter>
+        <Filter Type="NotEqual">POD</Filter>
+      </Filters>
+    </Column>
+    <Column Name="FBO">
+      <ColumnLetter>K</ColumnLetter>
+    </Column>
+    <Column Name="Arrival">
+      <ColumnLetter>L</ColumnLetter>
+    </Column>
+    <Column Name="Arrival">
+      <PreText> </PreText>
+      <ColumnLetter>N</ColumnLetter>
+    </Column>
+  </SchedulingSheet>
+</SchedulingSheets>

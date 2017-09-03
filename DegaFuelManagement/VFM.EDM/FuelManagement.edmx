@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FuelManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="FuelOrderMessageAttachments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="FuelOrderMessageID" Type="int" />
+          <Property Name="AttachmentData" Type="varbinary(max)" />
+          <Property Name="ContentType" Type="nvarchar" MaxLength="255" />
+          <Property Name="AttachmentName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="FuelOrderMessages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="FuelOrderID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateAdded" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="LoginPermissions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="IsMainAdmin" Type="bit" />
+          <Property Name="IsMarginEnabled" Type="bit" />
+          <Property Name="IsDistributionEnabled" Type="bit" />
+          <Property Name="Dashboard" Type="smallint" />
+          <Property Name="CompanyGrid" Type="smallint" />
+          <Property Name="CompanyDetail" Type="smallint" />
+          <Property Name="ContactGrid" Type="smallint" />
+          <Property Name="ContactDetail" Type="smallint" />
+          <Property Name="AirportGrid" Type="smallint" />
+          <Property Name="AirportDetail" Type="smallint" />
+          <Property Name="VendorGrid" Type="smallint" />
+          <Property Name="VendorDetail" Type="smallint" />
+          <Property Name="MarginMgr" Type="smallint" />
+          <Property Name="DropZone" Type="smallint" />
+          <Property Name="Transactions" Type="smallint" />
+          <Property Name="TaskScheduler" Type="smallint" />
+          <Property Name="Analysis" Type="smallint" />
+        </EntityType>
+        <EntityType Name="PartnerServiceIntegrations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdminClientID" Type="int" Nullable="false" />
+          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="AccountNumber" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_FuelOrderMessageAttachments_FuelOrderMessages">
+          <End Role="FuelOrderMessages" Type="Self.FuelOrderMessages" Multiplicity="0..1" />
+          <End Role="FuelOrderMessageAttachments" Type="Self.FuelOrderMessageAttachments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FuelOrderMessages">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FuelOrderMessageAttachments">
+              <PropertyRef Name="FuelOrderMessageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FuelManagementModelStoreContainer">
+          <EntitySet Name="FuelOrderMessageAttachments" EntityType="Self.FuelOrderMessageAttachments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FuelOrderMessages" EntityType="Self.FuelOrderMessages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginPermissions" EntityType="Self.LoginPermissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PartnerServiceIntegrations" EntityType="Self.PartnerServiceIntegrations" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_FuelOrderMessageAttachments_FuelOrderMessages" Association="Self.FK_FuelOrderMessageAttachments_FuelOrderMessages">
+            <End Role="FuelOrderMessages" EntitySet="FuelOrderMessages" />
+            <End Role="FuelOrderMessageAttachments" EntitySet="FuelOrderMessageAttachments" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FuelManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="FuelOrderMessage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="FuelOrderID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateAdded" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="FuelOrderMessageAttachments" Relationship="FuelManagementModel.FK_FuelOrderMessageAttachments_FuelOrderMessages" FromRole="FuelOrderMessage" ToRole="FuelOrderMessageAttachment" />
+        </EntityType>
+        <EntityContainer Name="FuelManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="FuelOrderMessages" EntityType="Self.FuelOrderMessage" />
+          <EntitySet Name="FuelOrderMessageAttachments" EntityType="FuelManagementModel.FuelOrderMessageAttachment" />
+          <AssociationSet Name="FK_FuelOrderMessageAttachments_FuelOrderMessages" Association="FuelManagementModel.FK_FuelOrderMessageAttachments_FuelOrderMessages">
+            <End Role="FuelOrderMessage" EntitySet="FuelOrderMessages" />
+            <End Role="FuelOrderMessageAttachment" EntitySet="FuelOrderMessageAttachments" />
+          </AssociationSet>
+          <EntitySet Name="PartnerServiceIntegrations" EntityType="FuelManagementModel.PartnerServiceIntegration" />
+          <EntitySet Name="LoginPermissions" EntityType="FuelManagementModel.LoginPermission" />
+        </EntityContainer>
+        <EntityType Name="FuelOrderMessageAttachment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="FuelOrderMessageID" Type="Int32" />
+          <Property Name="AttachmentData" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ContentType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AttachmentName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FuelOrderMessage" Relationship="FuelManagementModel.FK_FuelOrderMessageAttachments_FuelOrderMessages" FromRole="FuelOrderMessageAttachment" ToRole="FuelOrderMessage" />
+        </EntityType>
+        <Association Name="FK_FuelOrderMessageAttachments_FuelOrderMessages">
+          <End Type="FuelManagementModel.FuelOrderMessage" Role="FuelOrderMessage" Multiplicity="0..1" />
+          <End Type="FuelManagementModel.FuelOrderMessageAttachment" Role="FuelOrderMessageAttachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FuelOrderMessage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FuelOrderMessageAttachment">
+              <PropertyRef Name="FuelOrderMessageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PartnerServiceIntegration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
+          <Property Name="AccountNumber" Type="Guid" Nullable="false" />
+          <Property Name="AdminClientID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LoginPermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dashboard" Type="FuelManagementModel.PermissionType" />
+          <Property Name="CompanyGrid" Type="FuelManagementModel.PermissionType" />
+          <Property Name="CompanyDetail" Type="FuelManagementModel.PermissionType" />
+          <Property Name="ContactGrid" Type="FuelManagementModel.PermissionType" />
+          <Property Name="ContactDetail" Type="FuelManagementModel.PermissionType" />
+          <Property Name="AirportGrid" Type="FuelManagementModel.PermissionType" />
+          <Property Name="AirportDetail" Type="FuelManagementModel.PermissionType" />
+          <Property Name="VendorGrid" Type="FuelManagementModel.PermissionType" />
+          <Property Name="VendorDetail" Type="FuelManagementModel.PermissionType" />
+          <Property Name="MarginMgr" Type="FuelManagementModel.PermissionType" />
+          <Property Name="DropZone" Type="FuelManagementModel.PermissionType" />
+          <Property Name="Transactions" Type="FuelManagementModel.PermissionType" />
+          <Property Name="TaskScheduler" Type="FuelManagementModel.PermissionType" />
+          <Property Name="Analysis" Type="FuelManagementModel.PermissionType" />
+          <Property Name="IsMainAdmin" Type="Boolean" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="IsMarginEnabled" Type="Boolean" />
+          <Property Name="IsDistributionEnabled" Type="Boolean" />
+        </EntityType>
+        <EnumType Name="PermissionType" UnderlyingType="Int16">
+          <Member Name="Edit" Value="0" />
+          <Member Name="View" Value="1" />
+          <Member Name="Hide" Value="2" />
+        </EnumType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FuelManagementModelStoreContainer" CdmEntityContainer="FuelManagementEntities">
+          <EntitySetMapping Name="FuelOrderMessages">
+            <EntityTypeMapping TypeName="FuelManagementModel.FuelOrderMessage">
+              <MappingFragment StoreEntitySet="FuelOrderMessages">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FuelOrderID" ColumnName="FuelOrderID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FuelOrderMessageAttachments">
+            <EntityTypeMapping TypeName="FuelManagementModel.FuelOrderMessageAttachment">
+              <MappingFragment StoreEntitySet="FuelOrderMessageAttachments">
+                <ScalarProperty Name="AttachmentName" ColumnName="AttachmentName" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="AttachmentData" ColumnName="AttachmentData" />
+                <ScalarProperty Name="FuelOrderMessageID" ColumnName="FuelOrderMessageID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PartnerServiceIntegrations">
+            <EntityTypeMapping TypeName="FuelManagementModel.PartnerServiceIntegration">
+              <MappingFragment StoreEntitySet="PartnerServiceIntegrations">
+                <ScalarProperty Name="AdminClientID" ColumnName="AdminClientID" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginPermissions">
+            <EntityTypeMapping TypeName="FuelManagementModel.LoginPermission">
+              <MappingFragment StoreEntitySet="LoginPermissions">
+                <ScalarProperty Name="IsDistributionEnabled" ColumnName="IsDistributionEnabled" />
+                <ScalarProperty Name="IsMarginEnabled" ColumnName="IsMarginEnabled" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="IsMainAdmin" ColumnName="IsMainAdmin" />
+                <ScalarProperty Name="Analysis" ColumnName="Analysis" />
+                <ScalarProperty Name="TaskScheduler" ColumnName="TaskScheduler" />
+                <ScalarProperty Name="Transactions" ColumnName="Transactions" />
+                <ScalarProperty Name="DropZone" ColumnName="DropZone" />
+                <ScalarProperty Name="MarginMgr" ColumnName="MarginMgr" />
+                <ScalarProperty Name="VendorDetail" ColumnName="VendorDetail" />
+                <ScalarProperty Name="VendorGrid" ColumnName="VendorGrid" />
+                <ScalarProperty Name="AirportDetail" ColumnName="AirportDetail" />
+                <ScalarProperty Name="AirportGrid" ColumnName="AirportGrid" />
+                <ScalarProperty Name="ContactDetail" ColumnName="ContactDetail" />
+                <ScalarProperty Name="ContactGrid" ColumnName="ContactGrid" />
+                <ScalarProperty Name="CompanyDetail" ColumnName="CompanyDetail" />
+                <ScalarProperty Name="CompanyGrid" ColumnName="CompanyGrid" />
+                <ScalarProperty Name="Dashboard" ColumnName="Dashboard" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,41 @@
+﻿
+<div class="inlineblock  toppadded2x dropzonecontainer">
+    <!--Dropzone-->
+    <div class="dropzonecontent">
+        <article class="sortable-grid ui-sortable">
+
+            <div id="jarviswidget-transaction-details-invoice{{$index}}" class="jarviswidget jarviswidget-color-blueLight jarviswidget-sortable" data-widget-colorbutton="true" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="true" data-widget-custombutton="false" data-widget-sortable="false">
+                <header role="heading">
+                    <span class="widget-icon">
+                        <i class="fa fa-cloud"></i>
+                    </span>
+                    <h2>My Dropzone! </h2>
+                    <span class="jarviswidget-loader" style="display: none;">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </span>
+                </header>
+                <div role="content">
+                    <div class="jarviswidget-editbox"></div>
+                    <div class="widget-body">
+                        <div clas="row">
+                            <form action="{{'~/api/files/attachment/'}}" method="post"
+                                  enctype="multipart/form-data" class="dropzone" id="dropzoneForm"
+                                  ng-dropzone dropzone="dropzone" dropzone-config="dropzoneConfig">
+                                <div class="fallback">
+                                    <input type="file" name="file" multiple />
+                                    <input type="submit" value="Upload" />
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <p class="margin-top-15">
+                <span class="label label-warning">Note</span>
+                &nbsp; This plugins works only on Latest Chrome, Firefox, Safari, Opera & IE 10.
+            </p>
+        </article>
+    </div>
+</div>

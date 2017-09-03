@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AcukwikSheets>
+  <AcukwikSheet>
+    <Column Name="Airport_ID">
+      <ColumnLetter>A</ColumnLetter>
+    </Column>
+    <Column Name="Handler_ID">
+      <ColumnLetter>B</ColumnLetter>
+      <IsNumeric>True</IsNumeric>
+    </Column>
+    <Column Name="HandlerLongName">
+      <ColumnLetter>C</ColumnLetter>
+    </Column>
+    <Column Name="HandlerType">
+      <ColumnLetter>D</ColumnLetter>
+    </Column>
+    <Column Name="HandlerTelephone">
+      <ColumnLetter>E</ColumnLetter>
+    </Column>
+    <Column Name="HandlerFax">
+      <ColumnLetter>F</ColumnLetter>
+    </Column>
+    <Column Name="HandlerTollFree">
+      <ColumnLetter>G</ColumnLetter>
+    </Column>
+    <Column Name="HandlerFreq">
+      <ColumnLetter>H</ColumnLetter>
+      <IsNumeric>True</IsNumeric>
+    </Column>
+    <Column Name="HandlerFuelBrand">
+      <ColumnLetter>I</ColumnLetter>
+      <Filters>
+        <Filter Type="NotEqual">HandlerFuelBrand2</Filter>
+        <Filter Type="NotEqual">HandlerFuelSupply</Filter>
+      </Filters>
+    </Column>
+    <Column Name="HandlerFuelBrand2">
+      <ColumnLetter>J</ColumnLetter>
+    <Filters>
+      <Filter Type="NotEqual">HandlerFuelBrand</Filter>
+      <Filter Type="NotEqual">HandlerFuelSupply</Filter>
+    </Filters>
+    </Column>
+    <Column Name="HandlerFuelSupply">
+      <ColumnLetter>K</ColumnLetter>
+    <Filters>
+      <Filter Type="NotEqual">HandlerFuelBrand</Filter>
+        <Filter Type="NotEqual">HandlerFuelBrand2</Filter>
+    </Filters>
+    </Column>
+    <Column Name="HandlerLocationOnField">
+      <ColumnLetter>L</ColumnLetter>
+    <Filters>
+      <Filter Type="MaxLength">2</Filter>
+    </Filters>
+    </Column>
+    <Column Name="MultiService">
+      <ColumnLetter>M</ColumnLetter>
+    <Filters>
+      <Filter Type="MaxLength">1</Filter>
+    </Filters>
+    </Column>
+    <Column Name="Avcard">
+      <ColumnLetter>N</ColumnLetter>
+    <Filters>
+      <Filter Type="MaxLength">1</Filter>
+    </Filters>
+    </Column>
+    <Column Name="Acukwik_ID">
+      <ColumnLetter>O</ColumnLetter>
+    </Column>
+  </AcukwikSheet>
+</AcukwikSheets>

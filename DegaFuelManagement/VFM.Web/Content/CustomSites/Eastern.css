@@ -1,0 +1,27 @@
+﻿/*
+    
+    SHELL FUEL MANAGER CSS
+*/
+
+
+#header {
+    background: #FDD900; /*SHELL YELLOW*/
+}
+
+#left-panel nav ul li .active {
+    background: #FDD900; /*SHELL YELLOW*/
+    color: #333
+}
+
+.login-info {
+    margin-bottom: -1px !important;
+}
+
+.logo {
+    background: url('/img/shell-logo.png') no-repeat !important;
+    position: relative;
+    top:5px;
+    left:5px;
+    width:180px;
+    height:42px !important;
+}

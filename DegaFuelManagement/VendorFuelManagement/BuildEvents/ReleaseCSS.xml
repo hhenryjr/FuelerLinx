@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <output path="..\Release\Master.css" page="master">
+    <input path="..\..\Shared Files\CSS\ngAnimate-animate.css" projectpath="..\Common\CSS\Shared\ngAnimate-animate.css"/>
+    <input path="..\..\Shared Files\CSS\angularspinkit.css" projectpath="..\Common\CSS\Shared\angularspinkit.css"/>
+    <input path="..\..\Shared Files\CSS\ngDialog-theme-default.css" projectpath="..\Common\CSS\Shared\ngDialog-theme-default.css"/>
+    <input path="..\..\Shared Files\CSS\ngDialog.css" projectpath="..\Common\CSS\Shared\ngDialog.css"/>
+    <input path="..\Common\CSS\Site.css"/>
+    <input path="..\Common\CSS\Menu.css"/>
+    <input path="..\Common\CSS\Buttons.css"/>
+  </output>
+  <output path="..\Release\Members\Default.css" page="/Members/Default.aspx">
+    <input path="..\Members\CSS\Site.css"/>
+    <input path="..\Members\CSS\Menu.css"/>
+    <input path="..\Members\CSS\Buttons.css"/>
+  </output>
+  <output path="..\Release\Admin\Default.css" page="/Admin/Default.aspx">
+    <input path="..\Members\CSS\Site.css"/>
+    <input path="..\Members\CSS\Menu.css"/>
+    <input path="..\Members\CSS\Buttons.css"/>
+  </output>
+</root>

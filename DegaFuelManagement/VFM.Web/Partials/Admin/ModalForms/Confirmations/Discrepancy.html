@@ -1,0 +1,21 @@
+﻿<div class="jarviswidget">
+    <header class="row text-right " role="heading">
+        <div class="jarviswidget-ctrls" role="menu">
+            <a class="button-icon jarviswidget-delete-btn" ng-click="modal.close()">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </header>
+    <div class="row text-center bold">
+        There is a discrepancy of <span ng-class="modal.items.fuelOrder.InvoicedPPG < modal.items.fuelOrder.QuotedPPG ? 'green' : 'red'" class="ng-binding greenfont" style="">{{modal.items.fuelOrder.QuotedPPG - modal.items.fuelOrder.InvoicedPPG | ToCurrency}}</span>
+        <span ng-if="modal.items.fuelOrder.InvoicedPPG < modal.items.fuelOrder.QuotedPPG" class="ng-"> in your favor</span>.
+        Do you want to accept this as Reconciled or decline it as a Discrepancy?
+    </div>
+    <div class="row">
+        <div class="col-xs-12 text-center bottompaddedlarge">
+            <button type="button" class="btn btn-lightgreen" ng-click="modal.accept()">Accept</button>
+            <button type="button" class="btn btn-lightorange" ng-click="modal.decline()">Decline</button>
+            <button type="button" class="btn" ng-click="modal.close()">Cancel</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AcukwikSheets>
+  <AcukwikSheet>
+    <Column Name="Airport_ID">
+      <Filters>
+        <Filter Type="NotEqual">Airport_ID</Filter>
+      </Filters>
+      <ColumnLetter>A</ColumnLetter>
+    </Column>
+    <Column Name="Supplier_ID">
+      <ColumnLetter>B</ColumnLetter>
+    </Column>
+    <Column Name="SupplierLongName">
+      <ColumnLetter>C</ColumnLetter>
+    </Column>
+    <Column Name="SupplierType">
+      <ColumnLetter>D</ColumnLetter>
+    </Column>
+    <Column Name="SupplierTelephone">
+      <ColumnLetter>E</ColumnLetter>
+    </Column>
+    <Column Name="SupplierFax">
+      <ColumnLetter>F</ColumnLetter>
+    </Column>
+    <Column Name="SupplierTollFree">
+      <ColumnLetter>G</ColumnLetter>
+    </Column>
+    <Column Name="SupplierFreq">
+      <ColumnLetter>H</ColumnLetter>
+    </Column>
+    <Column Name="Acukwik_ID">
+      <ColumnLetter>I</ColumnLetter>
+    </Column>
+  </AcukwikSheet>
+</AcukwikSheets>

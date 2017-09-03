@@ -1,0 +1,277 @@
+﻿<div class="col-xs-12 padding-left-none padding-right-none">
+    <h1 class="page-title txt-color-blueDark blue-font">
+        <i class="fa-fw fa fa-plane"></i>
+        AIRPORT MANAGER <span class="default-grey-font">> AIRPORT LIST</span>
+    </h1>
+</div>
+
+<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-content-container">
+    <div class="jarviswidget jarviswidget-color-blueDark" id="" data-widget-editbutton="false">
+        <div class="no-border">
+            <div class="widget-body no-padding no-border">
+                <div ng-if="info.airportsAndMargins == null || info.isPreparingFilters">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p class="table-text text-center">One Moment Please...</p>
+                            <loading-icon></loading-icon>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="info.airportsAndMargins != null">
+                    <table id="AirportTable" st-safe-src="info.airportsAndMargins" st-table="info.displayedAirportsAndMargins" class="table table-striped-collapsible table-hover table-bordered" width="100%">
+                        <thead>
+                            <tr class="table-text">
+                                <th colspan="12">
+                                    <div class="float-left no-padding inline-block margin-right">
+                                        <label class="search-input">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-search"></i>
+                                            </span>
+                                            <input type="text" placeholder="Search" st-custom-search predicate="" class="form-control" ng-model="info.filter.globalSearch">
+                                        </label>
+                                    </div>
+                                    <div class="hidden-xs float-left inline-block">
+                                        <button type="button" st-reset-search class="btn btn-grey" ng-click="info.clearFilters()"> Clear Filters</button>
+                                    </div>
+                                    <div class="hidden-xs float-right inline-block">
+                                        <button type="button" ng-click="info.exportAirports()" class="btn btn-light-blue float-right">Export CSV</button>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr class="table-text search-header">
+                                <th><input class="form-control borderless-input" placeholder="ICAO" maxlength="4" type="text" st-custom-search="ICAO" ng-model="info.filter.ICAO"></th>
+                                <th><input class="form-control borderless-input" placeholder="Region" type="text" st-custom-search="Region" ng-model="info.filter.Region"></th>
+                                <th class="hidden-xs"><input class="form-control borderless-input" placeholder="Country" type="text" st-custom-search="Country" ng-model="info.filter.Country"></th>
+                                <th><input class="form-control borderless-input" placeholder="State" type="text" st-custom-search="StateSubdivision" ng-model="info.filter.StateSubdivision"></th>
+                                <th class="hidden-xs"><input class="form-control borderless-input" placeholder="Airport Type" type="text" st-custom-search="AirportType" ng-model="info.filter.AirportType"></th>
+                                <th class="hidden-xs"><input class="form-control borderless-input" placeholder="Customs" type="text" st-custom-search="Customs" ng-model="info.filter.Customs"></th>
+                                <th><input class="form-control borderless-input" placeholder="Approach" type="text" st-custom-search="ApproachList" ng-model="info.filter.ApproachList"></th>
+                            </tr>
+                            <tr class="table-headers transactionheaderrow">
+                                <th st-sort="ICAO">
+                                    <span>ICAO</span>
+                                    <div class="pull-right margin-right-sm">
+                                        <a>
+                                            <span class="fa-stack not-sorted">
+                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                            </span>
+                                            <span class="descending sorted">
+                                                <i class="fa fa-lg fa-caret-down"></i>
+                                            </span>
+                                            <span class="ascending sorted">
+                                                <i class="fa fa-lg fa-caret-up"></i>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </th>
+                                <th class="" st-sort="Region">
+                                    <span>Region</span>
+                                    <div class="pull-right margin-right-sm">
+                                        <a>
+                                            <span class="fa-stack not-sorted">
+                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                            </span>
+                                            <span class="descending sorted">
+                                                <i class="fa fa-lg fa-caret-down"></i>
+                                            </span>
+                                            <span class="ascending sorted">
+                                                <i class="fa fa-lg fa-caret-up"></i>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </th>
+                                <th class="hidden-xs " st-sort="Country">
+                                    <span>Country</span>
+                                    <div class="pull-right margin-right-sm">
+                                        <a>
+                                            <span class="fa-stack not-sorted">
+                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                            </span>
+                                            <span class="descending sorted">
+                                                <i class="fa fa-lg fa-caret-down"></i>
+                                            </span>
+                                            <span class="ascending sorted">
+                                                <i class="fa fa-lg fa-caret-up"></i>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </th>
+                                <th class="" st-sort="StateSubdivision">
+                                    <span>State</span>
+                                    <div class="pull-right margin-right-sm">
+                                        <a>
+                                            <span class="fa-stack not-sorted">
+                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                            </span>
+                                            <span class="descending sorted">
+                                                <i class="fa fa-lg fa-caret-down"></i>
+                                            </span>
+                                            <span class="ascending sorted">
+                                                <i class="fa fa-lg fa-caret-up"></i>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </th>
+                                <th class="hidden-xs " st-sort="AirportType">
+                                    <span>Airport Type</span>
+                                    <div class="pull-right margin-right-sm">
+                                        <a>
+                                            <span class="fa-stack not-sorted">
+                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                            </span>
+                                            <span class="descending sorted">
+                                                <i class="fa fa-lg fa-caret-down"></i>
+                                            </span>
+                                            <span class="ascending sorted">
+                                                <i class="fa fa-lg fa-caret-up"></i>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </th>
+                                <th class="hidden-xs " st-sort="Customs">
+                                    <span>Customs</span>
+                                    <div class="pull-right margin-right-sm">
+                                        <a>
+                                            <span class="fa-stack not-sorted">
+                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                            </span>
+                                            <span class="descending sorted">
+                                                <i class="fa fa-lg fa-caret-down"></i>
+                                            </span>
+                                            <span class="ascending sorted">
+                                                <i class="fa fa-lg fa-caret-up"></i>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </th>
+                                <th class="" st-sort="ApproachList">
+                                    <span>Approach</span>
+                                    <div class="pull-right margin-right-sm">
+                                        <a>
+                                            <span class="fa-stack not-sorted">
+                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                            </span>
+                                            <span class="descending sorted">
+                                                <i class="fa fa-lg fa-caret-down"></i>
+                                            </span>
+                                            <span class="ascending sorted">
+                                                <i class="fa fa-lg fa-caret-up"></i>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody ng-if="info.isAirportsReady">
+                            <tr ng-show="info.airportsAndMargins.length > 0" ng-repeat-start="airport in info.displayedAirportsAndMargins" ng-class="{'strike': airport.IsInactive}" class="table-text hover " ng-disabled="airport.IsInactive">
+                                <td>
+                                    <div class="position-top-5" tooltip-placement="top" uib-tooltip="{{airport.FullAirportName}}">
+                                        <a class="airport-icon-green margin-right-5" ng-if="!airport.showingFBOMargins" ng-click="isCollapsed = !isCollapsed; info.onToggleFBOMargins(airport)"><i class="fa fa-2x fa-plus-circle"></i></a>
+                                        <a class="text-primary margin-right-5" ng-if="airport.showingFBOMargins" ng-click="isCollapsed = isCollapsed; info.onToggleFBOMargins(airport)"><i class="fa fa-2x fa-minus-circle"></i></a>
+                                        <span class="airport-manager-icao">{{airport.ICAO}}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="position-top-5">{{airport.Region}}</span>
+                                </td>
+                                <td class="hidden-xs">
+                                    <span class="position-top-5">{{airport.Country}}</span>
+                                </td>
+                                <td>
+                                    <span class="position-top-5">{{airport.StateSubdivision}}</span>
+                                </td>
+                                <td class="hidden-xs">
+                                    <span class="position-top-5">{{airport.AirportType}}</span>
+                                </td>
+                                <td class="hidden-xs">
+                                    <span class="position-top-5">{{airport.Customs}}</span>
+                                </td>
+                                <td>
+                                    <span class="position-top-5">{{airport.ApproachList}}</span>
+                                </td>
+                            </tr>
+                            <tr class="no-border fbo-list" ng-repeat-end="" ng-show="airport.showingFBOMargins">
+                                <td colspan="3" class="no-padding" ng-if="airport.showingFBOMargins">
+                                    <div uib-collapse="isCollapsed">
+                                        <div class="no-border sub-details-container" ng-if="airport.showingFBOMargins">
+                                            <saving-notification ng-if="info.savingFBOMargin" saving-text="Saving FBO Margin"></saving-notification>
+                                            <table class="table table-striped">
+                                                <tr colspan="2" class="table-text has-fbo">
+                                                    <td class="no-border"></td>
+                                                    <td class="no-border font-600" ng-if="info.$usersService.user.Permission.AirportGrid == 0">
+                                                        <span>Omit</span>
+                                                    </td>
+                                                    <td class="no-border font-600">
+                                                        <span>FBO Name</span>
+                                                    </td>
+                                                    <td class="no-border"></td>
+                                                </tr>
+                                                <tr class="table-text hover" ng-repeat="fboMargin in airport.FBOMargins | orderBy: 'FBO'" ng-class="{'strike': fboMargin.IsOmitted}">
+                                                    <td></td>
+
+                                                    <td ng-if="info.$usersService.user.Permission.AirportGrid == 0">
+                                                        <button type="button" class="deleteCustomer btn-red" ng-click="info.deleteFBOMargin(fboMargin, airport)" ng-if="fboMargin.IsEditable">
+                                                            <i class="fa fa-trash-o"></i>
+                                                        </button>
+                                                        <div class="sub-details-checkbox">
+                                                            <input type="checkbox" ng-model="fboMargin.IsOmitted" ng-if="!fboMargin.IsEditable" ng-change="info.changeFBOMargin(fboMargin, airport)" />
+                                                        </div>
+                                                    </td>
+                                                    <td ng-if="!fboMargin.IsOmitted">
+                                                        <span><a class="" ng-click="info.getFBODetails(fboMargin.FBO, airport.ICAO)">{{fboMargin.FBO}}</a></span>
+                                                    </td>
+                                                    <td ng-if="fboMargin.IsOmitted">
+                                                        <span>{{fboMargin.FBO}}</span>
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr class="hover" ng-if="info.$usersService.user.Permission.AirportGrid == 0">
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>
+                                                        <input type="text" ng-model="fboMargin.FBO" />
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-xs btn-medium-green" ng-disabled="!fboMargin.FBO" ng-click="info.changeFBOMargin(fboMargin, airport)">Save</button>
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td colspan="4" ng-if="airport.showingFBOMargins"></td>
+                            </tr>
+                            <tr st-filtered-row-length class="table-text" ng-show="FilteredRowLength == 0">
+                                <td colspan="12">
+                                    <div class="row">
+                                        <h2 class="text-center padding-10">No records found!</h2>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="12">
+                                    <div class="float-left padding-5 hidden-xs">
+                                        <select class="form-control" ng-model="info.AirportRecordsPerPage" ng-options="record as record + ' Records Per Page' for record in info.RecordsPerPage">
+                                            <option value="" disabled selected>Select your option</option>
+                                        </select>
+                                    </div>
+                                    <div class="float-right" st-pagination="" st-items-by-page="info.AirportRecordsPerPage" st-displayed-pages="5"></div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

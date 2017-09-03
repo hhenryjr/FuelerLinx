@@ -1,0 +1,136 @@
+﻿
+
+    <!-- LARGENT FUELS ONLY LOGIN BEGIN -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
+
+            <img class="padding-bottom-30" src="/img/largent-bluelogo-small.jpg">
+            <button ng-show="!login.languageToggle" ng-click="login.languageToggle = !login.languageToggle" type="button" class="btn btn-sm btn-primary"><span class="white-font">English</span></button>
+            <button ng-show="login.languageToggle" ng-click="login.languageToggle = !login.languageToggle" type="button" class="btn btn-sm btn-primary"><span class="white-font">Español</span></button>
+
+            <div class="hero padding-top-20">
+                <div class="pull-left login-desc-box-l white-font">
+                    <h4 ng-show="login.languageToggle" class="paragraph-header">Experience the simplicity of LARGENT<i>fuels</i>, everywhere you go!</h4>
+                    <h4 ng-show="!login.languageToggle" class="paragraph-header">Cualquiera sea tu destino alrededor del mundo, cotiza en línea el combustible con LARGENT<i>fuels!</i></h4>
+                </div>
+
+                <div class="pull-left login-desc-box-l white-font">
+                    <h4 ng-show="login.languageToggle" class="paragraph-header">Log in & get your fuel quote today!</h4>
+                    <h4 ng-show="!login.languageToggle" class="paragraph-header">Introduce tu usuario y contraseña, y listo!</h4>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+                </div>
+            </div>
+        </div>
+        <div id="loginCtrl">
+            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+                <div class="well no-padding">
+                    <form id="loginForm" data-ng-submit="login.onLoginData()" name="login.loginForm" class="smart-form client-form" novalidate="novalidate">
+                        <header>
+                            LARGENT<i>fuels</i> Log In
+                        </header>
+
+                        <fieldset>
+
+                            <section>
+                                <label ng-if="login.languageToggle" class="label">Username</label>
+                                <label ng-if="!login.languageToggle" class="label">Usuario</label>
+
+                                <label class="input">
+                                    <i class="icon-append fa fa-user"></i>
+                                    <input type="text"
+                                           id="login-username"
+                                           name="username"
+                                           ng-model="login.myData.username"
+                                           ng-if="!login.languageToggle"
+                                           class="form-control ng-class:{'error': login.showLoginFormErrors && !login.loginForm.username.$valid}"
+                                           required
+                                           ng-required="true"
+                                           placeholder="Usuario">
+
+                                    <input type="text"
+                                           id="login-username"
+                                           name="username"
+                                           ng-model="login.myData.username"
+                                           ng-if="login.languageToggle"
+                                           class="form-control ng-class:{'error': login.showLoginFormErrors && !login.loginForm.username.$valid}"
+                                           required
+                                           ng-required="true"
+                                           placeholder="Username">
+
+
+
+                                    <b ng-if="login.languageToggle" class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter email address/username</b>
+                                    <b ng-if="!login.languageToggle" class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Por favor, ingrese su nombre de usuario.</b>
+                                </label>
+                            </section>
+
+                            <section>
+                                <label ng-if="login.languageToggle" class="label">Password</label>
+                                <label ng-if="!login.languageToggle" class="label">Contraseña</label>
+
+                                <label class="input">
+                                    <i class="icon-append fa fa-lock"></i>
+                                    <input type="password"
+                                           id="login-password"
+                                           ng-model="login.myData.Password"
+                                           ng-if="!login.languageToggle"
+                                           name="Password"
+                                           class="form-control ng-class:{'error': login.showLoginFormErrors && !login.loginForm.Password.$valid}"
+                                           required
+                                           ng-required="true"
+                                           placeholder="Contraseña">
+
+                                    <input type="password"
+                                           id="login-password"
+                                           ng-model="login.myData.Password"
+                                           ng-if="login.languageToggle"
+                                           name="Password"
+                                           class="form-control ng-class:{'error': login.showLoginFormErrors && !login.loginForm.Password.$valid}"
+                                           required
+                                           ng-required="true"
+                                           placeholder="Password">
+
+
+                                    <b ng-if="login.languageToggle" class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b>
+                                    <b ng-if="!login.languageToggle" class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Introduzca su contraseña.</b>
+                                </label>
+                                <div class="note">
+                                    <a class="hidden" ng-if="login.languageToggle" href="forgotpassword.html">Forgot password?</a>
+                                    <a class="hidden" ng-if="!login.languageToggle" href="forgotpassword.html">¿Olvidaste tu contraseña?</a>
+                                </div>
+                            </section>
+
+                            <section>
+                                <label class="checkbox">
+                                    <input type="checkbox" name="remember" checked="">
+                                    <span ng-if="!login.languageToggle"><i></i>Recordar mis datos</span>
+                                    <span ng-if="login.languageToggle"><i></i>Stay signed in</span>
+                                </label>
+                            </section>
+                        </fieldset>
+                        <footer>
+                            <button ng-if="login.languageToggle" type="submit" id="cmdLogin" class="btn btn-primary">
+                                Sign in
+                            </button>
+
+                            <button ng-if="!login.languageToggle" type="submit" id="cmdLogin" class="btn btn-primary">
+                                Iniciar sesión
+                            </button>
+
+
+                        </footer>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- LARGENT FUELS ONLY LOGIN END -->

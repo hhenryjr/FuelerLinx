@@ -1,0 +1,372 @@
+﻿@model VFM.Web.Models.ViewModels.ItemViewModel<int>
+
+@{
+    ViewBag.Title = "GetFuelOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<header class="content">
+    <h2>Fuel Order</h2>
+</header>
+
+<div data-ng-controller="fuelOrderController as fuelOrderInfo" id="fuelOrderCtrl" data-ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model))">
+    <a ng-href="/Clients/GetClientInfo/@Model.CurrentUser.Id">Back to Client Info</a>
+    <h3>Fuel Order ID: {{fuelOrderInfo.fuelOrder.Id}}</h3>
+    <div ng-if="fuelOrderInfo.user.Client.ClientType == 1">
+        <strong>This is ADMIN</strong>
+        <div ng-if="fuelOrderInfo.savingFuelOrder">Saving Fuel Order</div>
+        <div ng-if="!fuelOrderInfo.savingFuelOrder">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget jarviswidget-color-blueDark" data-widget-editbutton="true">
+                    <header>
+                        <span class="widget-icon"><i class="fa fa-table"></i></span>
+                        <h2>Fuel Orders </h2>
+                    </header>
+                    <div>
+                        <div class="widget-body no-padding">
+                            <table st-table="fuelOrderInfo.fuelOrder" class="table table-striped table-bordered" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>ICAO</th>
+                                        <th>FBO</th>
+                                        <th>Tail Number</th>
+                                        <th>Date Requested</th>
+                                        <th>Admin Status</th>
+                                        <th>Customer Status</th>
+                                        <th>Is Archived</th>
+                                        <th>Is Directly Entered</th>
+                                        <th>Quoted PPG</th>
+                                        <th>Invoiced PPG</th>
+                                        <th>Quoted Volume</th>
+                                        <th>Invoiced Volume</th>
+                                        <th>Fuel Pricing Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{fuelOrderInfo.fuelOrder.ICAO}}</td>
+                                        <td>{{fuelOrderInfo.fuelOrder.FBO}}</td>
+                                        <td>{{fuelOrderInfo.fuelOrder.Aircraft.TailNumber}}</td>
+                                        <td>{{fuelOrderInfo.fuelOrder.DateRequested | date: "M/d/yyyy"}}</td>
+                                        <td><input style="width:40px;" type="number" ng-model="fuelOrderInfo.fuelOrder.AdminStatus" /></td>
+                                        <td>{{fuelOrderInfo.fuelOrder.CustStatus}}</td>
+                                        <td>{{fuelOrderInfo.fuelOrder.IsArchived}}</td>
+                                        <td>{{fuelOrderInfo.fuelOrder.IsDirectlyEntered}}</td>
+                                        <td>{{fuelOrderInfo.fuelOrder.QuotedPPG}}</td>
+                                        <td>{{fuelOrderInfo.fuelOrder.InvoicedPPG}}</td>
+                                        <td>{{fuelOrderInfo.fuelOrder.QuotedVolume}}</td>
+                                        <td>{{fuelOrderInfo.fuelOrder.InvoicedVolume}}</td>
+                                        <td>{{fuelOrderInfo.fuelOrder.FuelingDateTime | date: "M/d/yyyy"}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button class="savefuelOrder" ng-click="fuelOrderInfo.saveFuelOrder(fuelOrderInfo.fuelOrder)">Save</button>
+                        </div>
+                    </div>
+                    </div>
+                </article>
+                </div>
+                <div ng-if="fuelOrderInfo.savingNote">Saving Note</div>
+                <div class="block" ng-if="!fuelOrderInfo.savingNote">
+                    Notes
+                    <ul ng-repeat="fuelOrderNote in fuelOrderInfo.fuelOrder.FuelOrderNotes">
+                        <li>{{fuelOrderNote.Note}}</li>
+                    </ul>
+                </div>
+        </div>
+
+    <div ng-if="fuelOrderInfo.user.Client.ClientType == 2">
+        <strong>This is CUSTOMER</strong>
+        <div ng-if="fuelOrderInfo.savingFuelOrder">Saving Fuel Order</div>
+        <div ng-if="!fuelOrderInfo.savingFuelOrder">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget jarviswidget-color-blueDark" data-widget-editbutton="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                        <h2>Fuel Orders</h2>
+                    </header>
+                    <div class="widget-body no-padding">
+                        <!-- no smart table just form break out -->
+                        <table>
+                            <tr>
+                                <th>ICAO</th>
+                                <th>FBO</th>
+                                <th>Tail Number</th>
+                                <th>Date Requested</th>
+                                <th>Admin Status</th>
+                                <th>Customer Status</th>
+                                <th>Is Archived</th>
+                                <th>Is Directly Entered</th>
+                                <th>Quoted PPG</th>
+                                <th>Invoiced PPG</th>
+                                <th>Quoted Volume</th>
+                                <th>Invoiced Volume</th>
+                                <th>Fuel Pricing Date</th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" ng-model="fuelOrderInfo.fuelOrder.ICAO" /></td>
+                                <td><input type="text" ng-model="fuelOrderInfo.fuelOrder.FBO" /></td>
+                                <td>
+                                    <select ui-select2 chosen style="width:100px" ng-model="fuelOrderInfo.fuelOrder.AircraftID" ng-options="aircraft.Id as aircraft.TailNumber for aircraft in fuelOrderInfo.aircrafts">
+                                        <option></option>
+                                    </select>
+                                </td>
+                                <td><input type="datetime" ng-model="fuelOrderInfo.fuelOrder.DateRequested" /></td>
+                                <td><input type="text" ng-model="fuelOrderInfo.fuelOrder.AdminStatus" /></td>
+                                <td><input type="text" ng-model="fuelOrderInfo.fuelOrder.CustStatus" /></td>
+                                <td><input type="text" ng-model="fuelOrderInfo.fuelOrder.IsArchived" /></td>
+                                <td><input type="text" ng-model="fuelOrderInfo.fuelOrder.IsDirectlyEntered" /></td>
+                                <td><input type="text" ng-model="fuelOrderInfo.fuelOrder.QuotedPPG" /></td>
+                                <td><input type="text" ng-model="fuelOrderInfo.fuelOrder.InvoicedPPG" /></td>
+                                <td><input type="text" ng-model="fuelOrderInfo.fuelOrder.QuotedVolume" /></td>
+                                <td><input type="text" ng-model="fuelOrderInfo.fuelOrder.InvoicedVolume" /></td>
+                                <td><input type="datetime" ng-model="fuelOrderInfo.fuelOrder.FuelingDateTime" /></td>
+                            </tr>
+                        </table>
+                        <button class="savefuelOrder" ng-click="fuelOrderInfo.saveFuelOrder(fuelOrderInfo.fuelOrder)">Save</button>
+                        </div>
+                    </div>
+               </article>
+        </div>
+        <div ng-if="fuelOrderInfo.savingNote">Saving Note</div>
+        <div class="container" ng-if="!fuelOrderInfo.savingNote">
+            Notes
+            <div class="content" ng-repeat="fuelOrderNote in fuelOrderInfo.fuelOrder.FuelOrderNotes">
+                <input type="text" ng-model="fuelOrderNote.Note" />
+                <button class="savedNote" ng-click="fuelOrderInfo.saveNote(fuelOrderNote)">Save</button>
+                <button class="deleteNote" ng-click="fuelOrderInfo.deleteNote(fuelOrderNote)">Delete</button>
+            </div>
+            <button class="addNote" ng-click="fuelOrderInfo.addNote()">Add Note</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/AngularJS/Services/fuelOrders.js"></script>
+    <script src="~/Scripts/AngularJS/Services/fuelOrderNotes.js"></script>
+    <script src="~/Scripts/AngularJS/Services/aircrafts.js"></script>
+    <script src="~/Scripts/AngularJS/Services/users.js"></script>
+    <script type="text/javascript">
+
+        degatech.page.startUp = function() {
+            degatech.page.userController = degatech.ng.getControllerInstance($("#fuelOrderCtrl"));
+        }
+
+        degatech.services.fuelOrdersFactory = function($baseService) {
+            var serviceObject = degatech.services.fuelOrders;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.fuelOrderNotesFactory = function($baseService) {
+            var serviceObject = degatech.services.fuelOrderNotes;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.aircraftsFactory = function($baseService) {
+            var serviceObject = degatech.services.aircrafts;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.usersFactory = function($baseService) {
+            var serviceObject = degatech.services.users;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.ng.addService(degatech.ng.app.module,
+            "$fuelOrdersService",
+            ["$baseService"],
+            degatech.services.fuelOrdersFactory);
+
+        degatech.ng.addService(degatech.ng.app.module,
+            "$fuelOrderNotesService",
+            ["$baseService"],
+            degatech.services.fuelOrderNotesFactory);
+
+        degatech.ng.addService(degatech.ng.app.module,
+            "$aircraftsService",
+            ["$baseService"],
+            degatech.services.aircraftsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module,
+            "$usersService",
+            ["$baseService"],
+            degatech.services.usersFactory);
+
+        degatech.page.fuelOrdersControllerFactory = function($scope,
+            $baseController,
+            $fuelOrdersService,
+            $fuelOrderNotesService,
+            $aircraftsService,
+            $usersService,
+            Notification) {
+
+            var vm = this;
+
+            $baseController.merge(vm, $baseController);
+
+            vm.$fuelOrdersService = $fuelOrdersService;
+            vm.$fuelOrderNotesService = $fuelOrderNotesService;
+            vm.$aircraftsService = $aircraftsService;
+            vm.$usersService = $usersService;
+            vm.$scope = $scope;
+
+            //PUBLIC METHODS
+            vm.notify = vm.$fuelOrdersService.getNotifier($scope);
+            vm.saveFuelOrder = _saveFuelOrder;
+            vm.addNote = _addNote;
+            vm.saveNote = _saveNote;
+            vm.deleteNote = _deleteNote;
+
+
+            //PUBLIC HANDLERS
+            vm.onGetUserSuccess = _onGetUserSuccess;
+            vm.onGetAircraftsSuccess = _onGetAircraftsSuccess;
+            vm.onGetInfoSuccess = _onGetInfoSuccess;
+            vm.onSaveFuelOrderSuccess = _onSaveFuelOrderSuccess;
+            vm.onSaveNoteSuccess = _onSaveNoteSuccess;
+            vm.onDeleteNoteSuccess = _onDeleteNoteSuccess;
+            vm.onError = _onError;
+
+            //PUBLIC MEMBERS
+            vm.test = "This is a test";
+            vm.aircrafts = null;
+            vm.fuelOrder = null;
+            vm.savedFuelOrder = null;
+            vm.savedNote = null;
+            vm.deletedNote = null;
+
+            render();
+
+            function RedirectToMainPage() {
+                location.href = "/Login";
+            }
+
+            //PRIVATE METHODS
+            function render() {
+                var userId = @Model.CurrentUser.Id;
+                if (userId == 0){
+                    Notification.info({
+                        model: this,
+                        scope: $scope,
+                        //templateUrl: '/Partials/Common/Notifications/Login.html',
+                        message: "<div>Your session has timed out.</div><div><a onclick='RedirectToMainPage();'>OK</a></div>",
+                        delay: 3000,
+                        closeOnClick: false
+                    });
+                }else{
+                    vm.$usersService.getUser(userId, vm.onGetUserSuccess, vm.onError);
+                }
+            }
+
+            function _saveFuelOrder(fuelOrder) {
+                vm.savingFuelOrder = true;
+                vm.savedFuelOrder = fuelOrder;
+                vm.$fuelOrdersService.updateFuelOrder(fuelOrder.Id, fuelOrder, vm.onSaveFuelOrderSuccess, vm.onError);
+            }
+
+            function _addNote() {
+                vm.fuelOrder.FuelOrderNotes.push({
+                    Id: "",
+                    ClientID: vm.fuelOrder.AdminClientID,
+                    FuelOrderID: @Model.Item,
+                    Note: "",
+                    AddedByUserID: @Model.CurrentUser.Id,
+                });
+            }
+
+            function _saveNote(note) {
+                vm.savingNote = true;
+                vm.savedNote = note;
+                if(note.Id > 0){
+                    note.UpdatedByUserID = @Model.CurrentUser.Id;
+                    vm.$fuelOrderNotesService.updateFuelOrderNote(note.Id, note, vm.onSaveNoteSuccess, vm.onError);
+                }else{
+                    vm.$fuelOrderNotesService.addFuelOrderNote(note, vm.onSaveNoteSuccess, vm.onError);
+                }
+            }
+
+            function _deleteNote(note) {
+                vm.deletedNote = note;
+                if(note.Id > 0){
+                    if (confirm("Are you sure you want to delete this note?")) {
+                        vm.$fuelOrderNotesService.deleteFuelOrderNote(note.Id, vm.onDeleteNoteSuccess, vm.onError);
+                    }
+                }else{
+                    vm.fuelOrder.FuelOrderNotes.pop();
+                }
+            }
+
+            //PRIVATE HANDLERS
+            function _onGetUserSuccess(data){
+                vm.notify(function() {
+                    vm.user = data.Item;
+                    console.log("USER: ", vm.user);
+                    vm.account = angular.copy(vm.user.Registration);
+                });
+                vm.$aircraftsService.getAircraftsByClientID(vm.user.ClientID, vm.onGetAircraftsSuccess, vm.onError);
+            }
+
+            function _onGetAircraftsSuccess(data){
+                vm.notify(function() {
+                    vm.aircrafts = data.Items;
+                    console.log("AIRCRAFTS: ", vm.aircrafts);
+                });
+                vm.$fuelOrdersService.getFuelOrder(@Model.Item, vm.onGetInfoSuccess, vm.onError);
+            }
+
+            function _onGetInfoSuccess(data) {
+                vm.notify(function() {
+                    vm.fuelOrder = data.Item;
+                    console.log("FUEL ORDER: ", vm.fuelOrder);
+                });
+            }
+
+            function _onSaveFuelOrderSuccess(data) {
+                vm.notify(function() {
+                    vm.savingFuelOrder = false;
+                    if(data.Item){
+                        vm.savedFuelOrder.Id = data.Item;
+                        vm.savedFuelOrder.DateAdded = new Date();
+                    }
+                });
+            }
+
+            function _onSaveNoteSuccess(data) {
+                vm.notify(function() {
+                    vm.savingNote = false;
+                    if(data.Item){
+                        vm.savedNote.Id = data.Item;
+                    }
+                });
+            }
+
+            function _onDeleteNoteSuccess() {
+                vm.notify(function() {
+                    var index = vm.fuelOrder.FuelOrderNotes.indexOf(vm.deletedNote);
+                    if (index > -1) {
+                        vm.fuelOrder.FuelOrderNotes.splice(index, 1);
+                    }
+                });
+            }
+
+            function _onError() {
+                vm.notify(function() {
+                    vm.savingFuelOrder = false;
+                    vm.savingUser = false;
+                });
+                vm.error = "An error has occurred!";
+                console.log(vm.error);
+            }
+        }
+
+        degatech.ng.addController(degatech.ng.app.module,
+            "fuelOrderController",
+            ['$scope', '$baseController', "$fuelOrdersService", "$fuelOrderNotesService", "$aircraftsService", "$usersService", "Notification"],
+            degatech.page.fuelOrdersControllerFactory);
+    </script>
+
+}

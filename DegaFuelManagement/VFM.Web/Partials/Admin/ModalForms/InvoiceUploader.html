@@ -1,0 +1,29 @@
+﻿<div>
+    <header class="row" role="heading">
+        <div style="border-bottom: 1px solid #fefefe" class="text-left inlineblock padding-5 font-500 font-md">
+
+            <span tabindex="-1" style="outline: 0px;"><i class="fa fa-file-text-o"></i></span>
+
+            <span>Upload Invoice</span>
+            <a class="btn button-icon jarviswidget-delete-btn float-right" ng-click="upload.close()">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </header>
+
+    <div class="row bold bottompaddedlarge">
+
+        <div class="col-xs-12 padding-5 text-center">
+            <form action="{{'~/api/files/attachment/'}}" method="post"
+                  enctype="multipart/form-data" class="dropzone" id="dropzoneForm"
+                  ng-dropzone dropzone="upload.dropzone" dropzone-config="upload.dropzoneConfig">
+                <div class="fallback">
+                    <input type="file" name="file" multiple />
+                    <input type="submit" value="Upload" />
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+</div>

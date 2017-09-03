@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FuelSheets>
+  <FuelSheet>
+    <Column Name="IATA">
+      <ColumnLetter>A</ColumnLetter>
+    </Column>
+    <Column Name="ICAO">
+      <ColumnLetter>B</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">4</Filter>
+        <Filter Type="MinLength">3</Filter>
+        <Filter Type="NotEqual">IATA</Filter>
+        <Filter Type="NotEqual">ICAO</Filter>
+        <Filter Type="NotEqual">Loc</Filter>
+      </Filters>
+    </Column>
+    <Column Name="FBOName">
+      <ColumnLetter>C</ColumnLetter>
+    </Column>
+    <Column Name="Notes">
+      <ColumnLetter>P</ColumnLetter>
+      <StringOperations>
+        <Operation Type="Replace" Replace="&#13;&#10;" ReplaceWith=" "></Operation>
+      </StringOperations>
+    </Column>
+    <Column Name="Product">
+      <ColumnLetter>H</ColumnLetter>
+    </Column>
+    <Column Name="Min">
+      <ColumnLetter>I</ColumnLetter>
+      <IsNumeric>True</IsNumeric>
+    </Column>
+    <Column Name="TotalWithTax">
+      <ColumnLetter>J</ColumnLetter>
+      <IsNumeric>true</IsNumeric>
+    </Column>
+    <Column Name="TotalWithTax">
+      <ColumnLetter>K</ColumnLetter>
+      <IsNumeric>true</IsNumeric>
+    </Column>
+    <Column Name="EffectiveDate">
+      <ColumnLetter>N</ColumnLetter>
+      <DateParse>en-US</DateParse>
+    </Column>
+    <Column Name="Expires">
+      <ColumnLetter>O</ColumnLetter>
+      <DateParse>en-US</DateParse>
+    </Column>
+    <Column Name="AdminClientID">
+      <StaticValue>0</StaticValue>
+    </Column>
+    <Column Name="SupplierID">
+      <StaticValue>0</StaticValue>
+    </Column>
+  </FuelSheet>
+</FuelSheets>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4eb8113df5534242b9f8fd02f50ae922" Name="Diagram1" ZoomLevel="111">
+        <EntityTypeShape EntityType="FuelManagementModel.FuelOrderMessage" Width="2.375" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FuelManagementModel.FuelOrderMessageAttachment" Width="1.5" PointX="3.875" PointY="0.875" />
+        <AssociationConnector Association="FuelManagementModel.FK_FuelOrderMessageAttachments_FuelOrderMessages" />
+        <EntityTypeShape EntityType="FuelManagementModel.PartnerServiceIntegration" Width="2.75" PointX="7" PointY="1" />
+        <EntityTypeShape EntityType="FuelManagementModel.LoginPermission" Width="1.5" PointX="5.625" PointY="2.625" />
+        <EntityTypeShape EntityType="FuelManagementModel.AircraftData" Width="1.5" PointX="0.75" PointY="60.375" />
+        <EntityTypeShape EntityType="FuelManagementModel.Aircraft" Width="1.5" PointX="3" PointY="62.375" />
+        <EntityTypeShape EntityType="FuelManagementModel.Airport" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="FuelManagementModel.CalendarEvent" Width="1.5" PointX="6" PointY="61.5" />
+        <EntityTypeShape EntityType="FuelManagementModel.Client" Width="1.5" PointX="0.75" PointY="63.25" />
+        <EntityTypeShape EntityType="FuelManagementModel.ContactDetailCustomField" Width="1.5" PointX="5.25" PointY="130.625" />
+        <EntityTypeShape EntityType="FuelManagementModel.ContactNote" Width="1.5" PointX="10.25" PointY="98.875" />
+        <EntityTypeShape EntityType="FuelManagementModel.Contact" Width="1.5" PointX="3" PointY="125.75" />
+        <EntityTypeShape EntityType="FuelManagementModel.ContactU" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="FuelManagementModel.CustomerDetailAircraftExclusion" Width="1.5" PointX="8.25" PointY="90.5" />
+        <EntityTypeShape EntityType="FuelManagementModel.CustomerDetail" Width="1.5" PointX="3" PointY="109.625" />
+        <EntityTypeShape EntityType="FuelManagementModel.CustomerDetailsCustomField" Width="1.5" PointX="3" PointY="100.125" />
+        <EntityTypeShape EntityType="FuelManagementModel.CustomerDetailVendorExclusion" Width="1.5" PointX="5.25" PointY="89.75" />
+        <EntityTypeShape EntityType="FuelManagementModel.CustomerNote" Width="1.5" PointX="6" PointY="66" />
+        <EntityTypeShape EntityType="FuelManagementModel.CustomerPriceMargin" Width="1.5" PointX="5.25" PointY="58.375" />
+        <EntityTypeShape EntityType="FuelManagementModel.DraggableEvent" Width="1.5" PointX="3" PointY="69.75" />
+        <EntityTypeShape EntityType="FuelManagementModel.EmailRouting" Width="1.5" PointX="3" PointY="43.5" />
+        <EntityTypeShape EntityType="FuelManagementModel.FBODetailCustomField" Width="1.5" PointX="3" PointY="119.125" />
+        <EntityTypeShape EntityType="FuelManagementModel.FBODetailVendorExclusion" Width="1.5" PointX="5.25" PointY="115.875" />
+        <EntityTypeShape EntityType="FuelManagementModel.FBOPriceMargin" Width="1.5" PointX="3" PointY="88.75" />
+        <EntityTypeShape EntityType="FuelManagementModel.FuelOrderInvoice" Width="1.5" PointX="10.5" PointY="72.875" />
+        <EntityTypeShape EntityType="FuelManagementModel.FuelOrderNote" Width="1.5" PointX="3" PointY="122.375" />
+        <EntityTypeShape EntityType="FuelManagementModel.FuelOrderPricing" Width="1.5" PointX="13.5" PointY="67.875" />
+        <EntityTypeShape EntityType="FuelManagementModel.FuelOrder" Width="1.5" PointX="8.25" PointY="57.75" />
+        <EntityTypeShape EntityType="FuelManagementModel.FuelOrderSupplierPricing" Width="1.5" PointX="8.25" PointY="74.5" />
+        <EntityTypeShape EntityType="FuelManagementModel.Login" Width="1.5" PointX="2.75" PointY="7.75" />
+        <EntityTypeShape EntityType="FuelManagementModel.PriceMargin" Width="1.5" PointX="3" PointY="47.375" />
+        <EntityTypeShape EntityType="FuelManagementModel.PriceMarginTier" Width="1.5" PointX="5.25" PointY="47.75" />
+        <EntityTypeShape EntityType="FuelManagementModel.Registration" Width="1.5" PointX="5.75" PointY="77" />
+        <EntityTypeShape EntityType="FuelManagementModel.SupplierFuelsPrice" Width="1.5" PointX="5.25" PointY="71.625" />
+        <EntityTypeShape EntityType="FuelManagementModel.Supplier" Width="1.5" PointX="3" PointY="81.625" />
+        <EntityTypeShape EntityType="FuelManagementModel.sysdiagram" Width="1.5" PointX="4.75" PointY="7.75" />
+        <EntityTypeShape EntityType="FuelManagementModel.TestTable" Width="1.5" PointX="6.75" PointY="7.75" />
+        <EntityTypeShape EntityType="FuelManagementModel.User" Width="1.5" PointX="8" PointY="69.75" />
+        <EntityTypeShape EntityType="FuelManagementModel.Vendor" Width="1.5" PointX="3" PointY="115.25" />
+        <EntityTypeShape EntityType="FuelManagementModel.AircraftExclusion" Width="1.5" PointX="3" PointY="51.125" />
+        <EntityTypeShape EntityType="FuelManagementModel.AircraftPriceMargin" Width="1.5" PointX="5.25" PointY="55" />
+        <EntityTypeShape EntityType="FuelManagementModel.AirportCounty" Width="1.5" PointX="8.75" PointY="3.75" />
+        <EntityTypeShape EntityType="FuelManagementModel.AirportPriceMargin" Width="1.5" PointX="3" PointY="67" />
+        <EntityTypeShape EntityType="FuelManagementModel.ClientFee" Width="1.5" PointX="8.75" PointY="6.75" />
+        <EntityTypeShape EntityType="FuelManagementModel.ClientTax" Width="1.5" PointX="8.75" PointY="9.75" />
+        <EntityTypeShape EntityType="FuelManagementModel.CustomerAccountingInfo" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="FuelManagementModel.EmailDispatch" Width="1.5" PointX="3" PointY="97.5" />
+        <EntityTypeShape EntityType="FuelManagementModel.ErrorLog" Width="1.5" PointX="2.75" PointY="10.75" />
+        <EntityTypeShape EntityType="FuelManagementModel.FuelOrderCustomerPricing" Width="1.5" PointX="10.5" PointY="65.875" />
+        <EntityTypeShape EntityType="FuelManagementModel.FuelOrderFee" Width="1.5" PointX="10.5" PointY="75.875" />
+        <EntityTypeShape EntityType="FuelManagementModel.FuelOrderTax" Width="1.5" PointX="10.5" PointY="78.375" />
+        <EntityTypeShape EntityType="FuelManagementModel.SchedulingImport" Width="1.5" PointX="10.75" PointY="4.75" />
+        <EntityTypeShape EntityType="FuelManagementModel.SchedulingPlatform" Width="1.5" PointX="4.75" PointY="10.75" />
+        <EntityTypeShape EntityType="FuelManagementModel.SchedulingUpload" Width="1.5" PointX="10.75" PointY="8.75" />
+        <EntityTypeShape EntityType="FuelManagementModel.SiteSetting" Width="1.5" PointX="10.75" PointY="11.75" />
+        <AssociationConnector Association="FuelManagementModel.FK_Aircrafts_AircraftData" />
+        <AssociationConnector Association="FuelManagementModel.FK_AircraftPriceMargins_Aircrafts" />
+        <AssociationConnector Association="FuelManagementModel.FK_Aircrafts_Clients_Admin" />
+        <AssociationConnector Association="FuelManagementModel.FK_Aircrafts_Clients_Cust" />
+        <AssociationConnector Association="FuelManagementModel.FK_FuelOrders_Aircrafts" />
+        <AssociationConnector Association="FuelManagementModel.FK_CalendarEvents_Clients" />
+        <AssociationConnector Association="FuelManagementModel.FK_CalendarEvents_Users" />
+        <AssociationConnector Association="FuelManagementModel.FK_AircraftExclusions_Clients_Admin" />
+        <AssociationConnector Association="FuelManagementModel.FK_AircraftExclusions_Clients_Cust" />
+        <AssociationConnector Association="FuelManagementModel.FK_AirportPriceMargins_Clients" />
+        <AssociationConnector Association="FuelManagementModel.FK_Contacts_Clients_Admin" />
+        <AssociationConnector Association="FuelManagementModel.FK_CustomerDetailAircraftExclusions_AdminClients" />
+        <AssociationConnector Association="FuelManagementModel.FK_CustomerDetailAircraftExclusions_CustClient" />
+        <AssociationConnector Association="FuelManagementModel.FK_CustomerDetails_Clients_Admin" />
+        <AssociationConnector Association="FuelManagementModel.FK_CustomerDetails_Clients_Cust" />
+        <AssociationConnector Association="FuelManagementModel.FK_CustomerDetailsCustomFields_Clients_Admin" />
+        <AssociationConnector Association="FuelManagementModel.FK_CustomerDetailsCustomFields_Clients_Cust" />
+        <AssociationConnector Association="FuelManagementModel.FK_CustomerDetailVendorExclusions_Clients" />
+        <AssociationConnector Association="FuelManagementModel.FK_CustomerNotes_AdminClients" />
+        <AssociationConnector Association="FuelManagementModel.FK_CustomerPriceMargins_CustClients" />
+        <AssociationConnector Association="FuelManagementModel.FK_DraggableEvents_Clients" />
+        <AssociationConnector Association="FuelManagementModel.FK_EmailDispatches_Clients" />
+        <AssociationConnector Association="FuelManagementModel.FK_EmailRouting_Clients_Admin" />
+        <AssociationConnector Association="FuelManagementModel.FK_FBODetailCustomFields_Clients_Admin" />
+        <AssociationConnector Association="FuelManagementModel.FK_FuelOrderCustomerPricings_AdminClients" />
+        <AssociationConnector Association="FuelManagementModel.FK_FuelOrderNotes_Clients" />
+        <AssociationConnector Association="FuelManagementModel.FK_FuelOrderPricings_AdminClients" />
+        <AssociationConnector Association="FuelManagementModel.FK_FuelOrders_AdminClients" />
+        <AssociationConnector Association="FuelManagementModel.FK_FuelOrders_CustClients" />
+        <AssociationConnector Association="FuelManagementModel.FK_FuelOrderSupplierPricings_Clients" />
+        <AssociationConnector Association="FuelManagementModel.FK_PriceMarginByFBO_Clients" />
+        <AssociationConnector Association="FuelManagementModel.FK_PriceMargins_Clients" />
+        <AssociationConnector Association="FuelManagementModel.FK_SupplierFuelsPrices_Clients" />
+        <AssociationConnector Association="FuelManagementModel.FK_Suppliers_Clients_Admin" />
+        <AssociationConnector Association="FuelManagementModel.FK_Users_Clients" />
+        <AssociationConnector Association="FuelManagementModel.FK_Vendors_Clients" />
+        <AssociationConnector Association="FuelManagementModel.FK_ContactDetailCustomFields_Contacts" />
+        <AssociationConnector Association="FuelManagementModel.FK_ContactNotes_Contacts" />
+        <AssociationConnector Association="FuelManagementModel.FK_ContactNotes_Users_Added" />
+        <AssociationConnector Association="FuelManagementModel.FK_CustomerDetailAircraftExclusions_Vendors" />
+        <AssociationConnector Association="FuelManagementModel.FK_CustomerDetailVendorExclusions_Vendors" />
+        <AssociationConnector Association="FuelManagementModel.FK_CustomerNotes_Users" />
+        <AssociationConnector Association="FuelManagementModel.FK_CustomerPriceMargins_PriceMargins" />
+        <AssociationConnector Association="FuelManagementModel.FK_DraggableEvents_Users" />
+        <AssociationConnector Association="FuelManagementModel.FK_FBODetailVendorExclusions_FBODetailVendorExclusions" />
+        <AssociationConnector Association="FuelManagementModel.FK_FuelOrderInvoices_FuelOrders" />
+        <AssociationConnector Association="FuelManagementModel.FK_FuelOrderPricings_FuelOrders" />
+        <AssociationConnector Association="FuelManagementModel.FK_FuelOrderPricings_Suppliers" />
+        <AssociationConnector Association="FuelManagementModel.FK_FuelOrderCustomerPricings_FuelOrders" />
+        <AssociationConnector Association="FuelManagementModel.FK_FuelOrderFees_FuelOrders" />
+        <AssociationConnector Association="FuelManagementModel.FK_FuelOrders_FuelOrders" />
+        <AssociationConnector Association="FuelManagementModel.FK_FuelOrderTaxes_FuelOrders" />
+        <AssociationConnector Association="FuelManagementModel.FK_FuelOrderSupplierPricings_Suppliers" />
+        <AssociationConnector Association="FuelManagementModel.FK_AircraftPriceMargins_PriceMargins" />
+        <AssociationConnector Association="FuelManagementModel.FK_PriceMarginTiers_PriceMarginTiers" />
+        <AssociationConnector Association="FuelManagementModel.FK_Users_Registration" />
+        <AssociationConnector Association="FuelManagementModel.FK_SupplierFuelsPrices_Suppliers" />
+        <AssociationConnector Association="FuelManagementModel.FK_FuelOrderCustomerPricings_Suppliers" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <output path="..\Release\Master.js" page="master">
+    <input path="..\..\Shared Files\JS\ocLazyLoad.js" projectpath="..\Common\JS\Shared\ocLazyLoad.js"/>
+    <input path="..\..\Shared Files\JS\ngAnimate-animate.js" projectpath="..\Common\JS\Shared\ngAnimate-animate.js"/>
+    <input path="..\..\Shared Files\JS\angular-spinkit.js" projectpath="..\Common\JS\Shared\angular-spinkit.js"/>
+    <input path="..\..\Shared Files\JS\Angular-ui-router.min.js" projectpath="..\Common\JS\Shared\Angular-ui-router.min.js"/>
+  </output>
+  <output path="..\Release\Members\Default.js" page="/Members/Default.aspx">
+    <input path="..\Members\JS\Common.js"/>
+  </output>
+  <output path="..\Release\Admin\Default.js" page="/Admin/Default.aspx">
+    <input path="..\Admin\JS\Common.js"/>
+  </output>
+</root>

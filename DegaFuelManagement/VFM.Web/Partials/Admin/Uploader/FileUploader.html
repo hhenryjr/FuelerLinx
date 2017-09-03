@@ -1,0 +1,192 @@
+﻿<div class="col-xs-12 padding-left-none padding-right-none">
+    <h1 class="page-title blue-font">
+        <i class="fa-fw fa fa-group"></i>
+        DROP ZONE <span class="default-grey-font">> VENDOR PRICING UPLOAD</span>
+    </h1>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-8 margin-top-15">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th class="">Vendor</th>
+                <th class="">Drop Zone</th>
+                <th class="">Status</th>
+                <th class="no-wrap">Upload Date</th>
+                <th class="">Delete</th>
+            </tr>
+            </thead>
+
+            <tbody>
+                <!--  ng-repeat for every vendor -->
+            <tr ng-repeat-start="supplier in dash.suppliers">
+                <td class="text-center" style="padding-top:15px;">
+                    <span class="margin-top-15 no-wrap">
+                        <a class="airport-icon-green margin-right-5 float-left" ng-if="!supplier.showingVendorDetails" ng-click="isCollapsed = !isCollapsed; dash.onToggleVendorDetails(supplier)">
+                            <i class="fa fa-2x fa-plus-circle"></i>
+                        </a>
+                        <a class="text-primary margin-right-5 float-left" ng-if="supplier.showingVendorDetails" ng-click="isCollapsed = isCollapsed; dash.onToggleVendorDetails(supplier)">
+                            <i class="fa fa-2x fa-minus-circle"></i>
+                        </a>
+                    </span>
+
+                    <span>{{supplier.SupplierName}}</span>
+                </td>
+                
+                <td>
+                    <div clas="row">
+                        <form action="{{'/api/files/supplier/'}}" method="post"
+                              enctype="multipart/form-data" class="dropzone no-wrap" id="dropzoneForm"
+                              ng-dropzone dropzone="dash.dropzone" dropzone-config="supplier.dropZoneConfig">
+                            <div class="fallback">
+                                <input type="file" name="file"/>
+                                <input type="submit" value="Upload"/>
+                            </div>
+                        </form>
+                    </div>
+                </td>
+
+                <td class="padding-top-15" style="width:200px;">
+                    <div class="bar-holder no-padding">
+                        <div class="row" ng-if="!supplier.IsComplete">
+                            <div class="text-center">{{supplier.ValidPricingPercentage}}%</div>
+                            <div class="">{{supplier.UploadState}}</div>
+                            <div class="text-center red small" ng-if="supplier.ValidPricingPercentage < 100 && supplier.ValidPricingPercentage !== 0 && !supplier.IsUploading"><i class="fa fa-exclamation-triangle fa-1" aria-hidden="true"></i>This vendor has expired prices</div>
+                        </div>
+
+
+                        <div ng-if="!supplier.IsUploading && supplier.ValidPricingPercentage == 0 && !supplier.IsComplete" class="progress progress-xs progress-striped active">
+                            <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                        </div>
+
+
+                        <div ng-if="supplier.IsUploading && !supplier.IsComplete" class="progress progress-xs progress-striped">
+                            <div class="active progress-bar" role="progressbar" style="width: 50%"></div>
+                        </div>
+
+
+                        <div ng-if="!supplier.IsUploading && supplier.ValidPricingPercentage == 100 && !supplier.IsComplete" class="progress progress-xs">
+                            <div class="active progress-bar bg-color-greenLight" role="progressbar" style="width: 100%"></div>
+                        </div>
+
+
+                        <div ng-if="!supplier.IsUploading && supplier.IsComplete && supplier.UploadState == 'Completed'">
+                            <div class="active progress-bar bg-color-greenLight" role="progressbar" style="width: 100%">Complete!</div>
+                        </div>
+
+
+                        <div ng-if="!supplier.IsUploading && supplier.UploadState == 'Failed'">
+                            <div style="width: 100%">
+                                <span type="button" style="background-color:red">Error</span>
+                            </div>
+                        </div>
+
+                        <!--<div class="progress progress-xs" rel="tooltip" data-original-title="25%" data-placement="top">
+                            <div class="progress-bar bg-color-teal" data-transitiongoal="25" aria-valuenow="25" style="width: 25%;"></div>
+                        </div>-->
+                    </div>
+                </td>
+                <td class="text-center" style="width:150px;">
+                    <div class="bar-holder no-padding">
+                        <div class="padding-top-10" style="width: 100%;">
+                            <span>{{supplier.LastUpdateDisplayText | date : "MM/dd/y"}}</span>
+                        </div>
+                    </div>
+                </td>
+                
+                
+                
+                
+                <td class="text-center">
+                    <span class="">
+                        <button type="button" href="#" class="btn btn-xs btn-red margin-top-10" ng-click="dash.deleteSupplier(supplier)"><i class="fa fa-trash"></i></button>
+                    </span>
+                </td>
+            </tr>
+                <tr ng-repeat-end="supplier in dash.suppliers" ng-if="supplier.showingVendorDetails">
+                    <td colspan="12">
+
+                            <div class="row">
+                                <div class="col-xs-12 no-padding">
+                                    <span class="col-xs-12 col-md-3 float-left padding-5 font-600">Contact Phone: </span> 
+                                    <div class="col-xs-12 col-md-4">
+                                        <input class="form-control" ng-model="supplier.SupplierPhone" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }"/>
+                                    </div>
+
+                                    <div class="col-xs-12 col-lg-3" ng-if="supplier.SupplierName.includes('Master') || supplier.SupplierName.includes('Largent')">
+                                        <button class="btn btn-default" ng-click="dash.onToggleVendorDetails(supplier)">Cancel</button>
+                                        <button class="btn btn-blue" ng-click="dash.saveSupplierDetails(supplier)">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row padding-top-10">
+                                    <div class="col-xs-12 no-padding" ng-if="!supplier.SupplierName.includes('Master') && !supplier.SupplierName.includes('Largent')">
+                                        <span class="col-xs-12 col-md-3 float-left padding-5 font-600">Vendor Dispatch Email: </span>
+                                        
+                                        <div class="col-xs-12 col-md-4">
+                                            <input class="form-control" ng-model="supplier.SupplierEmail" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                                        </div>
+
+                                        <div class="col-xs-12 col-lg-3">
+                                            <button class="btn btn-default" ng-click="dash.onToggleVendorDetails(supplier)">Cancel</button>
+                                            <button class="btn btn-blue" ng-click="dash.saveSupplierDetails(supplier)">Save</button>
+                                        </div>
+                                </div>
+                            </div>
+
+
+                 
+                    </td>
+                </tr>
+
+                <!-- Export Row -->
+            <tr>
+                <td colspan="5">
+                    <div class="row">
+                        <span class="pull-left padding-top-5">Showing {{dash.suppliers.length}} Entries</span>
+
+                        <span class="pull-right">
+                            <button type="button" class="btn btn-light-blue" ng-click="dash.exportPrices('PRICES')">Export</button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<br /><br />
+<!--<br/>
+<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3" data-widget-editbutton="false">
+        <header>
+            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+            <h2>Upload</h2>
+        </header>
+        <div class="block">
+            Select a Supplier
+            <select ui-select2 chosen style="width: 100%;" ng-model="dash.supplierId" ng-change="dash.supplierChange()" ng-options="supplier.Id as supplier.SupplierName for supplier in dash.suppliers">
+                <option></option>
+            </select>
+        </div>
+        <div class="block" ng-if="dash.showUploader">
+            <span>Upload File</span>
+            <form action="{{'/api/files/supplier/' + dash.supplierId}}" method="post"
+                  enctype="multipart/form-data" class="dropzone" id="dropzoneForm"
+                  ng-dropzone dropzone="dash.dropzone" dropzone-config="dash.dropzoneConfig">
+                <div class="fallback">
+                    <input type="file" name="file" multiple />
+                    <input type="submit" value="Upload" />
+                </div>
+            </form>
+        </div>
+
+    </div>
+</article>-->
+
+
+

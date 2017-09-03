@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FuelSheets>
+  <FuelSheet>
+    <Column Name="ICAO">
+      <ColumnLetter>C</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">4</Filter>
+        <Filter Type="MinLength">3</Filter>
+        <Filter Type="NotEqual">IATA</Filter>
+        <Filter Type="NotEqual">ICAO</Filter>
+        <Filter Type="NotEqual">Loc</Filter>
+      </Filters>
+    </Column>
+    <Column Name="IATA">
+      <ColumnLetter>D</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">4</Filter>
+        <Filter Type="MinLength">3</Filter>
+        <Filter Type="NotEqual">IATA</Filter>
+        <Filter Type="NotEqual">ICAO</Filter>
+        <Filter Type="NotEqual">Loc</Filter>
+      </Filters>
+    </Column>
+    <Column Name="FBOName">
+      <ColumnLetter>E</ColumnLetter>
+    </Column>
+    <Column Name="Min">
+      <ColumnLetter>F</ColumnLetter>
+      <IsNumeric>true</IsNumeric>
+      <StringOperations>
+        <Operation Type="Split" SplitOn="-" Index="0"></Operation>
+        <Operation Type="Replace" Replace="+" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="Flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="FLAT" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="UP" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="(DC9+)" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="," ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="'" ReplaceWith=""></Operation>
+      </StringOperations>
+    </Column>
+    <Column Name="Max">
+      <ColumnLetter>F</ColumnLetter>
+      <IsNumeric>true</IsNumeric>
+      <StringOperations>
+        <Operation Type="Split" SplitOn="-" Index="1"></Operation>
+        <Operation Type="Replace" Replace="+" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="Flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="FLAT" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="UP" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="(DC9+)" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="," ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="'" ReplaceWith=""></Operation>
+      </StringOperations>
+    </Column>
+    <Column Name="TotalWithTax">
+      <ColumnLetter>J</ColumnLetter>
+    </Column>
+    <Column Name="EffectiveDate">
+      <ColumnLetter>K</ColumnLetter>
+      <StringOperations>
+        <Operation Type="Replace" Replace="'" ReplaceWith=""></Operation>
+      </StringOperations>
+    </Column>
+    <Column Name="Expires">
+      <ColumnLetter>L</ColumnLetter>
+      <DateParse>en-US</DateParse>
+      <StringOperations>
+        <Operation Type="Replace" Replace="'" ReplaceWith=""></Operation>
+      </StringOperations>
+    </Column>
+    <Column Name="Notes">
+      <ColumnLetter>M</ColumnLetter>
+    </Column>
+    <Column Name="AdminClientID">
+      <StaticValue>0</StaticValue>
+    </Column>
+    <Column Name="SupplierID">
+      <StaticValue>0</StaticValue>
+    </Column>
+  </FuelSheet>
+</FuelSheets>

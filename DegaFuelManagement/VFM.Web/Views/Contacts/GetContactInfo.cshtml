@@ -1,0 +1,577 @@
+﻿@model VFM.Web.Models.ViewModels.ItemViewModel<int>
+
+@{
+    ViewBag.Title = "GetContactInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h1 class="page-title largent-light-grey">
+            <i class="fa-fw fa fa-home"></i>
+            Contact Info
+        </h1>
+    </div>
+    <!--content -->
+    <section id="widget-grid" class="">
+        <div data-ng-controller="contactController as contactInfo" id="contactCtrl" data-ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model))">
+            <a class="btn btn-primary" ng-href="/Home/@Model.CurrentUser.Id">Back to Client Info</a><br />
+            @*<a class="btn btn-primary" ng-href="/contactDetail/{{contactInfo.contact.CustClientID}}">Back to contact Details</a>*@
+
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget jarviswidget-color-white light-grey-border" id="" data-widget-editbutton="false" data-widget-colorbutton="false">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-6">
+                            <div class="jarviswidget jarviswidget-color-white light-grey-border" id="" data-widget-editbutton="false" data-widget-colorbutton="false">
+
+                                <div class="row no-padding">
+
+                                    <div id="myCarousel" class="carousel slide profile-carousel no-padding no-border">
+                                        <ol class="carousel-indicators">
+                                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                            <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+                                            <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+                                        </ol>
+                                        <div class="carousel-inner">
+                                            <!-- Slide 1 -->
+                                            <div class="item active">
+                                                <img src="/img/demo/s1.jpg" alt="demo user">
+                                            </div>
+                                            <!-- Slide 2 -->
+                                            <div class="item">
+                                                <img src="/img/demo/s2.jpg" alt="demo user">
+                                            </div>
+                                            <!-- Slide 3 -->
+                                            <div class="item">
+                                                <img src="/img/demo/s3.jpg" alt="demo user">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                                <h1 ng-if="!contactInfo.IsNameEditable">
+                                    {{contactInfo.contact.FirstName}} {{contactInfo.contact.LastName}}<br />
+                                    <small> {{contactInfo.contact.CompanyName}}</small><br />
+                                    <button class="editName" ng-click="contactInfo.editName()">Edit</button>
+                                </h1>
+                                <h1 ng-if="contactInfo.IsNameEditable">
+                                    <strong>First Name:</strong><input ng-model="contactInfo.contact.FirstName" />
+                                    <strong>Last Name:</strong><input ng-model="contactInfo.contact.LastName" /><br />
+                                    <button class="btn btn-default saveName" ng-click="contactInfo.saveName(contactInfo.contact)">Save</button>
+                                    <button class="btn btn-default cancelName" ng-click="contactInfo.cancelName(contactInfo.contact)">Cancel</button>
+                                </h1>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-3">
+                                        Active: <input type="checkbox" ng-model="contactInfo.contact.Distribute" ng-change="contactInfo.onDistributeChanged(contactInfo.contact.Distribute)" />
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <button ng-click="contactInfo.distribute()" ng-disabled="!contactInfo.contact.Distribute">Distribute Pricing</button>
+                                    </div>
+                                </div>
+                                <hr />
+                                <ul class="list-unstyled companyDetailListInfo table-text">
+                                    <li>
+                                        <div class="" ng-if="!contactInfo.IsPhoneEditable">
+                                            <i class="fa fa-phone"></i>{{contactInfo.contact.Phone}}@*&nbsp;&nbsp;(<span class="txt-color-darken">313</span>) <span class="txt-color-darken">464</span> - <span class="txt-color-darken">6473</span>*@
+                                            <button class="btn btn-xs btn-warning" ng-click="contactInfo.editPhone()"><i class="fa fa-gear"></i></button>
+                                        </div>
+                                        <div ng-if="contactInfo.IsPhoneEditable">
+                                            <input type="text" ng-model="contactInfo.contact.Phone" />
+                                            <button class="button button-xs btn-primary" ng-click="contactInfo.savePhone(contactInfo.contact.Phone)">Save</button>
+                                            <button class="button button-xs btn-primary" ng-click="contactInfo.cancelPhone(contactInfo.contact.Phone)">Cancel</button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div ng-if="!contactInfo.IsEmailEditable">
+                                            <i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:simmons@smartadmin">{{contactInfo.contact.Email}}</a>
+                                            <button class="btn btn-xs btn-warning" ng-click="contactInfo.editEmail()"><i class="fa fa-gear"></i></button>
+                                        </div>
+                                        <div ng-if="contactInfo.IsEmailEditable">
+                                            <input type="text" ng-model="contactInfo.contact.Email" />
+                                            <button class="button button-xs btn-primary" ng-click="contactInfo.saveEmail(contactInfo.contact.Email)">Save</button>
+                                            <button class="button button-xs btn-primary" ng-click="contactInfo.cancelEmail(contactInfo.contact.Email)">Cancel</button>
+                                        </div>
+                                    </li>
+                                    <!--<li>
+                <div>
+                    <i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">john12</span>
+                </div>
+            </li>
+            <li>
+                <div class="text-muted">
+                    <i class="fa fa-calendar"></i>&nbsp;&nbsp;<span class="txt-color-darken">Free after <a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Create an Appointment">4:30 PM</a></span>
+                </div>
+            </li>-->
+                                </ul>
+                                <p class="font-md">
+                                    <i>Company Description...</i>
+                                    <button ng-click="contactInfo.editNote()">Edit</button>
+                                </p>
+                                <div ng-if="contactInfo.IsNoteEditable">
+                                    <textarea ng-model="contactInfo.contact.Note"></textarea>
+                                    <button ng-click="contactInfo.saveNote(contactInfo.contact.Note)">Save</button>
+                                    <button ng-click="contactInfo.cancelNote(contactInfo.contact.Note)">Cancel</button>
+                                </div>
+                                <div ng-if="!contactInfo.IsNoteEditable">
+                                    <div>{{contactInfo.contact.Note}}</div>
+                                    <button ng-click="contactInfo.editNote()">Edit</button>
+                                </div>
+                                <div class="btn-group" uib-dropdown>
+                                    <button id="split-button" type="button" class="btn btn-primary">Add Custom Field</button>
+                                    <button type="button" class="btn btn-primary" uib-dropdown-toggle>
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Split button!</span>
+                                    </button>
+                                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                                        <li role="menuitem"><a ng-click="contactInfo.addCustomField('Phone')">Phone</a></li>
+                                        <li role="menuitem"><a ng-click="contactInfo.addCustomField('Email')">Email</a></li>
+                                    </ul>
+                                </div>
+                                <div ng-repeat="field in contactInfo.contact.CustomFields">
+                                    <div class="grey-text profileInfoBlurbText" ng-if="!field.IsEditable">
+                                        <strong>{{field.Title}}:</strong> {{field.Content}}
+                                        <button ng-click="contactInfo.editFields(field)">Edit</button><!--<button class="btn btn-xs btn-default" ng-click="contactInfo.deleteFields(field)">Delete</button>-->
+                                    </div>
+                                    <div class="grey-text profileInfoBlurbText" ng-if="field.IsEditable && field.Id > 0">
+                                        <input type="text" ng-model="field.Title" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" ng-disabled="field.Title" style="width: 100px" /> :
+                                        <input ng-model="field.Content" style="width: 150px" />
+                                        <button class="btn btn-xs btn-default" ng-click="contactInfo.saveFields(field)">Save</button><button class="btn btn-xs btn-default" ng-click="contactInfo.deleteFields(field)">Delete</button>
+                                    </div>
+                                    <div class="grey-text profileInfoBlurbText" ng-if="field.IsEditable && field.FieldType === 'Phone' && !field.Id">
+                                        <input type="text" ng-model="field.Title" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" ng-disabled="field.Title" style="width: 100px" /> :
+                                        <input ng-model="field.Content" placeholder="Phone" style="width: 150px" />
+                                        <button class="btn btn-xs btn-default" ng-click="contactInfo.saveFields(field)">Save</button><button class="btn btn-xs btn-default" ng-click="contactInfo.deleteFields(field)">Delete</button>
+                                    </div>
+                                    <div class="grey-text profileInfoBlurbText" ng-if="field.IsEditable && field.FieldType === 'Email' && !field.Id">
+                                        <input type="text" ng-model="field.Title" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" ng-disabled="field.Title" style="width: 100px" /> :
+                                        <input ng-model="field.Content" placeholder="Email" style="width: 150px" />
+                                        <button class="btn btn-xs btn-default" ng-click="contactInfo.saveFields(field)">Save</button><button class="btn btn-xs btn-default" ng-click="contactInfo.deleteFields(field)">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <!--<div class="row well">
+
+                        <div class="col-sm-6" ng-if="!contactInfo.IsNameEditable">
+                            <h1>
+                                {{contactInfo.contact.FirstName}} {{contactInfo.contact.LastName}}<br/>
+                                <small> {{contactInfo.contact.CompanyName}}</small>
+                            </h1>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <p class="text-muted">
+                                        <i class="fa fa-phone"></i>{{contactInfo.contact.Phone}}
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="text-muted">
+                                        <i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:simmons@smartadmin">{{contactInfo.contact.Email}}</a>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="text-muted">
+                                        <i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">john12</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="text-muted">
+                                        <i class="fa fa-calendar"></i>&nbsp;&nbsp;<span class="txt-color-darken">Free after <a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Create an Appointment">4:30 PM</a></span>
+                                    </p>
+                                </li>
+                            </ul>
+                            <div>
+                                <button class="editContact" ng-click="contactInfo.editContact()">Edit</button>
+                                <button class="deleteContact" ng-click="contactInfo.deleteContact(contactInfo.contact.CustClientID)">Delete</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-if="contactInfo.IsNameEditable">
+                            <div>
+                                <p><strong>First Name:</strong> <input ng-model="contactInfo.contact.FirstName"/></p>
+                                <p><strong>Last Name:</strong> <input ng-model="contactInfo.contact.LastName"/></p>
+                                <p><strong>Phone:</strong><input ng-model="contactInfo.contact.Phone"/></p>
+                                <p><strong>Email:</strong><input ng-model="contactInfo.contact.Email"/></p>
+                            </div>
+                            <button class="saveName" ng-click="contactInfo.saveName(contactInfo.contact)">Save</button>
+                            <button class="cancelEdit" ng-click="contactInfo.cancelName(contactInfo.contact)">Cancel</button>
+                        </div>
+                    </div>-->
+
+                        <div ng-if="contactInfo.savingNote">Saving Note</div>
+                        <div class="hidden container" ng-if="!contactInfo.savingNote">
+                            Notes
+                            <div class="content" ng-repeat="contactNote in contactInfo.contact.ContactNotes">
+                                <input type="text" ng-model="contactNote.Note" />
+                                <button class="savedNote" ng-click="contactInfo.saveNote(contactNote)">Save</button>
+                                <button class="deleteNote" ng-click="contactInfo.deleteNote(contactNote)">Delete</button>
+                            </div>
+                            <button class="addNote" ng-click="contactInfo.addNote()">Add Note</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/AngularJS/Services/contacts.js"></script>
+    <script src="~/Scripts/AngularJS/Services/contactNotes.js"></script>
+    <script src="~/Scripts/AngularJS/Services/contactDetailCustomFields.js"></script>
+    <script src="~/Scripts/AngularJS/Services/distribution.js"></script>
+    <script type="text/javascript">
+
+        degatech.page.startUp = function() {
+            degatech.page.userController = degatech.ng.getControllerInstance($("#contactCtrl"));
+        }
+
+        degatech.services.contactsFactory = function($baseService) {
+            var serviceObject = degatech.services.contacts;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.contactNotesFactory = function($baseService) {
+            var serviceObject = degatech.services.contactNotes;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.contactDetailCustomFieldsFactory = function($baseService) {
+            var serviceObject = degatech.services.contactDetailCustomFields;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.distributionFactory = function($baseService) {
+            var serviceObject = degatech.services.distribution;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.ng.addService(degatech.ng.app.module,
+            "$contactsService",
+            ["$baseService"],
+            degatech.services.contactsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module,
+            "$contactNotesService",
+            ["$baseService"],
+            degatech.services.contactNotesFactory);
+
+        degatech.ng.addService(degatech.ng.app.module,
+            "$contactDetailCustomFieldsService",
+            ["$baseService"],
+            degatech.services.contactDetailCustomFieldsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module,
+            "$distributionService",
+            ["$baseService"],
+            degatech.services.distributionFactory);
+
+        degatech.page.contactsControllerFactory = function($scope, $baseController, $contactsService,
+            $contactNotesService,
+            $contactDetailCustomFieldsService,
+            $distributionService,
+            Notification) {
+
+            var vm = this;
+
+            $baseController.merge(vm, $baseController);
+
+            vm.$contactsService = $contactsService;
+            vm.$contactNotesService = $contactNotesService;
+            vm.$contactDetailCustomFieldsService = $contactDetailCustomFieldsService;
+            vm.$distributionService = $distributionService;
+            vm.$scope = $scope;
+
+            //PUBLIC METHODS
+            vm.notify = vm.$contactsService.getNotifier($scope);
+            vm.saveName = _saveName;
+            vm.addNote = _addNote;
+            vm.saveNote = _saveNote;
+            vm.editNote = _editNote;
+            vm.deleteNote = _deleteNote;
+            vm.cancelNote = _cancelNote;
+            vm.editName = _editName;
+            vm.cancelName = _cancelName;
+            vm.deleteContact = _deleteContact;
+            vm.editPhone = _editPhone;
+            vm.cancelPhone = _cancelPhone;
+            vm.savePhone = _savePhone;
+            vm.editEmail = _editEmail;
+            vm.cancelEmail = _cancelEmail;
+            vm.saveEmail = _saveEmail;
+            vm.updateContactDetails = _updateContactDetails;
+            vm.onDistributeChanged = _onDistributeChanged;
+            vm.distribute = _distribute;
+            vm.addCustomField = _addCustomField;
+            vm.editFields = _editFields;
+            vm.saveFields = _saveFields;
+            vm.cancelFields = _cancelFields;
+            vm.deleteFields = _deleteFields;
+
+            //PUBLIC HANDLERS
+            vm.onGetInfoSuccess = _onGetInfoSuccess;
+            vm.onSaveContactSuccess = _onSaveContactSuccess;
+            vm.onSaveNoteSuccess = _onSaveNoteSuccess;
+            vm.onDeleteNoteSuccess = _onDeleteNoteSuccess;
+            vm.onDeleteContactSuccess = _onDeleteContactSuccess;
+            //vm.onUpdateContactSuccess = _onUpdateContactSuccess;
+            vm.onError = _onError;
+
+            //PUBLIC MEMBERS
+            vm.test = "This is a test";
+            vm.contact = null;
+            vm.savedContact = null;
+            vm.savedNote = null;
+            vm.deletedNote = null;
+            //vm.contactTypes = ["Primary","Secondary","Billing"];
+            //vm.IsNameEditable = false;
+
+            render();
+
+            function RedirectToMainPage() {
+                location.href = "/Login";
+            }
+
+            //PRIVATE METHODS
+            function render() {
+                var userId = @Model.CurrentUser.Id;
+                if (userId == 0){
+                    Notification.primary({
+                        model: this,
+                        scope: $scope,
+                        //templateUrl: '/Partials/Common/Notifications/Login.html',
+                        message: "<div>Your session has timed out.</div><div><a onclick='RedirectToMainPage();'>OK</a></div>",
+                        delay: 3000,
+                        closeOnClick: false
+                    });
+                }else vm.$contactsService.getContact(@Model.Item, vm.onGetInfoSuccess, vm.onError);
+            }
+
+            function _onDistributeChanged(dstb){
+                vm.contact.Distribute = dstb;
+                _updateContactDetails(vm.contact);
+            }
+
+            function _editName(){
+                vm.IsNameEditable = !vm.IsNameEditable;
+            }
+
+            function _cancelName(name){
+                vm.contact.FirstName = vm.updatedContact.FirstName;
+                vm.contact.LastName = vm.updatedContact.LastName;
+                vm.IsNameEditable = !vm.IsNameEditable;
+            }
+
+            function _saveName(name) {
+                vm.contact.FirstName = name.FirstName;
+                vm.contact.LastName = name.LastName;
+                _updateContactDetails(vm.contact);
+            }
+
+            function _deleteContact(clientId) {
+                if (confirm("Are you sure you want to delete this contact?")) {
+                    vm.clientId = clientId;
+                    vm.$contactsService.deleteContact(@Model.Item, vm.onDeleteContactSuccess, vm.onError);
+                }
+            }
+
+            function _addNote() {
+                vm.contact.ContactNotes.push({
+                    ContactID: vm.contact.Id,
+                    AddedByUserID: @Model.CurrentUser.Id,
+                    CustClientID: vm.contact.CustClientID
+                });
+            }
+
+            function _saveNote(note) {
+                vm.contact.Note = note;
+                _updateContactDetails(vm.contact);
+                @*vm.savingNote = true;
+                vm.savedNote = note;
+                if(note.Id > 0){
+                    note.UpdatedByUserID = @Model.CurrentUser.Id;
+                    vm.$contactNotesService.updateContactNote(note.Id, note, vm.onSaveNoteSuccess, vm.onError);
+                }else{
+                    vm.$contactNotesService.addContactNote(note, vm.onSaveNoteSuccess, vm.onError);
+                }*@
+            }
+
+            function _editNote() {
+                vm.IsNoteEditable = !vm.IsNoteEditable;
+            }
+
+            function _cancelNote(note){
+                if (note) vm.contact.Note = vm.updatedContact.Note;
+                if (vm.IsNoteEditable) vm.IsNoteEditable = !vm.IsNoteEditable;
+            }
+
+            function _deleteNote(note) {
+                vm.deletedNote = note;
+                if(note.Id > 0){
+                    if (confirm("Are you sure you want to delete this note?")) {
+                        vm.$contactNotesService.deleteContactNote(note.Id, vm.onDeleteNoteSuccess, vm.onError);
+                    }
+                }else{
+                    vm.contact.ContactNotes.pop();
+                }
+            }
+
+            function _editPhone(){
+                vm.IsPhoneEditable = !vm.IsPhoneEditable;
+            }
+
+            function _cancelPhone(phone){
+                if (phone) vm.contact.Phone = vm.updatedContact.Phone;
+                vm.IsPhoneEditable = !vm.IsPhoneEditable;
+            }
+
+            function _savePhone(phone){
+                vm.contact.Phone = phone;
+                _updateContactDetails(vm.contact);
+            }
+
+            function _editEmail(){
+                vm.IsEmailEditable = !vm.IsEmailEditable;
+            }
+
+            function _cancelEmail(email){
+                if (email) vm.contact.Email = vm.updatedContact.Email;
+                vm.IsEmailEditable = !vm.IsEmailEditable;
+            }
+
+            function _saveEmail(email){
+                vm.contact.Email = email;
+                _updateContactDetails(vm.contact);
+            }
+
+            function _updateContactDetails(contact) {
+                vm.updatedContact = angular.copy(contact);
+                vm.$contactsService.updateContact(vm.updatedContact.Id, contact, vm.onSaveContactSuccess, _onError);
+            }
+
+            function _distribute(){
+                if (confirm("Are you sure you want to distribute pricing to this contact?"))
+                    vm.$distributionService.distributeContact(vm.contact.AdminClientID, vm.contact.Id, _onDistributeSuccess, vm.onError);
+            }
+
+            function _onDistributeSuccess(data){
+                Notification.success({
+                    model: this,
+                    scope: $scope,
+                    //templateUrl: '/Partials/Common/Notifications/Login.html',
+                    message: "Company Distributed! <br /> <br />",
+                    delay: 3000,
+                    closeOnClick: false
+                });
+            }
+
+            function _addCustomField(type){
+                vm.contact.CustomFields.push({
+                    ContactID: vm.contact.Id,
+                    FieldType: type,
+                    IsEditable: true
+                });
+            }
+
+            function _editFields(field) {
+                field.IsEditable = true;
+            }
+
+            function _saveFields(customField) {
+                vm.savedCustomField = customField;
+                if (vm.savedCustomField.Id > 0)
+                    vm.$contactDetailCustomFieldsService.updateCustomField(vm.savedCustomField.Id, vm.savedCustomField, _onSaveCustomFieldsSuccess, _onError);
+                else vm.$contactDetailCustomFieldsService.addCustomField(vm.savedCustomField, _onSaveCustomFieldsSuccess, _onError);
+            }
+
+            function _cancelFields(field) {
+                field.IsEditable = false;
+            }
+
+            function _deleteFields(field) {
+                if (field.Id > 0) {
+                    if (confirm("Are you sure you want to delete this field?")) {
+                        vm.deletedField = field
+                        vm.$contactDetailCustomFieldsService.deleteCustomField(field, _onDeleteCustomFieldSuccess, _onError);
+                    }
+                }
+                else vm.contact.CustomFields.pop();
+            }
+
+            //PRIVATE HANDLERS
+            function _onGetInfoSuccess(data) {
+                vm.notify(function() {
+                    vm.contact = data.Item;
+                    vm.updatedContact = angular.copy(data.Item);
+                    console.log(vm.contact);
+                });
+            }
+
+            function _onSaveContactSuccess(data) {
+                vm.notify(function() {
+                    vm.IsPhoneEditable = false;
+                    vm.IsEmailEditable = false;
+                    vm.IsNoteEditable = false;
+                    vm.IsNameEditable = false;
+                });
+            }
+
+            function _onDeleteContactSuccess(){
+                location.href = "/contactDetails/" + vm.clientId;
+            }
+
+            function _onSaveNoteSuccess(data) {
+                vm.notify(function() {
+                    vm.savingNote = false;
+                    if(data.Item){
+                        vm.savedNote.Id = data.Item;
+                    }
+                });
+            }
+
+            function _onDeleteNoteSuccess() {
+                vm.notify(function() {
+                    var index = vm.contact.ContactNotes.indexOf(vm.deletedNote);
+                    if (index > -1) {
+                        vm.contact.ContactNotes.splice(index, 1);
+                    }
+                });
+            }
+
+            function _onSaveCustomFieldsSuccess(data){
+                vm.notify(function () {
+                    console.log("Custom field saved!");
+                    if (data.Item) vm.savedCustomField.Id = data.Item;
+                    vm.savedCustomField.IsEditable = false;
+                });
+            }
+
+            function _onDeleteCustomFieldSuccess(){
+                vm.notify(function () {
+                    var index = vm.contact.CustomFields.indexOf(vm.deletedField);
+                    if (index > -1) vm.contact.CustomFields.splice(index, 1);
+                });
+            }
+
+            function _onError() {
+                vm.notify(function() {
+                    vm.savingContact = false;
+                    vm.savingUser = false;
+                });
+                vm.error = "An error has occurred!";
+                console.log(vm.error);
+            }
+        }
+
+        degatech.ng.addController(degatech.ng.app.module,
+            "contactController",
+            ['$scope', '$baseController', "$contactsService", "$contactNotesService", "$contactDetailCustomFieldsService", "$distributionService", "Notification"],
+            degatech.page.contactsControllerFactory);
+    </script>
+
+}

@@ -1,0 +1,158 @@
+﻿<div class="col-xs-12 padding-left-none padding-right-none">
+    <h1 class="page-title txt-color-blueDark blue-font">
+        <i class="fa-fw fa fa-suitcase"></i>
+        VENDOR MANAGER <span class="default-grey-font">&gt; WHOLESALE VENDOR GRID</span>
+    </h1>
+</div>
+
+<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-content-container">
+    <div class="jarviswidget jarviswidget-color-blueDark" id="" data-widget-editbutton="false">
+        <div class="no-border">
+            <div class="widget-body no-padding no-border">
+
+                <div ng-if="vendorGrid.vendors == null">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p class="table-text text-center">One Moment Please...</p>
+                            <loading-icon></loading-icon>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="vendorGrid.vendors != null">
+                    <table st-table="vendorGrid.vendors" class="table table-striped table-bordered">
+                        <thead>
+                            <tr class="table-text">
+                                <th colspan="12">
+                                    <div class="inline-block pull-left">
+                                        <label class="search-input">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-search"></i>
+                                            </span>
+                                            <input type="text" placeholder="Search" class="form-control" ng-model="vendorGrid.search" st-search>
+                                        </label>
+                                    </div>
+                                    <div class="inline-block pull-right" ng-if="vendorGrid.$usersService.user.Permission.VendorGrid == 0">
+                                        <button type="button" class="btn btn-success" ng-click="vendorGrid.addVendor()"><i class="fa fa-plus"></i> New Vendor</button>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr class="table-text search-header">
+                                <th colspan="2">
+                                    <div class="btn-group dropdown" uib-dropdown="" style="">
+                                        <button type="button" class="btn btn-xs btn-primary dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                                            <span class="margin-right-5">{{vendorGrid.filter.DeactivatedLabel}}</span>
+                                            <i class="fa fa-caret-down white-font"></i>
+                                        </button>
+
+                                        <ul class="dropdown-menu" uib-dropdown-menu="" role="menu" aria-labelledby="split-button" ng-model="vendorGrid.filter.DeactivatedStatus" predicate="IsDeactivated">
+                                            <li role="menuitem"><a ng-click="vendorGrid.filter.DeactivatedStatus = '';vendorGrid.filter.DeactivatedLabel = 'Show All';">Show All</a></li>
+                                            <li role="menuitem"><a ng-click="vendorGrid.filter.DeactivatedStatus = 'true';vendorGrid.filter.DeactivatedLabel = 'Deactivated';">Deactivated</a></li>
+                                        </ul>
+                                    </div>
+                                </th>
+                                <th>
+                                    <input class="form-control borderless-input" placeholder="Vendor" type="text" st-search="Name">
+                                </th>
+                                <th></th>
+                                <th></th>
+                                <th>
+
+                                    <input class="form-control borderless-input" placeholder="Notes" type="text" st-search="Note">
+                                </th>
+                            </tr>
+
+                            <tr class="table-headers">
+                                <th style="" class="no-wrap" st-sort="IsDeactivated" ng-if="vendorGrid.$usersService.user.Permission.VendorGrid == 0">
+                                    <span></span>
+                                </th>
+                                <th style="" colspan="2" class="no-wrap" st-sort="IsDeactivated" ng-if="vendorGrid.$usersService.user.Permission.VendorGrid == 1">
+                                    <span></span>
+                                </th>
+                                <th style="max-width:90px;" class="no-wrap" ng-if="vendorGrid.$usersService.user.Permission.VendorGrid == 0">
+                                    <span class="">Controls</span>
+                                </th>
+                                <th style="max-width:50px;" class="no-wrap" st-sort="Name">
+                                    <span>Vendor</span>
+                                </th>
+                                <th style="max-width:100px;" class="no-wrap">
+                                    <span>Default State</span>
+                                </th>
+                                <th style="max-width:250px;" class="no-wrap">
+                                    <span>Vendor Margin</span>
+                                </th>
+                                <th style="max-width:320px;" class="no-wrap" st-sort="Note">
+                                    <span>Notes</span>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-class="vendor.IsDeactivated ? 'row-selected strike' : 'row-not-selected'" ng-show="vendorGrid.vendors.length > 0" ng-repeat="vendor in vendorGrid.vendors | filter: vendorGrid.vendorFilter: vendor">
+                                <td ng-if="vendor.IsEditable"></td>
+                                <td ng-if="vendor.Id > 0 && !vendor.IsEditable && vendorGrid.$usersService.user.Permission.VendorGrid == 0">
+                                    <input class="position-top-5" type="checkbox" ng-model="vendor.IsDeactivated" ng-click="vendorGrid.saveVendor(vendor)" ng-disabled="vendorGrid.$usersService.user.Permission.VendorGrid == 1"/>
+                                </td>
+                                <td colspan="2" ng-if="vendor.Id > 0 && !vendor.IsEditable && vendorGrid.$usersService.user.Permission.VendorGrid == 1">
+                                    <span class="offset-top-5"><input class="position-top-5" type="checkbox" ng-model="vendor.IsDeactivated" ng-click="vendorGrid.saveVendor(vendor)" ng-disabled="vendorGrid.$usersService.user.Permission.VendorGrid == 1" /></span>
+                                </td>
+                                <td ng-if="vendor.Id > 0 && !vendor.IsEditable && vendorGrid.$usersService.user.Permission.VendorGrid == 0">
+                                    <span class="offset-top-5"><a href="#" class="btn btn-xs btn-primary" type="button" ng-click="vendorGrid.editVendor(vendor)"><i class="fa fa-pencil-square-o"></i></a></span>
+                                </td>
+                                <!--<td ng-if="vendorGrid.$usersService.user.Permission.VendorGrid == 1"></td>-->
+                                <td ng-if="vendor.IsEditable">
+                                    <a class="btn btn-xs btn-success" type="button" ng-click="vendorGrid.saveVendor(vendor)"><i class="fa fa-save"></i></a>
+                                    <a class="btn btn-xs btn-danger" type="button" ng-click="vendorGrid.deleteVendor(vendor)"><i class="fa fa-trash"></i></a>
+                                </td>
+                                <td ng-if="vendor.Id > 0 && !vendor.IsEditable"><span class="position-top-5">{{vendor.Name}}</span></td>
+                                <td ng-if="vendor.IsEditable">
+                                    <input type="text" ng-model="vendor.Name" />
+                                </td>
+                                <td ng-if="vendor.Id > 0 && !vendor.IsEditable" ng-class="!vendor.IsExcluded ? 'green-font' : 'red-font'">
+                                    <span ng-if="!vendor.IsExcluded" class="position-top-5">INCLUDED</span>
+                                    <span ng-if="vendor.IsExcluded" class="position-top-5">EXCLUDED</span>
+                                </td>
+                                <td ng-if="vendor.IsEditable">
+                                    <div class="smart-form">
+                                        <label class="toggle float-left">
+                                            <input type="checkbox" name="checkbox-toggle" ng-model="vendor.IsExcluded">
+                                            <i style="width: 70px; left:-3px;" class="disabled-toggle" data-swchon-text="EXCLUDED" data-swchoff-text="INCLUDED"></i>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input class="form-control borderless-input" select-on-focus decimal require-decimal="true" ng-disabled="vendorGrid.$usersService.user.Permission.VendorGrid == 1"
+                                           type="text" step="0.0001" ng-model="vendor.Margin" style="width: 75px" ng-class="{'red': vendor.Margin < 0}"
+                                           ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" ng-change="vendorGrid.saveVendor(vendor)" />
+                                </td>
+                                <td ng-if="vendor.Id > 0 && !vendor.IsEditable">{{vendor.Note}}</td>
+                                <td ng-if="vendor.IsEditable">
+                                    <input type="text" ng-model="vendor.Note" />
+                                </td>
+                            </tr>
+                            <tr st-filtered-row-length class="table-text" ng-show="FilteredRowLength == 0">
+                                <td colspan="12">
+                                    <div class="row">
+                                        <h2 class="text-center padding-10">No records found!</h2>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="12">
+                                    <div class="float-left padding-5 hidden-xs">
+                                        <select class="form-control" ng-model="vendorGrid.VendorRecordsPerPage" ng-options="record as record + ' Records Per Page' for record in vendorGrid.RecordsPerPage">
+                                            <option value="" disabled selected>Select your option</option>
+                                        </select>
+                                    </div>
+                                    <div class="float-right ng-isolate-scope" st-pagination="" st-items-by-page="vendorGrid.VendorRecordsPerPage" st-displayed-pages="5"></div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

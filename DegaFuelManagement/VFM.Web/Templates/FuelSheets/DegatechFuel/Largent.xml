@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FuelSheets>
+  <FuelSheet>
+    <Column Name="Vendor">
+      <ColumnLetter>A</ColumnLetter>
+    </Column>
+    <Column Name="IATA">
+      <ColumnLetter>B</ColumnLetter>
+    </Column>
+    <Column Name="ICAO">
+      <ColumnLetter>C</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">4</Filter>
+        <Filter Type="MinLength">3</Filter>
+        <Filter Type="NotEqual">IATA</Filter>
+        <Filter Type="NotEqual">ICAO</Filter>
+        <Filter Type="NotEqual">Loc</Filter>
+      </Filters>
+    </Column>
+    <Column Name="FBOName">
+      <ColumnLetter>D</ColumnLetter>
+    </Column>
+    <Column Name="Notes">
+      <ColumnLetter>J</ColumnLetter>
+    </Column>
+    <Column Name="Product">
+      <ColumnLetter>I</ColumnLetter>
+    </Column>
+    <Column Name="Min">
+      <ColumnLetter>E</ColumnLetter>
+      <IsNumeric>True</IsNumeric>
+    </Column>
+    <Column Name="Max">
+      <ColumnLetter>F</ColumnLetter>
+      <IsNumeric>True</IsNumeric>
+    </Column>
+    <Column Name="TotalWithTax">
+      <ColumnLetter>G</ColumnLetter>
+    </Column>
+    <Column Name="Expires">
+      <ColumnLetter>H</ColumnLetter>
+      <DateParse>en-US</DateParse>
+    </Column>
+    <Column Name="AdminClientID">
+      <StaticValue>0</StaticValue>
+    </Column>
+    <Column Name="SupplierID">
+      <StaticValue>0</StaticValue>
+    </Column>
+    <Column Name="VendorEmaili">
+      <ColumnLetter>J</ColumnLetter>
+    </Column>
+  </FuelSheet>
+</FuelSheets>

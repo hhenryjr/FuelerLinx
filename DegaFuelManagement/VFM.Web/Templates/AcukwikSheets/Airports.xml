@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AcukwikSheets>
+  <AcukwikSheet>
+    <Column Name="Airport_ID">
+      <ColumnLetter>A</ColumnLetter>
+    </Column>
+    <Column Name="ICAO">
+      <ColumnLetter>B</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">4</Filter>
+        <Filter Type="MinLength">3</Filter>
+        <Filter Type="NotEqual">IATA</Filter>
+        <Filter Type="NotEqual">ICAO</Filter>
+        <Filter Type="NotEqual">Loc</Filter>
+      </Filters>
+    </Column>
+    <Column Name="IATA">
+      <ColumnLetter>C</ColumnLetter>
+    </Column>
+    <Column Name="FAA">
+      <ColumnLetter>D</ColumnLetter>
+    </Column>
+    <Column Name="FullAirportName">
+      <ColumnLetter>E</ColumnLetter>
+    </Column>
+    <Column Name="AirportCity">
+      <ColumnLetter>F</ColumnLetter>
+    </Column>
+    <Column Name="State/Subdivision">
+      <ColumnLetter>G</ColumnLetter>
+    </Column>
+    <Column Name="Country">
+      <ColumnLetter>H</ColumnLetter>
+    </Column>
+    <Column Name="AirportType">
+      <ColumnLetter>I</ColumnLetter>
+    </Column>
+    <Column Name="Distance_From_City">
+      <ColumnLetter>J</ColumnLetter>
+    </Column>
+    <Column Name="Latitude">
+      <ColumnLetter>K</ColumnLetter>
+    </Column>
+    <Column Name="Longitude">
+      <ColumnLetter>L</ColumnLetter>
+    </Column>
+    <Column Name="Elevation">
+      <ColumnLetter>M</ColumnLetter>
+      <IsNumeric>True</IsNumeric>
+    </Column>
+    <Column Name="Variation">
+      <ColumnLetter>N</ColumnLetter>
+    </Column>
+    <Column Name="IntlTimeZone">
+      <ColumnLetter>O</ColumnLetter>
+      <IsNumeric>True</IsNumeric>
+    </Column>
+    <Column Name="DaylightSavingsYN">
+      <ColumnLetter>P</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">1</Filter>
+        <Filter Type="MinLength">1</Filter>
+      </Filters>
+    </Column>
+    <Column Name="FuelType">
+      <ColumnLetter>Q</ColumnLetter>
+    </Column>
+    <Column Name="AirportOfEntry">
+      <ColumnLetter>R</ColumnLetter>
+    </Column>
+    <Column Name="Customs">
+      <ColumnLetter>S</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">1</Filter>
+        <Filter Type="MinLength">1</Filter>
+      </Filters>
+    </Column>
+    <Column Name="HandlingMandatory">
+      <ColumnLetter>T</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">1</Filter>
+        <Filter Type="MinLength">1</Filter>
+      </Filters>
+    </Column>
+    <Column Name="SlotsRequired">
+      <ColumnLetter>U</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">1</Filter>
+        <Filter Type="MinLength">1</Filter>
+      </Filters>
+    </Column>
+    <Column Name="Open24Hours">
+      <ColumnLetter>V</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">1</Filter>
+        <Filter Type="MinLength">1</Filter>
+      </Filters>
+    </Column>
+    <Column Name="ControlTowerHours">
+      <ColumnLetter>W</ColumnLetter>
+    </Column>
+    <Column Name="ApproachList">
+      <ColumnLetter>X</ColumnLetter>
+    </Column>
+    <Column Name="PrimaryRunwayID">
+      <ColumnLetter>Y</ColumnLetter>
+    </Column>
+    <Column Name="RunwayLength">
+      <ColumnLetter>Z</ColumnLetter>
+      <IsNumeric>True</IsNumeric>
+    </Column>
+    <Column Name="RunwayWidth">
+      <ColumnLetter>AA</ColumnLetter>
+      <IsNumeric>True</IsNumeric>
+    </Column>
+    <Column Name="RunwayWidth">
+      <ColumnLetter>AA</ColumnLetter>
+      <IsNumeric>True</IsNumeric>
+    </Column>
+    <Column Name="Lighting">
+      <ColumnLetter>AB</ColumnLetter>
+    </Column>
+    <Column Name="AirportNameShort">
+      <ColumnLetter>AB</ColumnLetter>
+    </Column>
+  </AcukwikSheet>
+</AcukwikSheets>

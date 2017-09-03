@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AcukwikSheets>
+  <AcukwikSheet>
+    <Column Name="StateSubdivision_ID">
+      <ColumnLetter>A</ColumnLetter>
+    </Column>
+    <Column Name="StateSubdivisionName">
+      <ColumnLetter>B</ColumnLetter>
+    </Column>
+    <Column Name="StateSubdivisionAbbr">
+      <ColumnLetter>C</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">3</Filter>
+        <Filter Type="MinLength">1</Filter>
+      </Filters>
+    </Column>
+    <Column Name="Country">
+      <ColumnLetter>D</ColumnLetter>
+    </Column>
+  </AcukwikSheet>
+</AcukwikSheets>

@@ -1,0 +1,128 @@
+﻿
+<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div ng-if="info.fuelOrders.length == 0">Loading Fuel Orders</div>
+    <div ng-if="info.fuelOrders.length > 0">
+        <div class="jarviswidget jarviswidget-color-blueDark" data-widget-editbutton="false">
+            <header>
+                <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                <h2>Transactions</h2>
+            </header>
+            <div>
+                <div class="widget-body no-padding">
+                    <div class="table-responsive no-footer">
+
+                        <table st-table="info.fuelOrders" class="table table-hover table-striped table-bordered" width="100%">
+                            <thead>
+                                <tr>
+                                    <th colspan="12">
+                                        <div class="row">
+                                            <label class="search-input margin-right-sm">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-search"></i>
+                                                </span>
+                                                <input type="text" placeholder="Search Fuel Orders" st-search="" class="form-control borderless-input">
+                                            </label>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr class="">
+                                    <th class="col-xs-1 col-sm-1 col-lg-1">
+                                        <input placeholder="ICAO" maxlength="4" class="form-control-borderless form-control" type="text" st-search="ICAO">
+                                    </th>
+                                    <th class="col-xs-2 col-sm-2 col-md-4">
+                                        <input class="form-control-borderless form-control" placeholder="FBO" type="text" st-search="FBO">
+                                    </th>
+                                    <th class="col-xs-1 col-sm-1 col-md-1">
+                                        <input placeholder="Tail Number" type="text" class="form-control borderless-input " st-search="Aircraft.TailNumber">
+                                    </th>
+                                    <th class="col-xs-1 col-sm-1 col-md-1">
+                                        <input placeholder="Status" type="text" class="form-control borderless-input " st-search="">
+                                    </th>
+                                    <th class="col-xs-1 col-sm-1 col-md-1">
+                                        <input placeholder="Date Requested" class="form-control borderless-input " type="text" st-search="DateRequested">
+                                    </th>
+                                    <th class="hidden">
+                                        <input class="form-control borderless-input " type="text" st-search="AdminStatus">
+                                    </th>
+                                    <th class="hidden">
+                                        <input class="form-control borderless-input " type="text" st-search="CustStatus">
+                                    </th>
+                                    <th class="hidden">Is Archived</th>
+                                    <th class="hidden">Is Directly Entered</th>
+                                    <th class="col-xs-1 col-sm-1 col-md-1">
+                                        <input class="form-control borderless-input " placeholder="Quoted PPG" type="text" st-search="QuotedPPG">
+                                    </th>
+                                    <th class="col-xs-1 col-sm-1 col-md-1">
+                                        <input class="form-control borderless-input " placeholder="Invoiced PPG" type="text" st-search="InvoicedPPG">
+                                    </th>
+                                    <th class="col-xs-1 col-sm-1 col-md-1">
+                                        <input placeholder="Quoted PPG" class="form-control borderless-input " type="text" st-search="QuotedVolume">
+                                    </th>
+                                    <th class="hidden">
+                                        <input class="form-control borderless-input " type="text" st-search="InvoicedVolume">
+                                    </th>
+                                    <th class="col-xs-1 col-sm-1 col-md-1">
+                                        <input placeholder="Fueling Date Time" class="form-control borderless-input " type="text" st-search="FuelingDateTime">
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="col-xs-3 col-sm-2 col-lg-1">ICAO <a href="javascript:void(0);" class="btn btn-xs btn-default pull-right"><i st-sort="ICAO" class="fa fa-filter"></i></a></th>
+                                    <th>FBO <a href="javascript:void(0);" class="btn btn-xs btn-default pull-right"><i st-sort="FBO" class="fa fa-filter"></i></a></th>
+                                    <th class="text-center">Tail Number <a href="javascript:void(0);" class="btn btn-xs btn-default pull-right"><i st-sort="TailNumber" class="fa fa-filter"></i></a></th>
+                                    <th class="text-center">Status <a href="javascript:void(0);" class="btn btn-xs btn-default pull-right"><i class="fa fa-filter"></i></a></th>
+                                    <th class="text-right">Date Requested <a href="javascript:void(0);" class="btn btn-xs btn-default pull-right"><i st-sort="DateRequested" class="fa fa-filter"></i></a></th>
+                                    <th class="hidden" st-sort="AdminStatus">Admin Status</th>
+                                    <th class="hidden" st-sort="CustStatus">Customer Status</th>
+                                    <th class="hidden">Is Archived</th>
+                                    <th class="hidden">Is Directly Entered</th>
+                                    <th class="text-right">Quoted PPG <a href="javascript:void(0);" class="btn btn-xs btn-default pull-right"><i st-sort="QuotedPPG" class="fa fa-filter"></i></a></th>
+                                    <th class="text-right">Invoiced PPG <a href="javascript:void(0);" class="btn btn-xs btn-default pull-right"><i st-sort="InvoicedPPG" class="fa fa-filter"></i></a></th>
+                                    <th class="text-right">Quoted Volume <a href="javascript:void(0);" class="btn btn-xs btn-default pull-right"><i st-sort="QuotedVolume" class="fa fa-filter"></i></a></th>
+                                    <th class="hidden">Invoiced Volume <a href="javascript:void(0);" class="btn btn-xs btn-default pull-right"><i st-sort="InvoicedVolume" class="fa fa-filter"></i></a></th>
+                                    <th class="text-right">Fueling Date <a href="javascript:void(0);" class="btn btn-xs btn-default pull-right"><i st-sort="FuelingDate" class="fa fa-filter"></i></a></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="fuelOrder in info.fuelOrders">
+                                    <td>{{fuelOrder.ICAO}}</td>
+                                    <td>{{fuelOrder.FBO}} <span class="float-right"><a class="btn btn-xs btn-primary" ng-click="info.getDetails(fuelOrder.Id)" title="Details"><i class="fa fa-edit"></i></a></span> </td>
+                                    <td class="text-right">{{fuelOrder.Aircraft.TailNumber}}</td>
+                                    <td><a href="javascript:void(0);" class="btn btn-danger">Danger</a></td>
+                                    <td class="text-right">{{fuelOrder.DateRequested | date: "M/d/yyyy"}}</td>
+                                    <td class="hidden">{{fuelOrder.AdminStatus}}</td>
+                                    <td class="hidden">{{fuelOrder.CustStatus}}</td>
+                                    <td class="hidden">{{fuelOrder.IsArchived}}</td>
+                                    <td class="hidden">{{fuelOrder.IsDirectlyEntered}}</td>
+                                    <td class="text-right">{{fuelOrder.QuotedPPG}}</td>
+                                    <td class="text-right">{{fuelOrder.InvoicedPPG}}</td>
+                                    <td class="text-right">{{fuelOrder.QuotedVolume}}</td>
+                                    <td class="hidden">{{fuelOrder.InvoicedVolume}}</td>
+                                    <td class="text-right">{{fuelOrder.FuelingDateTime | date: "M/d/yyyy"}}</td>
+
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="12">
+                                        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                                            <div class="float-left col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                                <p>Showing X of XX of XXX Entries
+                                                <p>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                                <div class="float-right" st-pagination="" st-items-by-page="5" st-displayed-pages="5">
+
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

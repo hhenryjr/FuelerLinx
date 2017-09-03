@@ -1,0 +1,27 @@
+﻿
+
+<div class="block">
+    Account Management
+    <div class="container" ng-if="!info.editingAccount">
+        <div class="content">
+            <span><strong>UserName: </strong>{{info.account.Username}}</span><br/>
+            <span><strong>Password: </strong>{{info.account.Password}}</span><br/>
+            <span><strong>Email: </strong>{{info.account.Email}}</span><br/>
+        </div>
+        <div class="float-left">
+            <button id="editAccount" ng-click="info.editAccount()">Edit</button>
+        </div>
+    </div>
+    <div class="container" ng-if="info.editingAccount">
+        <div ng-if="info.savingAccount">Saving Account</div>
+        <div class="input-group" ng-if="!info.savingAccount">
+            <strong>UserName: </strong><input type="text" ng-model="info.account.Username"/><br/>
+            <strong>Password: </strong><input type="text" ng-model="info.account.Password"/><br/>
+            <strong>Email: </strong><input type="text" ng-model="info.account.Email"/><br/>
+        </div>
+        <div class="float-left">
+            <button id="saveAccount" ng-click="info.saveAccount(info.account)">Save</button>
+            <button type="reset" id="saveAccount" ng-click="info.cancelEdit()">Cancel</button>
+        </div>
+    </div>
+</div>

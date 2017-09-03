@@ -1,0 +1,27 @@
+﻿<div>
+    <header class="row" role="heading">
+        <div style="border-bottom: 1px solid #fefefe" class="text-left inlineblock padding-5 font-500 font-md">
+
+            <span tabindex="-1" style="outline: 0px;"><i class="fa fa-file-text-o"></i></span>
+
+            <span>Uploaded Invoice(s)</span>
+            <a class="btn button-icon jarviswidget-delete-btn float-right" ng-click="modal.close()">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </header>
+
+    <div class="row bold bottompaddedlarge">
+        <div ng-repeat="invoice in modal.invoices">
+
+            <div class="col-xs-12 padding-5  text-center ng-binding">{{invoice.InvoiceName}}</div>
+
+            <div class="col-xs-12 padding-5 text-center">
+                <button class="btn btn-green" ng-click="modal.downloadInvoice(invoice)">Download</button>
+                <!--<span class="leftpadded"><button type="button" class="btn btn-green leftpadded" ng-click="OnViewExistingInvoiceClicked(invoice.FileName);closeThisDialog()">View</button></span>-->
+                <span class="leftpadded"><button type="button" class="btn btn-darkred" ng-click="modal.deleteInvoice(invoice)">Delete</button></span>
+            </div>
+
+        </div>
+    </div>
+</div>

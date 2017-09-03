@@ -1,0 +1,29 @@
+﻿/*
+    
+    SIGNATURE FUEL MANAGER CSS
+*/
+
+#header {
+    background: #00263d;
+}
+h1.page-title {
+    padding-top:21px;
+}
+
+
+#left-panel nav ul li .active {
+    background: #bfbfbf;
+}
+
+.login-info {
+    margin-bottom: -1px !important;
+}
+
+.logo {
+    background: url('/img/signature-logo.png') no-repeat  !important;
+    position: relative;
+    top:5px;
+    left:10px;
+    width:180px;
+    height:42px !important;
+}

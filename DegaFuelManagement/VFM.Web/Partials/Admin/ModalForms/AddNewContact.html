@@ -1,0 +1,196 @@
+﻿<div class="modal-header">
+    <div class="row">
+        <div class="col-sm-9">
+            <h3 class="modal-title" id="modal-title">Add New Contact</h3>
+        </div>
+
+        <div class="col-sm-3 smart-form">
+
+
+            <div class="pull-right">
+                <label class="toggle">
+                    <input type="checkbox" name="checkbox-toggle" ng-model="modal.NewContact.Contact.Distribute">
+                    <i data-swchon-text="ON" data-swchoff-text="OFF"></i>
+                </label>
+            </div>
+
+            <div class="pull-left">
+                Pricing Email
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="modal-body" id="modal-body">
+
+    <div class="row">
+        <section class="col-lg-12">
+            <button type="button" class="float-right btn btn-success" ng-click="modal.addCompany()"><i class="fa-fa-plus"></i>New Company</button>
+        </section>
+    </div>
+    <!--Add Contact Start-->
+    <form class="smart-form" name="modal.contactForm">
+        <fieldset>
+
+            <div class="row" ng-if="modal.items.companies">
+                <section class="col col-6">
+                    <div class="margin-bottom margin-right">Select Company</div>
+
+                    <span class="state-required" ng-class="modal.contactForm.Company.$valid ? '' : 'state-error'">
+
+                        <select style="width: 100%;" class="form-control input-group" name="Company" ng-model="modal.NewContact.Contact.CustClientID" ng-options="company.CustClientID as company.Name for company in modal.$customerDetailsService.companies" required>
+                            <option value="">Select a Company</option>
+                        </select>
+
+                    </span>
+
+                    <div role="alert" class="help-inline error" style="color: red">
+                        <span class="error" ng-show="modal.showFormErrors && modal.contactForm.Company.$error.required">Please enter Company</span>
+                    </div>
+
+                </section>
+            </div>
+            <div class="row">
+                <section class="col col-6">
+                    Primary Contact <input type="checkbox" ng-model="modal.IsPrimary" ng-change="modal.changeType()"/>
+                </section>
+            </div>
+            <div class="row">
+                <!-- first name last name-->
+                <section class="col col-6">
+                    <span class="state-required" ng-class="modal.contactForm.FirstName.$valid ? '' : 'state-error'">
+
+                        <label style="width: 100%;" class="input">
+                            <input name="FirstName" placeholder="First Name" ng-model="modal.NewContact.Contact.FirstName" required>
+                        </label>
+
+                    </span>
+
+                    <div role="alert" class="help-inline error" style="color: red">
+                        <span class="error" ng-show="modal.showFormErrors && modal.contactForm.FirstName.$error.required">Please enter First Name</span>
+                    </div>
+
+                </section>
+
+                <section class="col col-6">
+
+                    <span class="state-required" ng-class="modal.contactForm.LastName.$valid ? '' : 'state-error'">
+                        <label style="width: 100%;" class="input">
+                            <input name="LastName" placeholder="Last Name" ng-model="modal.NewContact.Contact.LastName" required>
+                        </label>
+                    </span>
+
+                    <div role="alert" class="help-inline error" style="color: red">
+                        <span class="error" ng-show="modal.showFormErrors && modal.contactForm.LastName.$error.required">Please enter Last Name</span>
+                    </div>
+
+                </section>
+
+            </div>
+
+            <div class="row">
+                <!--email job -->
+                <section class="col col-6">
+                    <label class="input">
+                        <input placeholder="E-mail" ng-model="modal.NewContact.Contact.Email" />
+                    </label>
+                </section>
+                <section class="col col-6">
+                    <label class="input">
+                        <input placeholder="Job Title" ng-model="modal.NewContact.Contact.Title" />
+                    </label>
+                </section>
+            </div>
+
+            <div class="row">
+                <!-- mobile phone, phone -->
+                <section class="col col-6">
+                    <label class="input">
+                        <input placeholder="Mobile Phone" ng-model="modal.NewContact.Contact.MobilePhone" />
+                    </label>
+                </section>
+                <section class="col col-6">
+                    <label class="input">
+                        <input placeholder="Phone" ng-model="modal.NewContact.Contact.Phone" />
+                    </label>
+                </section>
+            </div>
+            <!-- address -->
+            <section class="hidden">
+                <label class="input">
+                    <input type="text" id="Line1" name="Line1" class="form-control" placeholder="Address" ng-model="modal.NewContact.Contact.Address">
+                </label>
+            </section>
+
+            <div class="row hidden">
+                <section class="col col-6">
+                    <label class="input">
+                        <input type="text" id="City" name="City" class="form-control" placeholder="City" ng-model="modal.NewContact.Contact.City">
+                    </label>
+                </section>
+
+                <!-- first name last name-->
+                <section class="col col-3">
+                    <label class="input">
+                        <input type="text" id="City" name="State" class="form-control" placeholder="State" ng-model="modal.NewContact.Contact.State">
+                    </label>
+                </section>
+                <section class="col col-3">
+                    <label class="input">
+                        <input type="text" id="City" name="State" class="form-control" placeholder="Postal Code" ng-model="modal.NewContact.Contact.ZipCode">
+                    </label>
+                </section>
+            </div>
+            <div class="row hidden">
+                <section class="col col-6">
+                    <label class="input">
+                        <input type="text" id="City" name="City" class="form-control" placeholder="Country" ng-model="modal.NewContact.Contact.Country">
+                    </label>
+                </section>
+            </div>
+
+            <section>
+                <label class="textarea textarea-resizable">
+                    <textarea class="custom-scroll" rows="3" ng-model="modal.NewContact.ContactNote.Note" placeholder="Contact Note"></textarea>
+                </label>
+            </section>
+
+        </fieldset>
+    </form>
+
+    <div>
+        <table>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <!--<td>
+                    <select class="input-group" ng-options="setup for setup in modal.billToSetup">
+                        <option></option>
+                    </select>
+                </td>-->
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <!--Add Contact End-->
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" type="button" ng-click="modal.cancel()">Cancel</button>
+    <button class="btn btn-primary" type="button" ng-click="modal.saveAndNew(modal.NewContact)">Save and New</button>
+    <button class="btn btn-success" type="button" ng-click="modal.save(modal.NewContact)">Save</button>
+</div>

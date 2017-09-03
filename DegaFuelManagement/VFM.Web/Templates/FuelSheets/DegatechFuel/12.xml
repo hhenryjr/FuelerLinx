@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FuelSheets>
+  <FuelSheet>
+    <Column Name="IATA">
+      <ColumnLetter>C</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">4</Filter>
+        <Filter Type="MinLength">3</Filter>
+        <Filter Type="NotEqual">IATA</Filter>
+        <Filter Type="NotEqual">ICAO</Filter>
+        <Filter Type="NotEqual">Loc</Filter>
+      </Filters>
+    </Column>
+    <Column Name="ICAO">
+      <ColumnLetter>D</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">4</Filter>
+        <Filter Type="MinLength">3</Filter>
+        <Filter Type="NotEqual">IATA</Filter>
+        <Filter Type="NotEqual">ICAO</Filter>
+        <Filter Type="NotEqual">Loc</Filter>
+      </Filters>
+    </Column>
+    <Column Name="Product">
+      <StaticValue>Jet A-1</StaticValue>
+    </Column>
+    <Column Name="TotalWithTax">
+      <ColumnLetter>F</ColumnLetter>
+      <IsNumeric>True</IsNumeric>
+      <Calculations>
+        <Calculation Type="Division" Condition="GreaterThan100">
+          <Amount>100</Amount>
+        </Calculation>
+      </Calculations>
+    </Column>
+    <Column Name="AdminClientID">
+      <StaticValue>0</StaticValue>
+    </Column>
+    <Column Name="SupplierID">
+      <StaticValue>0</StaticValue>
+    </Column>
+  </FuelSheet>
+</FuelSheets>

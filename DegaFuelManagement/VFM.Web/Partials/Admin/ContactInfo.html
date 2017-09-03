@@ -1,0 +1,299 @@
+﻿<div class="contact-info-container">
+    <div class="col-xs-12 padding-left-none padding-right-none">
+        <h1 class="page-title blue-font">
+            <i class="fa-fw fa fa-home"></i>
+            <a href="#" ng-click="contactInfo.back()">CONTACT MANAGER </a><span class="default-grey-font">&gt; CONTACT DETAIL</span>
+        </h1>
+    </div>
+    <section id="widget-grid" class="">
+        <div class="row margin-top-10 margin-bottom-10">
+            <div class="col-sm-12">
+
+                <div class="col-sm-6">
+                    <div class="contact-info-heading">{{contactInfo.contact.CompanyName}}</div>
+                    <!--<a class="btn no-border btn-primary float-right" ng-click="contactInfo.back()"><i class="fa fa-arrow-left"></i>Back</a><br/>-->
+                </div>
+
+                <div class="col-sm-6 no-padding">
+                    <div class="btn-group float-right">
+                        <button type="button" class="btn btn-sm btn-default" ng-disabled="contactInfo.HideLeft" ng-click="contactInfo.leftContact(contactInfo.contact.Id)">
+                            <i class="fa fa-chevron-left"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-default" ng-disabled="contactInfo.HideRight" ng-click="contactInfo.rightContact(contactInfo.contact.Id)">
+                            <i class="fa fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!--<a class="btn no-border btn-primary" ng-href="/contactDetail/{{contactInfo.contact.CustClientID}}">Back to contact Details</a>-->
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="jarviswidget jarviswidget-color-white" id="" data-widget-editbutton="false" data-widget-colorbutton="false">
+                <header class="tall-widget-header" role="heading">
+                    <!-- distribute pricing -->
+                    <!--<button type="button" class="btn btn-success margin-left" ng-disabled="!customerDetails.customer.IsActive" ng-click="customerDetails.distribute()">
+                        Distribute Pricing <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                    </button>-->
+                    <!-- close button -->
+                    <div class="jarviswidget-ctrls" role="menu">
+                        <a style="width: 44px;" ng-click="contactInfo.exit()" href="javascript:void(0);" class="tall-widget-header button-icon jarviswidget-delete-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Delete"><i class="position-top-5 fa fa-times"></i></a>
+                    </div>
+
+                </header>
+
+
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6 no-padding">
+                        <div class="jarviswidget jarviswidget-color-blueDark light-grey-border" id="" data-widget-editbutton="false" data-widget-colorbutton="false">
+                            <header><h2>Contact Details</h2></header>
+                            <!-- contact name, price distro -->
+                            <div class="row no-border">
+
+                                <div class="col-lg-7 no-padding">
+                                    <div ng-if="!contactInfo.IsNameEditable">
+                                        <div>
+                                            <a ng-if="contactInfo.$usersService.user.Permission.ContactDetail == 0" ng-click="contactInfo.deleteContact(contactInfo.contact)"><i class="glyphicon glyphicon-trash"></i></a>
+
+                                            <h2 class="inline-block">
+                                                {{contactInfo.contact.FirstName}} {{contactInfo.contact.LastName}}
+                                            </h2>
+                                            <i ng-if="(contactInfo.contact.FirstName.length == 0) && (contactInfo.contact.LastName.length == 0)" ng-click="contactInfo.editName()" class="light-grey-font cursor-pointer">Add Contact Name</i>
+                                            <div class="inline-block">
+                                                <a ng-if="contactInfo.$usersService.user.Permission.ContactDetail == 0" class="font-12 cursor-pointer default-grey-font editName margin-left" ng-click="contactInfo.editName()"><i class="fa fa-pencil-square-o"></i></a><br />
+                                            </div>
+                                        </div>
+
+                                        <h5 class="light-grey-font margin-top-none">
+                                            <span>{{contactInfo.contact.Title}}</span> <a class="margin-left cursor-pointer default-grey-font" ng-if="contactInfo.$usersService.user.Permission.ContactDetail == 0"><i class="fa fa-pencil-square-o"></i></a>
+                                            
+                                        </h5>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-6 no-padding">
+                                                <div class="input-icon-right">
+                                                    <i class="fa fa-save txt-color-green"></i>
+                                                    <i class="fa fa-ban txt-color-red margin-right-20"></i>
+                                                    <input type="text" class="form-control form-control-height-sm" ng-model="contactInfo.contact.Title" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- edit name -->
+                                    <div ng-if="contactInfo.IsNameEditable">
+                                        <div class="col-sm-12 no-padding">
+                                            <div class="col-sm-4 no-padding">
+                                                <strong>First Name:</strong><input class="form-control" ng-model="contactInfo.contact.FirstName" />
+                                            </div>
+
+                                            <div class="col-sm-4 no-padding">
+                                                <strong>Last Name:</strong><input class="form-control" ng-model="contactInfo.contact.LastName" /><br />
+                                            </div>
+
+                                            <div class="col-sm-4 no-padding margin-top-10">
+                                                <div class="margin-top-10">
+                                                    <button type="button" class="btn btn-xs btn-medium-green" ng-click="contactInfo.saveName(contactInfo.contact)">Save</button>
+                                                    <button type="button" class="btn btn-xs btn-grey" ng-click="contactInfo.cancelName(contactInfo.contact)">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-lg-5 no-padding">
+                                    <div class="smart-form">
+                                        <div class="col-lg-12">
+
+                                            <div id="contactTypeDropdown" style="width: 150px !important;" class="padding-top-10 padding-bottom-10 clearfix">
+                                                <select ui-select2 chosen class="col-xs-12" ng-model="contactInfo.contact.ContactType" ng-change="contactInfo.changeType(contact)"
+                                                        ng-disabled="contactInfo.$usersService.user.Permission.ContactDetail == 1" ng-options="type for type in contactInfo.contactTypes">
+                                                    <option value="">--Contact Type--</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- Active: <input type="checkbox" ng-model="contactInfo.contact.Distribute" ng-change="contactInfo.onDistributeChanged(contactInfo.contact.Distribute)"/> -->
+                                            <label class="toggle">
+                                                <input type="checkbox" name="checkbox-toggle" ng-change="contactInfo.onDistributeChanged(contactInfo.contact.Distribute)"
+                                                       ng-disabled="contactInfo.$usersService.user.Permission.ContactDetail == 1 || !contactInfo.$usersService.user.Permission.IsDistributionEnabled" ng-model="contactInfo.contact.Distribute">
+                                                <i data-swchon-text="ON" data-swchoff-text="OFF"></i>
+                                                <span class="float-left margin-left-5">Price Distribution Email</span>
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row no-border">
+                                <div class="col-lg-12 no-padding">
+                                    <ul class="list-unstyled">                                       
+                                        <li ng-if="!contactInfo.IsPhoneEditable">
+                                            <div class="row">
+                                                <i class="fa fa-phone margin-right float-left"></i>
+                                                <div class="float-left"> {{contactInfo.contact.Phone}} &nbsp;</div><!--&nbsp;&nbsp;(<span class="txt-color-darken">313</span>) <span class="txt-color-darken">464</span> - <span class="txt-color-darken">6473</span>-->
+                                                <i ng-if="contactInfo.contact.Phone == 0 && contactInfo.$usersService.user.Permission.ContactDetail == 0" ng-click="contactInfo.editPhone()" class="light-grey-font cursor-pointer padding-right-5">Add Phone #</i>
+                                                <a class="cursor-pointer default-grey-font" ng-click="contactInfo.editPhone()" ng-if="contactInfo.$usersService.user.Permission.ContactDetail == 0"><i class="fa fa-pencil-square-o"></i></a>
+                                            </div>
+                                        </li>
+
+                                        <li ng-if="contactInfo.IsPhoneEditable">
+                                            <div class="row inline-block padding-5 detail-background-cornsilk">
+                                                <div class="inline-block no-padding">
+                                                    <input type="text" class="form-control" style="width: 150px" ng-model="contactInfo.contact.Phone" />
+                                                </div>
+
+                                                <div class="inline-block margin-top-5">
+                                                    <button type="button" class="btn btn-xs btn-medium-green" ng-click="contactInfo.savePhone(contactInfo.contact.Phone)">Save</button>
+                                                    <button type="button" class="btn btn-xs btn-grey" ng-click="contactInfo.cancelPhone(contactInfo.contact.Phone)">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </li>
+
+
+
+
+                                        <li>
+                                            <div ng-if="!contactInfo.IsEmailEditable">
+                                                <div class="row margin-top-5">
+                                                    <i class="fa fa-envelope float-left margin-right-5"></i>&nbsp;&nbsp;<span class="float-left margin-right-5">{{contactInfo.contact.Title}}</span>
+                                                    <div class="float-left">
+                                                        <a href="mailto:{{contactInfo.contact.Email}}">{{contactInfo.contact.Email}}</a> &nbsp;
+                                                    </div>
+                                                    <i ng-if="contactInfo.contact.Email == 0 && contactInfo.$usersService.user.Permission.ContactDetail == 0" ng-click="contactInfo.editEmail()" class="light-grey-font cursor-pointer padding-right-5">Add Email</i>
+                                                    <a class="cursor-pointer default-grey-font" ng-click="contactInfo.editEmail()" ng-if="contactInfo.$usersService.user.Permission.ContactDetail == 0"><i class="fa fa-pencil-square-o"></i></a>
+                                                </div>
+                                            </div>
+
+                                            <div ng-if="contactInfo.IsEmailEditable">
+                                                <div class="row inline-block padding-5 detail-background-cornsilk">
+
+                                                    <div class="inline-block no-padding">
+                                                        <input type="text" style="width: 150px" class="form-control" ng-model="contactInfo.contact.Email" />
+                                                    </div>
+
+                                                    <div class="margin-top-5 inline-block">
+                                                        <button type="button" class="btn btn-xs btn-medium-green" ng-click="contactInfo.saveEmail(contactInfo.contact.Email)">Save</button>
+                                                        <button type="button" class="btn btn-xs btn-grey" ng-click="contactInfo.cancelEmail(contactInfo.contact.Email)">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+
+
+                                <div class="row no-border margin-top-5 margin-bottom-5">
+                                    <div class="col-sm-12 no-padding">
+                                        <div ng-repeat="field in contactInfo.contact.CustomFields">
+                                            <div class="grey-text profileInfoBlurbText" ng-if="!field.IsEditable">
+                                                <i class="fa margin-right-5" ng-class="{'fa-envelope': field.FieldType === 'Email', 'fa-phone': field.FieldType === 'Phone'}"></i>
+                                                <strong>{{field.Title}}:</strong>
+                                                <a href="mailto:{{field.Content}}">{{field.Content}}</a>
+                                                <a class="cursor-pointer default-grey-font" ng-click="contactInfo.editFields(field)"><i class="fa fa-pencil-square-o"></i></a><!--<button class="btn no-border btn-xs btn-default" ng-click="contactInfo.deleteFields(field)">Delete</button>-->
+                                            </div>
+
+
+                                            <div class="grey-text profileInfoBlurbText" ng-if="field.IsEditable && field.Id > 0">
+                                                <div class="row padding-5 detail-background-cornsilk">
+                                                    <input type="text" ng-model="field.Title" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" ng-disabled="field.Title" style="width: 100px" /> :
+                                                    <input ng-model="field.Content" style="width: 150px" />
+                                                    <button type="button" class="btn btn-xs btn-success" ng-click="contactInfo.saveFields(field)">Save</button>
+                                                    <button type="button" class="btn btn-xs btn-grey" ng-click="contactInfo.deleteFields(field)">Delete</button>
+                                                </div>
+                                            </div>
+
+                                            <div class="grey-text profileInfoBlurbText" ng-if="field.IsEditable && field.FieldType === 'Phone' && !field.Id">
+                                                <div class="row padding-5 detail-background-cornsilk">
+                                                    <input type="text" ng-model="field.Title" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" ng-disabled="field.Title" style="width: 100px" /> :
+                                                    <input ng-model="field.Content" placeholder="Phone" style="width: 150px" />
+                                                    <button class="btn btn-xs btn-success no-border" ng-click="contactInfo.saveFields(field)">Save</button>
+                                                    <button class="btn btn-xs btn-default no-border" ng-click="contactInfo.deleteFields(field)">Cancel</button>
+                                                </div>
+                                            </div>
+
+                                            <div class="grey-text profileInfoBlurbText" ng-if="field.IsEditable && field.FieldType === 'Email' && !field.Id">
+                                                <div class="row padding-5 detail-background-cornsilk">
+                                                    <input type="text" ng-model="field.Title" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" ng-disabled="field.Title" style="width: 100px" /> :
+                                                    <input ng-model="field.Content" placeholder="Email" style="width: 150px" />
+                                                    <button type="button" class="btn btn-xs btn-medium-green" ng-click="contactInfo.saveFields(field)">Save</button>
+                                                    <button type="button" class="btn btn-xs btn-grey" ng-click="contactInfo.deleteFields(field)">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row no-border margin-top-5 margin-bottom-5">
+
+
+
+
+                                    <div class="btn-group" uib-dropdown ng-if="contactInfo.$usersService.user.Permission.ContactDetail == 0">
+                                        <button ng-disabled="contactInfo.IsCustomFieldEditable" type="button" class="btn btn-primary dropdown-toggle" uib-dropdown-toggle>
+                                            <span class="margin-right-5">Add Contact Info</span>
+                                            <i9 class="fa fa-caret-down white-font"></i9>
+                                        </button>
+                                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                                            <li role="menuitem"><a ng-click="contactInfo.addCustomField('Phone')">Phone</a></li>
+                                            <li role="menuitem"><a ng-click="contactInfo.addCustomField('Email')">Email</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-12 no-padding">
+                                    <p class="font-md inline-block">
+                                        <i>Note</i>
+                                    </p>
+                                    <div ng-if="!contactInfo.IsNoteEditable">
+                                        <div ng-click="contactInfo.editNote()" ng-if="contactInfo.$usersService.user.Permission.ContactDetail == 0">
+                                            <textarea style="width: 100%; height: 300px;" disabled="disabled">{{contactInfo.contact.Note}}</textarea>
+                                        </div>
+                                        <div ng-if="contactInfo.$usersService.user.Permission.ContactDetail == 1">
+                                            <textarea style="width: 100%; height: 300px;" disabled="disabled">{{contactInfo.contact.Note}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div ng-if="contactInfo.IsNoteEditable">
+                                        <textarea style="width:100%; height: 300px;" class="form-control" placeholder="A Short Blurb Here" rows="3" ng-model="contactInfo.contact.Note"></textarea>
+                                        <button type="button" class="btn btn-xs btn-success" ng-click="contactInfo.saveNote(contactInfo.contact.Note)">Save</button>
+                                        <button type="button" class="btn btn-xs btn-grey" ng-click="contactInfo.cancelNote(contactInfo.contact.Note)">Cancel</button>
+                                    </div>
+                                </div>
+
+                                <div class="row no-border margin-top-5 margin-bottom-5">
+                                    <div class="col-lg-12 no-padding">
+                                        <button type="button" class="btn btn-medium-green" ng-if="contactInfo.$usersService.user.Permission.ContactDetail == 0" ng-click="contactInfo.distribute()" ng-disabled="!contactInfo.contact.Distribute">Distribute Pricing <i class="fa  fa-arrow-circle-right"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- detail split, right side -->
+                    <div class="col-sm-6 col-lg-6 no-padding">
+                        <div class="row">
+                            <div class="col-sm-12 no-padding">
+                                <!--<a class="cursor-pointer default-grey-font pull-right" ng-click="contactInfo.exit()"><i class="fa fa-times"></i></a>-->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div ng-if="contactInfo.savingNote">Saving Note</div>
+                <div class="hidden container" ng-if="!contactInfo.savingNote">
+                    Notes
+                    <div class="content" ng-repeat="contactNote in contactInfo.contact.ContactNotes">
+                        <input class="form-control" type="text" ng-model="contactNote.Note" />
+                        <button class="savedNote" ng-click="contactInfo.saveNote(contactNote)"><i class="fa fa-save"></i></button>
+                        <button class="deleteNote" ng-click="contactInfo.deleteNote(contactNote)"><i class="fa fa-trash"></i></button>
+                    </div>
+                    <button class="addNote" ng-click="contactInfo.addNote()">Add Note</button>
+                </div>
+            </div>
+        </article>
+    </section>
+</div>

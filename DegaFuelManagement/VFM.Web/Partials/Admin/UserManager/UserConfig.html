@@ -1,0 +1,281 @@
+﻿<div>
+    <div class="row padding-left-none padding-right-none">
+        <h1 class="page-title txt-color-blueDark blue-font">
+            <!--<a class="btn btn-primary" ng-click="customerDetails.back()"><i class="fa fa-arrow-left"></i> Back</a>-->
+            ADMIN MENU <span class="default-grey-font">> INTERNAL LEVEL CONFIGURATION </span>
+        </h1>
+    </div>
+    <div>
+        <div class="row">
+            <!-- MOVE CODE START -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="row well-sm well">
+                    <div class="col-xs-12">
+                        <span class="font-lg pull-left">Contact Information</span>
+                        <div class="smart-form no-padding">
+                            <!--<label class="toggle">
+                                <span class="pull-right margin-left font-sm">Activate</span>
+
+                                <input type="checkbox" name="checkbox-toggle" class="ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="config.user.IsActive">
+                                <i data-swchon-text="ON" data-swchoff-text="OFF"></i>
+                            </label>-->
+                        </div>
+                    </div>
+                    <div class="col-xs-12 no-padding">
+                        <hr />
+                    </div>
+
+                    <div class="col-xs-12 no-padding">
+                        <div class="row padding-bottom-10">
+
+                            <div class="col-xs-12 col-sm-6 no-padding">
+                                <div class="form-group">
+                                    <label class="inline-block control-label col-md-2">Username</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control input-lg" placeholder="Username" type="text"
+                                               ng-model="config.user.Registration.Username">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6 no-padding">
+                                <div class="form-group">
+                                    <label class="inline-block control-label col-md-2">Password</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control input-lg" placeholder="Password" type="text"
+                                               ng-model="config.user.Registration.Password">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 no-padding">
+                                <div class="form-group">
+                                    <label class="no-wrap inline-block control-label col-md-2">First Name</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control input-lg" placeholder="First Name" type="text"
+                                               ng-model="config.user.Registration.FirstName">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6 no-padding">
+                                <div class="form-group">
+                                    <label class="no-wrap dddddinline-block control-label col-md-2">Last Name</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control input-lg" placeholder="Last Name" type="text"
+                                               ng-model="config.user.Registration.LastName">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row padding-bottom-30">
+                            <div class="col-xs-12">
+                                <!--<div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" class="checkbox style-0" checked="checked"
+                                               ng-model="config.user.Permissions.IsMainAdmin">
+                                        <span>Is Main Admin?</span>
+                                    </label>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row well-sm well">
+                    <div class="col-xs-12">
+                        <div class="smart-form">
+                            <label class="toggle">
+                                <span class="pull-right margin-left font-sm">Activate</span>
+                                <input type="checkbox" name="checkbox-toggle" class="ng-pristine ng-untouched ng-valid ng-not-empty"
+                                       ng-disabled="!config.$usersService.user.Permission.IsMainAdmin"
+                                       ng-model="config.user.IsActive">
+                                <i data-swchon-text="ON" data-swchoff-text="OFF"></i>
+                            </label>
+                        </div>
+                        <span class="font-lg">Account Control</span>
+                        <button class="btn btn-danger" ng-if="config.$usersService.user.Permission.IsMainAdmin && config.user.Id > 0" ng-click="config.deleteUser()">Delete Account</button>
+                    </div>
+                    <div class="smart-form no-padding">
+                        <!--<label class="toggle">
+                            <span class="pull-right margin-left font-sm">Activate</span>
+
+                            <input type="checkbox" name="checkbox-toggle" class="ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="config.user.IsActive">
+                            <i data-swchon-text="ON" data-swchoff-text="OFF"></i>
+                        </label>-->
+                    </div>
+
+                    <div class="col-xs-12">
+                        <h6>Editable Features</h6>
+
+                        <div class="col-sm-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="checkbox style-0" checked="checked"
+                                           ng-disabled="!config.$usersService.user.Permission.IsMainAdmin"
+                                           ng-model="config.user.Permissions.Dashboard">
+                                    <span>Dashboard</span>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="checkbox style-0" checked="checked"
+                                           ng-disabled="!config.$usersService.user.Permission.IsMainAdmin"
+                                           ng-model="config.user.Permissions.CompanyGrid">
+                                    <span>Company Grid</span>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="checkbox style-0" checked="checked"
+                                           ng-disabled="!config.$usersService.user.Permission.IsMainAdmin"
+                                           ng-model="config.user.Permissions.CompanyDetail">
+                                    <span>Company Detail</span>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="checkbox style-0" checked="checked"
+                                           ng-disabled="!config.$usersService.user.Permission.IsMainAdmin"
+                                           ng-model="config.user.Permissions.ContactGrid">
+                                    <span>Contact Grid</span>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="checkbox style-0" checked="checked"
+                                           ng-disabled="!config.$usersService.user.Permission.IsMainAdmin"
+                                           ng-model="config.user.Permissions.ContactDetail">
+                                    <span>Contact Detail</span>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="checkbox style-0" checked="checked"
+                                           ng-disabled="!config.$usersService.user.Permission.IsMainAdmin"
+                                           ng-model="config.user.Permissions.AirportGrid">
+                                    <span>Airport Grid</span>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="checkbox style-0" checked="checked"
+                                           ng-disabled="!config.$usersService.user.Permission.IsMainAdmin"
+                                           ng-model="config.user.Permissions.AirportDetail">
+                                    <span>Airport Detail</span>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="checkbox style-0" checked="checked"
+                                           ng-disabled="!config.$usersService.user.Permission.IsMainAdmin"
+                                           ng-model="config.user.Permissions.IsMarginEnabled">
+                                    <span>Price Margin</span>
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="checkbox style-0" checked="checked"
+                                           ng-disabled="!config.$usersService.user.Permission.IsMainAdmin"
+                                           ng-model="config.user.Permissions.VendorGrid">
+                                    <span>Vendor Grid</span>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="checkbox style-0" checked="checked"
+                                           ng-disabled="!config.$usersService.user.Permission.IsMainAdmin"
+                                           ng-model="config.user.Permissions.VendorDetail">
+                                    <span>Vendor Detail</span>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="checkbox style-0" checked="checked"
+                                           ng-disabled="!config.$usersService.user.Permission.IsMainAdmin"
+                                           ng-model="config.user.Permissions.MarginMgr">
+                                    <span>Margin Manager</span>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="checkbox style-0" checked="checked"
+                                           ng-disabled="!config.$usersService.user.Permission.IsMainAdmin"
+                                           ng-model="config.user.Permissions.DropZone">
+                                    <span>Drop Zone</span>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="checkbox style-0" checked="checked"
+                                           ng-disabled="!config.$usersService.user.Permission.IsMainAdmin"
+                                           ng-model="config.user.Permissions.Transactions">
+                                    <span>Transactions</span>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="checkbox style-0" checked="checked"
+                                           ng-disabled="!config.$usersService.user.Permission.IsMainAdmin"
+                                           ng-model="config.user.Permissions.TaskScheduler">
+                                    <span>Task Scheduler</span>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="checkbox style-0" checked="checked"
+                                           ng-disabled="!config.$usersService.user.Permission.IsMainAdmin"
+                                           ng-model="config.user.Permissions.Analysis">
+                                    <span>Analysis</span>
+                                </label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="checkbox style-0" checked="checked"
+                                           ng-disabled="!config.$usersService.user.Permission.IsMainAdmin"
+                                           ng-model="config.user.Permissions.IsDistributionEnabled">
+                                    <span>Price Distribution</span>
+                                </label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-xs-12">
+                        <button class="btn btn-success pull-right margin-left" ng-click="config.checkUsername()"
+                                ng-if="config.$usersService.user.Permission.IsMainAdmin">
+                            Save Changes
+                        </button>
+                        <button class="btn btn-default pull-right" ng-click="config.cancel()">Cancel</button>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- MOVE CODE END -->
+        </div>
+    </div>
+</div>

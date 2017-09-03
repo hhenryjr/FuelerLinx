@@ -1,0 +1,191 @@
+﻿@model VFM.Web.Models.ViewModels.ItemViewModel<int>
+
+@{
+    ViewBag.Title = "GetPriceMargin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<header class="content">
+    <h2>Price Margin</h2>
+</header>
+
+<div data-ng-controller="priceMarginController as priceMarginInfo" id="priceMarginCtrl" data-ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model))">
+    <a ng-href="/Clients/GetClientInfo/@Model.CurrentUser.Id">Back to Client Info</a>
+    <h3>{{priceMarginInfo.priceMargin.Name}}</h3>
+    <div ng-if="priceMarginInfo.savingTier">Saving Fuel Order</div>
+    <div ng-if="!priceMarginInfo.savingTier">
+
+        <div class="block">
+            Price Margin Tiers
+            <table>
+                <tr>
+                    <th>Min</th>
+                    <th>Max</th>
+                    <th>Margin</th>
+                </tr>
+                <tr ng-repeat="tier in priceMarginInfo.priceMargin.PriceMarginTiers">
+                    <td class="hidden"><input class="hidden" id="tierId" ng-model="tier.Id" /></td>
+                    <td><input type="number" ng-model="tier.MinGallon" ng-="{{tier.MaxGallon + 1}}"/></td>
+                    <td><input type="number" ng-model="tier.MaxGallon" /></td>
+                    <td><input type="number" step="0.01" ng-model="tier.Margin" /></td>
+                    <td><button class="saveTier" ng-click="priceMarginInfo.saveTier(tier)">Save</button></td>
+                    <td><button class="deleteTier" ng-click="priceMarginInfo.deleteTier(tier)">Delete</button></td>
+                </tr>
+            </table>
+            <button ng-click="priceMarginInfo.addTier()">Add Tier</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/AngularJS/Services/priceMargins.js"></script>
+    <script src="~/Scripts/AngularJS/Services/priceMarginTiers.js"></script>
+    <script type="text/javascript">
+
+        degatech.page.startUp = function() {
+            degatech.page.userController = degatech.ng.getControllerInstance($("#priceMarginCtrl"));
+        }
+
+        degatech.services.priceMarginsFactory = function($baseService) {
+            var serviceObject = degatech.services.priceMargins;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.priceMarginTiersFactory = function($baseService) {
+            var serviceObject = degatech.services.priceMarginTiers;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.ng.addService(degatech.ng.app.module,
+            "$priceMarginsService",
+            ["$baseService"],
+            degatech.services.priceMarginsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module,
+            "$priceMarginTiersService",
+            ["$baseService"],
+            degatech.services.priceMarginTiersFactory);
+
+        degatech.page.priceMarginsControllerFactory = function($scope, $baseController, $priceMarginsService, $priceMarginTiersService, $siteSettingsService, Notification) {
+
+            var vm = this;
+
+            $baseController.merge(vm, $baseController);
+
+            vm.$priceMarginsService = $priceMarginsService;
+            vm.$priceMarginTiersService = $priceMarginTiersService;
+            vm.$siteSettingsService = $siteSettingsService;
+            vm.$scope = $scope;
+
+            //PUBLIC METHODS
+            vm.notify = vm.$priceMarginsService.getNotifier($scope);
+            vm.addTier = _addTier;
+            vm.saveTier = _saveTier;
+            vm.deleteTier = _deleteTier;
+
+            //PUBLIC HANDLERS
+            vm.onGetInfoSuccess = _onGetInfoSuccess;
+            vm.onSaveTierSuccess = _onSaveTierSuccess;
+            vm.onDeleteTierSuccess = _onDeleteTierSuccess;
+            vm.onError = _onError;
+
+            //PUBLIC MEMBERS
+            vm.test = "This is a test";
+            vm.priceMargin = null;
+            vm.savedTier = null;
+            vm.deletedTier = null;
+
+            render();
+
+            function RedirectToMainPage() {
+                location.href = "/Login";
+            }
+
+            //PRIVATE METHODS
+            function render() {
+                var userId = @Model.CurrentUser.Id;
+                if (userId == 0){
+                    Notification.warning({
+                        model: this,
+                        scope: $scope,
+                        //templateUrl: '/Partials/Common/Notifications/Login.html',
+                        message: "<div>Your session has timed out.</div><div><a onclick='RedirectToMainPage();'>OK</a></div>",
+                        delay: 3000,
+                        closeOnClick: false
+                    });
+                }else{
+                    var priceMarginId = @Model.Item;
+                    vm.$priceMarginsService.getPriceMargin(priceMarginId, vm.onGetInfoSuccess, vm.onError);
+                }
+            }
+
+            function _addTier(){
+                vm.priceMargin.PriceMarginTiers.push({
+                    PriceMarginID: @Model.Item,
+                });
+            }
+
+            function _saveTier(tier) {
+                vm.savingTier = true;
+                vm.savedTier = tier;
+                if(tier.Id > 0){
+                    vm.$priceMarginTiersService.updatePriceMarginTier(tier.Id, tier, vm.onSaveTierSuccess, vm.onError);
+                }else{
+                    vm.$priceMarginTiersService.addPriceMarginTier(tier, vm.onSaveTierSuccess, vm.onError);
+                }
+            }
+
+            function _deleteTier(tier){
+                vm.deletedTier = tier;
+                if(tier.Id > 0){
+                    if (confirm("Are you sure you want to delete this tier?")) {
+                        vm.$priceMarginTiersService.deletePriceMarginTiers(tier.Id, vm.onDeleteTierSuccess, vm.onError);
+                    }
+                }else{
+                    vm.priceMargin.PriceMarginTiers.pop();
+                }
+            }
+
+            //PRIVATE HANDLERS
+            function _onGetInfoSuccess(data) {
+                vm.notify(function() {
+                    vm.priceMargin = data.Item;
+                    console.log("PRICE MARGIN: ", vm.priceMargin);
+                });
+            }
+
+            function _onSaveTierSuccess(data) {
+                vm.notify(function() {
+                    vm.savingTier = false;
+                    if(data.Item){
+                        vm.savedTier.Id = data.Item;
+                        vm.savedTier.DateAdded = new Date();
+                    }
+                });
+            }
+
+            function _onDeleteTierSuccess(){
+                vm.notify(function() {
+                    var index = vm.priceMargin.PriceMarginTiers.indexOf(vm.deletedTier);
+                    if (index > -1) vm.priceMargin.PriceMarginTiers.splice(index, 1);
+                });
+            }
+
+            function _onError() {
+                vm.notify(function() {
+                    vm.savingTier = false;
+                });
+                vm.error = "An error has occurred!";
+                console.log(vm.error);
+            }
+        }
+
+        degatech.ng.addController(degatech.ng.app.module,
+            "priceMarginController",
+            ['$scope', '$baseController', "$priceMarginsService", "$priceMarginTiersService", "$siteSettingsService", "Notification"],
+            degatech.page.priceMarginsControllerFactory);
+    </script>
+
+}

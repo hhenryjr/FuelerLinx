@@ -1,0 +1,1812 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="divSessionTimeout" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Your session has timed out</h3>
+            </div>
+            <div>
+                <button type="button" onclick="RedirectToMainPage();" class="btn btn-light-blue float-right margin-right-5 margin-top-5">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-ng-controller="dashboardController as dash" id="dashCtrl" data-ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model))">
+    <!-- #HEADER -->
+    <header ng-class="dash.user.Client.ClientType == 2 ? 'client-header':'admin-header'" id="header">
+        <div id="logo-group">
+            <!-- PLACE YOUR LOGO HERE -->
+            <span ng-class="dash.user.Client.ClientType == 2 ? 'client-logo':'logo'">
+            </span>
+            <span ng-click="dash.viewScheduler()" ng-class="dash.user.Client.ClientType == 2 ? 'hidden':''" id="activity" class="activity-dropdown">
+                <a ng-class="dash.$rootScope.ApplicationState.ActiveSection === 'SCHEDULER' ? 'active' : ''">
+                    <i class="fa fa-bell"></i> <b class="badge bounceIn animated"> {{dash.calendarEvents.length}} </b>
+                </a>
+            </span>
+            <!-- END LOGO PLACEHOLDER -->
+        </div>
+        <!-- pulled right: nav area -->
+        <div ng-class="dash.user.Client.ClientType == 2 ? '':''" class="pull-right">
+            <!-- collapse menu button -->
+            @*<div class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-gear" /></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="#">Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">Account Control</a>
+                        </li>
+                    </ul>
+                </div>*@
+
+            <div class="btn-header pull-right">
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-gear" /></i></a>
+                    <ul id="SettingsDropdownMenu" class="dropdown-menu" role="menu">
+                        <li ng-if="dash.user.Permission.IsMainAdmin">
+                            <a href="#" ng-click="dash.viewUserManager()">User Levels</a>
+                        </li>
+                        <li ng-if="dash.user.Permission.IsMainAdmin" class="divider"></li>
+                        <li>
+                            <a href="#" ng-click="dash.logout()">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="hide-menu" class="btn-header pull-right">
+                <span> <a data-action="toggleMenu" title="Collapse Menu"><i class="fa fa-reorder"></i></a> </span>
+            </div>
+
+            <!-- end collapse menu -->
+            <!-- logout button -->
+            <div id="logout" class="btn-header transparent pull-right">
+                @*<span> <a href="#" ng-click="dash.logout()" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>*@
+            </div>
+            <!-- end logout button -->
+            <!-- fullscreen button -->
+            <div id="fullscreen" class="btn-header transparent pull-right">
+                <span> <a data-action="launchFullscreen" title="Full Screen"><i class="fa fa-arrows-alt"></i></a> </span>
+            </div>
+            <!-- end fullscreen button -->
+
+        </div>
+        <!-- end pulled right: nav area -->
+    </header>
+    <!-- END HEADER -->
+    <!-- #NAVIGATION -->
+    <!-- Left panel : Navigation area -->
+    <aside id="left-panel" class="raleway-900">
+
+        <!-- User info -->
+        <div ng-class="dash.user.Client.ClientType == 2 ? 'hidden' : ''" class="login-info" ng-show="dash.user && dash.user.Client.ClientType == 1" show-on-link style="display: none;">
+            <span>
+                <!-- User image size is adjusted inside CSS, it should stay as it -->
+
+                <a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
+                    <img src="~/img/avatars/sunny.png" alt="me" class="online" />
+                    <span>
+                        Kevin Moller
+                    </span>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+
+            </span>
+        </div>
+        <!-- end user info -->
+        <nav show-on-link style="display: none;">
+            <ul ng-show="dash.user && dash.user.Client.ClientType == 1">
+                <li class="nav-menu-dashboard">
+                    <a ng-click="dash.viewDashboard()" ng-class="dash.$rootScope.ApplicationState.ActiveSection === 'DASHBOARD' ? 'active' : ''"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
+                </li>
+                <li class="nav-menu-account-manager">
+                    <a href="#"><i class="fa fa-lg fa-fw fa-group"><em>{{dash.customersWithoutMargins.length}}</em></i> <span class="menu-item-parent">Account Manager</span></a>
+                    <ul>
+                        <li>
+                            <a ng-click="dash.viewCompanies()" ng-class="dash.$rootScope.ApplicationState.ActiveSection === 'CUSTOMERS' && dash.$rootScope.ApplicationState.SubSection === 'COMPANIES' ? 'active' : ''">Company View</a>
+                        </li>
+                        <li>
+                            <a ng-click="dash.viewContacts()" ng-class="dash.$rootScope.ApplicationState.ActiveSection === 'CUSTOMERS' && dash.$rootScope.ApplicationState.SubSection === 'CONTACTS' ? 'active' : ''">Contact View</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-menu-airports">
+                    <a ng-click="dash.viewAirportManager()" ng-class="dash.$rootScope.ApplicationState.ActiveSection === 'AIRPORTS' ? 'active' : ''"> <i class="fa fa-lg fa-fw fa-plane"></i> <span class="menu-item-parent">Airport Manager</span></a>
+                </li>
+                <li class="nav-menu-price-manager">
+                    <a ng-click="dash.viewPriceMargins()" ng-class="dash.$rootScope.ApplicationState.ActiveSection === 'PRICE MARGINS' ? 'active' : ''"><i class="fa fa-lg fa-fw fa-pencil-square-o"></i> <span class="menu-item-parent">Margin Manager</span></a>
+                </li>
+                <li class="nav-menu-vendors">
+                    <a ng-click="dash.viewVendors()" ng-class="dash.$rootScope.ApplicationState.ActiveSection === 'VENDORS' ? 'active' : ''"><i class="fa fa-lg fa-fw fa-suitcase"></i> <span class="menu-item-parent">Vendor Manager</span></a>
+                </li>
+                <li class="nav-menu-dropzone" ng-hide="dash.user.Permission.DropZone == 1">
+                    <a href="#"><i class="fa fa-lg fa-fw fa-stack-overflow"></i> <span class="menu-item-parent">Drop Zone</span></a>
+                    <ul>
+                        <li>
+                            <a ng-click="dash.viewFileUploader()" ng-class="dash.$rootScope.ApplicationState.ActiveSection === 'FILE UPLOADER' ? 'active' : ''">Price Sheet Upload</a>
+                        </li>
+                        <li>
+                            <a ng-click="dash.viewDBUploader()" ng-class="dash.$rootScope.ApplicationState.ActiveSection === 'DB UPLOADER' ? 'active' : ''" class="text-muted">Acukwik Database Upload</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-menu-fuel-orders">
+                    <a ng-click="dash.viewFuelOrders()" ng-class="dash.$rootScope.ApplicationState.ActiveSection === 'FUEL ORDERS' ? 'active' : ''" href="#">
+                        <i class="fa fa-lg fa-fw fa-shopping-cart"></i>
+                        <span class="menu-item-parent">Transactions </span>
+                        <span class="badge pull-right inbox-badge margin-right-13">{{dash.total.TotalPending}}</span>
+                    </a>
+                </li>
+                <li class="nav-menu-scheduler">
+                    <a ng-click="dash.viewScheduler()" ng-class="dash.$rootScope.ApplicationState.ActiveSection === 'SCHEDULER' ? 'active' : ''"><i class="fa fa-lg fa-fw fa-calendar"></i> <span class="menu-item-parent">Task Scheduler</span></a>
+                </li>
+                <li class="nav-menu-analysis">
+                    <a ng-click="dash.viewAnalysis()" ng-class="dash.$rootScope.ApplicationState.ActiveSection === 'ANALYSIS' ? 'active' : ''"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">Analysis</span></a>
+                </li>
+                <li class="hidden nav-menu-emails">
+                    <a ng-click="dash.viewEmails()" ng-class="dash.$rootScope.ApplicationState.ActiveSection === 'EMAILS' ? 'active' : ''"><i class="fa fa-lg fa-fw fa-paper-plane"></i> <span class="menu-item-parent">Email Routing</span></a>
+                </li>
+            </ul>
+            <ul ng-show="dash.user.Client.ClientType == 2" ng-class="dash.user.Client.ClientType == 2 ? 'client-nav':'admin-nav'">
+                <li>
+                    <a ng-click="dash.viewDashboard()" ng-class="dash.$rootScope.ApplicationState.ActiveSection === 'DASHBOARD' && dash.user.Client.ClientType == 2 ? 'client-active' : ''"><i ng-class="dash.user.Client.ClientType == 2 ? 'hidden':''" class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
+                </li>
+                <li>
+                    <a ng-click="dash.viewFuelOrders()" ng-class="dash.$rootScope.ApplicationState.ActiveSection === 'FUEL ORDERS' && dash.user.Client.ClientType == 2 ? 'client-active' : ''"><i ng-class="dash.user.Client.ClientType == 2 ? 'hidden':''" class="fa fa-lg fa-fw fa-shopping-cart"></i> <span class="menu-item-parent">Transaction History</span></a>
+                </li>
+            </ul>
+        </nav>
+
+        <span class="minifyme hidden" data-action="minifyMenu">
+            <i class="fa fa-arrow-circle-left hit"></i>
+        </span>
+    </aside>
+    <!-- Note: This width of the aside area can be adjusted through LESS variables -->
+    <!-- END NAVIGATION -->
+    <div id="main" role="main">
+        <div id="content">
+            <section id="widget-grid" class="">
+                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+                            <h3 class="hidden">Hello {{dash.user.Registration.FirstName}} {{dash.user.Registration.LastName}}!</h3>
+                        </div>
+                        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+                        </div>
+                    </div>
+                </article>
+                <div ng-if="!dash.user.Client">
+                    <div class="text-center">Preparing Your Session...</div>
+                    <div class="text-center">
+                        <i class="fa fa-spinner fa-pulse fa-2x fa-fw txt-color-blue"></i>
+                    </div>
+                </div>
+                <div ng-if="dash.user && dash.user.Client.ClientType == 1" style="display: none;" show-on-link>
+                    <!--Dashboard Start-->
+                    <div class="" id="dashboard" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'DASHBOARD'">
+                        <dashboard></dashboard>
+                    </div>
+                    <!--Dashboard End-->
+                    <!-- Customer Details Start-->
+                    <div class="" id="customer" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'CUSTOMERS'">
+                        <customers></customers>
+                    </div>
+                    <!-- Customer Details End-->
+                    <!--Company Details Start-->
+                    <div class="" id="dashboard" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'CUSTOMER DETAILS'">
+                        <customer-details></customer-details>
+                    </div>
+                    <!--Company Details End-->
+                    <!--Company Details Start-->
+                    <div class="" id="dashboard" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'CONTACT INFO'">
+                        <contact-info></contact-info>
+                    </div>
+                    <!--Company Details End-->
+                    <!-- Airport Price Margins Start -->
+                    <div class="" id="airports" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'AIRPORTS'">
+                        <airport-manager></airport-manager>
+                    </div>
+                    <!-- Airport Price Margins End -->
+                    <!-- FBO Details Start -->
+                    <div class="" id="fboDetails" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'FBO DETAILS'">
+                        <fbo-details></fbo-details>
+                    </div>
+                    <!-- FBO Details End-->
+                    <!-- Vendor Manager Start -->
+                    <div class="" id="fboDetails" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'VENDORS'">
+                        <vendor-manager></vendor-manager>
+                    </div>
+                    <!-- Vendor Manager End -->
+                    <!-- Price Margins Start -->
+                    <div class="" id="priceMargins" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'PRICE MARGINS'">
+                        <price-margins></price-margins>
+                    </div>
+                    <!-- Price Margins End -->
+                    <!-- File Uploader Start -->
+                    <div class="" id="fileUploader" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'FILE UPLOADER'">
+                        <file-uploader></file-uploader>
+                    </div>
+                    <!-- File Uploader End-->
+                    <!--DB Uploader Start-->
+                    <div class="" id="dbUploader" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'DB UPLOADER'">
+                        <db-uploader></db-uploader>
+                    </div>
+                    <!--DB Uploader End-->
+                    <!-- Fuel Order Start -->
+                    <div id="fuelOrder" class="" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'FUEL ORDERS'">
+                        <fuel-orders></fuel-orders>
+                    </div>
+                    <!-- Fuel Order End -->
+                    <!-- Fuel Order Details Start -->
+                    <div id="fuelOrderDetails" class="" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'FUEL ORDER DETAILS'">
+                        <fuel-order-details></fuel-order-details>
+                    </div>
+                    <!-- Fuel Order Details End -->
+                    <!-- Task Scheduler Start-->
+                    <div id="taskScheduler" class="" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'SCHEDULER'">
+                        <task-scheduler></task-scheduler>
+                    </div>
+                    <!-- Task Scheduler End-->
+                    <!-- Analysis Start-->
+                    <div id="analysis" class="" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'ANALYSIS'">
+                        <analysis></analysis>
+                    </div>
+                    <!-- Analysis Start-->
+                    <!-- Email Routing Start -->
+                    <div class="" id="email" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'EMAILS'">
+                        <email-routing></email-routing>
+                    </div>
+                    <!-- Email Routing End -->
+                    <!-- User Manager Start -->
+                    <div class="" id="email" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'USER MANAGER'">
+                        <user-manager></user-manager>
+                    </div>
+                    <!-- User Manager End -->
+                    <!-- User Config Start -->
+                    <div class="" id="email" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'USER CONFIG'">
+                        <user-config></user-config>
+                    </div>
+                    <!-- User Config End -->
+                </div>
+
+                <div ng-if="dash.user && dash.user.Client.ClientType == 2" style="display: none;" show-on-link>
+                    <!--Dashboard Start-->
+                    <div class="" id="dashboard" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'DASHBOARD'">
+                        <dashboard></dashboard>
+                    </div>
+                    <!--Dashboard End-->
+                    <!-- Fuel Order Start -->
+                    <div id="fuelOrder" class="" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'FUEL ORDERS'">
+                        <fuel-orders></fuel-orders>
+                    </div>
+                    <!-- Fuel Order End -->
+                    <!-- Fuel Order Details Start -->
+                    <div id="fuelOrderDetails" class="" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'FUEL ORDER DETAILS'">
+                        <fuel-order-details></fuel-order-details>
+                    </div>
+                    <!-- Fuel Order Details End -->
+                </div>
+                <div class="" id="account" ng-if="dash.$rootScope.ApplicationState.ActiveSection === 'ACCOUNT'">
+                    <account-settings></account-settings>
+                </div>
+                <!-- END CONTROLLER NG ADMIN-->
+            </section>
+        </div>
+    </div>
+
+    <!--Hidden elements for global usage-->
+    <div id="Dropzone-Preview-Placeholder" style="display: none;"></div>
+</div>
+
+
+
+@section Scripts{
+    <script src="~/Scripts/Master.js"></script>
+    <script src="~/Scripts/AngularJS/Directives/partials.js"></script>
+    <script src="~/Scripts/storage.js"></script>
+    <!--SERVICES-->
+    <script src="~/Scripts/AngularJS/Services/login.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/clients.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/contacts.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/contactNotes.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/users.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/registration.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/fuelOrders.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/fuelOrderNotes.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/emailRouting.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/aircrafts.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/aircraftData.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/customerDetails.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/customerNotes.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/priceMargins.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/priceMarginTiers.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/supplierFuelsPrices.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/customerPriceMargins.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/fuelOrderPricings.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/airports.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/suppliers.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/fileUpload.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/acukwikAirports.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/airportPriceMargins.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/fboPriceMargins.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/aircraftExclusions.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/customerAccountingInfo.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/fboDetailCustomFields.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/distribution.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/customerDetailsCustomFields.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/contactDetailCustomFields.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/calendarEvent.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/analysis.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/fuelOrderTaxes.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/fuelOrderFees.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/fuelOrderInvoices.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/fuelOrderMessages.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/vendors.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/vendorExclusions.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/acukwikUploads.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/schedulingUploads.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/siteSettings.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/integrations.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/permissions.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/clientTaxes.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Services/clientFees.js?ref=@Model.DateReference"></script>
+    <!--PARTIALS-->
+    <script src="~/Scripts/AngularJS/Controllers/airportManager.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Controllers/customerManager.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Controllers/fuelOrdersSection.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Controllers/priceMarginsSection.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Controllers/emailSection.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Controllers/fboDetails.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Controllers/customerDetails.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Controllers/contactInfo.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Controllers/fuelOrderDetails.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Controllers/taskScheduler.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Controllers/analysisSection.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Controllers/toDoList.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Controllers/vendorManager.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Controllers/uploader.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Controllers/userManager.js?ref=@Model.DateReference"></script>
+    <script src="~/Scripts/AngularJS/Controllers/userConfig.js?ref=@Model.DateReference"></script>
+    <script type="text/javascript">
+
+        degatech.page.startUp = function() {
+            degatech.page.userController = degatech.ng.getControllerInstance($("#dashCtrl"));
+        }
+
+        degatech.services.loginFactory = function($baseService) {
+            var serviceObject = degatech.services.login;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.siteSettingsFactory = function($baseService) {
+            var serviceObject = degatech.services.siteSettings;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.clientsFactory = function($baseService) {
+            var serviceObject = degatech.services.clients;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.contactsFactory = function($baseService) {
+            var serviceObject = degatech.services.contacts;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.contactNotesFactory = function($baseService) {
+            var serviceObject = degatech.services.contactNotes;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.usersFactory = function($baseService) {
+            var serviceObject = degatech.services.users;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.registrationFactory = function($baseService) {
+            var serviceObject = degatech.services.registration;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.fuelOrdersFactory = function($baseService) {
+            var serviceObject = degatech.services.fuelOrders;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.fuelOrderNotesFactory = function($baseService) {
+            var serviceObject = degatech.services.fuelOrderNotes;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.emailRoutingFactory = function($baseService) {
+            var serviceObject = degatech.services.emailRouting;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.aircraftsFactory = function($baseService) {
+            var serviceObject = degatech.services.aircrafts;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.aircraftDataFactory = function($baseService) {
+            var serviceObject = degatech.services.aircraftData;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.customerDetailsFactory = function($baseService) {
+            var serviceObject = degatech.services.customerDetails;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.customerNotesFactory = function($baseService) {
+            var serviceObject = degatech.services.customerNotes;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.priceMarginsFactory = function($baseService) {
+            var serviceObject = degatech.services.priceMargins;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.priceMarginTiersFactory = function($baseService) {
+            var serviceObject = degatech.services.priceMarginTiers;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.supplierFuelsPricesFactory = function($baseService) {
+            var serviceObject = degatech.services.supplierFuelsPrices;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.customerPriceMarginsFactory = function($baseService) {
+            var serviceObject = degatech.services.customerPriceMargins;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.fuelOrderPricingsFactory = function($baseService) {
+            var serviceObject = degatech.services.fuelOrderPricings;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.airportsFactory = function($baseService) {
+            var serviceObject = degatech.services.airports;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.suppliersFactory = function($baseService) {
+            var serviceObject = degatech.services.suppliers;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.acukwikAirportsFactory = function($baseService) {
+            var serviceObject = degatech.services.acukwikAirports;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.airportPriceMarginsFactory = function($baseService) {
+            var serviceObject = degatech.services.airportPriceMargins;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.fboPriceMarginsFactory = function($baseService) {
+            var serviceObject = degatech.services.fboPriceMargins;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.aircraftExclusionsFactory = function($baseService) {
+            var serviceObject = degatech.services.aircraftExclusions;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.customerAccountingInfoFactory = function($baseService) {
+            var serviceObject = degatech.services.customerAccountingInfo;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.fboDetailCustomFieldsFactory = function($baseService) {
+            var serviceObject = degatech.services.fboDetailCustomFields;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.distributionFactory = function($baseService) {
+            var serviceObject = degatech.services.distribution;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.customerDetailsCustomFieldsFactory = function($baseService) {
+            var serviceObject = degatech.services.customerDetailsCustomFields;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.contactDetailCustomFieldsFactory = function($baseService) {
+            var serviceObject = degatech.services.contactDetailCustomFields;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.calendarEventFactory = function($baseService) {
+            var serviceObject = degatech.services.calendarEvent;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.analysisFactory = function($baseService) {
+            var serviceObject = degatech.services.analysis;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.fuelOrderTaxesFactory = function($baseService) {
+            var serviceObject = degatech.services.fuelOrderTaxes;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.fuelOrderFeesFactory = function($baseService) {
+            var serviceObject = degatech.services.fuelOrderFees;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.fuelOrderInvoicesFactory = function($baseService) {
+            var serviceObject = degatech.services.fuelOrderInvoices;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.fuelOrderMessagesFactory = function($baseService) {
+            var serviceObject = degatech.services.fuelOrderMessages;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.vendorsFactory = function($baseService) {
+            var serviceObject = degatech.services.vendors;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.vendorExclusionsFactory = function($baseService) {
+            var serviceObject = degatech.services.vendorExclusions;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.acukwikUploadsFactory = function($baseService) {
+            var serviceObject = degatech.services.acukwikUploads;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.schedulingUploadsFactory = function($baseService) {
+            var serviceObject = degatech.services.schedulingUploads;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+        
+         degatech.services.integrationsFactory = function($baseService) {
+            var serviceObject = degatech.services.integrations;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.permissionsFactory = function($baseService) {
+            var serviceObject = degatech.services.permissions;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.clientTaxesFactory = function($baseService) {
+            var serviceObject = degatech.services.clientTaxes;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.clientFeesFactory = function($baseService) {
+            var serviceObject = degatech.services.clientFees;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.ng.addService(degatech.ng.app.module, "$loginService", ["$baseService"], degatech.services.loginFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$siteSettingsService", ["$baseService"], degatech.services.siteSettingsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$clientsService", ["$baseService"], degatech.services.clientsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$contactsService", ["$baseService"], degatech.services.contactsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$contactNotesService", ["$baseService"], degatech.services.contactNotesFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$usersService", ["$baseService"], degatech.services.usersFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$registrationService", ["$baseService"], degatech.services.registrationFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$fuelOrdersService", ["$baseService"], degatech.services.fuelOrdersFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$fuelOrderNotesService", ["$baseService"], degatech.services.fuelOrderNotesFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$emailRoutingService", ["$baseService"], degatech.services.emailRoutingFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$aircraftsService", ["$baseService"], degatech.services.aircraftsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$aircraftDataService", ["$baseService"], degatech.services.aircraftDataFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$customerDetailsService", ["$baseService"], degatech.services.customerDetailsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$customerNotesService", ["$baseService"], degatech.services.customerNotesFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$priceMarginsService", ["$baseService"], degatech.services.priceMarginsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$priceMarginTiersService", ["$baseService"], degatech.services.priceMarginTiersFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$supplierFuelsPricesService", ["$baseService"], degatech.services.supplierFuelsPricesFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$customerPriceMarginsService", ["$baseService"], degatech.services.customerPriceMarginsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$fuelOrderPricingsService", ["$baseService"], degatech.services.fuelOrderPricingsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$airportsService", ["$baseService"], degatech.services.airportsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$suppliersService", ["$baseService"], degatech.services.suppliersFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$acukwikAirportsService", ["$baseService"], degatech.services.acukwikAirportsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$airportPriceMarginsService", ["$baseService"], degatech.services.airportPriceMarginsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$fboPriceMarginsService", ["$baseService"], degatech.services.fboPriceMarginsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$aircraftExclusionsService", ["$baseService"], degatech.services.aircraftExclusionsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$customerAccountingInfoService", ["$baseService"], degatech.services.customerAccountingInfoFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$fboDetailCustomFieldsService", ["$baseService"], degatech.services.fboDetailCustomFieldsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$distributionService", ["$baseService"], degatech.services.distributionFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$customerDetailsCustomFieldsService", ["$baseService"], degatech.services.customerDetailsCustomFieldsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$contactDetailCustomFieldsService", ["$baseService"], degatech.services.contactDetailCustomFieldsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$calendarEventService", ["$baseService"], degatech.services.calendarEventFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$analysisService", ["$baseService"], degatech.services.analysisFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$fuelOrderTaxesService", ["$baseService"], degatech.services.fuelOrderTaxesFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$fuelOrderFeesService", ["$baseService"], degatech.services.fuelOrderFeesFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$fuelOrderInvoicesService", ["$baseService"], degatech.services.fuelOrderInvoicesFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$fuelOrderMessagesService", ["$baseService"], degatech.services.fuelOrderMessagesFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$vendorsService", ["$baseService"], degatech.services.vendorsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$vendorExclusionsService", ["$baseService"], degatech.services.vendorExclusionsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$acukwikUploadsService", ["$baseService"], degatech.services.acukwikUploadsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$schedulingUploadsService", ["$baseService"], degatech.services.schedulingUploadsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$integrationsService", ["$baseService"], degatech.services.integrationsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$permissionsService", ["$baseService"], degatech.services.permissionsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$clientTaxesService", ["$baseService"], degatech.services.clientTaxesFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$clientFeesService", ["$baseService"], degatech.services.clientFeesFactory);
+
+        degatech.page.clientsControllerFactory = function($scope,
+            $rootScope,
+            $timeout,
+            $uibModal,
+            $baseController,
+            $loginService,
+            $siteSettingsService,
+            $clientsService,
+            $contactsService,
+            $contactNotesService,
+            $usersService,
+            $registrationService,
+            $fuelOrdersService,
+            $emailRoutingService,
+            $aircraftsService,
+            $aircraftDataService,
+            $customerDetailsService,
+            $customerNotesService,
+            $priceMarginsService,
+            $priceMarginTiersService,
+            $supplierFuelsPricesService,
+            $customerPriceMarginsService,
+            $fuelOrderPricingsService,
+            $airportsService,
+            $suppliersService,
+            $acukwikAirportsService,
+            $airportPriceMarginsService,
+            $fboPriceMarginsService,
+            $aircraftExclusionsService,
+            $customerAccountingInfoService,
+            $fboDetailCustomFieldsService,
+            $distributionService,
+            $customerDetailsCustomFieldsService,
+            $contactDetailCustomFieldsService,
+            $calendarEventService,
+            $fuelOrderTaxesService,
+            $fuelOrderFeesService,
+            $fuelOrderInvoicesService,
+            $fuelOrderMessagesService,
+            $vendorsService,
+            $vendorExclusionsService,
+            $acukwikUploadsService,
+            $schedulingUploadsService,
+            $integrationsService,
+            $permissionsService,
+            $clientTaxesService,
+            $clientFeesService,
+            Notification) {
+
+            var vm = this;
+
+            $baseController.merge(vm, $baseController);
+
+            vm.$loginService = $loginService;
+            vm.$clientsService = $clientsService;
+            vm.$contactsService = $contactsService;
+            vm.$usersService = $usersService;
+            vm.$registrationService = $registrationService;
+            vm.$fuelOrdersService = $fuelOrdersService;
+            vm.$emailRoutingService = $emailRoutingService;
+            vm.$aircraftsService = $aircraftsService;
+            vm.$aircraftDataService = $aircraftDataService;
+            vm.$customerDetailsService = $customerDetailsService;
+            vm.$priceMarginsService = $priceMarginsService;
+            vm.$priceMarginTiersService = $priceMarginTiersService;
+            vm.$supplierFuelsPricesService = $supplierFuelsPricesService;
+            vm.$customerPriceMarginsService = $customerPriceMarginsService;
+            vm.$fuelOrderPricingsService = $fuelOrderPricingsService;
+            vm.$airportsService = $airportsService;
+            vm.$suppliersService = $suppliersService;
+            vm.$acukwikAirportsService = $acukwikAirportsService;
+            vm.$airportPriceMarginsService = $airportPriceMarginsService;
+            vm.$fboPriceMarginsService = $fboPriceMarginsService;
+            vm.$aircraftExclusionsService = $aircraftExclusionsService;
+            vm.$customerAccountingInfoService = $customerAccountingInfoService;
+            vm.$fboDetailCustomFieldsService = $fboDetailCustomFieldsService;
+            vm.$distributionService = $distributionService;
+            vm.$customerDetailsCustomFieldsService = $customerDetailsCustomFieldsService;
+            vm.$contactDetailCustomFieldsService = $contactDetailCustomFieldsService;
+            vm.$calendarEventService = $calendarEventService;
+            vm.$fuelOrderTaxesService = $fuelOrderTaxesService;
+            vm.$fuelOrderFeesService = $fuelOrderFeesService;
+            vm.$fuelOrderInvoicesService = $fuelOrderInvoicesService;
+            vm.$vendorsService = $vendorsService;
+            vm.$vendorExclusionsService = $vendorExclusionsService;
+            vm.$acukwikUploadsService = $acukwikUploadsService;
+            vm.$schedulingUploadsService = $schedulingUploadsService;
+            vm.$integrationsService = $integrationsService;
+            vm.$permissionsService = $permissionsService;
+            vm.$clientTaxesService = $clientTaxesService;
+            vm.$clientFeesService = $clientFeesService;
+            vm.$rootScope = $rootScope;
+            vm.$scope = $scope;
+
+            //PUBLIC METHODS//////////////////////////////////////////////
+            vm.notify = vm.$clientsService.getNotifier($scope);
+            vm.editAccount = _editAccount;
+            vm.saveAccount = _saveAccount;
+            vm.cancelEdit = _cancelEdit;
+            vm.dispatchFuel = _dispatchFuel;
+            vm.aircraftChanged = _aircraftChanged;
+            vm.addLeg = _addLeg;
+            vm.removeLeg = _removeLeg;
+            vm.icaoChanged = _icaoChanged;
+            vm.openPopup = _openPopup;
+            vm.supplierChange = _supplierChange;
+            vm.onToggleVendorDetails = _onToggleVendorDetails;
+            vm.saveSupplierDetails = _saveSupplierDetails;
+
+            $rootScope.triggerFilters = function(){
+                $timeout(function () {
+                    $('select[predicate]').change();
+                    //Custom searches with an ng model
+                    $('input[st-custom-search]')
+                        .each(function () {
+                            try {
+                                if (this.value == null || this.value === '')
+                                    return;
+                                $(this).trigger('change');
+                            } catch (e) {
+                            }
+                        });
+                    //Common searches with an ng model
+                    $('input[st-search]')
+                    .each(function () {
+                        try {
+                            if (this.value == null || this.value === '')
+                                return;
+                            $(this).trigger('change');
+                        } catch (e) {
+                        }
+                    });
+                });
+            };
+            
+            /*DASHBOARD*/
+            vm.logout = _logout;
+            vm.openModal = _openModal;
+            vm.exportRankings = _exportRankings;
+            vm.exportTotal = _exportTotal;
+            vm.exportPrices = _exportPrices;
+            vm.deleteSupplier = _deleteSupplier;
+
+            /*view buttons*/
+            vm.viewCompanies = _viewCompanies;
+            vm.viewContacts = _viewContacts;
+            vm.viewFuelOrders = _viewFuelOrders;
+            vm.viewPriceMargins = _viewPriceMargins;
+            vm.viewEmails = _viewEmails;
+            vm.viewAirportManager = _viewAirportManager;
+            vm.viewFileUploader = _viewFileUploader;
+            vm.viewDBUploader = _viewDBUploader;
+            vm.viewAccount = _viewAccount;
+            //vm.viewOrderFuel = _viewOrderFuel;
+            vm.viewDashboard = _viewDashboard;
+            vm.viewScheduler = _viewScheduler;
+            vm.viewVendors = _viewVendors;
+            vm.viewAnalysis = _viewAnalysis;
+            vm.viewUserManager = _viewUserManager;
+
+            //PUBLIC HANDLERS//////////////////////////////////////////////
+            vm.onGetUserSuccess = _onGetUserSuccess;
+            vm.onGetInfoSuccess = _onGetInfoSuccess;
+            vm.onGetAircraftsSuccess = _onGetAircraftsSuccess;
+            vm.onGetAirportSuccess = _onGetAirportSuccess;
+            vm.onGetAccountSuccess = _onGetAccountSuccess;
+            vm.onSaveAccountSuccess = _onSaveAccountSuccess;
+            //vm.onSaveFuelOrderSuccess = _onSaveFuelOrderSuccess;
+            vm.onGetPricesSuccess = _onGetPricesSuccess;
+            //vm.onSavePricingSuccess = _onSavePricingSuccess;
+            vm.onGetSuppliersSuccess = _onGetSuppliersSuccess;
+            vm.onError = _onError;
+
+
+            //PUBLIC MEMBERS//////////////////////////////////////////////
+            vm.test = "PENDING";
+            vm.user = null;
+            vm.client = null;
+            vm.account = null;
+            vm.userOnly = false;
+            vm.showingFuelOrder = false;
+            vm.emailRouting = null;
+            vm.aircraftData = null;
+            vm.aircrafts = null;
+            vm.savedAircraft = null;
+            vm.deletedAircraft = null;
+            vm.tiers = null;
+            vm.popupOpened = false;
+            vm.savedMargin = null;
+            vm.dateFormat = "M/dd/yyyy";
+            vm.dropzoneConfig = {
+                uploadMultiple: false,
+                previewsContainer: "#Dropzone-Preview-Placeholder",
+                maxFileSize: 4,
+                url: "/api/files/supplier/" + vm.supplierId,
+                acceptedFiles: '.xlsx,.xls,.csv',
+                addRemoveLinks: true,
+                accept: function(file, done) {
+                    if (file.size > 20000000) {
+                        Notification.warning({
+                            model: this,
+                            scope: $scope,
+                            //templateUrl: '/Partials/Common/Notifications/Login.html',
+                            message: "File size exceeded.",
+                            delay: 3000,
+                            closeOnClick: false
+                        });
+                    }
+                    else if (file.type == 'application/vnd.ms-excel' || file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || file.type == '') {
+                        $timeout(function() {
+                            vm.IsUploading = true;
+                            vm.ValidPricingPercentage = 50;
+                            vm.UploadState = 'Processing';
+                            vm.uploadedDate = '';
+                        });
+                        var container = $(file.previewElement).parent();
+                        $(file.previewElement).hide();
+                        done();
+                    } else {
+                        Notification.error({
+                            model: this,
+                            scope: $scope,
+                            //templateUrl: '/Partials/Common/Notifications/Login.html',
+                            message: "That type of file is currently not supported.",
+                            delay: 3000,
+                            closeOnClick: false
+                        });
+                    }
+                },
+                success: function(data) {
+                    var res = JSON.parse(data.xhr.responseText);
+                    console.log(res.Item);
+                    $timeout(function() {
+                        vm.showingProgress = false;
+                        vm.IsUploading = false;
+                        vm.UploadState = "Completed";
+                        vm.ValidPricingPercentage = 100;
+                        vm.IsComplete = true;
+                        vm.uploadedDate = moment().format('MM/DD/YYYY');
+                    });
+                    //alert(res.Item);
+                },
+                init: function() {
+                    var myDropzone = this;
+
+                    this.on("success", function(data) {
+                        var res = JSON.parse(data.xhr.responseText);
+                    });
+
+                    this.on("processing", function(file) {
+                        $timeout(function() {
+                            vm.showingProgress = true;
+                        });
+                        this.options.url = "/api/files/supplier/" + vm.supplierId;
+                    });
+                }
+            };
+
+            render();
+
+            function RedirectToMainPage() {
+                console.log("Clearing session...");
+                storage.ClearSession();
+                location.href = "/Login";
+            }
+
+            $scope.$on('updateCompanies', function (event, data) {
+                console.log(data);
+                vm.$customerDetailsService.getCustomersByAdminClient($usersService.user.ClientID, _onGetCustomersSuccess, _onError);
+            });
+
+            $scope.$on('updateTotal', function (event, data) {
+                console.log(data);
+                vm.$fuelOrdersService.getTotal(data, _onGetTotalSuccess, vm.onError);
+            });
+
+            $scope.$on('updateTasks', function (event, data) {
+                console.log(data);
+                vm.$calendarEventService.getCalendarDates($usersService.user.ClientID, $usersService.user.Id, _onGetEventsSuccess, _onError);
+            });
+
+            //PRIVATE METHODS//////////////////////////////////////////////
+            function render() {
+                window.onpopstate = function (e) { window.history.forward(1); }
+                var userId = @Model.CurrentUser.Id;
+                if (userId == 0) {
+                    Notification.warning({
+                        model: this,
+                        scope: $scope,
+                        //templateUrl: '/Partials/Common/Notifications/Login.html',
+                        message: "<div>Your session has timed out.</div><div><a onclick='RedirectToMainPage();'>OK</a></div>",
+                        //delay: 3000,
+                        closeOnClick: false
+                    });
+                } else vm.$usersService.getUser(userId, vm.onGetUserSuccess, vm.onError);
+            }
+
+            function _logout(){
+                $uibModal.open({
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: '/Partials/Admin/ModalForms/Confirmations/Confirmation.html',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.message = "Are you sure you want to LOGOUT?";
+                        $scope.confirm = function (){
+                            $uibModalInstance.close(vm.$loginService.logout(_onLogoutSuccess, _onError));
+                        }
+                        $scope.cancel = function (){
+                            $uibModalInstance.dismiss();
+                        }
+                    }
+                });
+            }
+
+            function _editAccount() {
+                vm.editingAccount = true;
+            }
+
+            function _saveAccount(account) {
+                console.log('Saving Account');
+                vm.savingAccount = true;
+                vm.$registrationService.updateRegistration(account.Id, account, vm.onSaveAccountSuccess, vm.onError);
+            }
+
+            function _cancelEdit() {
+                vm.account = angular.copy(vm.currentAccount);
+                vm.editingAccount = false;
+            }
+
+            /*view buttons*/
+            function hideMenuIfMobile () {               
+                var browserWidth = $(window).width();
+                // console.log('bW = ' + browserWidth);
+
+                // if mobile widths, remove mobile-menu-hidden and add hidden menu
+                if (browserWidth < 920) {
+                    // console.log('is less than 920')
+                    $('body').removeClass('hidden-menu');
+                } else {
+                    // console.log('not less than 920');
+                }
+
+
+            }
+
+            function _viewCompanies() {
+                console.log("Getting Companies...");
+                vm.$rootScope.ApplicationState.ActiveSection = 'CUSTOMERS';
+                vm.$rootScope.ApplicationState.SubSection = "COMPANIES";
+                hideMenuIfMobile();
+            }
+
+            function _viewContacts(){
+                console.log("Getting Contacts...");
+                vm.$rootScope.ApplicationState.ActiveSection = 'CUSTOMERS';
+                vm.$rootScope.ApplicationState.SubSection = "CONTACTS";
+                hideMenuIfMobile();
+            }
+
+            function _viewFuelOrders() {
+                if (vm.user.Client.ClientType === 1) vm.$rootScope.ApplicationState.ActiveSection = 'FUEL ORDERS';
+                else vm.$clientsService.getDetailedClientInfo(vm.user.ClientID, vm.onGetInfoSuccess, vm.onError);
+                hideMenuIfMobile();
+            }
+
+            function _viewPriceMargins() {
+                vm.$rootScope.ApplicationState.ActiveSection = 'PRICE MARGINS';
+                hideMenuIfMobile();
+            }
+
+            function _viewEmails() {
+                vm.$rootScope.ApplicationState.ActiveSection = 'EMAILS';
+                hideMenuIfMobile();
+            }
+
+            function _viewAirportManager() {
+                vm.$rootScope.ApplicationState.ActiveSection = 'AIRPORTS';
+                hideMenuIfMobile();
+            }
+
+            function _viewVendors(){
+                vm.$rootScope.ApplicationState.ActiveSection = 'VENDORS';
+                hideMenuIfMobile();
+            }
+
+            function _viewFileUploader() {
+                console.log("Getting File Uploader...");
+                vm.$suppliersService.getSuppliersByAdminClient($usersService.user.ClientID, vm.onGetSuppliersSuccess, vm.onError);
+                hideMenuIfMobile();
+            }
+
+            function _viewDBUploader(){
+                console.log("Getting DB Uploader...");
+                vm.$rootScope.ApplicationState.ActiveSection = 'DB UPLOADER';
+                hideMenuIfMobile();
+            }
+
+            function _viewAccount() {
+                console.log("Getting Account...");
+                vm.$registrationService.getRegistration($usersService.user.RegistrationID, vm.onGetAccountSuccess, vm.onError);
+                hideMenuIfMobile();
+            }
+
+            function _viewUserManager(){
+                console.log("Getting User Manager");
+                vm.$rootScope.ApplicationState.ActiveSection = 'USER MANAGER';
+                hideMenuIfMobile();
+            }
+
+            //function _viewOrderFuel() {
+            //    console.log("Getting Fuel Order...");
+            //    vm.$aircraftsService.getAircraftsByClientID(vm.user.ClientID, vm.onGetAircraftsSuccess, vm.onError);
+            //}
+
+            function _viewDashboard(){
+                console.log("Getting Dashboard...");
+                storage.SetSessionItem("LastActiveSection", "DASHBOARD");
+                vm.$rootScope.ApplicationState.ActiveSection = 'DASHBOARD';
+                hideMenuIfMobile();
+            }
+
+            function _viewScheduler(){
+                console.log("Getting Task Scheduler...");
+                vm.$rootScope.ApplicationState.ActiveSection = 'SCHEDULER';
+                hideMenuIfMobile();
+            }
+
+            function _viewAnalysis(){
+                storage.SetSessionItem("LastActiveSection", "ANALYSIS");
+                vm.$rootScope.ApplicationState.ActiveSection = 'ANALYSIS';
+                hideMenuIfMobile();
+            }
+
+            /****DASHBOARD****/
+            function _exportRankings(){
+            }
+
+            function _exportTotal(){
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: '/Partials/Admin/ModalForms/ExportCSV.html',
+                    controller: 'exportModalController',
+                    controllerAs: 'modal',
+                    resolve: {
+                        items: function () {
+                            return {
+                                exportType: 2
+                            }
+                        }
+                    }
+                });
+            }
+
+            function _openModal(type){
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: '/Partials/Admin/ModalForms/ExportCSV.html',
+                    controller: 'exportModalController',
+                    controllerAs: 'modal',
+                    resolve: {
+                        items: function () {
+                            return {
+                                userService: vm.$usersService,
+                                exportType: type,
+                                dashboard: $usersService.dashboard
+                            }
+                        }
+                    }
+                });
+            }
+
+            /****ADMIN****/
+
+            ////FILE UPLOADER////
+            function _getSupplierDropzoneConfig(supplier) {
+                return {
+                    uploadMultiple: false,
+                    previewsContainer: "#Dropzone-Preview-Placeholder",
+                    maxFileSize: 4,
+                    url: "/api/files/supplier/" + supplier.Id,
+                    acceptedFiles: '.xlsx,.xls,.csv',
+                    addRemoveLinks: true,
+                    accept: function(file, done) {
+                        if (file.size > 4000000) {
+                            Notification.warning({
+                                model: this,
+                                scope: $scope,
+                                //templateUrl: '/Partials/Common/Notifications/Login.html',
+                                message: "File size exceeded.",
+                                delay: 3000,
+                                closeOnClick: false
+                            });
+                        }
+                        else if (file.type == 'application/vnd.ms-excel' || file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || file.type == '') {
+                            $timeout(function() {
+                                supplier.IsUploading = true;
+                                supplier.ValidPricingPercentage = 50;
+                                supplier.UploadState = 'Processing';
+                            });
+                            var container = $(file.previewElement).parent();
+                            $(file.previewElement).hide();
+
+                            done();
+                        } else {
+                            Notification.error({
+                                model: this,
+                                scope: $scope,
+                                //templateUrl: '/Partials/Common/Notifications/Login.html',
+                                message: "That type of file is currently not supported.",
+                                delay: 3000,
+                                closeOnClick: false
+                            });
+                        }
+                    },
+                    success: function(data) {
+                        var res = JSON.parse(data.xhr.responseText);
+                        console.log(res.Item);
+                        if (res.Item == "Upload failed.") {
+                            $timeout(function() {
+                                supplier.IsUploading = false;
+                                supplier.UploadState = "Failed";
+                                supplier.ValidPricingPercentage = 0;
+                                supplier.IsComplete = true;
+                                //vm.$supplierFuelsPricesService.getSupplierFuelsPricesByAdmin(vm.user.ClientID, _onGetSupplierPricesSuccess, _onError);
+                            });
+                        } else {
+                            $timeout(function() {
+                                supplier.IsUploading = false;
+                                supplier.UploadState = "Completed";
+                                supplier.ValidPricingPercentage = 100;
+                                supplier.IsComplete = true;
+                                supplier.LastUpdateDisplayText = moment().format('M/D/YYYY');
+                                //vm.$supplierFuelsPricesService.getSupplierFuelsPricesByAdmin(vm.user.ClientID, _onGetSupplierPricesSuccess, _onError);
+                            });
+                        }
+                    },
+                    init: function() {
+
+                        this.on("processing", function(file) {
+                            this.options.url = "/api/files/supplier/" + supplier.Id + "/" + supplier.SupplierName;
+                        });
+                    }
+                };
+            }
+
+            function _supplierChange() {
+                vm.showUploader = true;
+            }
+
+            function _onToggleVendorDetails(supplier) {
+                console.log('mike test');
+                supplier.showingVendorDetails = !supplier.showingVendorDetails;
+                if (supplier.showingVendorDetails) {
+                    console.log("Opening Details");
+                }
+            }
+
+            function _saveSupplierDetails(supplier) {
+                vm.$suppliersService.updateSupplier(supplier.Id, supplier, _onSaveSupplierDetailsSuccess, _onError);
+            }
+
+            function _onSaveSupplierDetailsSuccess(data) {
+
+            }
+
+            function _exportPrices(type){
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: '/Partials/Admin/ModalForms/ExportCSV.html',
+                    controller: 'exportModalController',
+                    controllerAs: 'modal',
+                    resolve: {
+                        items: function () {
+                            return {
+                                userService: vm.$usersService,
+                                exportType: type
+                            }
+                        }
+                    }
+                });
+            }
+
+            function _deleteSupplier(supplier){
+                $uibModal.open({
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: '/Partials/Admin/ModalForms/Confirmations/Confirmation.html',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.message = ("Are you sure you want to DELETE this vendor's prices?");
+                        $scope.confirm = function (){
+                            supplier.IsComplete = false;
+                            supplier.IsUploading = false;
+                            supplier.ValidPricingPercentage = 0;
+                            supplier.LastUpdateDisplayText = 'N/A';
+                            supplier.UploadState = '';
+                            $uibModalInstance.close(vm.$supplierFuelsPricesService.deleteSupplierFuelsPrices(vm.user.ClientID, supplier.Id, _onDeletePricesSuccess, _onError));
+                        }
+                        $scope.cancel = function (){
+                            $uibModalInstance.dismiss();
+                        }
+                    }
+                });
+            }
+
+            /****CUSTOMER****/
+            function _aircraftChanged() {
+                vm.showOrderForm = true;
+                vm.showButtons = true;
+                if (vm.Legs == null) {
+                    vm.Legs = [];
+                    vm.Legs.push({});
+                }
+            }
+
+            function _icaoChanged(leg) {
+                console.log("Getting prices...");
+                vm.gettingPrices = true;
+                vm.$customerPriceMarginsService.getPrices(vm.user.ClientID, leg, vm.onGetPricesSuccess, vm.onError);
+            }
+
+            function _openPopup() {
+                vm.popupOpened = true;
+            }
+
+            function _addLeg() {
+                vm.Legs.push({});
+            }
+
+            function _removeLeg() {
+                vm.Legs.pop({});
+            }
+
+            function _dispatchFuel(legs) {
+                console.log("Saving Fuel Order...", legs);
+                vm.savingFuelOrder = true;
+                var fuelOrders = [];
+                for (i = 0; i < legs.length; i++) {
+                    var leg = legs[i];
+                    var prices = leg.prices;
+                    for (j = 0; j < prices.length; j++) {
+                        var pricing = {};
+                        pricing.Vendor = prices[j].SupplierPrices.Vendor;
+                        pricing.IATA = prices[j].SupplierPrices.IATA;
+                        pricing.ICAO = prices[j].SupplierPrices.ICAO;
+                        pricing.FBOName = prices[j].SupplierPrices.FBOName;
+                        pricing.Min = prices[j].SupplierPrices.Min;
+                        pricing.Max = prices[j].SupplierPrices.Max;
+                        pricing.TotalWithTax = prices[j].SupplierPrices.TotalWithTax;
+                        pricing.Expires = prices[j].SupplierPrices.Expires;
+                        pricing.Product = prices[j].SupplierPrices.Product;
+                        pricing.Notes = prices[j].SupplierPrices.Notes;
+                        pricing.AdminClientID = prices[j].SupplierPrices.AdminClientID;
+                        pricing.SupplierID = prices[j].SupplierPrices.SupplierID;
+                        vm.$fuelOrderPricingsService.addFuelOrderPricing(pricing, vm.onSavePricingSuccess, vm.onError);
+                    }
+
+                    leg.AdminClientID = 2;
+                    leg.AircraftID = vm.fuelOrder.Aircraft.Id;
+                    leg.CustClientID = vm.user.ClientID;
+                    leg.OrderedByUserID = vm.user.Id;
+                    leg.FBO = leg.Quote.SupplierPrices.FBOName;
+                    leg.DateRequested = new Date().toDateString();
+                    leg.AdminStatus = 0;
+                    leg.CustStatus = 0;
+                    leg.IsArchived = false;
+                    leg.IsDirectlyEntered = false;
+                    leg.InvoicedPPG = 0;
+                    leg.QuotedPPG = leg.Quote.TotalCost;
+                    leg.InvoicedVolume = 0;
+                    console.log(leg);
+                    fuelOrders.push(leg);
+                    vm.fuelOrders = angular.copy(fuelOrders);
+                }
+                vm.$fuelOrdersService.addFuelOrder(fuelOrders, vm.onSaveFuelOrderSuccess, vm.onError);
+            }
+
+            //PRIVATE HANDLERS//////////////////////////////////////////////
+            function _onGetUserSuccess(data) {
+                vm.notify(function() {
+                    vm.user = $usersService.user = data.Item;
+                    console.log("USER: ", vm.user);
+                    function getEndDate(){
+                        var d = new Date();
+                        var m = d.setMonth(d.getMonth() + 1);
+                        return new Date(m).toDateString();
+                    }
+                    $usersService.dashboard = {
+                        ClientID: vm.user.ClientID,
+                        ClientType: vm.user.Client.ClientType,
+                        StartDateFilter: "1/1/2016",
+                        EndDateFilter: getEndDate()
+                    };
+                    switch(storage.GetSessionItem("LastActiveSection")){
+                        case null:
+                        case 'DASHBOARD':
+                            console.log("Getting Dashboard...");
+                            vm.$rootScope.ApplicationState.ActiveSection = 'DASHBOARD';
+                            storage.SetSessionItem("LastActiveSection", "DASHBOARD");
+                            break;
+                        case 'FILE UPLOADER':
+                            console.log("Getting File Uploader...");
+                            vm.$suppliersService.getSuppliersByAdminClient($usersService.user.ClientID, vm.onGetSuppliersSuccess, vm.onError);
+                            vm.$rootScope.ApplicationState.ActiveSection = 'FILE UPLOADER';
+                            break;
+                        case 'CUSTOMERS':
+                            console.log("Getting Customers...");
+                            vm.$rootScope.ApplicationState.ActiveSection = 'CUSTOMERS';
+                            vm.$rootScope.ApplicationState.SubSection = 'COMPANIES';
+                            break;
+                        default:
+                            vm.$rootScope.ApplicationState.ActiveSection = storage.GetSessionItem("LastActiveSection");
+                    }
+
+                    console.log("Getting ranking...");
+                    vm.$fuelOrdersService.getRanking($usersService.dashboard, _onGetRankingsSuccess, vm.onError);
+                    vm.$customerDetailsService.getCustomersByAdminClient($usersService.user.ClientID, _onGetCustomersSuccess, _onError);
+                    vm.$calendarEventService.getCalendarDates($usersService.user.ClientID, $usersService.user.Id, _onGetEventsSuccess, _onError);
+                });
+            }
+
+            function _onGetCustomersSuccess(data){
+                vm.notify(function(){
+                    var customers = JSON.parse(data.Item);
+                    vm.customersWithoutMargins = customers.filter(function(c){ return c.CustomerPriceMarginID == null });
+                });
+            }
+
+            function _onGetEventsSuccess(data){
+                vm.notify(function () {
+                    vm.calendarEvents = data.Items;
+                    console.log("EVENTS: ", vm.calendarEvents);
+                });
+            }
+
+            function _onGetRankingsSuccess(data){
+                vm.notify(function(){
+                    vm.rankings = JSON.parse(data);
+                    console.log("Ranking: ", vm.rankings);
+                    console.log("Getting total...");
+                    vm.$fuelOrdersService.getTotal($usersService.dashboard, _onGetTotalSuccess, vm.onError);
+                });
+            }
+
+            function _onGetTotalSuccess(data){
+                vm.notify(function(){
+                    var total = JSON.parse(data);
+                    vm.total = total[0];
+                    console.log("Total: ", vm.total);
+                    //vm.$fuelOrdersService.getSummary($usersService.dashboard, _onGetSummarySuccess, vm.onError);
+                });
+            }
+
+            function _onGetSummarySuccess(data){
+                vm.notify(function(){
+                    vm.summary = JSON.parse(data);
+                    console.log("Summary: ", vm.summary);
+                });
+            }
+
+            function _onGetAccountSuccess(data) {
+                vm.notify(function() {
+                    vm.account = data.Item;
+                    vm.$rootScope.ApplicationState.ActiveSection = 'ACCOUNT';
+                    console.log("ACCOUNT: ", vm.account);
+                    vm.currentAccount = angular.copy(vm.account);
+                });
+            }
+
+            function _onSaveAccountSuccess() {
+                vm.notify(function() {
+                    vm.savingAccount = false;
+                    vm.editingAccount = false;
+                    vm.currentAccount = angular.copy(vm.account);
+                });
+            }
+
+            /****ADMIN****/
+            function _onGetSuppliersSuccess(data) {
+                vm.notify(function() {
+                    vm.suppliers = data.Items;
+                    angular.forEach(vm.suppliers, function(supplier){
+                        supplier.dropZoneConfig = _getSupplierDropzoneConfig(supplier);
+                    });
+                    console.log("SUPPLIERS: ", vm.suppliers);
+                    vm.$supplierFuelsPricesService.getSupplierFuelsPricesByAdmin(vm.user.ClientID, _onGetSupplierPricesSuccess, _onError);
+                    vm.$rootScope.ApplicationState.ActiveSection = 'FILE UPLOADER';
+                    storage.SetSessionItem("LastActiveSection", "FILE UPLOADER");
+                    vm.IsLoading = true;
+                });
+            }
+
+            function _onGetSupplierPricesSuccess(data){
+                vm.notify(function() {
+                    if (data.Items){
+                        vm.supplierDetails = data.Items;
+                        if (vm.supplierDetails.length == 1) vm.supplierId = vm.supplierDetails[0].SupplierID;
+                        //vm.IsComplete = true;
+                        vm.uploadedDate = new moment(vm.supplierDetails[0].DateUploaded).format('MM/DD/YYYY');
+                        vm.ValidPricingPercentage = 100;
+                        vm.IsLoading = false;
+                        vm.UploadState = "Completed";
+                        console.log("SUPPLIER DETAILS: ", vm.supplierDetails);
+                    }
+                });
+            }
+
+            function _onDeletePricesSuccess(){
+                Notification.success({
+                    model: this,
+                    scope: $scope,
+                    //templateUrl: '/Partials/Common/Notifications/Login.html',
+                    message: "Vendor prices deleted! <br /> <br />",
+                    delay: 3000,
+                    closeOnClick: false
+                });
+            }
+
+            /****CUSTOMER****/
+            function _onGetInfoSuccess(data) {
+                vm.notify(function() {
+                    vm.client = data.Item;
+                    console.log("CLIENT: ", vm.client);
+                    vm.$rootScope.ApplicationState.ActiveSection = 'FUEL ORDERS';
+                });
+            }
+
+            function _onGetAircraftsSuccess(data) {
+                vm.notify(function() {
+                    vm.aircrafts = data.Items;
+                    console.log("AIRCRAFTS: ", vm.aircrafts);
+                    console.log("Getting Airports...");
+                    vm.$airportsService.getListOfAirports(vm.onGetAirportSuccess, vm.onError);
+                });
+            }
+
+            function _onGetAirportSuccess(data) {
+                vm.notify(function() {
+                    vm.airports = JSON.parse(data.Item);
+                    console.log("AIRPORTS: ", vm.airports);
+                });
+            }
+
+            function _openPopup() {
+                vm.popupOpened = true;
+            }
+
+            function _aircraftChanged() {
+                vm.showOrderForm = true;
+                vm.showButtons = true;
+                if (!_isFuelOrderValidForQuote())
+                    return;
+                //vm.gettingPrices = true;
+                //vm.$customerPriceMarginsService.getPrices(vm.customer.CustClientID, vm.fuelOrder, vm.onGetPricesSuccess, vm.onError);
+            }
+
+            function _icaoChanged(leg) {
+                console.log("Getting prices...");
+                if (!_isFuelOrderValidForQuote())
+                    return;
+                vm.gettingPrices = true;
+                vm.gettingSupplierPrices = true;
+                vm.$fuelOrderPricingsService.getQuoteForLocation(vm.customer.AdminClientID, vm.customer.CustClientID, leg.ICAO, leg.Aircraft.TailNumber, vm.onGetPricesSuccess, vm.onError);
+                vm.$fuelOrderPricingsService.getQuoteForLocationForAllVendors(vm.customer.AdminClientID, vm.customer.CustClientID, leg.ICAO, leg.Aircraft.TailNumber, _onGetPricesForAllVendorsSuccess, vm.onError);
+                //Supplier prices will be added via the fuel order save procedure in SQL
+                //vm.$supplierFuelsPricesService.getSupplierFuelsPricesByICAO(vm.customer.AdminClientID, leg.ICAO, vm.onGetSupplierFuelsPricesByICAOSuccess, vm.onError);
+            }
+
+            function _isFuelOrderValidForQuote() {
+                if (vm.fuelOrder.Aircraft == null || vm.fuelOrder.Aircraft.TailNumber == '' || vm.fuelOrder.ICAO == '')
+                    return false;
+                return true;
+            }
+
+            function _onGetPricesSuccess(data, leg) {
+                vm.notify(function () {
+                    vm.gettingPrices = false;
+                    vm.showOrderForm = true;
+                    vm.fuelOrder.prices = data.Items;
+                    //leg.prices = data.Item;
+                    console.log("PRICES: ", vm.fuelOrder.prices);
+                    //vm.fuelOrder.Quote = vm.fuelOrder.prices[0];
+                });
+            }
+
+            //function _onSavePricingSuccess(data) {
+            //    console.log(data.Item + " is saved!");
+            //}
+
+            //function _onSaveFuelOrderSuccess(data) {
+            //    var msg = "Fuel order saved!";
+            //    console.log(msg, data);
+            //    alert(msg);
+            //    vm.notify(function() {
+            //        vm.savingFuelOrder = false;
+            //        vm.showOrderForm = true;
+            //        vm.fuelOrder = null;
+            //        vm.Legs = null;
+            //    });
+            //}
+
+            function _onLogoutSuccess(){
+                vm.notify(function(){
+                    RedirectToMainPage();
+                });
+            }
+
+            //error handler//
+            function _onError() {
+                vm.notify(function() {
+                    vm.savingContact = false;
+                    vm.savingCustomer = false;
+                    vm.savingUser = false;
+                    vm.savingAccount = false;
+                    vm.savingFuelOrder = false;
+                    vm.savingEmail = false;
+                    vm.savingAircraft = false;
+                    vm.savingPricing = false;
+                    vm.gettingPrices = false;
+                });
+                vm.error = "An error has occurred!";
+                console.log(vm.error);
+            }
+        }
+
+        degatech.ng.addController(degatech.ng.app.module,
+            "dashboardController",
+            [
+                '$scope',
+                '$rootScope',
+                '$timeout',
+                '$uibModal',
+                '$baseController',
+                '$loginService',
+                '$siteSettingsService',
+                "$clientsService",
+                "$contactsService",
+                "$contactNotesService",
+                "$usersService",
+                "$registrationService",
+                "$fuelOrdersService",
+                "$emailRoutingService",
+                "$aircraftsService",
+                "$aircraftDataService",
+                "$customerDetailsService",
+                "$customerNotesService",
+                "$priceMarginsService",
+                "$priceMarginTiersService",
+                "$supplierFuelsPricesService",
+                "$customerPriceMarginsService",
+                "$fuelOrderPricingsService",
+                "$airportsService",
+                "$suppliersService",
+                "$acukwikAirportsService",
+                "$airportPriceMarginsService",
+                "$fboPriceMarginsService",
+                "$aircraftExclusionsService",
+                "$customerAccountingInfoService",
+                "$fboDetailCustomFieldsService",
+                "$distributionService",
+                "$customerDetailsCustomFieldsService",
+                "$contactDetailCustomFieldsService",
+                "$calendarEventService",
+                "$fuelOrderTaxesService",
+                "$fuelOrderFeesService",
+                "$fuelOrderInvoicesService",
+                "$fuelOrderMessagesService",
+                "$vendorsService",
+                "$vendorExclusionsService",
+                "$acukwikUploadsService",
+                "$schedulingUploadsService",
+                "$integrationsService",
+                "$permissionsService",
+                "$clientTaxesService",
+                "$clientFeesService",
+                "Notification"
+            ],
+            degatech.page.clientsControllerFactory);
+
+        ///////////////////////////////////////MODAL - EXPORT CSV///////////////////////////////////
+
+        degatech.services.exportModalFactory = function ($baseService) {
+            var aServiceObject = degatech.services.fuelOrders;
+            var newService = $baseService.merge(true, {}, aServiceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.supplierFuelsPricesFactory = function($baseService) {
+            var serviceObject = degatech.services.supplierFuelsPrices;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.ng.addService(degatech.ng.app.module, "$exportModalService", ["$baseService"], degatech.services.exportModalFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$supplierFuelsPricesService", ["$baseService"], degatech.services.supplierFuelsPricesFactory);
+
+        degatech.page.exportModalControllerFactory = function ($scope, $timeout, $uibModalInstance, $exportModalService, items, $uibModal, $supplierFuelsPricesService) {
+
+            var vm = this;
+
+            vm.$scope = $scope;
+            vm.modalInstance = $uibModalInstance;
+            vm.$exportModalService = $exportModalService;
+            vm.$supplierFuelsPricesService = $supplierFuelsPricesService;
+            vm.items = items;
+
+            vm.notify = vm.$exportModalService.getNotifier($scope);
+
+            vm.cancel = _cancel;
+
+            vm.items = items;
+
+            _init();
+
+            function _init() {
+                $timeout(function(){
+                    console.log(vm.items);
+                    if (vm.items.exportType == 'RANKINGS'){
+                        console.log("Exporting rankings...");
+                        vm.$exportModalService.exportRanking(vm.items.dashboard, _onExportSuccess, _onError);
+                    }
+                    else if (vm.items.exportType == 'TOTAL'){
+                        console.log("Exporting total...");
+                        if (vm.items.userService.user.Client.ClientType == 2)
+                            vm.$exportModalService.exportTransactions(vm.items.dashboard, _onExportSuccess, _onError);
+                        else vm.$exportModalService.exportTotal(vm.items.dashboard, _onExportSuccess, _onError);
+                    }
+                    else if (vm.items.exportType == 'PRICES'){
+                        console.log("Exporting vendor prices...");
+                        var exportData = {
+                            ClientID: vm.items.userService.user.ClientID,
+                            ClientName: vm.items.userService.user.Client.Name
+                        };
+                        vm.$supplierFuelsPricesService.exportSupplierFuelsPrices(exportData, _onExportSuccess, _onError);
+                    }
+                    else _onError();
+                });
+            }
+
+            function _cancel() {
+                $uibModalInstance.close();
+            }
+
+            function _onExportSuccess(data) {
+                if (vm.items.exportType == 'RANKINGS') console.log("Rankings exported!");
+                if (vm.items.exportType == 'TOTAL') console.log("Total exported!");
+                if (vm.items.exportType == 'PRICES') console.log("Prices exported!");
+                vm.notify(function () {
+                    vm.downloadLink = data;
+                });
+            }
+
+            function _onError() {
+                vm.notify(function () {
+                    vm.error = "An error has occurred!";
+                    console.log(vm.error);
+                });
+            }
+        }
+
+        degatech.ng.addController(degatech.ng.app.module
+                    , "exportModalController"
+                    , ['$scope',
+                        '$timeout',
+                        '$uibModalInstance',
+                        "$exportModalService",
+                        'items',
+                        '$uibModal',
+                        '$supplierFuelsPricesService'
+                    ]
+                    , degatech.page.exportModalControllerFactory);
+
+
+    </script>
+}

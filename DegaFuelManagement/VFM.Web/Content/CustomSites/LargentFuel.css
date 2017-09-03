@@ -1,0 +1,28 @@
+﻿/*
+Largent Fuel Management - CSS Styles
+*/
+
+#left-panel {
+background: #072724 !important;
+}
+
+#header {
+background: -moz-linear-gradient(-45deg, #17666c 0%, #5ab2ef 100%) !important;
+background: -webkit-linear-gradient(-45deg, #17666c 0%,#5ab2ef 100%) !important;
+background: linear-gradient(135deg, #17666c 0%,#5ab2ef 100%) !important;
+}
+#header>:first-child {
+background: #072724;
+}
+
+.gradient-green-sky {
+background: #072724 !important;
+}
+
+#logo {
+display: initial;
+}
+
+#logo img {
+content:url('/img/largentfuels-logo.png');
+} 

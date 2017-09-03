@@ -1,0 +1,30 @@
+﻿<div class="transactioneditdivertcontainer" role="alertdialog">
+    <div class="ngdialog-content" role="document">
+        <div class="jarviswidget-color-light-grey">
+            <header class="row text-right " role="heading">
+                <div class="jarviswidget-ctrls" role="menu">
+                    <a class="button-icon jarviswidget-delete-btn" ng-click="OnAbortClicked()">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </header>
+            <div class="row text-center font-600">
+                Diverting will convert this to a direct transaction.
+            </div>
+            <!--<div class="row leftpaddedlarge">
+                <label>Assign To:</label>
+                <select ng-model="PageSettings.SelectedUser" ng-options="user as (user.FirstName + ' ' + user.LastName + ' ' + '(' + user.UserName + ')') for user in DataSources.CompanyUsers">
+                    <option value="">--No One--</option>
+                </select>
+            </div>-->
+            <div class="row">
+                <div class="text-center padding-bottom-5">Would you like to send a cancellation notice to the fuel vendor?</div>
+                <div class="col-xs-12 text-center padding-bottom-5">
+                    <button type="button" class="btn btn-green" ng-click="">Yes</button>
+                    <button type="button" class="btn btn-light-orange" ng-click="">No</button>
+                    <button type="button" class="btn btn-grey" ng-click="">Abort</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

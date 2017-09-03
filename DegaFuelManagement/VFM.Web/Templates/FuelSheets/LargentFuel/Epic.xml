@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FuelSheets>
+  <FuelSheet>
+    <Column Name="IATA">
+      <ColumnLetter>A</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">4</Filter>
+        <Filter Type="MinLength">3</Filter>
+        <Filter Type="NotEqual">IATA</Filter>
+        <Filter Type="NotEqual">ICAO</Filter>
+        <Filter Type="NotEqual">Loc</Filter>
+      </Filters>
+    </Column>
+    <Column Name="FBOName">
+      <ColumnLetter>B</ColumnLetter>
+    </Column>
+    <Column Name="Min">
+      <ColumnLetter>C</ColumnLetter>
+      <IsNumeric>true</IsNumeric>
+      <StringOperations>
+        <Operation Type="Split" SplitOn="-" Index="0"></Operation>
+        <Operation Type="Replace" Replace="+" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="Flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="FLAT" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="UP" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="(DC9+)" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="," ReplaceWith=""></Operation>
+      </StringOperations>
+    </Column>
+    <Column Name="Max">
+      <ColumnLetter>C</ColumnLetter>
+      <IsNumeric>true</IsNumeric>
+      <StringOperations>
+        <Operation Type="Split" SplitOn="-" Index="1"></Operation>
+        <Operation Type="Replace" Replace="+" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="Flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="FLAT" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="UP" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="(DC9+)" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="," ReplaceWith=""></Operation>
+      </StringOperations>
+    </Column>
+    <Column Name="TotalWithTax">
+      <ColumnLetter>P</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">12</Filter>
+        <Filter Type="MinLength">4</Filter>
+      </Filters>
+      <StringOperations>
+        <Operation Type="Replace" Replace="$" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="Call for pricing" ReplaceWith="0.0"></Operation>
+      </StringOperations>
+      <IsNumeric>true</IsNumeric>
+      <ConditionalOperation ComparisonType="GreaterThan" ConditionType="If">
+        <AnalyzeIndex>15</AnalyzeIndex>
+        <CompareWith>1</CompareWith>
+        <TrueValueIndex>15</TrueValueIndex>
+        <FalseValueIndex></FalseValueIndex>
+        <FalseValue>0</FalseValue>
+      </ConditionalOperation>
+    </Column>
+    <Column Name="Notes">
+      <ColumnLetter>Q</ColumnLetter>
+    </Column>
+    <Column Name="AdminClientID">
+      <StaticValue>0</StaticValue>
+    </Column>
+    <Column Name="SupplierID">
+      <StaticValue>0</StaticValue>
+    </Column>
+  </FuelSheet>
+  <FuelSheet>
+    <Column Name="IATA">
+      <ColumnLetter>C</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">4</Filter>
+        <Filter Type="MinLength">3</Filter>
+        <Filter Type="NotEqual">IATA</Filter>
+        <Filter Type="NotEqual">ICAO</Filter>
+        <Filter Type="NotEqual">Loc</Filter>
+      </Filters>
+    </Column>
+    <Column Name="FBOName">
+      <ColumnLetter>D</ColumnLetter>
+    </Column>
+    <Column Name="Min">
+      <ColumnLetter>E</ColumnLetter>
+      <IsNumeric>true</IsNumeric>
+      <StringOperations>
+        <Operation Type="Split" SplitOn="-" Index="0"></Operation>
+        <Operation Type="Replace" Replace="+" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="Flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="FLAT" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="UP" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="(DC9+)" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="," ReplaceWith=""></Operation>
+      </StringOperations>
+    </Column>
+    <Column Name="Max">
+      <ColumnLetter>E</ColumnLetter>
+      <IsNumeric>true</IsNumeric>
+      <StringOperations>
+        <Operation Type="Split" SplitOn="-" Index="1"></Operation>
+        <Operation Type="Replace" Replace="+" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="Flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="FLAT" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="UP" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="(DC9+)" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="," ReplaceWith=""></Operation>
+      </StringOperations>
+    </Column>
+    <Column Name="TotalWithTax">
+      <ColumnLetter>R</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">12</Filter>
+        <Filter Type="MinLength">4</Filter>
+      </Filters>
+      <StringOperations>
+        <Operation Type="Replace" Replace="$" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="Call for pricing" ReplaceWith="0.0"></Operation>
+      </StringOperations>
+      <IsNumeric>true</IsNumeric>
+      <ConditionalOperation ComparisonType="GreaterThan" ConditionType="If">
+        <AnalyzeIndex>18</AnalyzeIndex>
+        <CompareWith>1</CompareWith>
+        <TrueValueIndex>18</TrueValueIndex>
+        <FalseValue>0</FalseValue>
+      </ConditionalOperation>
+    </Column>
+    <Column Name="Notes">
+      <ColumnLetter>S</ColumnLetter>
+    </Column>
+    <Column Name="AdminClientID">
+      <StaticValue>0</StaticValue>
+    </Column>
+    <Column Name="SupplierID">
+      <StaticValue>0</StaticValue>
+    </Column>
+  </FuelSheet>
+</FuelSheets>

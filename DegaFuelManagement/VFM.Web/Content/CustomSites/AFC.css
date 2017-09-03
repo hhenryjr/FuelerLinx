@@ -1,0 +1,17 @@
+﻿/*AFC stylesheet*/
+
+body {
+
+}
+
+#left-panel nav ul li .active {
+    background: #182754;
+}
+
+#logo-group .logo {
+    content:url('/img/afc-logo.png');
+    padding-right: 20px;
+}
+aside {
+    background: linear-gradient(to right,#404040 93%,#2f2f2f 100%);
+}

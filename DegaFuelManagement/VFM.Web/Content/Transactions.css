@@ -1,0 +1,3116 @@
+﻿.ngdialog.ngdialog-theme-default {
+    padding-bottom: 160px;
+    padding-top: 10px;
+}
+
+.ngdialog-content > div > div {
+    margin-bottom: 0px;
+}
+
+.form-control {
+  padding: 5px 5px;
+}
+
+a {
+  color: #067DFC;
+}
+
+a:hover {
+  color: #0264cd;
+}
+
+.fboselection ul.dropdown-menu {
+    width: 220px !important;
+}
+
+li.input-width {
+  width: 90px !important;
+}
+
+li h5 span.input-width {
+  width: 90px !important;
+}
+
+li.set-width {
+  width: 35px !important;
+}
+
+li.fuel-vendor-width {
+  max-width: 130px;
+}
+
+li.fbo-width {
+  max-width: 220px;
+}
+
+.sparks-info span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+li.sparks-info > h5 {
+  height: 39px;
+} 
+
+/*li.sparks-info input.form-control {
+  width: 95% !important;
+}*/
+
+#sparks .fboselection li {
+    border-left: none !important;
+}
+
+#sparks .fboselection li:first-child {
+    padding-left: 10px;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 10px #6bb2fe !important;
+}
+
+#tblTransactions.table tbody tr:hover {
+  background: #eff5fd !important;
+  box-shadow: 0 0 5px #6bb2fe !important;
+  border-top: 1px solid rgba(82,168,236,.8) !important;
+  border-bottom: 1px solid rgba(82,168,236,.8) !important;
+  cursor: pointer;
+}
+
+#tblTransactions.table tbody tr.dz-drag-hover {
+  background: #b0f1ce !important;
+  box-shadow: 0 0 5px #469b6d !important;
+  border-top: 1px solid rgba(82, 236, 200, 0.8) !important;
+  border-bottom: 1px solid rgba(82, 236, 200, 0.8) !important;
+  cursor: pointer;
+}
+
+#tblTransactions.table tbody tr.sub-detials > td:hover {
+  background: #b0f1ce !important;
+  box-shadow: 0 0 5px #469b6d !important;
+  border-top: 1px solid rgba(82, 236, 200, 0.8) !important;
+  border-bottom: 1px solid rgba(82, 236, 200, 0.8) !important;
+  cursor: pointer;
+}
+
+
+
+a.username {
+  cursor: auto;
+}
+
+.chat-body li.message .message-text .chat-file b {
+  width: initial;
+}
+ p.chat-file {
+   min-width: 300px;
+   max-width: 500px;
+ }
+
+ .chat-body li.message .message-text time {
+   right: 50px;
+ }
+
+.chat-body li.me2ssage .message-text {
+  margin-left: 0px;
+  margin-right: 20px;
+  width: 220px;
+}
+
+.chat-body {
+    width: 320px;
+}
+
+.chat-body li.message .message-text {
+    margin-left: 0px;   
+}
+.chat-footer {
+  padding-right: 35px;
+  padding-left: 35px;
+}
+
+ .chat-body li.message .message-text span.message-close {
+   top: -6px;
+   position: absolute;
+   right: 10px;
+ }
+
+p.dz-message b {
+  text-align: center !important;
+}
+
+.no-messages {
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+/*.movetobuttonrow select {
+  height: 23px;
+  width: 100%;
+}*/
+
+
+/*Filter Options Tab*/
+
+
+.table > thead > tr.headersizingfilter > th {
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-bottom: 0px;
+}
+
+
+
+#Transactionfiltertab {
+  line-height: 15px;
+}
+
+div.downarrowtab {
+  line-height: 1px;
+}
+
+ #Transactionfiltertab {
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+   border-top-left-radius: 1px;
+   border-top-right-radius: 1px;
+    display: inline-block;
+    background: #5e9cd2;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#5e9cd2), to(#2a6294));
+    background: -moz-linear-gradient(#5e9cd2, #2a6294);
+    background: linear-gradient(#5e9cd2, #2a6294);
+    border: solid 1px #255884;
+   border-top: #999999;
+    border-bottom: solid 3px #214e75;
+    color: #fff;
+   font-weight: bold;
+    text-shadow: 0 1px 0 #255884;
+    -moz-box-shadow: inset 0px 0px 0px, 0px 2px 0px 0px #bababa, 0px 3px 4px #999;
+    -webkit-box-shadow: inset 0px 0px 0px, 0px 2px 0px 0px #bababa, 0px 3px 4px #999;
+    box-shadow: inset 0px 0px 0px, 0px 2px 0px 0px #bababa, 0px 3px 4px #999;}
+    
+
+ #Transactionfiltertab:hover {
+    background: #2a6294;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#2a6294), to(#5e9cd2));
+    background: -moz-linear-gradient(#2a6294, #5e9cd2);
+    background: linear-gradient(#2a6294, #5e9cd2);
+    border: solid 1px #255884;
+    border-bottom: solid 3px #214e75;
+    text-decoration: none; 
+    box-shadow: inset 0px 0px 0px, 0px 2px 0px 0px #bababa, 0px 3px 4px #999;}
+   
+
+ #Transactionfiltertab:active {
+  top:3px;
+	background-image: linear-gradient(bottom, rgb(62,51,46) 100%, rgb(101,86,78) 0%);
+	box-shadow: inset 0px 0px 0px #9e8d84, 0px 0px 0px 0px #bababa, 0px 3px 1px #999;
+ }
+  /*End of Options Tab*/
+
+  /*Import General Styles*/
+  .importTransactionContainer .wizard-option {
+    width: 140px;
+  }
+
+  /*Import PDF*/
+.importheader {
+  background: #3276b1;
+  font-weight: bold;
+  color: white;
+}
+
+.transactioneditheader {
+    background: #626262;
+  font-weight: bold;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  color: white;
+}
+
+  /*End Import PDF*/
+
+  /*Import Transaction Spreadsheet*/
+
+  /*Radio Button Style*/
+
+.conflictsselecttransaction input[type="radio"] {
+  display: none;
+}
+
+label.conflictsselecttransaction input[type="radio"] + span {
+  border: 2px solid #5B5B5B;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin: -1px 0 0 0;
+  vertical-align: middle;
+  cursor: pointer;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+label.conflictsselecttransaction input[type="radio"] + span {
+  background-color: #ffffff;
+}
+
+label.conflictsselecttransaction input[type="radio"]:checked + span {
+  background-color: #067dfc;
+}
+
+label.conflictsselecttransaction input[type="radio"] + span,
+label.conflictsselecttransaction input[type="radio"]:checked + span {
+  -webkit-transition: background-color 0.4s linear;
+  -o-transition: background-color 0.4s linear;
+  -moz-transition: background-color 0.4s linear;
+  transition: background-color 0.4s linear;
+}
+  /*End Raido Button Style*/
+
+#txtNotes {
+  width: 190px;
+}
+  .ui-accordion .ui-accordion-header.spreadsheetconflictsheader {
+    padding-top: 12px;
+  } 
+
+  .ui-accordion .ui-accordion-header.spreadsheetheader {
+    padding: 12px;
+  }
+
+  .ui-widget input.conflictsselecttransaction {
+    vertical-align: text-bottom;
+  }
+
+  .spreadsheetconflictsheader {
+    padding-top: 12px;  
+  }
+
+.subheaderconflicts {
+  background: #3276b1;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  color: white;
+}
+
+  .spreadsheetlistview div select {
+    width: 127px;
+  }
+
+  .spreadsheetheaderlistview {
+    background: #3276b1;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    color: white;
+  }
+
+  .spreadsheetlistview {
+    border: 2px solid darkgray;
+    border-top: none;
+  }
+
+ .subheadertaxandservices {
+    border-bottom: 1px solid darkgray;
+    background: #3276b1;
+    color: white;
+    font-weight: bold;
+  }
+
+  .ui-accordion .ui-accordion-content > div {
+    padding-bottom: 5px;
+  }
+
+  .columnpreviewcontainer {
+    text-align: center;
+  }
+
+.columnpreviewheader {
+  background-color: #3276b1;
+  color: white;
+  min-height: 24px;
+  
+}
+
+.graybackground {
+      background-color: #C0C0C0;
+    border-color: #606060;
+    border: 1px solid;
+  border-style: inset;
+}
+
+.columnpreview {
+   border: 2px solid #3276b1;
+  margin: 5px;
+  width: 200px;
+  text-align: center;
+  display: inline-block;
+  border-radius: 5px;
+}
+.previewrowscontainer {
+   overflow-y: scroll;
+  height: 150px;
+}
+
+  .taxandfee {
+    text-align: right;
+  }
+
+.ui-accordion .ui-accordion-content {
+  line-height: 24px;
+}
+  .taxandfeesection {
+    vertical-align: initial;
+  }
+
+  .spreadsheetrow {
+    min-height: 22px;
+  }
+
+  .taxback-company {
+    opacity: .75;
+    -moz-opacity: .75;
+    font-size: 17px !important;
+  }
+
+  /*Spreadsheet dropdown list*/
+
+.conflictsselecttransaction {
+  cursor: pointer;
+}
+
+div.speadsheetlistdropdown ul {
+  -webkit-font-smoothing: antialiased;
+  list-style: none;
+  width: 100%;
+}
+
+div.speadsheetlistdropdown li {
+  position: relative;
+}
+
+div.speadsheetlistdropdown a {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+  -webkit-transition: all .25s ease;
+  -moz-transition: all .25s ease;
+  -ms-transition: all .25s ease;
+  -o-transition: all .25s ease;
+  transition: all .25s ease;
+}
+
+li a.dropdownheader:hover {
+  text-decoration: underline;
+  color: #609dd2;
+}
+
+li a.dropdownheader {
+    text-decoration: underline;
+  color: #3276b1;
+}
+
+div.speadsheetlistdropdown li ul {
+  opacity: 0;
+  position: absolute;
+  visibility: hidden;
+  z-index: 1;
+  -webkit-transition: all .25s ease;
+  -moz-transition: all .25s ease;
+  -ms-transition: all .25s ease;
+  -o-transition: all .25s ease;
+  transition: all .25s ease;
+ 
+}
+
+.stripedbackground {
+  background-color: #fbd699;
+}
+
+div.speadsheetlistdropdown li a:focus + ul {
+  opacity: 1;
+  top: 35px;
+  background: #f6a828;
+  visibility: visible;
+  width: 200px;
+  border-radius: 5px;
+  margin-left: 135px;
+  overflow-y: auto;
+  max-height: 300px;
+  min-height: 100px;
+  list-style: none;
+  -webkit-box-shadow: -1px 6px 12px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: -1px 6px 12px 0px rgba(0,0,0,0.75);
+  box-shadow: -1px 6px 12px 0px rgba(0,0,0,0.75);
+}
+
+/* Clearfix */
+
+.cf:after, .cf:before {
+  content: "";
+  display: table;
+}
+
+.cf:after {
+  clear: both;
+}
+
+  .transationdetailseditcontainer .taxesandfeesspreadsheet input.form-control {
+    width: 89%;
+  }
+
+  .transationdetailseditcontainer input.form-control {
+    width: 50%;
+  }
+
+ .ui-accordion {
+   padding: 10px;
+ }
+  /*End Import Transaction Spreadsheet*/
+
+  /*Import Tansaction PDF*/
+
+  #tblConflicts.table > thead > tr > th,
+  #tblConflicts.table > tbody > tr > td {
+    padding: 6px;
+  }
+
+  #tblConflicts.table > tbody > tr > td {
+    vertical-align: baseline;
+    padding-bottom: 3px;
+  }
+
+
+.pdftable td {
+  width: 13%;
+  cursor: move;
+}
+
+  .pdfmappingtable {
+    border: 1px solid #5C5C5C;
+    border-radius: 5px;
+  }
+
+  .speadsheetmappingtable {
+    border: 1px solid #5C5C5C;
+  }
+
+  .speadsheetmappingtable th {
+    border: 1px solid #5C5C5C;
+    background: #3276b1;
+    color: white;
+  }
+
+  .pdfmappingtable td {
+    border-right: 1px solid #5C5C5C;
+    padding-top: 5px;
+  }
+
+  .pdfmappingtable th {
+    background: #3276b1;
+    color: white;
+  }
+
+  .textbloodorange {
+    color: #ff7600;
+  }
+
+  div.pdf-preview-container {
+    height: 500px;
+    overflow-y: auto;
+
+  }
+
+ .pdfheadercontainer {
+    background: #3276b1;
+    color: white;
+  }
+
+    .pdfmappingtable td input {
+      vertical-align: super;
+    }
+
+
+  .pdfmappingtable input.form-control {
+    width: 96%;
+  }
+
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+  color: black;
+}
+
+
+.currentpdfstyle {
+  width: 651px;
+  border: 1px solid black;
+}
+
+.pdfcontainer {
+   width: 755px;
+}
+
+
+.drop-hover {
+  background: #f6a828;
+  font-weight: bold;
+}
+
+.dragged-item {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 2px;
+  color: white;
+  background: #f6a828;
+  font-size: 14px;
+}
+
+#divPDFImportPreview {
+  overflow-y: auto;
+}
+
+  #divPDFImportPreview div.page span.text:hover {
+    /*background: #f6a828;
+    color: white;
+      border: 1px solid black;
+    border-radius: 5px;*/
+    cursor: default;
+  }
+
+
+
+.draggable-target {
+    /*outline: 2px solid #f6a828;*/
+  cursor: default;
+}
+
+.pdfpreview .jarviswidget > div {
+      padding: 5px;
+    padding-top: 8px;
+    padding-bottom: 0px;
+}
+
+.jarviswidget > div.importconflicts {
+  padding: 0px;
+}
+
+.transactiondetailsheader {
+  margin-right: -3px;
+  background: #0260c5 !important;
+  color: white !important;
+  font-size: 13px;
+}
+
+
+.importconflicts > div {
+  border-bottom: 1px solid #dddddd;
+}
+
+.importconflicts .content:nth-child(odd) {
+  background: #f4e2a8;
+}
+
+.importconflicts .content:nth-child(even) {
+  background: #faf1d5;
+}
+
+.transactiondetialsrow {
+  width: 92%;
+}
+  
+  
+
+  /*End Import Transaction PDF*/
+
+  /*Export Transaction*/
+
+div.ngdialog.ngdialog-theme-default .ngdialog-content {
+  padding: 0px;
+  top: 10px;
+  border: none;
+}
+
+div.ngdialog.ngdialog-theme-default .ngdialog-content {
+  padding-top: 0px;
+}
+
+.exporttransactioncontainer .three-bounce-spinner {
+  margin: 150px auto 0;
+}
+
+.ngdialog.ngdialog-theme-default .ngdialog-close:before {
+  color: transparent !important;
+}
+
+  /*End Export Transaction*/
+
+  /*CLear button in input fields*/
+
+
+
+/*New Smart Table Styles*/ 
+
+.transactiontablecontainer .table > thead > tr.transactionheaderrow > th.oid-trip-select {
+  padding-top: 0px;
+}
+
+.headersizingfilter label,
+.headersizingfilter input {
+  margin-bottom: 0px;
+} 
+
+tr.transactionsearchheader {
+  display: block !important;
+}
+
+.transactionsearchheader label,
+.transactionsearchheader input {
+  margin-bottom: 0px;
+}
+
+.active-input-highlight {
+    box-shadow: none !important;
+    border: 2px solid #55D355 !important;
+    font-weight: bolder;
+}
+
+.active-input-highlight:focus {
+    box-shadow: 0 0 10px #6bb2fe !important;
+    border:1px solid rgba(82,168,236,.8) !important;
+}
+
+div#jarviswidget-transactions-grid {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+td.div-fbo-fueler {
+  overflow: hidden;
+}
+
+td.div-fbo-fueler > div {
+  white-space: nowrap;
+}
+
+div.xsdivfbo {
+  overflow: hidden;
+}
+
+div.xsdivfbo > div {
+  white-space: nowrap;
+}
+
+div.invoicedppg > div > input {
+  border: 2px solid #00BE00;
+  height: 25px;
+} 
+
+div.invoicedqty > div > input {
+  border: 2px solid #067DFC;
+  height: 25px;
+}
+
+div.btn-group > ul.dropdown-menu > li > label {
+  font-weight: normal;
+}
+
+div.btn-group > ul.dropdown-menu > li > a > label {
+  font-weight: normal;
+}
+
+.btn-circle-xs {
+  border-radius: 50% !important;
+  padding: 2px 5px;
+  text-align: center;
+}
+
+th > div a#lnkCheckAll > i,
+th > div a#lnkUnCheckAll > i {
+  color: #999;
+  padding-top: 2px;
+}
+
+  th > div a#lnkCheckAll > i.fa-2x,
+  th > div a#lnkUnCheckAll > i.fa-2x {
+    font-size: 2.2em;
+  }
+
+.blue-button-group .dropdown-menu > li > a {
+  padding: 3px 15px;
+  padding-left: 10px;
+}
+
+.blue-button-group .dropdown-menu > li > a input {
+  margin-right: 10px;
+}
+
+
+.transactiontablecontainer .table > thead > tr.transactionheaderrow > th.movetobuttonrow {
+  padding-top: 6px;
+}
+
+.dropdowndiv {
+  position: relative;
+}
+
+tr > .transactionheaderrow > th {
+  padding-top: 15px;
+}
+
+.input {
+  position: relative;
+  display: block;
+  font-weight: 400;
+}
+
+.icon-prepend {
+    color: #A2A2A2;
+    border-color: #BDBDBD;
+        -webkit-transition: border-color .3s;
+            left: 5px;
+    padding-right: 3px;
+    border-right-width: 1px;
+    border-right-style: solid;
+        position: absolute;
+    top: 5px;
+    width: 22px;
+    height: 22px;
+    font-size: 14px;
+    line-height: 22px;
+    text-align: center;
+}
+
+.input .icon-prepend+input {
+  padding-left: 37px;
+}
+
+.input input {
+  border-color: #BDBDBD;
+  -webkit-transition: border-color .3s;
+}
+
+
+.table#tblTransactions > tbody > tr > td, .table#tblTransactions > thead > tr > th {
+  /*float: left;*/
+}
+
+.table#tblTransactions tbody {
+    overflow-y: scroll;
+    max-height: 470px;
+}
+
+#tblTransactions thead, #tblTransactions tbody, #tblTransactions tr, #tblTransactions td, #tblTransactions th {
+  /*display: block;*/
+}
+
+#tblTransactions thead .datefilter table thead {
+  display: table-header-group;
+}
+
+#tblTransactions .datefilter table tbody {
+  display: table-row-group;
+}
+
+#tblTransactions .datefilter table tr {
+  display: table-row;
+}
+
+#tblTransactions .datefilter table td {
+  display: table-cell;
+}
+
+#tblTransactions .datefilter table th {
+  display: table-cell;
+}
+
+
+#exportdialogboxpadding {
+  padding-left: 70px;
+  padding-right: 70px;
+}
+
+tr.transactionsearchheader > th {
+  min-height: 46px;
+  border-top: none;
+}
+
+.transactiontablecontainer table tr {
+  border-bottom: 1px solid #cccccc;
+  /*min-height: 46px;*/
+}
+
+.transactiontablecontainer table th,
+.transactiontablecontainer table td  {
+  border-right: 1px solid #cccccc;
+  min-height: 46px;
+} 
+
+ .transactiontablecontainer tr.transactionsearchheader input[type="search"] {
+   width: 100%;
+   box-sizing: border-box;
+       height: 33px;
+    border-radius: 1px;
+   
+ }
+
+.transactionsearchheader input[type="search"] {
+  margin-bottom: 0px;
+}
+
+
+.table > tbody > tr:nth-child(4n + 1) {
+    background: #f5f5f5;
+}
+
+
+
+
+
+.transactiontablecontainer table th.rightbordernone {
+  border-right: none;
+}
+
+.transactiontablecontainer .table > thead > tr > th {
+  border-bottom: none;
+  border-top: none;
+}
+
+.transactiontablecontainer .table > thead > tr.transactionheaderrow > th {
+}
+
+.pagination > li:first-child > a {
+  border-radius: 1px;
+}
+
+.pagination > li:last-child > a {
+  border-radius: 1px;
+}
+
+.transactiontablecontainer .table > tbody > tr > td {
+   border-bottom: none;
+  border-top: none;
+  padding: 8px;
+}
+
+.headersizingfilter {
+  background: whitesmoke;
+  border-bottom: none;
+  padding:10px;
+  height:44px;
+  padding-right:10px;
+  padding-left:10px;
+}
+
+.transactionheaderrow > div {
+  cursor: pointer;
+}
+
+  .transactionheaderrow > div:hover,
+  .transactionheaderrow > div > div > a > span:hover,
+  .transactionheaderrow > div > div > a > b:hover {
+    color: #F6A828;
+  }
+
+ .transactionheaderrow div .dropdown-menu > li > a:hover {
+   background: #F6A828;
+ }
+
+
+ a > span > i.fa-plus-circle {
+  color: #00BE00;
+  vertical-align: middle;
+}
+
+ a > span > i.fa-plus-circle:hover {
+  color: #00f200;
+  
+}
+
+th span.not-sorted {
+  display: inline-block;
+}
+
+th span.sorted.descending,
+th span.sorted.ascending {
+  display: none;
+}
+
+th.st-sort-ascent span.not-sorted,
+th.st-sort-ascent span.sorted.descending {
+  display: none;
+}
+
+th.st-sort-ascent span.sorted.ascending {
+  display: inline-block;
+  margin-right: -5px;
+  color: #333;
+}
+
+th.st-sort-descent span.not-sorted,
+th.st-sort-descent span.sorted.ascending {
+  display: none;
+}
+
+th.st-sort-descent span.sorted.descending {
+  display: inline-block;
+  margin-right: -5px;
+   color: #333;
+}
+
+thead > tr > th.st-sort-descent,
+thead > tr > th.st-sort-ascent {
+  background: #d0d0d0;
+}
+
+.dataTables_filter > label > input {
+  height: 33px;
+  box-sizing: border-box;
+}
+
+label > span.input-group-addon {
+box-sizing: border-box;
+  height: 33px;
+}
+
+.input-group .form-control {
+  width: 16em;
+}
+
+.dataTables_filter .input-group-addon {
+  height: 33px;
+}
+
+.icon-prepend {
+  color: #333333;
+  border-right-width: 0px;
+  border-right-style: none;
+}
+
+.datefilteralignment {
+  vertical-align: -webkit-baseline-middle;
+}
+
+div.start-date-popup p > span > button,
+div.end-date-popup p > span > button {
+  height: 33px;
+  border-left: transparent;
+}
+
+div.start-date-popup table thead > tr > th,
+div.end-date-popup table thead > tr > th,
+div.start-date-popup table tbody > tr > td,
+div.end-date-popup table tbody > tr > td {
+  padding: 0px;
+}
+
+
+
+
+/*Checkbox Styling*/
+
+.checkboxattachmentrow {
+    position: relative;
+    padding-left: 5px;
+}
+
+.checkboxattachmentrow input[type=checkbox] {
+    visibility: hidden;
+}
+
+.squarecheckbox {
+  position: relative;
+}
+
+.squarecheckbox input[type=checkbox] {
+  visibility: hidden;
+}
+
+input[type="checkbox"] {
+  margin: 4px 0 0;
+  line-height: normal;
+}
+
+input[type="checkbox"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.checkboxattachmentrow label {
+    padding-top: 3px;
+}
+.checkboxattachmentrow label:before {
+    cursor: pointer;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 1px;
+    top: 6px;
+    background: #ffffff;
+    content: "";
+    border: 2px solid #e7ebee;
+    border-radius: 3px;
+    background-clip: padding-box;
+}
+
+.checkboxattachmentrow label:after {
+  opacity: 0;
+  content: '';
+  position: absolute;
+  width: 11px;
+  height: 7px;
+  background: transparent;
+  top: 11px;
+  left: 6px;
+  border: 3px solid #409CFD;
+  border-top: none;
+  border-right: none;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+}
+
+.squarecheckbox label:before  {
+cursor: pointer;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 1px;
+    top: 1px;
+    background: #ffffff;
+    content: "";
+    border: 2px solid #e7ebee;
+    border-radius: 3px;
+    background-clip: padding-box;
+}
+
+.squarecheckbox label:after {
+    opacity: 0;
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 7px;
+  background: transparent;
+  top: 7px;
+  left: 6px;
+  border: 2px solid #409CFD;
+  border-top: none;
+  border-right: none;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg)
+}
+
+.squarecheckbox.redborder label:before {
+  border: 2px solid #f70702;
+  top: 2px;
+  left: 3px;
+  background: #ffffff;
+  content: "";
+  border-radius: 3px;
+  background-clip: padding-box;
+}
+
+.squarecheckbox.redborder label:after {
+   opacity: 0;
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 7px;
+  background: transparent;
+  border: 2px solid #f70702;
+  border-top: none;
+  border-right: none;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg)
+}
+
+.squarecheckbox.blueborder label:before {
+  border: 2px solid #026cde;
+  top: 2px;
+  left: 3px;
+  background: #ffffff;
+  content: "";
+  border-radius: 3px;
+  background-clip: padding-box;
+}
+
+.squarecheckbox.blueborder label:after {
+   opacity: 0;
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 7px;
+  background: transparent;
+  border: 2px solid #026cde;
+  border-top: none;
+  border-right: none;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg)
+}
+
+.squarecheckbox.greyborder label:before {
+  border: 2px solid #777;
+  top: 2px;
+  left: 3px;
+  background: #ffffff;
+  content: "";
+  border-radius: 3px;
+  background-clip: padding-box;
+}
+
+.squarecheckbox.greyborder label:after {
+   opacity: 0;
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 7px;
+  background: transparent;
+  border: 2px solid #777;
+  border-top: none;
+  border-right: none;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg)
+}
+
+.checkboxattachmentrow label:hover::after {
+    opacity: 0.3;
+}
+
+.squarecheckbox label:hover::after {
+    opacity: 0.5;
+}
+
+.squarecheckbox input[type=checkbox]:checked+label:after {
+    opacity: 1;
+}
+
+.checkboxattachmentrow input[type=checkbox]:checked+label:after {
+    opacity: 1;
+}
+
+td div > span > i.fa-paperclip:hover,
+td div > span > i.fa-hand-o-left:hover {
+  color: #067dfc;
+}
+
+td div > span > i.fa-paperclip.fa-lg,
+td div > span > i.fa-hand-o-left.fa-lg {
+  font-size: 1.53em;
+}
+
+#tblTransactions tbody tr td {
+  /*padding-right: 0px;*/
+}
+
+.transactiondetailswidget div.squarecheckbox input {
+  width: 0px;
+}
+
+.transactionheaderrow .fa-stack {
+  height: .5em;
+  line-height: .5em;
+  width: .5em;
+  vertical-align: sub;
+  color: #999;
+}
+
+.circlepadding {
+  padding-top: 0px;
+}
+
+.dt-toolbar {
+  border-top: 1px solid #ccc;
+  font-weight: 500;
+  padding: 6px 7px 6px;
+}
+
+.transactiondetailstable.table > tbody > tr {
+  font-weight: 500;
+}
+
+.transactiondetailstable.table > thead > tr > th {
+  padding: 12px;
+}
+
+.transactiondetailstable.table > tbody > tr > td {
+  padding-bottom: 0px;
+}
+
+.transactiondetailstable.table > tbody > tr > td.checkboxcell {
+  padding-top: 5px;
+}
+
+.transactiondetailstable.table > tbody > tr > td.inputtablepadding {
+      padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.transactiondetailstable.table > tbody > tr.addcustomtax > td.buttontablepadding {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.transactiondetailstable.table > tbody > tr.addcustomtax > td {
+  padding-top: 10px;
+}
+
+.transactiondetailstable input.form-control {
+  height: 25px;
+}
+
+.servicedetailscontainer input.form-control {
+  height: 25px;
+}
+
+.invoicedetailscontainer input.form-control {
+  height: 25px;
+}
+
+.transactioninfo-popout input.form-control,
+.transactioninfo-popout select.form-control {
+  height: 25px;
+}
+
+.transactioninfo-popout input[type="text"],
+.transactioninfo-popout select{
+  min-width: 117px !important;
+}
+
+.customtaxdropdown button.btn {
+  padding: 3px 5px;
+}
+
+.jarviswidget > div > div.widget-body.transactiondetailswidget {
+  padding-bottom: 0px;
+} 
+
+.invoicedetailtable > div.jarviswidget {
+    margin: 0 0 0px 0;
+}
+
+.servicedetailtable > div.jarviswidget {
+    margin: 0 0 0px 0;
+}
+
+.transactiondetailswidget .btn-group input {
+  width: auto;
+}
+
+
+
+/*table tr.lightgreybackground {
+  outline: 1px solid #ABAAAA;
+}*/
+
+.invoiceStatusButton {
+    height:33px;
+}
+.btn-group span.invoicestatus:hover {
+}
+
+.pendingcolor {
+    background: #067dfc;
+    color: #ffffff;
+    border-bottom: #0960ff 1px solid;
+}
+
+.pendingcolor:hover {
+    background: #52a5ff;
+}
+
+
+.showallcolor {
+  background: #3897fd;
+  color: white;
+}
+
+
+
+.discrepancycolor {
+  background: #e84e40;
+  color: white;
+  border-bottom: 1px red solid;
+}
+
+.discrepancycolor:hover {
+  background: #e27c73;
+}
+
+
+
+.batchedcolor {
+  background: #f7e836;
+  color: #333333;
+}
+
+
+
+.canceledcolor {
+  background: #ffba38;
+  color: white;
+  border-bottom: 1px #ffed12 dotted ;
+}
+.canceledcolor:hover {
+  background:#f3c95e;
+}
+
+
+.modifycolor {
+    background:#ffbe00;
+    border-bottom: #e09200 1px solid;
+}
+
+.modifycolor:hover {
+    background: #ffda6f;
+}
+
+
+.newcolor {
+    background:#277bff;
+    color:white;
+    border-bottom: 1px blue solid;
+}
+
+.newcolor:hover {
+    background: #8dbfff;
+}
+
+
+
+.postverifycolor {
+    background:#ff8f00;
+    border-bottom: 1px #ff8f00 solid;
+}
+
+.postverifycolor:hover {
+    background:#ffc274;
+}
+
+
+
+.marginanalysiscolor {
+    background:#b600ff;
+    color:white;
+    border-bottom:1px #8900ff solid;
+}
+
+.marginanalysiscolor:hover {
+    background:#cd4fff;
+}
+
+
+.accountingcolor {
+    background:#5fbbff;
+    border-bottom: 1px solid #2098ff;
+}
+
+.accountingcolor:hover {
+    background: #a8daff;
+}
+
+.nofuelcolor {
+    background:#ffdfdf;
+    color:red;
+    border-bottom: 1px dotted #ce7b7b;
+}
+
+.nofuelcolor:hover {
+    background:#ffc3c3;
+}
+
+.reconciledcolor {
+  background: #1db11d;
+  color: white;
+  border-bottom: green 1px solid;
+}
+
+.reconciledcolor:hover {
+  background: #2dce2d;
+}
+
+.archivedcolor {
+  background: #8147a0;
+  color: white;
+}
+
+.unstartedcolor {
+  background: #bababa;
+  color: white;
+}
+
+.inprocesscolor {
+  background: #067dfc;
+  color: white;
+}
+
+.completedcolor {
+  background: #4fc74f;
+  color: white;
+}
+
+
+
+/* Fuel Release Styles*/
+
+.invoicestatus {
+  padding: 5px 7px 5px 7px;
+  border-radius: 5px 0px 5px !important;
+}
+
+.isReleased {
+    background: #f9e868;
+    border-bottom: 1px #f9e868 solid;
+}
+.isReleased:hover {
+    background: #f9e868;
+    color:black;
+}
+
+
+.notReleased {
+    background: #d01e1e;
+    border-bottom: 1px #ff0000 solid;
+    color:white;
+}
+
+.notReleased:hover {
+    background: #ff2b2b;
+}
+
+
+
+.customerEmailSent {
+        background: #72d272;
+    border-bottom: 1px green solid;
+
+}
+
+.customerEmailSent:hover {
+        background: #72d272;
+    border-bottom: 1px green solid;    
+}
+
+
+
+.green-button-group > ul.dropdown-menu {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  width: 130px !important;
+}
+
+.transaction-options > ul.dropdown-menu {
+  width: 150px !important;
+  left: -70px;
+}
+
+.status-dropdown-menu ul li {
+  margin-top: 8px;
+  margin-bottom: 5px;
+}
+
+.green-button-group.dropup .dropdown-menu > li > a {
+  padding-left: 12px;
+}
+
+.movetobuttonrow > div.blue-button-group > ul.dropdown-menu > li > a:hover {
+  color: #fff;
+  text-decoration: none;
+  background: #248dfd;
+}   
+
+.datefilter input.form-control {
+    box-sizing: border-box;
+    height: 33px;
+  }
+
+input.invoienuminput {
+  width: 84px;
+  border: 2px solid #333;
+  height: 25px;
+}
+
+.pos-relative .absolute div button {
+  z-index: 11111;
+  top: -55px;
+  right: -340px;
+}
+
+.pos-relative .absolute .btn-group button.dropdown-toggle:active {
+  z-index: 11111;
+  top: -55px;
+  right: -340px;
+}
+
+/*Dropdown Menu */
+
+.dropdown-menu {
+  font-weight: normal;
+}
+.transaction-dropdown-offset {
+  left:-110px;
+}
+
+#dropdowntofitintable {
+  top: inherit;
+}
+
+#ucAccountStatus_divCompanyName {
+  display: none;
+}
+
+.globalsearch {
+  width: 95%;
+}
+
+.directpricingbutton {
+  width: 90px;
+  
+}
+
+.pagination {
+    margin: 0px;
+}
+
+.fl-siteheader {
+    display: none;
+}
+
+.transactioneditheadermenu {
+  background: #626262;
+  color: white;
+  font-weight: bold;
+}
+
+.transactioneditheadermenu a:hover {
+  color: #f6a828;
+}
+
+.transactioneditheadermenu {
+  position: fixed;
+  width: 99%;
+  z-index: 100;
+  margin-left: 0px;
+  margin-top: 33px;
+}
+
+#divfuellocation {
+  margin-left: -5px;
+  margin-right: -5px;
+}
+
+#divservices {
+  margin-left: -5px;
+  margin-right: -10px;
+}
+
+.taxesfeesandservices {
+  
+}
+
+.importheader .fa-lg {
+  vertical-align: -35%;
+}
+
+.taxesfeesandservicesheader .fa-lg {
+  vertical-align: -35%;
+}
+
+.servicescontent {
+    display: none;
+  }
+
+  .dz-message:hover {
+    color: #f6a828;
+    font-weight: bold;
+  }
+
+  .importheader a {
+    vertical-align: 15%;
+  }
+
+  .transactioneditheadermenu .bottompaddedlarge {
+    padding-bottom: 10px;
+  }
+
+.transactionedittabset .ui-tabs-nav {
+  position: fixed;
+  z-index: 1000;
+  width: 99%;
+}
+
+.transactionedittabset.ui-tabs .ui-tabs-nav {
+  margin: 0;
+  padding: .2em 0;
+}
+
+.transactionedittabset.ui-tabs {
+  padding-top: 0px;
+}
+
+.softwareintegrationmenu .dropdown-toggle:hover {
+  color: #f6a828;
+  text-decoration: none;
+}
+
+.softwareintegrationmenu .dropdown-toggle:focus {
+  color: #f6a828;
+}
+
+.softwareintegrationmenu .fa {
+   color: #f6a828;
+}
+
+.discrpencyfound {
+  color: red;
+  font-weight: bolder;
+  text-decoration: underline;
+}
+
+.addedbyimport {
+  color: #00BE00;
+}
+
+.reconciledstatus.spreadsheetheader.ui-accordion-header {
+    background: linear-gradient(180deg, #6be86b 0%, #92ee92 39%, #92ed92 50%, #5AE55A 100%);
+}
+
+  .reconciledstatus.spreadsheetheader.ui-accordion-header.greenfont {
+    color: #3276b1;
+  }
+
+.discrepancystatus.spreadsheetheader.ui-accordion-header {
+    background: linear-gradient(180deg, rgb(210, 118, 118) 0%, #D99494 39%, rgb(218, 150, 150) 50%, rgb(201, 84, 84) 100%);
+}
+
+.discrepancystatus.spreadsheetheader.ui-accordion-header .discrpencyfound {
+  color: #3276b1;
+  text-decoration: none;
+}
+
+.discrepancystatus.spreadsheetheader.ui-accordion-header .greenfont {
+  color: #007200;
+}
+
+.reconciledstatus.spreadsheetheader.ui-accordion-header .greenfont {
+  color: #002600;
+}
+
+.conflictscontainer {
+  overflow-y: auto;
+}
+
+.servicescontent .textinputicon {
+  float: left;
+  margin-left: 81%;
+  margin-top: -21px;
+}
+
+.taxesandfeescontent .textinputicon {
+  float: left;
+  margin-left: 84%;
+  margin-top: -21px;
+}
+
+.button.small.round i {
+  vertical-align: super;
+}
+
+  .transactioneditdivertcontainer .button {
+    width: 55px;
+  }
+
+  .transactioneditdivertcontainer select {
+    width: 70%;
+  }
+
+.nofueloption {
+  opacity: 0.3;
+  cursor: not-allowed;
+ 
+}
+
+.nofueloption input {
+  cursor: not-allowed;
+  display: none;
+}
+
+.automatedschedulingbuttons .button {
+  width: 55px;
+}
+
+.transactioneditoptionscontainer {
+  padding-top: 78px;
+  padding-bottom: 60px;
+}
+
+.menusideborder {
+  border-right: 2px solid #f6a828;
+}
+
+.changehistorycontainer {
+  padding-top: 36px;
+}
+
+
+
+  .importselecttransactionaccordian {
+    overflow-y: auto;
+  }
+
+div#jarviswidget-transactions-grid {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.transactiontablecontainer .table > thead > tr.transactionheaderrow > th.invoicestatus > div > div.btn-group  {
+  padding-top: 8px;
+}
+
+.transactiontablecontainer .table > thead > tr.transactionheaderrow > th.invoicestatus {
+ padding-top:  0px;
+}
+
+.transactiontablecontainer .table > thead > tr.transactionheaderrow > th.invoicestatus > div > div.stackpaddedmedia {
+  padding-top: 12px;
+}
+
+.transactiontablecontainer .table > thead > tr.transactionheaderrow > th.reset-filters > div > div.stackpaddedmedia {
+ /*padding-top:  12px;*/
+}
+
+.transactiontablecontainer .table > thead > tr.transactionheaderrow > th.reset-filters > div > div > div.clear-all-button {
+  padding-top: 8px;
+}
+
+.transactiontablecontainer .table > thead > tr.transactionheaderrow > th.reset-filters {
+  padding-top: 0px;
+}
+
+.jarviswidget {
+  margin: 0 0 0 0;
+}
+
+.table > tfoot > tr > td {
+  padding-bottom: 0px;
+  padding-top: 6px;
+}
+
+.globalsearchfilter {
+  padding-bottom: 5px;
+}
+
+.invoicedppg .form-control, 
+.invoicedqty .form-control {
+    padding: 5px 5px;
+    width: 70px;
+}
+
+.fourpxrightpadded {
+  padding-right: 4px;
+}
+
+
+/*Smart Admin Changes*/
+
+.setwidthheaderspan {
+  overflow: hidden;
+  width: 150px;
+}
+
+.show-stat-microcharts > div {
+  padding-top: 0px;
+}
+
+.smaller-stat {
+  padding-top: 7px;
+}
+
+.widget-body {
+  color: #333;
+}
+
+.transactiondetailswidget input:not(transactioninfo-popout) {
+  width: 80px;
+}
+
+.transactiondetailscontainer #content-details,
+.transactiondetailscontainer #ribbon {
+      padding-left: 0px; 
+    padding-right: 0px; 
+}
+
+
+div#content-details.divtransactiondetails {
+  padding-right: 25px;
+  padding-left: 25px;
+  padding-top: 0px;
+} 
+
+.divtransactiondetails h1.page-title {
+  padding-left: 0px;
+}
+
+.transactiondetailswidget input.inputxs {
+  width: 50px;
+}
+
+.status-dropdown-menu .dropdown-menu label input {
+  vertical-align: sub;
+}
+
+
+
+/*Multi search/select/dropdown Chosen */
+.transactioninfo-popout ul.chosen-results {
+  background: #ffffff;
+} 
+
+.chosen-container-single .chosen-single {
+  padding: 5px 0 0 8px;
+  height: 34px;
+  border-radius: 2px;
+}
+.chosen-container-single .chosen-single div {
+  top: 6px;
+}
+
+.chosen-container-single .chosen-single {
+  border: 1px solid #ccc;
+  box-shadow: none;
+  background: #fff;
+}
+
+.chosen-container-active.chosen-with-drop .chosen-single {
+  background: #fff;
+}
+
+
+.chosen-container-single .chosen-search input[type="text"] {
+  height: 20px;
+}
+
+.globalsearchfilter select {
+    height: 24px;
+    width: 210px;
+    }
+
+
+
+legend {
+  margin-top: 15px !important;
+  font-size: 19px;
+}
+
+.totalalignment {
+  vertical-align: -webkit-baseline-middle;
+}
+
+.transactiondetailswidget input:not([type="checkbox"]) {
+    width: 75px;
+}
+
+.itemname {
+  width: 130px !important;
+}
+
+
+
+.chosen-container .chosen-results {
+  padding: 0 0 0 0 !important;
+      margin: 0 4px 0 0 !important;
+}
+
+.chosen-container-single .chosen-single span {
+  margin-right: 29px !important;
+}
+
+/*Popout Styles*/
+
+
+.transactioninfo-popout .chosen-container {
+  width: 203px !important;
+}
+
+.transactioninfo-popout .tailnumberselect .chosen-container {
+  width: auto !important;
+}
+
+.transactioninfo-popout {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  width: 330px;
+  z-index: 902;
+  background: #F1DA91;
+}
+
+  .transactioninfo-popout .form-control {
+    padding: 5px 5px;
+  }
+
+.transactioninfo-popout > span {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: block;
+  height: 30px;
+  width: 30px;
+  border-radius: 5px 0 0 5px;
+  background: #edce6e;
+  padding: 2px;
+  text-align: center;
+  line-height: 28px;
+  cursor: pointer;
+}
+.transactioninfo-popout.activate > span {
+  left: -30px;
+}
+
+.transactioninfo-popout div.details {
+  display: none;
+}
+
+.transactioninfo-popout.activate div.details {
+  display: block;
+}
+
+  .transactioninfo-popout.activate section {
+    margin: 0 !important;
+    line-height: 24px;
+    font-size: 13px;
+    color: #555555;
+  }
+
+  .transactioninfo-popout input[type="text"] {
+    height: 25px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .transactioninfo-popout .input-group-addon {
+    padding: 0px 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 34px;
+    height: 25px;
+  }
+
+   .transactioninfo-popout .input-group-addon i.fa {
+     font-size: 12px;
+  }
+
+ .transactioninfo-popout .input-group .form-control {
+    width: 83px;
+}
+
+.popoutselectionmaxwidth {
+  width: 187px;
+}
+
+div.select-time {
+  vertical-align: top;
+} 
+
+.transactioninfo-popout .row {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+
+.transactioninfo-popout > span i.fa-times {
+  display: none;
+}
+
+.transactioninfo-popout.activate > span i.foldericon {
+  display: none;
+}
+
+.transactioninfo-popout.activate > span i.fa-times {
+  display: inline-block;
+  margin-top: 2px;
+}
+
+.transactioninfo-popout div.green-button-group > ul.dropdown-menu {
+  width: 135px !important;
+  padding-left: 10px !important;
+}
+
+.transactioninfo-popout div.green-button-group > ul.dropdown-menu li {
+    margin-top: 8px;
+    margin-bottom: 5px;
+}
+
+
+
+.transactioninfo-popout .pull-right > .dropdown-menu {
+  right: 1px;
+}
+
+
+.transactioninfo-popout .nav-tabs {
+    font-size: 12px;
+}
+
+.transactioninfo-popout .tab-content {
+  font-size: 12px;
+}
+
+.transactioninfo-popout .dropdown-menu {
+  background-color: white;
+}
+
+.transactioninfo-popout ul {
+  width: 100%;
+  border: 1px solid #C2C2C2;
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,.05);
+  -webkit-box-shadow: inset 0 -2px 0 rgba(0,0,0,.05);
+  border-right: transparent;
+  border-left: transparent;
+  border-top: transparent;
+   background: #edce6e;
+}
+
+.transactioninfo-popout .nav-tabs li a {
+  padding: 5px 10px;
+}
+
+.transactioninfo-popout .nav-tabs > li.active > a {
+    color: #555;
+    cursor: default;
+    border: 1px solid #bfbfbf;
+    border-bottom-color: transparent;
+  font-weight: 600;
+     
+}
+
+.transactioninfo-popout .nav-tabs > li > a:hover {
+    border-color: #edce6e #bab8b8 #bab8b8;
+}
+
+  .transactioninfo-popout .nav-tabs > li > a:hover {
+    border-right-color: transparent;
+    border-left-color: transparent;
+    box-shadow: inset 0 -2px 0 rgba(0,0,0,.05);
+
+  }
+
+.jarviswidget .transactioninfo-popout ul > li.active > a {
+   background: rgb(241, 218, 145);
+}
+
+.transactioninfo-popout .nav > li:hover {
+  background: #edce6e;
+}
+
+.transactioninfo-popout .nav > li > a:hover {
+  background: #edce6e;
+}
+
+.jarviswidget .transactioninfo-popout .nav-tabs > li.active > a{
+  color: #0260C5;
+}
+
+/*End PopOut Styles*/
+
+.historydetailscontainer {
+  font-size: 12px;
+  padding: 10px;
+}
+
+  .historydetailscontainer .jarviswidget .widget-body {
+    min-height: 0;
+  }
+
+.omittax-service {
+  text-decoration: line-through;
+  opacity: .5;
+}
+
+.historydetailscontainer .dt-toolbar {
+  border-top: 1px solid #F1DA91;
+  border-bottom: 1px solid #F1DA91;
+  background: #F1DA91;
+  border: 1px solid #F1DA91;
+}
+
+.historydetailscontainer .jarviswidget > div {
+      border-right-color: #F1DA91 !important;
+    border-bottom-color: #F1DA91 !important;
+    border-left-color: #F1DA91 !important;
+}
+
+.historyvariance > div {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.transactionsearchheader .chosen-container {
+  width: 100% !important;
+}
+
+.globalsearchfilter .chosen-container {
+  width: 170px !important;
+}
+
+.input-group.select .form-control {
+  width: 15.0em !important;
+}
+
+.globalsearchfilter select {
+  height: 23px;
+}
+
+.basepricerow {
+  padding-top: 2px;
+}
+
+.transactiondetailscontainer input {
+  font-size: 15px;
+}
+
+.dropzonecontainer .jarviswidget > div {
+  height: 250px;
+}
+
+.dropzonecontainer article {
+    background: white;
+}
+
+.dropzonecontainer .dropzone {
+  height: 220px !important;
+  min-height: 0px;
+}
+
+  .dropzonecontainer .dropzone.dz-clickable .dz-message {
+    margin-top: 6.4%;
+  }
+
+.dropzonecontainer {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  padding-bottom: 10px;
+}
+
+.transactioneditclosecontainer .text-right,
+.transactioneditdivertcontainer .text-right {
+  color: #333;
+  border: 1px solid #C2C2C2;
+  background: #fafafa;
+}
+
+.ngdialog.transactioneditclosecontainer,
+.ngdialog.transactioneditdivertcontainer {
+  overflow: hidden;
+}
+
+
+
+.foldericon {
+  padding-top: 3px;
+  padding-left: 2px;
+}
+
+
+
+.transactiondetailscontainer {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background: #e6e6e6;
+}
+
+.status-dropdown-menu {
+  padding-top: 7px;
+}
+
+.move-back-pending .jarviswidget > div {
+  border-bottom: 0px;
+}
+
+.ngdialog.move-back-pending {
+    overflow: hidden;
+}
+
+/*BreadCrumb*/
+
+.jarviswidget > header.import-selection-breadcrumbs {
+  background: #ccc;
+  height: 38px;
+  line-height: 40px;
+}
+
+.import-selection-breadcrumbs .breadcrumb {
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.35);
+  margin-top: 2px;
+}
+
+.import-selection-breadcrumbs .breadcrumb a:first-child {
+    border-radius: 0px 0 0 0px;
+}
+
+.import-selection-breadcrumbs .breadcrumb a {
+  line-height: 30px;
+
+}
+
+  .import-selection-breadcrumbs .breadcrumb a:before {
+    margin: 4px 0;
+  }
+
+  .import-selection-breadcrumbs .breadcrumb a:last-child {
+    border-radius: 0 2px 2px 0;
+  }
+
+.jarviswidget > header.selection-header {
+  color: #333;
+  border: 1px solid #aaa;
+  background: #ccc;
+}
+
+.ngdialog.ngdialog-theme-default .ngdialog-close:before {
+  color: #404040;
+}
+
+.import-selection-breadcrumbs {
+  margin-left: 35px;
+}
+
+.breadcrumb a:after {
+      box-shadow: 2px -3px 0 2px #999, 3px -3px 0 2px #5a5a5a;
+}
+
+
+.jarviswidget > header.transactiondetailsheader {
+  line-height: 34px;
+}
+
+.dt-toolbar.noterow {
+  padding: 4px 7px 5px;
+}
+
+
+#jarviswidget-expense-fueler-mapping .smart-form section label,
+#jarviswidget-expense-fueler-mapping .smart-form section {
+  padding: 5px;
+}
+
+#jarviswidget-expense-fueler-mapping .chosen-container-single .chosen-single {
+  height: 32px;
+}
+
+#jarviswidget-expense-fueler-mapping .chosen-container {
+  width: 95% !important;
+}
+
+.fa-lg.fa-history {
+  vertical-align: -13%;
+}
+
+.preiviousuploaddiv .jarviswidget > div {
+  border-bottom-color: transparent !important;
+}
+
+.ngdialog.preiviousuploaddiv,
+.ngdialog.exporttransactioncontainer,
+.ngdialog.confirmed-delete-invoice  {
+    overflow: hidden;
+}
+
+
+
+.exporttransactioncontainer header {
+    color: #333 !important;
+    border: 1px solid #C2C2C2 !important;
+    background: #fafafa !important;
+}
+
+.exporttransactioncontainer .jarviswidget > div {
+  padding: 0px;
+}
+
+td.sub-details-process {
+  padding: 0px !important;
+}
+
+  td.sub-details-process > div {
+    border-top: 1px dashed rgba(0,0,0,.2);
+    width: 98.5%
+  }
+
+  td.sub-details-process {
+    margin-left: 10px !important;
+  }
+
+
+.loading-indicator {
+    padding-bottom: 50px;
+    padding-left: 150px;
+    padding-top: 50px;
+}
+
+#tblTransactions .datefilter .table thead > tr > th {
+  padding: 0px !important;
+}
+
+.datefilter .input-group .form-control {
+  width: 9em;
+  font-size: 12px;
+}
+
+.datefilter.form-group {
+  margin-bottom: 0px;
+}
+
+.datefilter p {
+  margin-bottom: 0px;
+}
+
+.datefilter .btn {
+  box-shadow: none;
+  padding: 5px 10px 6px 10px;
+  /*height: 33px;
+  border-left: none;*/
+}
+
+.transactiontablecontainer .datefilter table tr {
+  border-bottom: none;
+}
+
+.transactiontablecontainer .datefilter table th,
+.transactiontablecontainer .datefilter table td {
+  border-right: none;
+}
+
+#tblTransactions.table .datefilter tbody tr:hover {
+    background: transparent !important;
+    box-shadow: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    cursor: pointer;
+}
+
+.datefilter .smart-style-1 .open  > .dropdown-menu, .datefilter .smart-style-1 .dropdown-menu {
+  background: #f9f9f9;
+}
+
+.uib-datepicker-popup .btn-success {
+  display: none;
+}
+
+.uib-datepicker-popup .btn-info {
+  background-color: #499ffa;
+    border-color: #3c96f7;
+}
+
+  .uib-datepicker-popup .btn-info.active:hover {
+    background-color: #93c6fc;
+    border-color: #3c96f7;
+    color: black;
+  }
+
+  .servicedetailscontainer div.dropup,
+  .invoicedetailscontainer div.dropup {
+    padding-top: 2px;
+  }
+
+    .servicedetailscontainer div.dropup > button.btn-circle,
+    .invoicedetailscontainer div.dropup > button.btn-circle {
+      box-shadow: none !important;
+    }
+
+    .servicedetailscontainer div.dropup > ul.dropdown-menu,
+    .invoicedetailscontainer div.dropup > ul.dropdown-menu {
+      min-width: 190px;
+      font-size: 12px;
+      
+    }
+
+      .servicedetailscontainer div.dropup > ul.dropdown-menu > li > div.font-600,
+      .invoicedetailscontainer div.dropup > ul.dropdown-menu > li > div.font-600 {
+        width: 87px;
+      }
+
+.dataTables_filter p.input-group {
+  display: inline-flex;
+}
+
+.dataTables_filter {
+  /*padding-bottom: 10px;*/
+} 
+
+.datefilter p {
+    margin-bottom: 5px;
+}
+
+.transactiontablecontainer thead tr {
+  padding-right: 17px;
+}
+
+.invoicestatus div.hidden-md .status-dropdown-menu button.btn.btn-width-sm {
+   padding: 6px 2px !important;
+} 
+
+.jarviswidget header .nav-tabs > li > a {
+    padding: 6px 15px 6px;
+    background: #fafafa;
+}
+
+.nav-tabs {
+  border-bottom: none;
+}
+
+  /* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) {
+
+
+.table > tfoot > tr > td {
+    padding-bottom: 0px;
+    padding-top: 7px;
+}
+
+.stackpaddedmedia {
+  /*padding-top: 5px;*/
+}
+ 
+}
+
+div#content-details.divtransactiondetails {
+  padding-right: 0px;
+  padding-left: 0px;
+} 
+
+    /* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+
+
+
+.datefilter p {
+    margin-bottom: 0px;
+}
+
+  div.ngdialog.ngdialog-theme-default .ngdialog-content {
+    padding: 0px;
+    top: 90px;
+    border: none;
+  }
+
+
+.loading-indicator {
+  padding-top: 0px;
+  padding-bottom: 400px;
+  padding-left: 60px;
+}
+
+.daterangepicker.ltr .ranges {
+    float: right;
+}
+
+  .transactioninfo-popout .nav-tabs li a {
+    padding: 10px 15px;
+    font-size: 12px;
+    color: #616161 !important;
+    border: none;
+    border-bottom: none;
+    background: #edce6e;
+  }
+
+
+
+.transactioninfo-popout .form-control {
+    padding: 5px 5px;
+}
+
+.transactioninfo-popout .nav-tabs {
+    font-size: 15px;
+}
+
+.transactiondetialsrow {
+  width: 93%;
+}
+
+.selection-header .page-title {
+   margin: 5px 0 5px;
+ }
+
+.page-title {
+    margin: 0px 0 20px;
+}
+
+.foldericon {
+  padding-top: 0px;
+  padding-left: 0px;
+}
+
+ .transactioninfo-popout.activate section {
+   font-size: 14px;
+ }
+
+.transactioninfo-popout.activate > span i.fa-times {
+  margin-top: 4px;
+}
+
+
+  #txtNotes {
+    width: 203px;
+  }
+
+
+.dropzonecontainer {
+  padding-bottom: 0px;
+}
+
+.dropzonecontainer .jarviswidget {
+}
+
+input.invoienuminput {
+  width: 120px;
+  border: 2px solid #333;
+}
+
+.transactiondetailswidget input:not([type="checkbox"]) {
+    width: 70px;
+}
+
+.servicedetailscontainer {
+  margin-bottom: 30px;
+}
+
+.transactioninfo-popout.activate > span {
+    left: -40px;
+}
+
+.foldericon {
+  padding-top: 7px;
+}
+
+  .transactioninfo-popout > span {
+    height: 39px;
+    width: 40px;
+  }
+
+  .transactioninfo-popout.activate .tab-content {
+    min-height: 500px;
+    font-size: 12px;
+    padding-top: 10px;
+  }
+
+  .transactioninfo-popout {
+    width: 450px;
+  }
+
+.input-group .form-control {
+    width: 13em;
+}
+
+div.dataTables_filter input {
+    width: 13em;
+}
+
+  .transactiondetailswidget input.inputxs {
+    width: 80px;
+  }
+
+  div#content-details.divtransactiondetails {
+    padding-right: 25px;
+    padding-left: 25px;
+    background: #e6e6e6;
+  }
+
+
+#sparks {
+    display: block;
+    list-style: none;
+    margin: 0 0 0;
+    padding: 0;
+    text-align: inherit;
+
+}
+
+  li.sparks-info > h5 > span.txt-color-purple input {
+    width: 80px;
+  }
+
+
+  #sparks li h5 {
+    color: #555;
+    float: left;
+    font-size: 12px;
+    font-weight: normal;
+    margin: -1px 0 0 0;
+    padding: 0;
+    border: none;
+    text-transform: uppercase;
+  }
+
+.dropzonecontainer .jarviswidget {
+    margin: 0 0 0 0;
+  }
+
+  .invoicedetailscontainer,
+  .servicedetailscontainer {
+    position: relative;
+  }
+
+  /*.dropzonecontainer {
+    position: absolute;
+    bottom: 0;
+  }*/
+
+  .dropzonecontainer {
+    vertical-align: bottom !important;
+  }
+
+
+.numberrow {
+  width: 13px;
+}
+
+.itemname {
+  width: 129px;
+}
+
+
+.invoicedppg .form-control,
+.invoicedqty .form-control {
+  padding: 5px 5px;
+  width: 120px;
+}
+
+.globalsearchfilter {
+  padding-bottom: 0px;
+}
+
+.jarviswidget {
+  margin: 0 0 30px 0;
+}
+
+
+
+div#jarviswidget-transactions-grid {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.table > tfoot > tr > td {
+  padding-bottom: 0px;
+}
+
+  .transactioneditoptionscontainer {
+    padding-top: 0px;
+    padding-bottom: 60px;
+  }
+
+  .transactionedittabset .ui-tabs-nav {
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+  }
+
+  .transationdetailseditcontainer input.form-control {
+    width: 48%;
+  }
+
+  .datetimedetails input.form-control {
+    width: 90%;
+  }
+
+  
+}
+
+    /* Medium Devices, Desktops */
+
+@media only screen and (min-width : 992px) {
+
+  .dataTables_filter {
+    padding-bottom: 0px;
+  }
+
+  .transaction-options > ul.dropdown-menu {
+    left: 0;
+  }
+
+  .transactiontablecontainer .table > thead > tr.transactionheaderrow > th.reset-filters > div > div.stackpaddedmedia {
+    padding-top: 0px;
+  }
+
+  .transactiontablecontainer .table > thead > tr.transactionheaderrow > th.reset-filters > div > div > div.clear-all-button {
+    padding-top: 0px;
+  }
+
+  .transactiontablecontainer .table > thead > tr.transactionheaderrow > th.reset-filters {
+    padding-top: 15px;
+  }
+
+  .loading-indicator {
+    padding-top: 0px;
+    padding-bottom: 400px;
+    padding-left: 100px;
+  }
+
+  .daterangepicker.ltr .ranges {
+    float: right;
+  }
+
+  .transactiondetialsrow {
+    width: 94%;
+  }
+
+  .selection-header .page-title {
+    margin: 5px 0 5px;
+  }
+
+  .status-dropdown-menu {
+    padding-top: 0px;
+  }
+
+  .page-title {
+    margin: 0px 0 0px;
+  }
+
+  .dropzonecontainer .jarviswidget {
+  }
+
+  .transactionsearchheader .chosen-container .chosen-drop {
+    width: 105px !important;
+  }
+
+
+
+  div.dataTables_filter input {
+    width: 16em;
+  }
+
+  .input-group .form-control {
+    width: 16em;
+  }
+
+
+  .jarviswidget {
+    margin: 0 0 0px 0;
+  }
+
+
+  #sparks {
+    display: block;
+    list-style: none;
+    margin: 10px 0 0;
+    padding: 0;
+    text-align: right;
+  }
+
+  .numberrow {
+    width: 20px;
+  }
+
+  .itemname {
+    width: 127px;
+  }
+
+  .transactiontablecontainer .table > thead > tr.transactionheaderrow > th.invoicestatus {
+    padding-top: 12px;
+  }
+
+    .transactiontablecontainer .table > thead > tr.transactionheaderrow > th.invoicestatus > div > div.stackpaddedmedia {
+      padding-top: 0px;
+    }
+
+
+  .globalsearchfilter {
+    padding-right: 35px;
+  }
+
+  .transactiontablecontainer .table > thead > tr.transactionheaderrow > th.invoicestatus {
+    padding-top: 15px;
+  }
+
+  .stackpaddedmedia {
+    padding-top: 0px;
+  }
+
+
+
+  ul.dropdowntofitintable {
+    position: absolute;
+    margin-left: 89%;
+  }
+
+  .importdetails {
+    background: #EEEEEE;
+  }
+
+  .transactiondetails {
+    border-left: 2px solid gainsboro;
+    background: #f5f5f5;
+  }
+
+  .changehistorycontainer {
+    padding-top: 0px;
+  }
+
+  .transactionedittabset .ui-tabs-nav {
+    position: initial;
+    width: 100%;
+  }
+
+  .transactioneditoptionscontainer {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .taxesfeesandservicesheader {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background: #3276b1;
+  }
+
+  div.taxesfeesandservices {
+    padding-left: 0px;
+  }
+
+    div.taxesfeesandservices > div {
+      padding-left: 5px;
+    }
+
+  .transactioneditoptionscontainer {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
+  .transationdetailseditcontainer input.form-control {
+    width: 85%;
+  }
+
+  .importheader {
+    background: #3276b1;
+    color: white;
+  }
+
+  .transactionfiltercontainer {
+    border-bottom: none;
+    box-shadow: none;
+    padding-bottom: 0px;
+    height:34px;
+  }
+
+  .softwareintegrationmenu #dropdowntofitintable {
+    top: inherit;
+    left: 43.5%;
+  }
+
+  .softwareintegrationmenu .dropdown-menu {
+    text-align: center;
+  }
+
+  div.invoicedetailscontainer,
+  div.servicedetailscontainer {
+    min-height: 650px;
+  }
+}
+
+
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+
+.loading-indicator {
+  padding-top: 0px;
+  padding-bottom: 400px;
+  padding-left: 200px;
+}
+
+.daterangepicker.ltr .ranges {
+    float: right;
+}
+
+.sparks-info span {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.transactiondetialsrow {
+  width: 95%;
+}
+
+.pdfpreview {
+  padding-left: 20px;
+}
+
+.transactionsearchheader .chosen-container .chosen-drop {
+  width: 100% !important;
+}
+
+.jarviswidget {
+     margin: 0 0 0px 0; 
+}
+
+.itemname {
+  width: 120px;
+}
+
+.green-btn-group > .btn.dropdown-toggle {
+    padding-right: 6px;
+    padding-left: 6px;
+}
+
+ ul.dropdowntofitintable {
+    position: absolute;
+    margin-left: 90%;
+  }
+
+  .invoicedetailscontainer,
+  .servicedetailscontainer {
+    padding-top: 10px;
+  }
+
+  .taxesandfeescontent div input[type='checkbox'] {
+    padding-left: 10px;
+  }
+
+  .changehistorycontainer .ui-accordion {
+    padding-left: 40px;
+    padding-right: 95px;
+  }
+
+  .softwareintegrationphase4 {
+    padding-right: 65px;
+    padding-left: 15px;
+  }
+
+ /* .softwareintegrationcontainer a.button {
+    width: 80px;
+  }*/
+
+   .softwareintegrationmenu #dropdowntofitintable {
+       top: inherit;
+    left: 45%;
+ }
+
+ .daterangepicker {
+   width: 495px;
+}
+
+}
+
+
+/* ----------- iPad mini/iPad 1 and 2 ----------- */
+
+/* Portrait and Landscape */
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+  .table#tblTransactions tbody {
+    overflow-y: hidden;
+  }
+
+  .transactiontablecontainer thead tr {
+    padding-right: 0px !important;
+  }
+
+  .movetobuttonrow select {
+    width: 80%;
+}
+
+}
+
+/* ----------- iPad 3 and 4 ----------- */
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+    .table#tblTransactions tbody {
+    overflow-y: hidden;
+  }
+
+  .transactiontablecontainer thead tr {
+    padding-right: 0px !important;
+  }
+
+  .movetobuttonrow select {
+    width: 80%;
+}
+}
+
+/* ----------- iPhone 6 ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2) { 
+
+      .table#tblTransactions tbody {
+    overflow-y: hidden;
+  }
+
+  .transactiontablecontainer thead tr {
+    padding-right: 0px !important;
+  }
+
+}
+
+/* ----------- iPhone 6+ ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+
+      .table#tblTransactions tbody {
+    overflow-y: hidden;
+  }
+
+  .transactiontablecontainer thead tr {
+    padding-right: 0px !important;
+  }
+
+}
+
+/* ----------- Galaxy S5 ----------- */
+
+/* Portrait and Landscape */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 3) {
+
+      .table#tblTransactions tbody {
+    overflow-y: hidden;
+  }
+
+  .transactiontablecontainer thead tr {
+    padding-right: 0px !important;
+  }
+
+}
+
+.green {
+    color:limegreen !important;
+}
+
+.red, .redfont {
+    color: red !important;
+}
+
+.bluefont {
+    color:cornflowerblue !important;
+}
+
+.dark-blue-font {
+    color: darkblue !important;
+}
+
+.bloodorangefont {
+    color:coral !important;
+}
+
+.bold {
+    font-weight:600;
+}

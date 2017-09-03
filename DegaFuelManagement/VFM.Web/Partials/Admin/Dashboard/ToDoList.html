@@ -1,0 +1,117 @@
+﻿<div class="jarviswidget jarviswidget-color-blueDark" id="" data-widget-deletebutton="true" data-widget-togglebutton="true" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-collapsed="true">
+    <header>
+        <span class="widget-icon"> <i class="fa fa-check txt-color-white"></i> </span>
+        <h2> Task Scheduler </h2>
+        <div class="widget-toolbar" role="menu">
+            <a ng-if="dash.$usersService.user.Permission.Dashboard == 0" ng-click="dash.viewScheduler()" class="btn btn-success">Add Task</a>
+        </div>
+    </header>
+    <div>
+        <div class="jarviswidget-editbox">
+            <div>
+                <label>Title:</label>
+                <input type="text" />
+            </div>
+        </div>
+        <!-- end widget edit box -->
+        <div class="widget-body no-padding smart-form">
+            <!--<h5 class="todo-group-title"><i class="fa fa-warning"></i> Critical Tasks (<small class="num-of-tasks">1</small>)</h5>-->
+            <div ng-repeat="(key,value) in todo.calendarEvents | groupBy: '-IsComplete'">
+                <h5 class="todo-group-title" ng-show="{{key}} == -1"><i class="fa fa-check"></i> Completed Tasks (<small class="num-of-tasks">#</small>)</h5>
+                <h5 class="todo-group-title" ng-show="{{key}} == 0"><i class="fa fa-exclamation"></i> Incomplete Tasks (<small class="num-of-tasks">#</small>)</h5>
+
+                <ul id="sortable1" class="todo">
+                    <li ng-repeat="event in value">
+                        <span class="handle">
+                            <label class="checkbox">
+                                <input type="checkbox" name="checkbox-inline"
+                                       ng-disabled="todo.$usersService.user.Permission.Dashboard == 1"
+                                       ng-model="event.IsComplete" ng-change="todo.updateEvent(event)">
+                                <i></i>
+                            </label>
+                        </span>
+                        <p>
+                            <strong>{{event.title}}</strong> - {{event.note}}
+                            <span class="date">{{event.start}} to {{event.end}}</span>
+                            <span ng-if="todo.$usersService.user.Permission.Dashboard == 0"><a href="#" class="btn btn-xs btn-danger" ng-click="todo.deleteEvent(event)"><i class="fa fa-trash"></i></a></span>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <!-- content goes here
+             <h5 class="todo-group-title"><i class="fa fa-warning"></i> Critical Tasks (<small class="num-of-tasks">1</small>)</h5>
+             <ul id="sortable1" class="todo">
+                 <li>
+                     <span class="handle">
+                         <label class="checkbox">
+                             <input type="checkbox" name="checkbox-inline">
+                             <i></i>
+                         </label>
+                     </span>
+                     <p>
+                         <strong>Ticket #17643</strong> - Hotfix for WebApp interface issue [<a href="javascript:void(0);" class="font-xs">More Details</a>] <span class="text-muted">Sea deep blessed bearing under darkness from God air living isn't. </span>
+                         <span class="date">Jan 1, 2014</span>
+                     </p>
+                 </li>
+             </ul>
+             <h5 class="todo-group-title"><i class="fa fa-exclamation"></i> Important Tasks (<small class="num-of-tasks">3</small>)</h5>
+             <ul id="sortable2" class="todo">
+                 <li>
+                     <span class="handle">
+                         <label class="checkbox">
+                             <input type="checkbox" name="checkbox-inline">
+                             <i></i>
+                         </label>
+                     </span>
+                     <p>
+                         <strong>Ticket #1347</strong> - Inbox email is being sent twice <small>(bug fix)</small> [<a href="javascript:void(0);" class="font-xs">More Details</a>] <span class="date">Nov 22, 2013</span>
+                     </p>
+                 </li>
+                 <li>
+                     <span class="handle">
+                         <label class="checkbox">
+                             <input type="checkbox" name="checkbox-inline">
+                             <i></i>
+                         </label>
+                     </span>
+                     <p>
+                         <strong>Ticket #1314</strong> - Call customer support re: Issue <a href="javascript:void(0);" class="font-xs">#6134</a><small>(code review)</small>
+                         <span class="date">Nov 22, 2013</span>
+                     </p>
+                 </li>
+                 <li>
+                     <span class="handle">
+                         <label class="checkbox">
+                             <input type="checkbox" name="checkbox-inline">
+                             <i></i>
+                         </label>
+                     </span>
+                     <p>
+                         <strong>Ticket #17643</strong> - Hotfix for WebApp interface issue [<a href="javascript:void(0);" class="font-xs">More Details</a>] <span class="text-muted">Sea deep blessed bearing under darkness from God air living isn't. </span>
+                         <span class="date">Jan 1, 2014</span>
+                     </p>
+                 </li>
+             </ul>
+
+             <h5 class="todo-group-title"><i class="fa fa-check"></i> Completed Tasks (<small class="num-of-tasks">1</small>)</h5>
+             <ul id="sortable3" class="todo">
+                 <li class="complete">
+                     <span class="handle" style="display: none">
+                         <label class="checkbox state-disabled">
+                             <input type="checkbox" name="checkbox-inline" checked="checked" disabled="disabled">
+                             <i></i>
+                         </label>
+                     </span>
+                     <p>
+                         <strong>Ticket #17643</strong> - Hotfix for WebApp interface issue [<a href="javascript:void(0);" class="font-xs">More Details</a>] <span class="text-muted">Sea deep blessed bearing under darkness from God air living isn't. </span>
+                         <span class="date">Jan 1, 2014</span>
+                     </p>
+                 </li>
+             </ul>
+
+            end content -->
+        </div>
+
+    </div>
+    <!-- end widget div -->
+</div>

@@ -1,0 +1,148 @@
+﻿<div class="row no-space invoicedetailscontainer">
+    <div class="inline-block">
+        <div class="row messengertable">
+            <div class="jarviswidget-editbox"></div>
+            <div class="no-padding">
+                <!-- content goes here -->
+                <!-- CHAT CONTAINER -->
+                <!--<div id="chat-container" class="">
+                    <span class="chat-list-open-close"><i class="fa fa-user"></i><b>!</b></span>
+
+                    <div class="chat-list-body custom-scroll">
+                        <ul id="chat-users">
+                            <li>
+                                <a href="javascript:void(0);"><img src="img/avatars/5.png" alt="">Robin Berry <span class="badge badge-inverse">23</span><span class="state"><i class="fa fa-circle txt-color-green pull-right"></i></span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);"><img src="img/avatars/male.png" alt="">Mark Zeukartech <span class="state"><i class="last-online pull-right">2hrs</i></span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);"><img src="img/avatars/male.png" alt="">Belmain Dolson <span class="state"><i class="last-online pull-right">45m</i></span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);"><img src="img/avatars/male.png" alt="">Galvitch Drewbery <span class="state"><i class="fa fa-circle txt-color-green pull-right"></i></span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);"><img src="img/avatars/male.png" alt="">Sadi Orlaf <span class="state"><i class="fa fa-circle txt-color-green pull-right"></i></span></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);"><img src="img/avatars/male.png" alt="">Markus <span class="state"><i class="last-online pull-right">2m</i></span> </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);"><img src="img/avatars/sunny.png" alt="">Sunny <span class="state"><i class="last-online pull-right">2m</i></span> </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);"><img src="img/avatars/male.png" alt="">Denmark <span class="state"><i class="last-online pull-right">2m</i></span> </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="chat-list-footer">
+
+                        <div class="control-group">
+
+                            <form class="smart-form">
+
+                                <section>
+                                    <label class="input">
+                                        <input type="text" id="filter-chat-list" placeholder="Filter">
+                                    </label>
+                                </section>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>-->
+
+
+                <!-- CHAT BODY -->
+                <!-- 138541755 -->
+                <div id="chat-body" class="chat-body custom-scroll">
+                    <ul>
+                        <li class="message" ng-repeat="message in fuelOrderInfo.messages">
+                            <div class="message-text">
+                                <time>
+                                    {{message.DateAdded | date: 'MM/dd/yyyy'}}
+                                </time>
+                                <a href="javascript:void(0);" class="username">{{message.Name}}</a>
+                                {{message.Message}}
+                            </div>
+                            <p class="chat-file row" ng-repeat="attachment in message.FuelOrderMessageAttachments">
+                                <b class="pull-left col-sm-6"><i class="fa fa-file"></i> report-2013-demographic-report-annual-earnings.xls </b>
+                                <span class="col-sm-6 pull-right"> <a href="javascript:void(0);" class="btn btn-xs btn-default">cancel</a> <a href="javascript:void(0);" class="btn btn-xs btn-success">save</a> </span>
+                            </p>
+                        </li>
+                        <!--<li class="message">
+                            <img src="" class="online" alt="">
+                            <div class="message-text">
+                                <time>
+                                    2014-01-13
+                                </time> <a href="javascript:void(0);" class="username">Sadi Orlaf</a> Hey did you meet the new board of director? He's a bit of a geek if you ask me...anyway here is the report you requested. I am off to launch with Lisa and Andrew, you wanna join?
+                                <p class="chat-file row">
+                                    <b class="pull-left col-sm-6"><i class="fa fa-file"></i> report-2013-demographic-report-annual-earnings.xls </b>
+                                    <span class="col-sm-6 pull-right"> <a href="javascript:void(0);" class="btn btn-xs btn-default">cancel</a> <a href="javascript:void(0);" class="btn btn-xs btn-success">save</a> </span>
+                                </p>
+                                <p class="chat-file row">
+                                    <b class="pull-left col-sm-6"> <i class="fa fa-ok txt-color-green"></i> tobacco-report-2012.doc </b>
+                                    <span class="col-sm-6 pull-right"> <a href="javascript:void(0);" class="btn btn-xs btn-primary">open</a> </span>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="message">
+                            <img src="" class="online" alt="">
+                            <div class="message-text">
+                                <time>
+                                    2014-01-13
+                                </time> <a href="javascript:void(0);" class="username">John Doe</a> Haha! Yeah I know what you mean. Thanks for the file Sadi! <i class="fa fa-smile-o txt-color-orange"></i>
+                            </div>
+                        </li>-->
+                    </ul>
+
+                </div>
+
+                <!-- CHAT FOOTER -->
+                <div class="chat-footer">
+
+                    <!-- CHAT TEXTAREA -->
+                    <div class="textarea-div">
+
+                        <div class="typearea">
+                            <textarea placeholder="Write a reply..." id="textarea-expand" class="custom-scroll" ng-model="fuelOrderInfo.Message"></textarea>
+                            <!--<input ng-if="IsChecked" type="submit" style="display:none" />-->
+                            <!--<div clas="row">
+                                <form action="{{'~/api/files/attachment/'}}" method="post"
+                                      enctype="multipart/form-data" class="dropzone" id="dropzoneForm"
+                                      ng-dropzone dropzone="fuelOrderInfo.dropzone" dropzone-config="fuelOrderInfo.dropzoneConfig">
+                                    <div class="fallback">
+                                        <input type="file" name="file" multiple />
+                                        <input type="submit" value="Upload" />
+                                    </div>
+                                </form>
+                            </div>-->
+                        </div>
+
+                    </div>
+
+                    <!-- CHAT REPLY/SEND -->
+                    <span class="textarea-controls">
+                        <button class="btn btn-sm btn-primary pull-right" ng-click="fuelOrderInfo.saveMessage(fuelOrderInfo.Message)">
+                            Send
+                        </button>
+                        <!--<span class="pull-right smart-form" style="margin-top: 3px; margin-right: 10px;">
+                            <label class="checkbox pull-right">
+                                <input type="checkbox" name="subscription" id="subscription" ng-model="IsChecked">
+                                <i></i>Press <strong> ENTER </strong> to send
+                            </label>
+                        </span>--> 
+                        <!--<a href="javascript:void(0);" ng-click="fuelOrderInfo.uploadAttachment()" class="pull-left"><i class="fa fa-paperclip fa-fw fa-lg"></i></a>-->
+                    </span>
+
+                </div>
+
+                <!-- end content -->
+            </div>
+        </div>
+    </div>
+</div>

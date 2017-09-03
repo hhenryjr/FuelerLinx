@@ -1,0 +1,1360 @@
+﻿@model VFM.Web.Models.ViewModels.ItemViewModel<int>
+
+@{
+    ViewBag.Title = "GetCustomerDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content">
+    <div data-ng-controller="customerDetailsController as customerDetails" id="customerCtrl" data-ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model))">
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+                <h2 class="page-title largent-light-grey">
+                    <a class="btn btn-primary" ng-href="/Home/@Model.CurrentUser.Id"><i class="fa fa-arrow-left"></i> Back</a>
+                    Customer Manager > <small>Company Detail </small>
+                </h2>
+            </div>
+        </div>
+
+
+
+        <section id="widget-grid" class="">
+            <div ng-if="!customerDetails.customer">
+                <div class="text-center">Loading Company Details...</div>
+                <loading-icon></loading-icon>
+            </div>
+            <div ng-if="customerDetails.customer != null" style="display: none;" show-on-link>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="pull-left">
+                            <h1>{{customerDetails.customer.Name}}</h1>
+                        </div>
+                        <div class="pull-right">
+                            <button class="btn btn-success" ng-click="customerDetails.distribute()">Distribute Pricing</button>
+                        </div>
+                        <div class="pull-right margin-right-5">
+                            Activate: <input type="checkbox" ng-model="customerDetails.customer.IsActive" ng-change="customerDetails.onIsActiveChanged(customerDetails.customer.IsActive)" />
+                        </div>
+                    </div>
+                </div>
+                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="jarviswidget jarviswidget-color-white light-grey-border" id="" data-widget-editbutton="false" data-widget-colorbutton="false">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-6 no-padding">
+                                <div class="jarviswidget jarviswidget-color-white light-grey-border" id="" data-widget-editbutton="false" data-widget-colorbutton="false">
+                                    <div class="row no-padding">
+
+                                        <div id="myCarousel" class="carousel slide profile-carousel no-padding no-border">
+                                            <ol class="carousel-indicators">
+                                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                                <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+                                                <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+                                            </ol>
+                                            <div class="carousel-inner">
+                                                <!-- Slide 1 -->
+                                                <div class="item active">
+                                                    <img src="/img/demo/s1.jpg" alt="demo user">
+                                                </div>
+                                                <!-- Slide 2 -->
+                                                <div class="item">
+                                                    <img src="/img/demo/s2.jpg" alt="demo user">
+                                                </div>
+                                                <!-- Slide 3 -->
+                                                <div class="item">
+                                                    <img src="/img/demo/s3.jpg" alt="demo user">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- company title + activate + distribute pricing -->
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h3>
+                                                <a class="btn btn-default no-border" ng-click="customerDetails.deleteCustomer(customerDetails.customer)"><i class="fa fa-trash fa-lg"></i></a> {{customerDetails.customer.Name}}
+                                                <br>
+                                                <!--<small>{{customerDetails.customer.BaseICAO}} - {{customerDetails.customer.City}}, {{customerDetails.customer.Country}}</small>-->
+
+                                            </h3>
+
+                                            <div class="col-lg-12 no-padding">
+                                                <ul class="list-unstyled companyDetailListInfo table-text no-padding">
+                                                    <li>
+                                                        <div ng-if="!customerDetails.IsPhoneEditable">
+                                                            <i class="fa fa-phone"></i>&nbsp;&nbsp;{{customerDetails.customer.Phone}}@*&nbsp;&nbsp;(<span class="txt-color-darken">313</span>) <span class="txt-color-darken">464</span> - <span class="txt-color-darken">6473</span>*@
+                                                            <button class="btn btn-default no-border" ng-click="customerDetails.editPhone()"><i class="fa fa-pencil-square-o"></i></button>
+                                                        </div>
+                                                        <div ng-if="customerDetails.IsPhoneEditable">
+                                                            <input type="text" ng-model="customerDetails.customer.Phone" />
+                                                            <button class="button button-xs btn-success" ng-click="customerDetails.savePhone(customerDetails.customer.Phone)">Save</button>
+                                                            <button class="button button-xs btn-default" ng-click="customerDetails.cancelPhone(customerDetails.customer.Phone)">Cancel</button>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div if="!customerDetails.IsEmailEditable">
+                                                            <i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:simmons@smartadmin">{{customerDetails.customer.Email}}</a>
+                                                            <button class="btn btn-default no-border" ng-click="customerDetails.editEmail()"><i class="fa fa-pencil-square-o"></i></button>
+                                                        </div>
+                                                        <div ng-if="customerDetails.IsEmailEditable">
+                                                            <input type="text" ng-model="customerDetails.customer.Email" />
+                                                            <button class="button button-xs btn-success" ng-click="customerDetails.saveEmail(customerDetails.customer.Email)">Save</button>
+                                                            <button class="button button-xs btn-default" ng-click="customerDetails.cancelEmail(customerDetails.customer.Email)">Cancel</button>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="field in customerDetails.customer.CustomFields">
+                                                        <div class="grey-text profileInfoBlurbText" ng-if="!field.IsEditable">
+                                                            <strong>{{field.Title}}:</strong> {{field.Content}}
+                                                            <button class="btn btn-default no-border" ng-click="customerDetails.editFields(field)"><i class="fa fa-pencil-square-o"></i></button><!--<button class="btn btn-xs btn-default" ng-click="customerDetails.deleteFields(field)">Delete</button>-->
+                                                        </div>
+                                                        <div class="grey-text profileInfoBlurbText" ng-if="field.IsEditable && field.Id > 0">
+                                                            <input type="text" ng-model="field.Title" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" ng-disabled="field.Title" style="width: 100px" /> :
+                                                            <input ng-model="field.Content" style="width: 150px" />
+                                                            <button class="btn btn-xs btn-success" ng-click="customerDetails.saveFields(field)">Save</button><button class="btn btn-xs btn-default" ng-click="customerDetails.deleteFields(field)">Delete</button>
+                                                        </div>
+                                                        <div class="grey-text profileInfoBlurbText" ng-if="field.IsEditable && field.FieldType === 'Phone' && !field.Id">
+                                                            <input type="text" ng-model="field.Title" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" ng-disabled="field.Title" style="width: 100px" /> :
+                                                            <input ng-model="field.Content" placeholder="Phone" style="width: 150px" />
+                                                            <button class="btn btn-xs btn-success" ng-click="customerDetails.saveFields(field)">Save</button><button class="btn btn-xs btn-default" ng-click="customerDetails.deleteFields(field)">Delete</button>
+                                                        </div>
+                                                        <div class="grey-text profileInfoBlurbText" ng-if="field.IsEditable && field.FieldType === 'Email' && !field.Id">
+                                                            <input type="text" ng-model="field.Title" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" ng-disabled="field.Title" style="width: 100px" /> :
+                                                            <input ng-model="field.Content" placeholder="Email" style="width: 150px" />
+                                                            <button class="btn btn-xs btn-success" ng-click="customerDetails.saveFields(field)">Save</button><button class="btn btn-xs btn-default" ng-click="customerDetails.deleteFields(field)">Delete</button>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="row">
+                                                <button type="button" class="btn btn-primary" ng-click="addCustomField('')">Add Custom Field</button>
+                                            </div>
+                                            <div class="row padding-top-10">
+                                                <p class="font-md">
+                                                    <i>Company Description...</i>
+                                                    <button class="btn btn-default no-border" ng-click="customerDetails.editNote()"><i class="fa fa-pencil-square-o"></i></button>
+                                                </p>
+                                                <div ng-if="!customerDetails.IsNoteEditable">
+                                                    <div>{{customerDetails.customer.Note}}</div>
+                                                </div>
+                                                <div ng-if="customerDetails.IsNoteEditable">
+                                                    <textarea ng-model="customerDetails.customer.Note"></textarea>
+                                                    <button class="btn btn-success" ng-click="customerDetails.saveNote(customerDetails.customer.Note)">Save</button>
+                                                    <button class="btn btn-default" ng-click="customerDetails.cancelNote(customerDetails.customer.Note)">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <table id="CompanyDetailAdminTable">
+                                                <thead>
+                                                    <tr>
+                                                        <td colspan="3">
+                                                            <div class="row">
+                                                                <div class="pull-left">
+                                                                    <h3>Admin</h3>
+                                                                </div>
+                                                                <div class="pull-right">
+                                                                    <select ui-select2 chosen class="input-sm" ng-model="customerDetails.customer.CustomerPriceMargin.PriceMarginID"
+                                                                            ng-options="margin.Id as margin.Name for margin in customerDetails.priceMargins"
+                                                                            ng-change="customerDetails.onChangeMargin(customerDetails.customer.CustomerPriceMargin.PriceMarginID)">
+                                                                        <option value="0">Show All</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><i class="fa fa-calendar-o fa-2x"></i></td>
+                                                        <td><label>Start Date</label></td>
+                                                        <td>
+                                                            <div class="input-group" style="width: 135px;">
+                                                                <input class="form-control" type="text" style="width: 100px;" uib-datepicker-popup="{{customerDetails.dateFormat}}"
+                                                                       ng-change="customerDetails.saveAccounting(customerDetails.customer.CustomerAccountingInfo)" ng-model="customerDetails.customer.CustomerAccountingInfo.StartDate"
+                                                                       ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" is-open="customerDetails.popupOpened" close-text="Close" />
+                                                                <span class="input-group-addon">
+                                                                    <i class="glyphicon glyphicon-calendar" ng-click="customerDetails.openPopup()"></i>
+                                                                </span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><i class="fa fa-user fa-2x"></i></td>
+                                                        <td><label>Account Rep</label></td>
+                                                        <td>
+                                                            <input class="form-control" ng-change="customerDetails.saveAccounting(customerDetails.customer.CustomerAccountingInfo)" ng-model="customerDetails.customer.CustomerAccountingInfo.AccountRep"
+                                                                   ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><i class="fa fa-usd fa-2x"></i></td>
+                                                        <td><label>Accounting Code</label></td>
+                                                        <td>
+                                                            <input class="form-control" ng-change="customerDetails.saveAccounting(customerDetails.customer.CustomerAccountingInfo)" ng-model="customerDetails.customer.CustomerAccountingInfo.AccountingCode"
+                                                                   ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><i class="fa fa-plane fa-2x"></i></td>
+                                                        <td><label>FuelerLinx Customer</label></td>
+                                                        <td>
+                                                            <input type="checkbox" ng-change="customerDetails.saveAccounting(customerDetails.customer.CustomerAccountingInfo)" ng-model="customerDetails.customer.CustomerAccountingInfo.IsFuelerLinxCustomer" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><i class="fa fa-usd fa-2x"></i></td>
+                                                        <td><label>Billing Rep</label></td>
+                                                        <td>
+                                                            <input class="form-control" ng-change="customerDetails.saveAccounting(customerDetails.customer.CustomerAccountingInfo)" ng-model="customerDetails.customer.CustomerAccountingInfo.BillingRep"
+                                                                   ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><i class="fa fa-user fa-2x"></i></td>
+                                                        <td>
+                                                            <label>
+                                                                Scheduling System
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <select ui-select2 chosen ng-model="customerDetails.customer.CustomerAccountingInfo.SchedulingSystem"
+                                                                    ng-change="customerDetails.saveAccounting(customerDetails.customer.CustomerAccountingInfo)" ng-options="fee for fee in customerDetails.schedulingSystem">
+                                                                <option></option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td>
+                                                            <select ui-select2 chosen ng-model="customerDetails.customer.CustomerAccountingInfo.CreditCardFee"
+                                                                    ng-change="customerDetails.saveAccounting(customerDetails.customer.CustomerAccountingInfo)" ng-options="fee for fee in customerDetails.creditCardFee">
+                                                                <option></option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select ui-select2 chosen ng-model="customerDetails.customer.CustomerAccountingInfo.PaymentTerms"
+                                                                    ng-change="customerDetails.saveAccounting(customerDetails.customer.CustomerAccountingInfo)" ng-options="term for term in customerDetails.paymentTerms">
+                                                                <option></option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select ui-select2 chosen ng-model="customerDetails.customer.CustomerAccountingInfo.BillToSetup"
+                                                                    ng-change="customerDetails.saveAccounting(customerDetails.customer.CustomerAccountingInfo)" ng-options="setup for setup in customerDetails.billToSetup">
+                                                                <option></option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="jarviswidget jarviswidget-color-blueDark" id="" data-widget-editbutton="true">
+                                                <header>
+                                                    <h2>Contacts <span><a href="#" ng-click="customerDetails.addContact()" class="btn btn-xs btn-default"> Add Contact</a></span></h2>
+                                                </header>
+                                                <div>
+                                                    <div class="widget-body no-padding">
+                                                        <div style="height: 320px; overflow-y: auto;">
+                                                            <div ng-if="!customerDetails.customer.Contacts">loading indicator</div>
+                                                            <div ng-if="customerDetails.savingContact">Saving Contact</div>
+                                                            <div ng-if="customerDetails.customer.Contacts && !customerDetails.savingContact">
+                                                                <table st-table="customerDetails.customer.Contacts" class="table table-responsive table-striped">
+                                                                    <tbody>
+                                                                        <tr ng-repeat="contact in customerDetails.customer.Contacts">
+                                                                            <td ng-if="contact.Id">
+                                                                                <i class="fa fa-user fa-2x"></i>
+                                                                            </td>
+                                                                            <td ng-if="contact.Id">
+                                                                                <div class="font-md">
+                                                                                    <a ng-href="/Contacts/GetContactInfo/{{contact.Id}}">{{contact.FirstName}} {{contact.LastName}}</a>
+                                                                                </div>
+                                                                                <div class="font-sm">{{contact.Title}}</div>
+                                                                            </td>
+                                                                            <td ng-if="contact.Id"></td>
+                                                                            <td ng-if="!contact.Id">
+                                                                                <span>First Name:</span> <input ng-model="contact.FirstName" />
+                                                                                <span>Last Name:</span> <input ng-model="contact.LastName" />
+                                                                            </td>
+                                                                            <td ng-if="!contact.Id"><input ng-model="contact.Title" /></td>
+                                                                            <td ng-if="contact.Id">
+                                                                                <select ui-select2 chosen class="col-xs-12" ng-model="contact.ContactType" ng-change="customerDetails.saveContact(contact)" ng-options="type for type in customerDetails.contactTypes">
+                                                                                    <option value="">--Contact Type--</option>
+                                                                                </select>
+                                                                            </td>
+                                                                            <td ng-if="!contact.Id">
+                                                                                <select ui-select2 chosen class="col-xs-12" ng-model="contact.ContactType" ng-options="type for type in customerDetails.contactTypes">
+                                                                                    <option></option>
+                                                                                </select>
+                                                                            </td>
+                                                                            <td ng-if="!contact.Id"><a class="btn btn-xs btn-primary btn-success saveContact" ng-click="customerDetails.saveContact(contact)"><i class="fa fa-save"></i></a></td>
+                                                                            <td ng-if="!contact.Id"><a class="btn btn-xs btn-primary btn-danger deleteContact" ng-click="customerDetails.deleteContact(contact)"><i class="fa fa-remove"></i></a></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-6">
+                                <div class="row">
+                                    <adhoc-fuel-quote></adhoc-fuel-quote>
+                                </div>
+                                <div class="row margin-bottom-10">
+                                    <div class="pull-right">
+                                        <a class="btn btn-primary" id="saveFuelOrder" ng-click="customerDetails.dispatchFuel(customerDetails.Legs)">Dispatch Fuel</a>
+                                    </div>
+                                </div>
+
+                                <div ng-if="customerDetails.savingAircraft">Saving Aircraft</div>
+                                <div ng-if="!customerDetails.savingAircraft" class="row">
+                                    <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-40" data-widget-editbutton="true">
+                                        <header class="background-darkgreen">
+                                            <h2>
+                                                Aircraft Fleet &amp; Margin <em>List</em>
+                                            </h2>
+                                        </header>
+                                        <div>
+                                            <div class="widget-body no-padding">
+                                                <div ng-if="!customerDetails.customer.Aircrafts">Loading Data Animation</div>
+                                                <div ng-if="customerDetails.customer.Aircrafts">
+                                                    <table st-table="customerDetails.customer.Aircrafts" class="table table-responsive table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th><input type="text" st-search=""></th>
+                                                                <th colspan="3"></th>
+                                                                <th colspan="2"><a class="btn btn-success addAircraft" ng-click="customerDetails.addAircraft()">Add Aircraft</a></th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th st-sort="TailNumber">TailNumber</th>
+                                                                <th st-sort="MakeModelID">Make &amp; Model</th>
+                                                                <th st-sort="Size">Size</th>
+                                                                <th colspan="2" st-sort="Margin">Margin</th>
+                                                                <th><button class="btn btn-xs btn-primary btn-danger deleteAircrafts" ng-click="customerDetails.deleteAllAircrafts(customerDetails.customer.Aircrafts)"><i class="fa fa-remove"></i></button></th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            <tr ng-repeat-start="aircraft in customerDetails.customer.Aircrafts" ng-if="!customerDetails.updatingAircraft">
+                                                                <td ng-if="aircraft.Id > 0">
+                                                                    <button class="btn btn-xs btn-success no-border margin-right-5" ng-if="!aircraft.showingAcctNumbers" ng-click="isCollapsed = !isCollapsed; customerDetails.onToggleAcctNumbers(aircraft)">
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                    <button class="btn btn-xs btn-primary margin-right-5" ng-if="aircraft.showingAcctNumbers" ng-click="isCollapsed = isCollapsed; customerDetails.onToggleAcctNumbers(aircraft)"><i class="fa fa-minus"></i></button>
+                                                                </td>
+                                                                <td ng-if="!aircraft.Id"></td>
+                                                                <td ng-if="aircraft.Id > 0 && !aircraft.IsEditingAircraft">
+                                                                    {{aircraft.TailNumber}}
+                                                                    <!--<input type="text" ng-model="aircraft.TailNumber" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }"
+                                                                               ng-change="customerDetails.saveAircraft(aircraft)"/>-->
+                                                                </td>
+                                                                <td ng-if="!aircraft.Id || aircraft.IsEditingAircraft">
+                                                                    <input class="form-control borderless-input" type="text" ng-model="aircraft.TailNumber" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }"
+                                                                           ng-change="customerDetails.changeAircraft(aircraft)" />
+                                                                </td>
+                                                                <td>
+                                                                    <select ui-select2 chosen id="aircraftID{{$index}}" ng-model="aircraft.MakeModelID" ng-change="customerDetails.onMakeModelChange(aircraft)"
+                                                                            ng-options="makeModel.AircraftID as (makeModel.Make + ' ' + makeModel.Model) for makeModel in customerDetails.aircraftData"
+                                                                            ng-disabled="aircraft.Id > 0 && !aircraft.IsEditingAircraft">
+                                                                        <option></option>
+                                                                    </select>
+                                                                </td>
+                                                                <td ng-switch="aircraft.MakeModelID">
+                                                                    <div ng-switch-when=""></div>{{aircraft.MakeAndModel.SizeName}}
+                                                                </td>
+                                                                <td ng-if="aircraft.Id > 0 && !aircraft.IsEditingAircraft">
+                                                                    <input class="form-control borderless-input" select-on-focus
+                                                                           type="number" step="0.0001" ng-model="aircraft.Margin" style="width: 75px" ng-class="{'red': aircraft.Margin < 0}"
+                                                                           ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" ng-change="customerDetails.saveAircraft(aircraft)" />
+                                                                </td>
+                                                                <td ng-if="!aircraft.Id || aircraft.IsEditingAircraft">
+                                                                    <input class="form-control borderless-input" type="number" step="0.0001" ng-model="aircraft.Margin" style="width: 75px" ng-class="{'red': aircraft.Margin < 0}"
+                                                                           ng-change="customerDetails.changeAircraft(aircraft)"
+                                                                           ng-disabled="!aircraft.IsMarginEnabled" />
+                                                                </td>
+                                                                <td ng-if="aircraft.Id > 0"><input type="checkbox" ng-model="aircraft.IsMarginEnabled" ng-change="customerDetails.saveAircraft(aircraft)" /></td>
+                                                                <td ng-if="!aircraft.Id"></td>
+                                                                <td ng-if="!aircraft.Id">
+                                                                    <button class="btn btn-xs btn-success saveAircraft" ng-disabled="!customerDetails.IsComplete" ng-click="customerDetails.saveAircraft(aircraft)"><i class="fa fa-save"></i></button>
+                                                                </td>
+                                                                <td ng-if="aircraft.Id > 0">
+                                                                    <button class="btn btn-xs btn-primary btn-danger deleteAircraft" ng-click="customerDetails.deleteThisAircraft(aircraft)"><i class="fa fa-trash-o"></i></button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr ng-repeat-end>
+                                                                <td colspan="12" class="no-padding background-darkgray">
+                                                                    <div uib-collapse="isCollapsed">
+                                                                        <div class="no-border" ng-if="aircraft.showingAcctNumbers">
+                                                                            <table class="background-white">
+                                                                                <tr class="table-text">
+                                                                                    <td ng-if="!aircraft.IsEditingAircraft">
+                                                                                        <div>
+                                                                                            <span>Avcard Acccount # </span>{{aircraft.AccountNumber}}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td class="no-border" ng-if="aircraft.IsEditingAircraft">
+                                                                                        <div>
+                                                                                            <span>Avcard Account #</span>
+                                                                                            <input type="text" ng-model="aircraft.AccountNumber" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td ng-if="!aircraft.IsEditingAircraft">
+                                                                                        <div>
+                                                                                            <span>Card # </span>{{aircraft.CardNumber}}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td ng-if="!aircraft.IsEditingAircraft">
+                                                                                        <button class="btn btn-default btn-sm no-border no-padding" ng-click="customerDetails.editAircraft(aircraft)">
+                                                                                            <i class="fa fa-pencil-square-o"></i>
+                                                                                        </button>
+                                                                                    </td>
+                                                                                    <td class="no-border" ng-if="aircraft.IsEditingAircraft">
+                                                                                        <div>
+                                                                                            <span>Card #</span>
+                                                                                            <input type="text" ng-model="aircraft.CardNumber" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div>
+                                                                                            <button class="btn btn-success" ng-if="aircraft.IsEditingAircraft" ng-click="customerDetails.saveAircraft(aircraft)">Save</button>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr />
+                                <div class="col-lg-6 pull-right">
+                                    Aircraft Fleet and Margin List
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+        </section>
+    </div>
+
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/AngularJS/Directives/partials.js"></script>
+    <script src="~/Scripts/AngularJS/Services/users.js"></script>
+    <script src="~/Scripts/AngularJS/Services/customerDetails.js"></script>
+    <script src="~/Scripts/AngularJS/Services/contacts.js"></script>
+    <script src="~/Scripts/AngularJS/Services/customerNotes.js"></script>
+    <script src="~/Scripts/AngularJS/Services/users.js"></script>
+    <script src="~/Scripts/AngularJS/Services/registration.js"></script>
+    <script src="~/Scripts/AngularJS/Services/aircrafts.js"></script>
+    <script src="~/Scripts/AngularJS/Services/aircraftData.js"></script>
+    <script src="~/Scripts/AngularJS/Services/priceMargins.js"></script>
+    <script src="~/Scripts/AngularJS/Services/customerPriceMargins.js"></script>
+    <script src="~/Scripts/AngularJS/Services/customerAccountingInfo.js"></script>
+    <script src="~/Scripts/AngularJS/Services/airports.js"></script>
+    <script src="~/Scripts/AngularJS/Services/fuelOrders.js"></script>
+    <script src="~/Scripts/AngularJS/Services/fuelOrderPricings.js"></script>
+    <script src="~/Scripts/AngularJS/Services/distribution.js"></script>
+    <script src="~/Scripts/AngularJS/Services/customerDetailsCustomFields.js"></script>
+
+    <script type="text/javascript">
+
+        degatech.page.startUp = function() {
+            degatech.page.userController = degatech.ng.getControllerInstance($("#customerCtrl"));
+        }
+
+        degatech.services.usersFactory = function($baseService) {
+            var serviceObject = degatech.services.users;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.customerDetailsFactory = function($baseService) {
+            var serviceObject = degatech.services.customerDetails;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.contactsFactory = function($baseService) {
+            var serviceObject = degatech.services.contacts;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.customerNotesFactory = function($baseService) {
+            var serviceObject = degatech.services.customerNotes;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.usersFactory = function($baseService) {
+            var serviceObject = degatech.services.users;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.registrationFactory = function($baseService) {
+            var serviceObject = degatech.services.registration;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.aircraftsFactory = function($baseService) {
+            var serviceObject = degatech.services.aircrafts;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.aircraftDataFactory = function($baseService) {
+            var serviceObject = degatech.services.aircraftData;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.priceMarginsFactory = function($baseService) {
+            var serviceObject = degatech.services.priceMargins;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.customerPriceMarginsFactory = function($baseService) {
+            var serviceObject = degatech.services.customerPriceMargins;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.customerAccountingInfoFactory = function($baseService) {
+            var serviceObject = degatech.services.customerAccountingInfo;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.airportsFactory = function($baseService) {
+            var serviceObject = degatech.services.airports;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.fuelOrdersFactory = function($baseService) {
+            var serviceObject = degatech.services.fuelOrders;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.fuelOrderPricingsFactory = function($baseService) {
+            var serviceObject = degatech.services.fuelOrderPricings;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.distributionFactory = function($baseService) {
+            var serviceObject = degatech.services.distribution;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.services.customerDetailsCustomFieldsFactory = function($baseService) {
+            var serviceObject = degatech.services.customerDetailsCustomFields;
+            var newService = $baseService.merge(true, {}, serviceObject, $baseService);
+            return newService;
+        }
+
+        degatech.ng.addService(degatech.ng.app.module, "$usersService", ["$baseService"], degatech.services.usersFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$customerDetailsService", ["$baseService"], degatech.services.customerDetailsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$contactsService", ["$baseService"], degatech.services.contactsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$customerNotesService", ["$baseService"], degatech.services.customerNotesFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$usersService", ["$baseService"], degatech.services.usersFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$registrationService", ["$baseService"], degatech.services.registrationFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$aircraftsService", ["$baseService"], degatech.services.aircraftsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$aircraftDataService", ["$baseService"], degatech.services.aircraftDataFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$priceMarginsService", ["$baseService"], degatech.services.priceMarginsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$customerPriceMarginsService", ["$baseService"], degatech.services.customerPriceMarginsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$customerAccountingInfoService", ["$baseService"], degatech.services.customerAccountingInfoFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$airportsService", ["$baseService"], degatech.services.airportsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$fuelOrdersService", ["$baseService"], degatech.services.fuelOrdersFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$fuelOrderPricingsService", ["$baseService"], degatech.services.fuelOrderPricingsFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$distributionService", ["$baseService"], degatech.services.distributionFactory);
+
+        degatech.ng.addService(degatech.ng.app.module, "$customerDetailsCustomFieldsService", ["$baseService"], degatech.services.customerDetailsCustomFieldsFactory);
+
+        degatech.page.customerDetailsControllerFactory = function($scope,
+            $baseController,
+            $sizeEnum,
+            $usersService,
+            $customerDetailsService,
+            $contactsService,
+            $customerNotesService,
+            $usersService,
+            $registrationService,
+            $aircraftsService,
+            $aircraftDataService,
+            $priceMarginsService,
+            $customerPriceMarginsService,
+            $customerAccountingInfoService,
+            $airportsService,
+            $fuelOrdersService,
+            $fuelOrderPricingsService,
+            $distributionService,
+            $customerDetailsCustomFieldsService,
+            Notification) {
+
+            var vm = this;
+
+            $baseController.merge(vm, $baseController);
+
+            vm.$usersService = $usersService;
+            vm.$customerDetailsService = $customerDetailsService;
+            vm.$contactsService = $contactsService;
+            vm.$customerNotesService = $customerNotesService;
+            vm.$usersService = $usersService;
+            vm.$registrationService = $registrationService;
+            vm.$aircraftsService = $aircraftsService;
+            vm.$aircraftDataService = $aircraftDataService;
+            vm.$priceMarginsService = $priceMarginsService;
+            vm.$customerPriceMarginsService = $customerPriceMarginsService;
+            vm.$customerAccountingInfoService = $customerAccountingInfoService;
+            vm.$airportsService = $airportsService;
+            vm.$fuelOrdersService = $fuelOrdersService;
+            vm.$fuelOrderPricingsService = $fuelOrderPricingsService;
+            vm.$distributionService = $distributionService;
+            vm.$customerDetailsCustomFieldsService = $customerDetailsCustomFieldsService;
+            vm.$sizeEnum = $sizeEnum;
+            vm.$scope = $scope;
+
+            //PUBLIC METHODS//////////////////////////////////////////////
+            vm.notify = vm.$customerDetailsService.getNotifier($scope);
+            vm.addContact = _addContact;
+            vm.saveContact = _saveContact;
+            vm.deleteContact = _deleteContact;
+            vm.addUser = _addUser;
+            vm.saveUser = _saveUser;
+            vm.deleteUser = _deleteUser;
+            vm.deleteCustomer = _deleteCustomer;
+            //vm.addNote = _addNote;
+            vm.editNote = _editNote;
+            vm.cancelNote = _cancelNote;
+            vm.saveNote = _saveNote;
+            vm.editPhone = _editPhone;
+            vm.cancelPhone = _cancelPhone;
+            vm.savePhone = _savePhone;
+            vm.editEmail = _editEmail;
+            vm.cancelEmail = _cancelEmail;
+            vm.saveEmail = _saveEmail;
+            vm.updateCustomerDetails = _updateCustomerDetails;
+            vm.onIsActiveChanged = _onIsActiveChanged;
+            //vm.deleteNote = _deleteNote;
+            vm.addAircraft = _addAircraft;
+            vm.saveAircraft = _saveAircraft;
+            vm.editAircraft = _editAircraft;
+            vm.deleteThisAircraft = _deleteThisAircraft;
+            vm.deleteAllAircrafts = _deleteAllAircrafts;
+            vm.onChangeMargin = _onChangeMargin;
+            vm.saveAccounting = _saveAccounting;
+            vm.onToggleAcctNumbers = _onToggleAcctNumbers;
+            vm.onMakeModelChange = _onMakeModelChange;
+            vm.changeAircraft = _changeAircraft;
+            vm.aircraftChanged = _aircraftChanged;
+            vm.icaoChanged = _icaoChanged;
+            vm.addLeg = _addLeg;
+            vm.removeLeg = _removeLeg;
+            vm.openPopup = _openPopup;
+            vm.dispatchFuel = _dispatchFuel;
+            vm.distribute = _distribute;
+            vm.addCustomField = _addCustomField;
+            vm.editFields = _editFields;
+            vm.saveFields = _saveFields;
+            vm.cancelFields = _cancelFields;
+            vm.deleteFields = _deleteFields;
+
+            //PUBLIC HANDLERS//////////////////////////////////////////////
+            vm.onGetInfoSuccess = _onGetInfoSuccess;
+            vm.onSaveContactSuccess = _onSaveContactSuccess;
+            vm.onDeleteContactSuccess = _onDeleteContactSuccess;
+            vm.onSaveRegSuccess = _onSaveRegSuccess;
+            vm.onGetUserSuccess = _onGetUserSuccess;
+            vm.onSaveUserSuccess = _onSaveUserSuccess;
+            vm.onUpdateUserSuccess = _onUpdateUserSuccess;
+            vm.onDeleteUserSuccess = _onDeleteUserSuccess;
+            vm.onDeleteCustomerSuccess = _onDeleteCustomerSuccess;
+            vm.onSaveNoteSuccess = _onSaveNoteSuccess;
+            vm.onDeleteNoteSuccess = _onDeleteNoteSuccess;
+            vm.onGetAircraftDataSuccess = _onGetAircraftDataSuccess;
+            vm.onSaveAircraftSuccess = _onSaveAircraftSuccess;
+            vm.onDeleteAircraftSuccess = _onDeleteAircraftSuccess;
+            vm.onGetPriceMarginsSuccess = _onGetPriceMarginsSuccess;
+            vm.onChangeMarginSuccess = _onChangeMarginSuccess;
+            vm.onGetCustPriceMarginSuccess = _onGetCustPriceMarginSuccess;
+            vm.onGetAccountingSuccess = _onGetAccountingSuccess;
+            vm.onSaveAccountingSuccess = _onSaveAccountingSuccess;
+            vm.onUpdateDetailsSuccess = _onUpdateDetailsSuccess;
+            vm.onGetPricesSuccess = _onGetPricesSuccess;
+            vm.onSavePricingSuccess = _onSavePricingSuccess;
+            vm.onGetAirportSuccess = _onGetAirportSuccess;
+            vm.onSaveFuelOrderSuccess = _onSaveFuelOrderSuccess;
+            vm.onError = _onError;
+
+            //PUBLIC MEMBERS//////////////////////////////////////////////
+            vm.test = "This is a test";
+            vm.customer = null;
+            vm.savedContact = null;
+            vm.deletedContact = null;
+            vm.savedUser = null;
+            vm.deletedUser = null;
+            vm.savedNote = null;
+            vm.deletedNote = null;
+            vm.aircraftData = null;
+            vm.aircrafts = null;
+            vm.savedAircraft = null;
+            vm.deletedAircraft = null;
+            vm.CustPriceMargin = null;
+            vm.dateFormat = "MM/dd/yyyy";
+            vm.contactTypes = ["Primary","Secondary","Billing"];
+            vm.creditCardFee = ["No", "Margin", "Invoice"];
+            vm.paymentTerms = ["Credit Card", "Net 10", "Net 14", "Net 15", "Net 20", "Net 25", "Net 30", "Net 45", "Net 60"];
+            vm.billToSetup = ["No", "Partial", "Full"];
+            vm.schedulingSystem = ['FOS', 'BART', 'FltPlan.com'];
+            vm.certificateType = ["PART 91 Corporate", "PART 91 Personal/Non Business", "PART 135 Charter Carrier",
+                                    "PART 135 Management (Airline)", "PART 135 Management (Non-Airline)", "PART 121 Scheduled Carrier"];
+
+            render();
+
+            function RedirectToMainPage() {
+                location.href = "/Login";
+            }
+
+            //PRIVATE METHODS//////////////////////////////////////////////
+            function render() {
+                if (@Model.CurrentUser.Id == 0){
+                    Notification.warning({
+                        model: this,
+                        scope: $scope,
+                        //templateUrl: '/Partials/Common/Notifications/Login.html',
+                        message: "<div>Your session has timed out.</div><div><a onclick='RedirectToMainPage();'>OK</a></div>",
+                        delay: 3000,
+                        closeOnClick: false
+                    });
+                }else{
+                    vm.$airportsService.getListOfAirports(vm.onGetAirportSuccess, vm.onError);
+                    vm.$aircraftDataService.getListOfAircraftData(vm.onGetAircraftDataSuccess, vm.onError);
+                }
+            }
+
+            function _addContact() {
+                vm.customer.Contacts.push({
+                    AdminClientID: vm.customer.AdminClientID,
+                    CustClientID: vm.customer.CustClientID
+                });
+            }
+
+            function _saveContact(contact) {
+                vm.savingContact = true;
+                vm.savedContact = contact;
+                if (contact.Id > 0) {
+                    vm.$contactsService.updateContact(contact.Id, contact, vm.onSaveContactSuccess, vm.onError);
+                } else {
+                    vm.$contactsService.addContact(contact, vm.onSaveContactSuccess, vm.onError);
+                }
+            }
+
+            function _deleteContact(contact) {
+                vm.deletedContact = contact;
+                if(contact.Id > 0){
+                    if (confirm("Are you sure you want to delete this contact?")) {
+                        vm.$contactsService.deleteContact(contact.Id, vm.onDeleteContactSuccess, vm.onError);
+                    }
+                }
+                else vm.customer.Contacts.pop();
+            }
+
+            function _addUser() {
+                vm.customer.Users.push({
+                    Registration: {}
+                });
+            }
+
+            function _saveUser(user) {
+                vm.savingUser = true;
+                vm.savedUser = user;
+                if(user.Registration.Id > 0){
+                    vm.$registrationService.updateRegistration(user.Registration.Id, user.Registration, vm.onSaveUserSuccess, vm.onError);
+                }else{
+                    vm.$registrationService.addRegistration(user.Registration, vm.onSaveRegSuccess, vm.onError);
+                }
+            }
+
+            function _deleteUser(user) {
+                vm.deletedUser = user;
+                if(user.Registration.Id > 0){
+                    if (confirm("Are you sure you want to delete this user?")) {
+                        vm.$usersService.deleteUserByRegID(user.Registration.Id, vm.onDeleteUserSuccess, vm.onError);
+                    }
+                }else{
+                    vm.customer.Users.pop();
+                }
+            }
+
+            function _deleteCustomer(customer) {
+                if (customer.Id > 0) {
+                    if (confirm("Are you sure you want to delete " + customer.Name + "? \r Please Note: Any associated records will also be permanently deleted.")) {
+                        vm.$customerDetailsService.deleteCustomer(customer.CustClientID, vm.onDeleteCustomerSuccess, vm.onError);
+                    }
+                }
+            }
+
+            function _onIsActiveChanged(isActive){
+                vm.customer.IsActive = isActive;
+                var updatedUser = {
+                    Id: vm.customer.User[0].Id,
+                    RegistrationID: vm.customer.User[0].RegistrationID,
+                    ClientID: vm.customer.CustClientID,
+                    IsActive: isActive
+                };
+                vm.$usersService.updateUser(vm.customer.User[0].Id, updatedUser, vm.onUpdateUserSuccess, vm.onError);
+            }
+
+            function _editNote() {
+                vm.IsNoteEditable = !vm.IsNoteEditable;
+            }
+
+            function _cancelNote(note){
+                if (note) vm.customer.Note = vm.updatedDetails.Note;
+                if (vm.IsNoteEditable) vm.IsNoteEditable = !vm.IsNoteEditable;
+            }
+
+            function _saveNote(note) {
+                vm.customer.Note = note;
+                _updateCustomerDetails(vm.customer);
+            }
+
+            function _editPhone(){
+                vm.IsPhoneEditable = !vm.IsPhoneEditable;
+            }
+
+            function _cancelPhone(phone){
+                if (phone) vm.customer.Phone = vm.updatedDetails.Phone;
+                vm.IsPhoneEditable = !vm.IsPhoneEditable;
+            }
+
+            function _savePhone(phone){
+                vm.customer.Phone = phone;
+                _updateCustomerDetails(vm.customer);
+            }
+
+            function _editEmail(){
+                vm.IsEmailEditable = !vm.IsEmailEditable;
+            }
+
+            function _cancelEmail(email){
+                if (email) vm.customer.Email = vm.updatedDetails.Email;
+                vm.IsEmailEditable = !vm.IsEmailEditable;
+            }
+
+            function _saveEmail(email){
+                vm.customer.Email = email;
+                _updateCustomerDetails(vm.customer);
+            }
+
+            function _updateCustomerDetails(details) {
+                vm.updatedDetails = angular.copy(details);
+                vm.$customerDetailsService.updateCustomer(vm.customer.Id, details, vm.onUpdateDetailsSuccess, _onError);
+            }
+
+            function _addAircraft(){
+                vm.customer.Aircrafts.push({
+                    AdminClientID: vm.customer.AdminClientID,
+                    CustClientID: vm.customer.CustClientID
+                });
+                vm.IsComplete = false;
+            }
+
+            function _onMakeModelChange(aircraft){
+                angular.forEach(vm.aircraftData, function(value){
+                    if (value.AircraftID == aircraft.MakeModelID) aircraft.MakeAndModel = value;
+                });
+                if (aircraft.Id > 0) _saveAircraft(aircraft);
+                else _changeAircraft(aircraft);
+            }
+
+            function _changeAircraft(aircraft){
+                if (aircraft.TailNumber && aircraft.MakeModelID && aircraft.Margin) vm.IsComplete = true;
+            }
+
+            function _editAircraft(aircraft){
+                aircraft.IsEditingAircraft = !aircraft.IsEditingAircraft;
+            }
+
+            function _saveAircraft(aircraft){
+                aircraft.IsEditingAircraft = false;
+                vm.savedAircraft = aircraft;
+                if (aircraft.Id > 0) vm.$aircraftsService.updateAircraft(aircraft.Id, aircraft, vm.onSaveAircraftSuccess, vm.onError);
+                else vm.$aircraftsService.addAircraft(aircraft, vm.onSaveAircraftSuccess, vm.onError);
+            }
+
+            function _deleteThisAircraft(aircraft){
+                if(aircraft.Id > 0){
+                    if (confirm("Are you sure you want to delete this aircraft?")) {
+                        vm.deletedAircraft = [];
+                        vm.deletedAircraft.push(aircraft);
+                        vm.$aircraftsService.deleteAircraft(vm.deletedAircraft, vm.onDeleteAircraftSuccess, vm.onError);
+                    }
+                }else vm.customer.Aircrafts.pop();
+            }
+
+            function _deleteAllAircrafts(aircrafts){
+                if (confirm("Are you sure you want to delete all the aircrafts?")){
+                    vm.deletedAircrafts = [];
+                    angular.forEach(aircrafts, function(value){
+                        if(value.Id > 0) vm.deletedAircrafts.push(value);
+                        else {
+                            var index = aircrafts.indexOf(value);
+                            if (index > -1) vm.customer.Aircrafts.splice(index, 1);
+                        }
+                    })
+                    vm.$aircraftsService.deleteAircraft(vm.deletedAircrafts, vm.onDeleteAircraftSuccess, vm.onError);
+                }
+            }
+
+            function _onToggleAcctNumbers(aircraft) {
+                aircraft.showingAcctNumbers = !aircraft.showingAcctNumbers;
+            }
+
+            function _onChangeMargin(marginId){
+                if (confirm("Are you sure you want to update this companies margin setting?")){
+                    var custPriceMargin = {
+                        CustClientID: vm.customer.CustClientID,
+                        PriceMarginID: marginId
+                    }
+                    vm.$customerPriceMarginsService.addCustomerPriceMargin(custPriceMargin, vm.onChangeMarginSuccess, vm.onError);
+                }
+            }
+
+            function _saveAccounting(accountingInfo){
+                accountingInfo.AdminClientID = vm.customer.AdminClientID;
+                accountingInfo.CustClientID = vm.customer.CustClientID;
+                vm.$customerAccountingInfoService.saveAccountingInfo(accountingInfo, vm.onSaveAccountingSuccess, vm.onError);
+            }
+
+            function _openPopup() {
+                vm.popupOpened = true;
+            }
+
+            function _aircraftChanged(){
+                vm.showOrderForm = true;
+                vm.showButtons = true;
+                if (vm.Legs == null) {
+                    vm.Legs = [];
+                    vm.Legs.push({});
+                }
+            }
+
+            function _icaoChanged(leg) {
+                console.log("Getting prices...");
+                vm.gettingPrices = true;
+                vm.$customerPriceMarginsService.getPrices(vm.customer.CustClientID, leg, vm.onGetPricesSuccess, vm.onError);
+            }
+
+            function _addLeg() {
+                vm.Legs.push({});
+            }
+
+            function _removeLeg() {
+                vm.Legs.pop({});
+            }
+
+            function _dispatchFuel(legs) {
+                console.log("Saving Fuel Order...", legs);
+                vm.savingFuelOrder = true;
+                var fuelOrders = [];
+                for (i = 0; i < legs.length; i++) {
+                    var leg = legs[i];
+                    var prices = leg.prices;
+                    for (j = 0; j < prices.length; j++) {
+                        var pricing = {};
+                        pricing.Vendor = prices[j].SupplierPrices.Vendor;
+                        pricing.IATA = prices[j].SupplierPrices.IATA;
+                        pricing.ICAO = prices[j].SupplierPrices.ICAO;
+                        pricing.FBOName = prices[j].SupplierPrices.FBOName;
+                        pricing.Min = prices[j].SupplierPrices.Min;
+                        pricing.Max = prices[j].SupplierPrices.Max;
+                        pricing.TotalWithTax = prices[j].SupplierPrices.TotalWithTax;
+                        pricing.Expires = prices[j].SupplierPrices.Expires;
+                        pricing.Product = prices[j].SupplierPrices.Product;
+                        pricing.Notes = prices[j].SupplierPrices.Notes;
+                        pricing.AdminClientID = prices[j].SupplierPrices.AdminClientID;
+                        pricing.SupplierID = prices[j].SupplierPrices.SupplierID;
+                        vm.$fuelOrderPricingsService.addFuelOrderPricing(pricing, vm.onSavePricingSuccess, vm.onError);
+                    }
+
+                    leg.AdminClientID = vm.customer.AdminClientID;
+                    leg.AircraftID = vm.fuelOrder.Aircraft.Id;
+                    leg.CustClientID = vm.customer.CustClientID;
+                    leg.OrderedByUserID = @Model.CurrentUser.Id;
+                    leg.FBO = leg.Quote.SupplierPrices.FBOName;
+                    leg.DateRequested = new Date().toDateString();
+                    leg.AdminStatus = 0;
+                    leg.CustStatus = 0;
+                    leg.IsArchived = false;
+                    leg.IsDirectlyEntered = false;
+                    leg.InvoicedPPG = 0;
+                    leg.QuotedPPG = leg.Quote.TotalCost;
+                    leg.InvoicedVolume = 0;
+                    console.log(leg);
+                    fuelOrders.push(leg);
+                    vm.fuelOrders = angular.copy(fuelOrders);
+                }
+                vm.$fuelOrdersService.addFuelOrder(fuelOrders, vm.onSaveFuelOrderSuccess, vm.onError);
+            }
+
+            function _distribute(){
+                if (confirm("Are you sure you want to distribute pricing to this company?"))
+                    vm.$distributionService.distributeCompany(vm.customer.AdminClientID, vm.customer.CustClientID, _onDistributeSuccess, vm.onError);
+            }
+
+            function _onDistributeSuccess(data){
+                Notification.success({
+                    model: this,
+                    scope: $scope,
+                    //templateUrl: '/Partials/Common/Notifications/Login.html',
+                    message: "Company Distributed! <br /> <br />",
+                    delay: 3000,
+                    closeOnClick: false
+                });
+            }
+
+            function _addCustomField(type){
+                vm.customer.CustomFields.push({
+                    AdminClientID: vm.customer.AdminClientID,
+                    CustClientID: vm.customer.CustClientID,
+                    FieldType: type,
+                    IsEditable: true
+                });
+            }
+
+            function _editFields(field) {
+                field.IsEditable = true;
+            }
+
+            function _saveFields(customField) {
+                vm.savedCustomField = customField;
+                if (vm.savedCustomField.Id > 0)
+                    vm.$customerDetailsCustomFieldsService.updateCustomField(vm.savedCustomField.Id, vm.savedCustomField, _onSaveCustomFieldsSuccess, _onError);
+                else vm.$customerDetailsCustomFieldsService.addCustomField(vm.savedCustomField, _onSaveCustomFieldsSuccess, _onError);
+            }
+
+            function _cancelFields(field) {
+                field.IsEditable = false;
+            }
+
+            function _deleteFields(field) {
+                if (field.Id > 0) {
+                    if (confirm("Are you sure you want to delete this field?")) {
+                        vm.deletedField = field
+                        vm.$customerDetailsCustomFieldsService.deleteCustomField(field, _onDeleteCustomFieldSuccess, _onError);
+                    }
+                }
+                else vm.customer.CustomFields.pop();
+            }
+
+            //PRIVATE HANDLERS//////////////////////////////////////////////
+            function _onGetInfoSuccess(data) {
+                vm.notify(function() {
+                    vm.customer = data.Item;
+                    vm.updatedDetails = angular.copy(data.Item);
+                    console.log("CUSTOMER: ", vm.customer);
+                });
+                //console.log("GETTING PRICE MARGINS");
+                //vm.$priceMarginsService.getPriceMarginsByAdminClient(vm.customer.AdminClientID, vm.onGetPriceMarginsSuccess, vm.onError);
+                //vm.$customerAccountingInfoService.getAccountingByAdminAndCustClientID(vm.customer.AdminClientID, vm.customer.CustClientID, vm.onGetAccountingSuccess, vm.onError);
+            }
+
+            function _onGetUserSuccess(data){
+                vm.notify(function() {
+                    vm.user = data.Item;
+                    console.log("USER: ", vm.user);
+                });
+                console.log("GETTING PRICE MARGINS");
+                vm.$priceMarginsService.getPriceMarginsByAdminClient(vm.user.ClientID, vm.onGetPriceMarginsSuccess, vm.onError);
+            }
+
+            function _onSaveContactSuccess(data) {
+                vm.notify(function() {
+                    vm.savingContact = false;
+                    if(data.Item){
+                        vm.savedContact.Id = data.Item;
+                        vm.savedContact.DateAdded = new Date();
+                    }
+                });
+            }
+
+            function _onDeleteContactSuccess() {
+                vm.notify(function() {
+                    var index = vm.customer.Contacts.indexOf(vm.deletedContact);
+                    if (index > -1) vm.customer.Contacts.splice(index, 1);
+                });
+            }
+
+            function _onDeleteCustomerSuccess(){
+                location.href = "/Home/" + @Model.CurrentUser.Id;
+            }
+
+            function _onSaveRegSuccess(result) {
+                console.log("Registration Saved!");
+                vm.notify(function() {
+                    vm.savedUser.Registration.Id = result.Item;
+                    vm.savedUser.Registration.DateAdded = new Date();
+                });
+                var user = {
+                    RegistrationID: result.Item,
+                    Registration: {
+                        Id: result.Item
+                    },
+                    ClientID: vm.customer.CustClientID,
+                    IsActive: false
+                };
+                vm.$usersService.addUser(user, vm.onSaveUserSuccess, vm.Error);
+            }
+
+            function _onSaveUserSuccess(data) {
+                vm.notify(function() {
+                    vm.savingUser = false;
+                    if(data.Item) vm.savedUser.Id = data.Item;
+                });
+            }
+
+            function _onUpdateUserSuccess(data){
+                console.log("User Updated!");
+                _updateCustomerDetails(vm.customer);
+            }
+
+            function _onDeleteUserSuccess() {
+                vm.notify(function() {
+                    var index = vm.customer.Users.indexOf(vm.deletedUser);
+                    if (index > -1) vm.customer.Users.splice(index, 1);
+                });
+            }
+
+            function _onSaveNoteSuccess(data) {
+                vm.notify(function() {
+                    vm.savingNote = false;
+                    if(data.Item) vm.savedNote.Id = data.Item;
+                });
+            }
+
+            function _onDeleteNoteSuccess() {
+                vm.notify(function() {
+                    var index = vm.customer.CustomerNotes.indexOf(vm.deletedNote);
+                    if (index > -1) vm.customer.CustomerNotes.splice(index, 1);
+                });
+            }
+
+            function _onGetAircraftDataSuccess(data){
+                vm.notify(function() {
+                    vm.aircraftData = JSON.parse(data.Item);
+                    console.log("AIRCRAFT DATA: ", vm.aircraftData);
+                });
+                //console.log("GETTING CUSTOMER");
+                //vm.$customerDetailsService.getCustomer(@Model.Item, vm.onGetInfoSuccess, vm.onError);
+                console.log("GETTING USER");
+                vm.$usersService.getUser(@Model.CurrentUser.Id, vm.onGetUserSuccess, vm.onError);
+            }
+
+            function _onSaveAircraftSuccess(data){
+                vm.notify(function() {
+                    if(data.Item) vm.savedAircraft.Id = data.Item;
+                });
+            }
+
+            function _onDeleteAircraftSuccess(){
+                vm.notify(function() {
+                    if (vm.deletedAircraft) {
+                        angular.forEach(vm.deletedAircraft, function(value){
+                            var index = vm.customer.Aircrafts.indexOf(value);
+                            if (index > -1) vm.customer.Aircrafts.splice(index, 1);
+                        });
+                    }
+                    if (vm.deletedAircrafts) {
+                        angular.forEach(vm.deletedAircrafts, function(value){
+                            var index = vm.customer.Aircrafts.indexOf(value);
+                            if (index > -1) vm.customer.Aircrafts.splice(index, 1);
+                        });
+                    }
+                });
+            }
+
+            function _onGetPriceMarginsSuccess(data){
+                vm.notify(function() {
+                    vm.priceMargins = data.Items;
+                    console.log("PRICE MARGINS: ", vm.priceMargins);
+                });
+                console.log("GETTING CUSTOMER");
+                vm.$customerDetailsService.getCustomer(@Model.Item, vm.onGetInfoSuccess, vm.onError);
+                //vm.$customerPriceMarginsService.getCustomerPriceMarginByCustClientID(@Model.Item, vm.onGetCustPriceMarginSuccess, vm.onError);
+            }
+
+            function _onGetCustPriceMarginSuccess(data){
+                vm.notify(function() {
+                    if (data.Item) {
+                        vm.CustPriceMarginID = data.Item.PriceMarginID;
+                        console.log("CPM: ", vm.CustPriceMarginID);
+                        vm.$customerAccountingInfoService.getAccountingByAdminAndCustClientID(vm.customer.AdminClientID, vm.customer.CustClientID, vm.onGetAccountingSuccess, vm.onError);
+                    }
+                    else _onError();
+                });
+            }
+
+            function _onChangeMarginSuccess(data){
+                console.log("MARGIN CHANGED!");
+            }
+
+            function _onGetAccountingSuccess(data){
+                vm.notify(function() {
+                    if (data.Item) {
+                        vm.accounting = data.Item;
+                        console.log("ACCOUNTING INFO: ", vm.accounting);
+                    }
+                    else _onError();
+                });
+            }
+
+            function _onSaveAccountingSuccess(data){
+                console.log("Accounting Info Updated!");
+            }
+
+            function _onUpdateDetailsSuccess(data){
+                vm.notify(function () {
+                    vm.IsPhoneEditable = false;
+                    vm.IsEmailEditable = false;
+                    vm.IsNoteEditable = false;
+                });
+                console.log("Company Details Updated!");
+            }
+
+            function _onGetAirportSuccess(data) {
+                vm.notify(function() {
+                    vm.airports = JSON.parse(data.Item);
+                    console.log("AIRPORTS: ", vm.airports);
+                });
+            }
+
+            function _onGetPricesSuccess(data, leg){
+                vm.notify(function() {
+                    vm.gettingPrices = false;
+                    vm.showOrderForm = true;
+                    leg.prices = data.Item;
+                    console.log("PRICES: ", leg.prices);
+                });
+            }
+
+            function _onSavePricingSuccess(data) {
+                console.log(data.Item + " is saved!");
+            }
+
+            function _onSaveFuelOrderSuccess(data) {
+                var msg = "Fuel order saved! <br /><br /> ";
+                console.log(msg, data);
+                Notification.success({
+                    model: this,
+                    scope: $scope,
+                    //templateUrl: '/Partials/Common/Notifications/Login.html',
+                    message: msg,
+                    delay: 3000,
+                    closeOnClick: false
+                });
+                vm.notify(function() {
+                    vm.savingFuelOrder = false;
+                    vm.showOrderForm = true;
+                    vm.fuelOrder = null;
+                    vm.Legs = null;
+                });
+            }
+
+            function _onSaveCustomFieldsSuccess(data){
+                vm.notify(function () {
+                    console.log("Custom field saved!");
+                    if (data.Item) vm.savedCustomField.Id = data.Item;
+                    vm.savedCustomField.IsEditable = false;
+                });
+            }
+
+            function _onDeleteCustomFieldSuccess(){
+                vm.notify(function () {
+                    var index = vm.customer.CustomFields.indexOf(vm.deletedField);
+                    if (index > -1) vm.customer.CustomFields.splice(index, 1);
+                });
+            }
+
+            function _onError() {
+                vm.notify(function() {
+                    vm.savingContact = false;
+                    vm.savingUser = false;
+                    vm.savingFuelOrder = false;
+                    vm.savingPricing = false;
+                    vm.gettingPrices = false;
+                    //vm.updatingAircraft = false;
+                });
+                vm.error = "An error has occurred!";
+                console.log(vm.error);
+            }
+        }
+
+        degatech.ng.addController(degatech.ng.app.module,
+            "customerDetailsController",
+            ['$scope',
+            '$baseController',
+            '$sizeEnum',
+            "$usersService",
+            "$customerDetailsService",
+            "$contactsService",
+            "$customerNotesService",
+            "$usersService",
+            "$registrationService",
+            "$aircraftsService",
+            "$aircraftDataService",
+            "$priceMarginsService",
+            "$customerPriceMarginsService",
+            "$customerAccountingInfoService",
+            "$airportsService",
+            "$fuelOrdersService",
+            "$fuelOrderPricingsService",
+            "$distributionService",
+            "$customerDetailsCustomFieldsService",
+            "Notification"],
+            degatech.page.customerDetailsControllerFactory);
+    </script>
+
+}
+

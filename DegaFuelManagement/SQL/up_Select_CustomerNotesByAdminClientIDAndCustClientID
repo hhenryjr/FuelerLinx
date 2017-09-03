@@ -1,0 +1,45 @@
+CREATE PROCEDURE [dbo].[up_Select_CustomerNotesByAdminClientIDAndCustClientID]
+	@AdminClientID int,
+	@CustClientID int
+AS
+
+SET NOCOUNT ON
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+
+declare @ID int = 0
+
+
+/*Grab old notes from CustomerDetails and insert them into CustomerNotes, then delete the note from CustomerDetails*/
+INSERT INTO CustomerNotes
+(AdminClientID, CustClientID, Note, UserID, Username)
+SELECT TOP 1 @AdminClientID, @CustClientID, Note, U.Id, R.Username
+FROM CustomerDetails CD
+INNER JOIN Users U ON CD.AdminClientID = U.ClientID
+INNER JOIN Registration R ON U.RegistrationID = R.Id AND CD.AdminClientID = @AdminClientID and CD.CustClientID = @CustClientID AND isnull(note,'')<>''
+ORDER BY U.Id
+
+SELECT @ID = @@IDENTITY
+
+IF (@ID > 0)
+BEGIN
+	UPDATE CustomerDetails
+	SET Note = ''
+	WHERE AdminClientID = @AdminClientID AND CustClientID = @CustClientID AND isnull(note,'')<>''
+END
+
+SELECT
+	[Id],
+	[AdminClientID],
+	[CustClientID],
+	[Note],
+	[UserID],
+	[DateAdded],
+	[Username]
+	
+FROM
+	[dbo].[CustomerNotes]
+WHERE
+	[AdminClientID] = @AdminClientID and
+	[CustClientID] = @CustClientID
+
+order by DateAdded desc

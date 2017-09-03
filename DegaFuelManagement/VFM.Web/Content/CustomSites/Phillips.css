@@ -1,0 +1,43 @@
+﻿/*
+    
+    PHILLIPS FUEL MANAGER CSS
+*/
+
+#header {
+    background: #ff3333;
+}
+h1.page-title {
+    padding-top:21px;
+}
+
+
+#left-panel nav ul li .active {
+    background: #bfbfbf;
+}
+
+.login-info {
+    margin-bottom: -1px !important;
+}
+
+.logo {
+    background: url('/img/phillips-66-logo.png') no-repeat  !important;
+    position: relative;
+    top:12px;
+    left:15px;
+    width:185px;
+}
+
+.phillips-logo {
+    background: url('../img/phillips-logo.png');
+    height:232px !important;
+    background-position: center bottom;
+    background-repeat:no-repeat;
+}
+
+.logo:after {
+    font-size: 24px;
+    font-weight: 600;
+    color: lightgrey;
+    content: 'Fuel Manager';
+  display: none;
+}

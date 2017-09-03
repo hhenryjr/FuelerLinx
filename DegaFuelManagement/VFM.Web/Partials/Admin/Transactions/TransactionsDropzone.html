@@ -1,0 +1,59 @@
+﻿
+<div class="inlineblock  toppadded2x dropzonecontainer">
+    <!--Dropzone-->
+    <div class="dropzonecontent">
+        <article class="sortable-grid ui-sortable">
+            <p class="alert alert-blue" ng-if="fuelOrderInfo.invoices.length > 0">
+                <span>Click to view previously uploaded invoice(s).</span>
+                <span class="pull-right"><button ng-click="fuelOrderInfo.viewInvoices(fuelOrderInfo.invoices)" type="button" class="btn btn-xs btn-lightgreen">View Invoice(s)</button></span>
+            </p>
+         
+            <div id="jarviswidget-transaction-details-invoice{{$index}}" class="jarviswidget jarviswidget-color-blueLight jarviswidget-sortable" data-widget-colorbutton="true" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="true" data-widget-custombutton="false" data-widget-sortable="false">
+                <header role="heading">
+                    <span class="widget-icon">
+                        <i class="fa fa-cloud"></i>
+                    </span>
+                    <h2>My Dropzone! </h2>
+                    <span class="jarviswidget-loader" style="display: none;">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </span>
+                </header>
+                <div role="content">
+                    <div class="jarviswidget-editbox"></div>
+                    <div class="widget-body">
+                        <!--<div dropzone="InvoiceDropzoneConfig" class="dz-clickable dropzone">
+                            <div class="dz-default dz-message">
+                                <span>
+                                    <span class="text-center">
+                                        <span class="font-lg visible-xs-block visible-sm-block visible-md-block visible-lg-block">
+                                            <span class="font-lg">
+                                                <i class="fa fa-caret-right text-danger"></i> Drop files <span class="font-xs">to upload</span>
+                                            </span>
+                                            <span>&nbsp;&nbsp;<h4 class="display-inline"> (Or Click)</h4></span>
+                                        </span>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>-->
+                        <div clas="row">
+                            <form action="{{'~/api/files/attachment/'}}" method="post"
+                                  enctype="multipart/form-data" class="dropzone" id="dropzoneForm"
+                                  ng-dropzone dropzone="fuelOrderInfo.dropzone" dropzone-config="fuelOrderInfo.dropzoneConfig">
+                                <div class="fallback">
+                                    <input type="file" name="file" multiple />
+                                    <input type="submit" value="Upload" />
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+    
+            </div>
+            <p class="margin-top-15">
+                <span class="label label-warning">Note</span>
+                &nbsp; This plugins works only on Latest Chrome, Firefox, Safari, Opera & IE 10.
+            </p>
+        </article>
+    </div>
+</div>

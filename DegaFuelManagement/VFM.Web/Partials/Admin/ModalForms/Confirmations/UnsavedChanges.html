@@ -1,0 +1,20 @@
+﻿<div class="jarviswidget-color-teal">
+    <div class="row text-right " role="heading">
+        <div class="jarviswidget-ctrls" role="menu">
+            <a class="button-icon jarviswidget-delete-btn" ng-click="modal.$uibModalInstance.close();">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </div>
+    <div class="row text-center bold">
+        You have unsaved changes.
+    </div>
+    <div class="row">
+        <div class="text-center bottompadded">Would you like to save?</div>
+        <div class="col-xs-12 text-center bottompadded">
+            <button type="button" class="btn btn-lightgreen" ng-click="modal.$uibModalInstance.close(modal.items.process(modal.items.fuelOrder));modal.$rootScope.ApplicationState.ActiveSection = 'FUEL ORDERS';">Yes</button>
+            <button type="button" class="btn btn-lightorange" ng-click="modal.$uibModalInstance.close();modal.$rootScope.ApplicationState.ActiveSection = 'FUEL ORDERS';">No</button>
+            <button type="button" class="btn btn-lightgrey" ng-click="modal.$uibModalInstance.close();">Abort</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,1111 @@
+﻿<div>
+    <div class="row padding-left-none padding-right-none">
+        <h1 class="page-title txt-color-blueDark blue-font">
+            <!--<a class="btn btn-primary" ng-click="customerDetails.back()"><i class="fa fa-arrow-left"></i> Back</a>-->
+            ACCOUNT MANAGER <span class="default-grey-font">> COMPANY DETAIL </span>
+        </h1>
+    </div>
+
+    <section id="widget-grid" class="padding-right-none row padding-left-none company-detials-container">
+        <div ng-if="!customerDetails.customer">
+            <div class="text-center">Loading Company Details...</div>
+            <loading-icon></loading-icon>
+        </div>
+
+        <div ng-if="customerDetails.customer != null" style="display: none;" show-on-link>
+            <div class="row margin-bottom-10">
+                <div class="col-lg-10">
+
+                    <!--<span class="margin-right-lg">{{customerDetails.customer.Name}}</span>-->
+
+                    <span ng-if="!customerDetails.IsNameEditable" class="pull-left padding-right-15">
+                        <span class="padding-top-10 margin-right-15">
+                            <a href="#" ng-if="customerDetails.$usersService.user.Permission.CompanyDetail == 0" ng-click="customerDetails.editName()"><span class="font-xl padding-left-small">{{customerDetails.customer.Name}}</span></a>
+
+                            <span class="font-xl padding-left-small" ng-if="customerDetails.$usersService.user.Permission.CompanyDetail == 1">{{customerDetails.customer.Name}}</span>
+
+                        </span>
+                    </span>
+
+                    <div class="col-lg-6 no-padding" ng-if="customerDetails.IsNameEditable">
+                        <span class="padding-top-10">
+                            <input style="width: 66%;" type="text" ng-model="customerDetails.customer.Name" />
+                            <button type="button" class="btn btn-sm btn-success" ng-click="customerDetails.saveName(customerDetails.customer.Name)"><span class="fa fa-save"></span></button>
+                            <button type="button" class="btn btn-sm btn-danger" ng-click="customerDetails.deleteCustomer(customerDetails.customer)"><span class="fa fa-trash"></span></button>
+                            <button type="button" class="btn btn-sm btn-default" ng-click="customerDetails.cancelName(customerDetails.customer.Name)">Cancel</button>
+                        </span>
+                    </div>
+
+                    <div class="margin-left pull-right">
+
+                    </div>
+
+                    <div class="inline-block margin-left-lg margin-bottom-sm margin-top-5 margin-left-5">
+                        <div ng-if="customerDetails.$usersService.user.Permission.CompanyDetail == 1">
+                            <span ng-if="customerDetails.customer.IsActive" class="badge light-green-background">Active</span>
+                            <span ng-if="!customerDetails.customer.IsActive" class="badge" style="background-color: red">Inactive</span>
+                        </div>
+                        <div class="smart-form" ng-if="customerDetails.$usersService.user.Permission.CompanyDetail == 0">
+                            <label class="toggle">
+                                <span class="font-sm font-600" ng-class="customerDetails.customer.IsActive ? 'green-font' : 'red-font'">Activate:</span>
+                                <input type="checkbox" name="checkbox-toggle" ng-model="customerDetails.customer.IsActive" ng-change="customerDetails.onIsActiveChanged()">
+                                <i data-swchon-text="ON" data-swchoff-text="OFF"></i>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-2">
+                    <div class="btn-group float-right margin-top-sm">
+                        <button type="button" class="btn btn-sm btn-default" ng-disabled="customerDetails.HideLeft" ng-click="customerDetails.leftCompany(customerDetails.customer.CustClientID)">
+                            <i class="fa fa-chevron-left"></i>
+                        </button>
+
+                        <button type="button" class="btn btn-sm btn-default" ng-disabled="customerDetails.HideRight" ng-click="customerDetails.rightCompany(customerDetails.customer.CustClientID)">
+                            <i class="fa fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <article class="col-xs-12 margin-bottom-10">
+                <div class="jarviswidget light-grey-border" id="" data-widget-editbutton="false" data-widget-colorbutton="false">
+                    <header class="tall-widget-header" role="heading">
+
+                        <button type="button" class="btn btn-success margin-left" ng-if="customerDetails.$usersService.user.Permission.CompanyDetail == 0" ng-disabled="!customerDetails.customer.IsActive" ng-click="customerDetails.distribute()">
+                            Distribute Pricing <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                        </button>
+
+                        <div class="jarviswidget-ctrls" role="menu">
+                            <loading-icon ng-if="customerDetails.IsUpdating"></loading-icon>
+                            <a style="width: 44px;" ng-if="!customerDetails.IsUpdating" ng-click="customerDetails.back()" href="javascript:void(0);" class="tall-widget-header button-icon jarviswidget-delete-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Delete"><i class="position-top-5 fa fa-times"></i></a>
+                        </div>
+                    </header>
+
+                    <!-- start main panel left -->
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="jarviswidget jarviswidget-color-blueDark" id="" data-widget-editbutton="false" data-widget-colorbutton="false">
+
+                                <header class="background-lightblue">
+                                    <h2 class="margin-left-5">Company Details</h2>
+                                </header>
+                                <!-- company title + activate + distribute pricing -->
+                                <div class="padding-left-none padding-right-none">
+                                    <div class="row">
+                                        <!-- left panel -->
+                                        <div class="col-xs-12 col-sm-6 company-information">
+                                            <div class="row col-lg-12 no-padding">
+                                                <ul class="list-unstyled companyDetailListInfo table-text no-padding">
+
+                                                    <li class="hidden">
+                                                        <div ng-if="!customerDetails.IsEmailEditable">
+                                                            <i class="fa fa-envelope margin-right"></i>&nbsp;&nbsp;
+                                                            <a href="mailto:{{customerDetails.customer.Email}}">
+                                                                <span>{{customerDetails.customer.Email}}</span>
+                                                            </a>
+                                                            <i ng-if="customerDetails.customer.Email.length == 0 && customerDetails.$usersService.user.Permission.CompanyDetail == 0" ng-click="customerDetails.editEmail()" class="light-grey-font cursor-pointer">Add Email</i>
+
+                                                            <span class="padding-left-small"><a class="cursor-pointer" ng-click="customerDetails.editEmail()"><i class="fa fa-pencil-square-o default-grey-font"></i></a></span>
+                                                        </div>
+
+
+                                                        <div ng-if="customerDetails.IsEmailEditable">
+                                                            <input type="text" style="width: 100px;" ng-model="customerDetails.customer.Email" />
+                                                            <button type="button" class="btn btn-xs btn-medium-green" ng-click="customerDetails.saveEmail(customerDetails.customer.Email)">Save</button>
+                                                            <button type="button" class="btn btn-xs btn-grey" ng-click="customerDetails.cancelEmail(customerDetails.customer.Email)">Cancel</button>
+                                                        </div>
+                                                    </li>
+
+
+
+
+                                                    <li class="row margin-top-15">
+                                                        <!--<span ng-if="customerDetails.customer.Address1.length == 0 && customerDetails.customer.Address2.length == 0 && customerDetails.customer.City.length == 0 && customerDetails.customer.State.length == 0 && customerDetails.customer.ZipCode.length == 0 && customerDetails.customer.Country.length == 0" class="padding-left-30 redfont grey-text">*No Information Added*</span>-->
+                                                        <div ng-if="!customerDetails.IsAddressEditable && customerDetails.$usersService.user.Permission.CompanyDetail == 0">
+                                                            <div class="row">
+                                                                <span ng-if="!customerDetails.customer.Address1.length == 0 || !customerDetails.customer.Address2.length == 0 || !customerDetails.customer.City.length == 0 || !customerDetails.customer.State.length == 0 || !customerDetails.customer.ZipCode.length == 0 || !customerDetails.customer.Country.length == 0" class="font-lg"><i class="fa fa-home"></i></span>
+                                                                <span ng-if="!customerDetails.customer.Address1.length == 0" class="font-lg margin-left"> {{customerDetails.customer.Address1}} </span><br ng-if="!customerDetails.customer.Address1.length == 0" />
+
+                                                                <span ng-if="!customerDetails.customer.Address2.length == 0" ng-class="{'padding-left-30' : !customerDetails.customer.Address1.length == 0, 'padding-left-10' : !customerDetails.customer.Address1.length > 0}" class="font-sm">{{customerDetails.customer.Address2}}</span><br ng-if="!customerDetails.customer.Address2.length == 0" />
+
+                                                                <div ng-class="{'padding-left-30' : !customerDetails.customer.Address2.length == 0 && !customerDetail.customer.Address1.length == 0, 'padding-left-10' : !customerDetails.customer.Address2.length > 0}" class="inline-block padding-left-30 font-sm">
+
+                                                                    <span ng-if="!customerDetails.customer.City.length == 0">{{customerDetails.customer.City}},</span>
+                                                                    <span ng-if="!customerDetails.customer.State.length == 0">{{customerDetails.customer.State}}, </span>
+                                                                    <span ng-if="!customerDetails.customer.ZipCode.length == 0">{{customerDetails.customer.ZipCode}}</span>
+
+                                                                </div>
+
+                                                                <!--<br ng-if="customerDetails.customer.City.length == 0 && customerDetails.customer.State.length == 0 && customerDetails.customer.ZipCode.length == 0" />-->
+                                                                <span class="font-sm">{{customerDetails.customer.Country}}</span><br />
+
+                                                                <span ng-if="!customerDetails.customer.Address1.length == 0 || !customerDetails.customer.Address2.length == 0 || !customerDetails.customer.City.length == 0 || !customerDetails.customer.State.length == 0 || !customerDetails.customer.ZipCode.length == 0 || !customerDetails.customer.Country.length == 0" class="font-sm padding-left-30 margin-left-5">Edit Info <a class="margin-left-5 cursor-pointer" ng-click="customerDetails.editAddress()"><i class="fa fa-pencil-square-o default-grey-font"></i></a></span>
+                                                                <!-- edit button -->
+
+                                                            </div>
+
+                                                        </div>
+
+
+
+                                                        <div ng-if="customerDetails.IsAddressEditable">
+                                                            <span class="font-md bold">Editing Company Information</span>
+                                                            <hr class="margin-top-none">
+                                                            <ul class="list-unstyled companyDetailListInfo table-text no-padding">
+                                                                <li class="no-padding col-xs-12">
+                                                                    <div class="input-icon-right">
+                                                                        <i ng-click="customerDetails.saveAddress(customerDetails.customer)" class="fa fa-save txt-color-green"></i>
+                                                                        <i ng-click="customerDetails.cancelAddress(customerDetails.customer)" class="fa fa-ban txt-color-red margin-right-20"></i>
+                                                                        <input placeholder="Address 1" class="form-control form-control-height-sm" type="text" ng-model="customerDetails.customer.Address1" />
+                                                                    </div>
+                                                                </li>
+
+                                                                <li class="no-padding col-xs-12">
+                                                                    <input placeholder="Address 2" class="form-control form-control-height-sm" type="text" ng-model="customerDetails.customer.Address2" />
+                                                                </li>
+
+                                                                <li class="no-padding col-xs-12 col-sm-8 clearfix">
+                                                                    <input placeholder="City" class="form-control form-control-height-sm" type="text" ng-model="customerDetails.customer.City" />
+                                                                </li>
+                                                                <li class="no-padding col-xs-12 col-sm-4 clearfix">
+
+                                                                    <input placeholder="State" class="form-control form-control-height-sm" type="text" ng-model="customerDetails.customer.State" />
+                                                                </li>
+
+                                                                <li class="no-padding col-xs-12 col-sm-8">
+                                                                    <input placeholder="Country" class="form-control form-control-height-sm" type="text" ng-model="customerDetails.customer.Country" />
+                                                                </li>
+
+                                                                <li class="no-padding col-xs-12 col-sm-4 clearfix">
+                                                                    <input placeholder="Zipcode" class="form-control form-control-height-sm" type="text" ng-model="customerDetails.customer.ZipCode" />
+                                                                </li>
+
+                                                            
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+
+
+
+
+                                                    <li ng-class="{'hidden' : customerDetails.customer.Phone == 0 && !customerDetails.IsPhoneEditable, ' ' : !customerDetails.customer.Phone == 0 && !customerDetails.IsPhoneEditable}" class="row margin-top-15">
+                                                        <div class="row" ng-if="!customerDetails.IsPhoneEditable">
+                                                            <i class="fa fa-phone margin-right" style="width: 18px;"></i><span class="padding-left-sm padding-right-sm">{{customerDetails.customer.Phone}}</span>
+                                                            <i ng-if="customerDetails.customer.Phone == 0 && customerDetails.$usersService.user.Permission.CompanyDetail == 0" ng-click="customerDetails.editPhone()" class="light-grey-font cursor-pointer">Add Phone #</i>
+                                                            <span class="padding-left-small"><a class="cursor-pointer" ng-if="customerDetails.$usersService.user.Permission.CompanyDetail == 0" ng-click="customerDetails.editPhone()"><i class="fa fa-pencil-square-o default-grey-font"></i></a></span>
+                                                        </div>
+                                                        <div class="row" ng-if="customerDetails.IsPhoneEditable">
+                                                            <span class="font-md">Editing Phone Number</span>
+                                                            <hr class="margin-top-none">
+                                                            <!-- MAIN PHONE INPUT FIELD -->
+                                                            <div class="input-icon-right">
+                                                                <i ng-click="customerDetails.savePhone(customerDetails.customer.Phone)" class="fa fa-save txt-color-green"></i>
+                                                                <i ng-click="customerDetails.cancelPhone(customerDetails.customer.Phone)" class="fa fa-ban txt-color-red margin-right-20"></i>
+                                                                <input placeholder="Enter a Phone Number" type="text" class="form-control form-control-height-sm" ng-model="customerDetails.customer.Phone" />
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+
+
+                                                    <li class="row margin-top-5" ng-repeat="field in customerDetails.customer.CustomFields">
+                                                        <div class="grey-text profileInfoBlurbText" ng-if="!field.IsEditable && customerDetails.$usersService.user.Permission.CompanyDetail == 0">
+                                                            <i class="fa margin-right-5" ng-class="{'fa-envelope': field.FieldType === 'Email', 'fa-phone': field.FieldType === 'Phone'}"></i>
+                                                            <span class="padding-left-15">{{field.Title}}</span> : <span>{{field.Content}}</span>
+                                                            <span class="padding-left-small">
+                                                                <a class="cursor-pointer" ng-click="customerDetails.editFields(field)">
+                                                                    <i class="fa fa-pencil-square-o default-grey-font"></i>
+                                                                </a><!--<button class="btn btn-xs btn-default" ng-click="customerDetails.deleteFields(field)">Delete</button>-->
+                                                            </span>
+                                                        </div>
+
+
+
+                                                        <div class="grey-text profileInfoBlurbText" ng-if="field.IsEditable && field.Id > 0">
+                                                            <!-- ADDITIONAL CONTACT FIELDS -->
+                                                            <div class="col-xs-12 no-padding">
+                                                                <span class="font-md bold">Editing {{field.Title}}</span>
+                                                                <hr class="margin-top-none">
+                                                                <div class="input-icon-right">
+                                                                    <i ng-click="customerDetails.saveFields(field)" class="fa fa-save txt-color-green"></i>
+                                                                    <i ng-click="customerDetails.deleteFields(field)" class="fa fa-trash txt-color-red margin-right-20"></i>
+                                                                    <input placeholder="Enter a Phone Number for {{field.Title}}" ng-model="field.Content" class="form-control form-control-height-sm" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+
+
+
+                                                        <div class="grey-text profileInfoBlurbText" ng-if="field.IsEditable && field.FieldType === 'Fax' && !field.Id">
+                                                            <span class="font-md bold">Editing {{field.Title}} Number</span>
+                                                            <hr class="margin-top-none">
+
+                                                            <div class="row">
+                                                                <div class="col-xs-12 col-sm-4 no-padding">
+                                                                    <input class="form-control form-control-height-sm" placeholder="Fax" type="text" ng-model="field.Title" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" ng-disabled="field.Title" />
+                                                                </div>
+
+                                                                <div class="col-xs-12 col-sm-8 no-padding">
+                                                                    <div class="input-icon-right">
+                                                                        <i ng-click="customerDetails.saveFields(field)" class="fa fa-save txt-color-green"></i>
+                                                                        <i ng-click="customerDetails.deleteFields(field)" class="fa fa-trash txt-color-red margin-right-20"></i>
+                                                                        <input class="form-control form-control-height-sm" ng-model="field.Content" placeholder="Fax Number" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <div class="grey-text profileInfoBlurbText" ng-if="field.IsEditable && field.FieldType === 'Phone' && !field.Id">
+                                                            <div class="row">
+                                                                <span class="font-md">Editing {{field.Title}} Number</span>
+                                                                <hr class="margin-top-none">
+                                                                <div class="row">
+                                                                    <div class="col-xs-12 no-padding">
+                                                                        <div class="col-xs-12 col-sm-4 no-padding">
+                                                                            <input class="form-control form-control-height-sm" placeholder="Phone" type="text" ng-model="field.Title" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" ng-disabled="field.Title" />
+                                                                        </div>
+                                                                        <div class="col-xs-12 col-sm-8 no-padding">
+                                                                            <div class="input-icon-right">
+                                                                                <i ng-click="customerDetails.saveFields(field)" class="fa fa-save txt-color-green"></i>
+                                                                                <i ng-click="customerDetails.deleteFields(field)" class="fa fa-ban txt-color-red margin-right-20"></i>
+                                                                                <input class="form-control form-control-height-sm" ng-model="field.Content" placeholder="Phone Number" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+
+                                                        <div class="grey-text profileInfoBlurbText" ng-if="field.IsEditable && field.FieldType === 'Email' && !field.Id">
+                                                            <input type="text" ng-model="field.Title" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" ng-disabled="field.Title" style="width: 100px" /> :
+                                                            <input ng-model="field.Content" placeholder="Email" style="width: 150px" />
+                                                            <button type="button" class="btn btn-xs btn-success" ng-click="customerDetails.saveFields(field)"><i class="fa fa-save"></i></button><button class="btn btn-xs btn-default" ng-click="customerDetails.deleteFields(field)">Cancel</button>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="row no-padding col-lg-12 margin-top-15 margin-bottom-10">
+                                                <div class="btn-group" uib-dropdown ng-if="customerDetails.$usersService.user.Permission.CompanyDetail == 0">
+                                                    <button ng-disabled="customerDetails.IsEditingCustomField || customerDetails.IsAddressEditable || customerDetails.IsPhoneEditable" type="button" class="btn btn-xs btn-primary dropdown-toggle" uib-dropdown-toggle>
+                                                        <span class="margin-right-5">Add Contact Info</span>
+                                                        <i class="fa fa-caret-down whitle-font"></i>
+                                                    </button>
+
+                                                    <!-- #143088671 -->
+
+                                                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                                                        <li role="menuitem"><a ng-show="customerDetails.customer.Phone.length == 0" ng-click="customerDetails.editPhone()">Main Phone</a></li>
+                                                        <li role="menuitem"><a ng-click="customerDetails.addCustomField('Phone')">Mobile</a></li>
+                                                        <li role="menuitem"><a ng-click="customerDetails.addCustomField('Fax')">Fax</a></li>
+                                                        <li role="menuitem"><a ng-class="{'hidden' : !customerDetails.customer.Address1.length == 0 || !customerDetails.customer.Address2.length == 0 || !customerDetails.customer.City.length == 0 || !customerDetails.customer.State.length == 0 || !customerDetails.customer.ZipCode.length == 0 || !customerDetails.customer.Country.length == 0}" ng-click="customerDetails.editAddress()">Address</a></li>
+                                                        <!--<li role="menuitem"><a ng-click="customerDetails.addCustomField('Email')">Email</a></li>-->
+                                                    </ul>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="row no-padding col-lg-12 padding-top-10">
+                                                <p class="font-md">
+                                                    <i>Note</i>
+                                                    <!--<span class="padding-left-small"><a class="cursor-pointer" ng-click="customerDetails.editNote()"><i class="fa fa-pencil-square-o default-grey-font"></i></a></span>-->
+                                                </p>
+                                                <div ng-if="!customerDetails.IsNoteEditable">
+                                                    <div ng-click="customerDetails.editNote()" ng-if="customerDetails.$usersService.user.Permission.CompanyDetail == 0">
+                                                        <textarea disabled="disabled" style="height: 200px; width: 100%;">{{customerDetails.customer.Note}}</textarea>
+                                                    </div>
+                                                    <div ng-if="customerDetails.$usersService.user.Permission.CompanyDetail == 1">
+                                                        <textarea disabled="disabled" style="height: 200px; width: 100%;">{{customerDetails.customer.Note}}</textarea>
+                                                    </div>
+                                                </div>
+                                                <div ng-if="customerDetails.IsNoteEditable">
+                                                    <textarea style="height: 200px; width: 100%" ng-model="customerDetails.customer.Note"></textarea>
+                                                    <button type="button" class="btn btn-xs btn-medium-green" ng-click="customerDetails.saveNote(customerDetails.customer.Note)"><i class="fa fa-save"></i></button>
+                                                    <button type="button" class="btn btn-xs btn-grey" ng-click="customerDetails.cancelNote(customerDetails.customer.Note)"><i class="fa fa-times"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--  right panel -->
+                                        <div class="col-xs-12 col-sm-6 col-lg-6 padding-right-none padding-left-none">
+                                            <div id="CompanyDetailAdminTable">
+                                                <div class="row admin-heading">
+                                                    <div>
+                                                        <h3 class="padding-left-small">{{customerDetails.user.Client.Name}} Admin</h3>
+                                                    </div>
+
+                                                </div>
+                                                <div class="admin-content">
+                                                    <div class="row">
+                                                        <div class="col-xs-7 padding-left-5" ng-if="customerDetails.$usersService.user.Permission.CompanyDetail == 0">
+                                                            <div class="btn-group" uib-dropdown>
+                                                                <button type="button" style="max-width: 140px;" class="btn-xs btn dropdown-toggle btn-primary" uib-dropdown-toggle ng-disabled="!customerDetails.$usersService.user.Permission.IsMarginEnabled">
+                                                                    <div class="truncate">
+                                                                        <span class="margin-right-5"><i class="fa fa-cog white-font"></i></span>
+                                                                        <span class="margin-right-5 truncate">{{customerDetails.selectedCompanyOptions.selectedPriceMargin.Name}}</span>
+                                                                        <i class="fa fa-caret-down white-font"></i>
+                                                                    </div>
+                                                                </button>
+                                                                <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                                                                    <li ng-click="customerDetails.onChangeMargin(margin)"
+                                                                        role="menuitem" class=""
+                                                                        ng-repeat="margin in customerDetails.priceMargins">
+                                                                        <a class="cursor-pointer">{{margin.Name}}</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-7 hidden padding-left-5" ng-if="customerDetails.$usersService.user.Permission.CompanyDetail == 0">
+                                                            <span>{{customerDetails.selectedCompanyOptions.selectedPriceMargin.Name}}</span>
+                                                        </div>
+                                                        <div class="col-xs-5">
+                                                            <h5>
+                                                                {{customerDetails.selectedCompanyOptions.selectedPriceMargin.PrimaryMargin | ToCurrency}}
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Company Detail Parent Company -->
+                                                    <div id="CompanyDetail-ParentCompany" ng-class="" class="row">
+                                                        <div class="col-xs-2 padding-left-none">
+                                                            <i class="fa fa-building fa-2x"></i>
+                                                        </div>
+                                                        <div class="col-xs-5">
+                                                            <label class="margin-top-5">Parent Company</label>
+                                                        </div>
+                                                        <div class="col-xs-4 padding-right-none padding-left-none">
+                                                            <input class="form-control" ng-change="customerDetails.updateCustomerDetails(customerDetails.customer)" ng-model="customerDetails.customer.ParentName"
+                                                                   ng-disabled="customerDetails.$usersService.user.Permission.CompanyDetail == 1" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Company Detail Start Date-->
+                                                    <div id="CompanyDetail-StartDate" class="row">
+
+                                                        <div class="col-xs-2 padding-left-none">
+                                                            <i class="fa fa-calendar-o fa-2x margin-left-5"></i>
+                                                        </div>
+
+                                                        <div class="col-xs-5">
+                                                            <label class="margin-top-5">Start Date</label>
+                                                        </div>
+
+                                                        <div class="col-xs-4 padding-right-none padding-left-none">
+                                                            <input class="form-control" type="text" datepicker-append-to-body="true" uib-datepicker-popup="{{customerDetails.dateFormat}}"
+                                                                   ng-change="customerDetails.saveAccounting(customerDetails.customer.CustomerAccountingInfo)" ng-model="customerDetails.customer.CustomerAccountingInfo.StartDate"
+                                                                   min-date="{{customerDetails.customer.CustomerAccountingInfo.StartDate}}" max-date="{{''}}"
+                                                                   ng-click="customerDetails.popupOpened = true"
+                                                                   is-open="customerDetails.popupOpened" close-text="Close"
+                                                                   ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }"
+                                                                   ng-disabled="customerDetails.$usersService.user.Permission.CompanyDetail == 1" />
+                                                            <!--<span class="input-group-addon">
+                                                                                        <i class="fa fa-calendar" ng-click="customerDetails.popupOpened = true"></i>
+                                                            </span>-->
+                                                        </div>
+                                                    </div>
+
+
+                                                    <!-- Company Detail Username -->
+                                                    <div class="row">
+                                                        <div class="col-xs-2 padding-left-none">
+                                                            <i class="fa fa-user fa-2x"></i>
+                                                        </div>
+                                                        <div class="col-xs-5">
+                                                            <label class="margin-top-5">Username</label>
+                                                        </div>
+                                                        <div class="col-xs-4 padding-right-none padding-left-none">
+                                                            <input class="form-control" ng-change="customerDetails.checkUsername(customerDetails.customer.Registration)" ng-model="customerDetails.customer.Registration.Username"
+                                                                   ng-disabled="customerDetails.$usersService.user.Permission.CompanyDetail == 1" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                                                        </div>
+                                                    </div>
+
+                                                    <!--Company Detail Password -->
+                                                    <div class="row">
+                                                        <div class="col-xs-2 padding-left-none">
+                                                            <i class="fa fa-user fa-2x"></i>
+                                                        </div>
+                                                        <div class="col-xs-5">
+                                                            <label class="margin-top-5">Password</label>
+                                                        </div>
+                                                        <div class="col-xs-4 padding-right-none padding-left-none">
+                                                            <input class="form-control" ng-change="customerDetails.saveRegistration(customerDetails.customer.Registration)" ng-model="customerDetails.customer.Registration.Password"
+                                                                   ng-disabled="customerDetails.$usersService.user.Permission.CompanyDetail == 1" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Company Detail Base ICAO -->
+                                                    <div class="row">
+                                                        <div class="col-xs-2 padding-left-none">
+                                                            <i class="fa fa-map-marker fa-2x"></i>
+                                                        </div>
+                                                        <div class="col-xs-5">
+                                                            <label class="margin-top-5">Base ICAO</label>
+                                                        </div>
+                                                        <div class="col-xs-4 padding-right-none padding-left-none">
+                                                            <input class="form-control" ng-change="customerDetails.updateCustomerDetails(customerDetails.customer)" ng-model="customerDetails.customer.BaseICAO"
+                                                                   ng-disabled="customerDetails.$usersService.user.Permission.CompanyDetail == 1" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                                                        </div>
+                                                    </div>
+
+                                                    <!--Company Detail Account Rep -->
+                                                    <div id="CompanyDetail-AccountRep" class="row">
+                                                        <div class="col-xs-2 padding-left-none">
+                                                            <i class="fa fa-user fa-2x"></i>
+                                                        </div>
+                                                        <div class="col-xs-5">
+                                                            <label class="margin-top-5">Account Rep</label>
+                                                        </div>
+                                                        <div class="col-xs-4 padding-right-none padding-left-none">
+                                                            <input class="form-control" ng-change="customerDetails.saveAccounting(customerDetails.customer.CustomerAccountingInfo)" ng-model="customerDetails.customer.CustomerAccountingInfo.AccountRep"
+                                                                   ng-disabled="customerDetails.$usersService.user.Permission.CompanyDetail == 1" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                                                        </div>
+                                                    </div>
+
+                                                    <!--Company Detail Accounting Code -->
+                                                    <div id="CompanyDetail-AccountingCode" class="row">
+                                                        <div class="col-xs-2 padding-left-none">
+                                                            <i class="fa fa-usd fa-2x"></i>
+                                                        </div>
+                                                        <div class="col-xs-5">
+                                                            <label class="margin-top-5">Accounting Code</label>
+                                                        </div>
+                                                        <div class="col-xs-4 padding-right-none padding-left-none">
+                                                            <input class="form-control" ng-change="customerDetails.saveAccounting(customerDetails.customer.CustomerAccountingInfo)" ng-model="customerDetails.customer.CustomerAccountingInfo.AccountingCode"
+                                                                   ng-disabled="customerDetails.$usersService.user.Permission.CompanyDetail == 1" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                                                        </div>
+                                                    </div>
+
+                                                    <!--Company Detail Fuelerlinx Customer-->
+                                                    <div class="row">
+                                                        <div class="col-xs-2 padding-left-none">
+                                                            <i class="fa fa-plane fa-2x"></i>
+                                                        </div>
+                                                        <div class="col-xs-5">
+                                                            <label class="margin-top-5">FuelerLinx Customer</label>
+                                                        </div>
+                                                        <div class="col-xs-5 smart-form padding-top-none">
+                                                            <label class="toggle float-left" ng-if="customerDetails.$usersService.user.Permission.CompanyDetail == 0">
+                                                                <input type="checkbox" name="checkbox-toggle" ng-model="customerDetails.customer.CustomerAccountingInfo.IsFuelerLinxCustomer" ng-change="customerDetails.saveAccounting(customerDetails.customer.CustomerAccountingInfo)">
+                                                                <i data-swchon-text="ON" data-swchoff-text="OFF"></i>
+                                                            </label>
+                                                            <label class="toggle float-left" ng-if="customerDetails.$usersService.user.Permission.CompanyDetail == 1">
+                                                                <span ng-if="customerDetails.customer.CustomerAccountingInfo.IsFuelerLinxCustomer" class="badge light-green-background"> YES </span>
+                                                                <span ng-if="!customerDetails.customer.CustomerAccountingInfo.IsFuelerLinxCustomer" class="badge" style="background-color: red"> NO </span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" ng-if="customerDetails.customer.CustomerAccountingInfo.IsFuelerLinxCustomer && customerDetails.customer.Integration.AccountNumber != '00000000-0000-0000-0000-000000000000'">
+                                                        <div class="col-xs-12">
+                                                            <label class="margin-top-5">
+                                                                FuelerLinx Account #: {{customerDetails.customer.Integration.AccountNumber}}
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--Company Detail Demo Mode-->
+                                                    <div class="row">
+                                                        <div class="col-xs-2 padding-left-none">
+                                                            <i class="fa fa-user fa-2x"></i>
+                                                        </div>
+                                                        <div class="col-xs-5">
+                                                            <label class="margin-top-5">Demo Mode</label>
+                                                        </div>
+                                                        <div class="col-xs-5 smart-form padding-top-none">
+                                                            <label class="toggle float-left" ng-if="customerDetails.$usersService.user.Permission.CompanyDetail == 0">
+                                                                <input type="checkbox" name="checkbox-toggle" ng-model="customerDetails.customer.IsDemoMode" ng-change="customerDetails.updateCustomerDetails(customerDetails.customer)">
+                                                                <i data-swchon-text="ON" data-swchoff-text="OFF"></i>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--Company Detail Billing Rep-->
+                                                    <div id="CompanyDetail-BillingRep" class="row">
+                                                        <div class="col-xs-2 padding-left-none">
+                                                            <i class="fa fa-usd fa-2x"></i>
+                                                        </div>
+                                                        <div class="col-xs-5">
+                                                            <label class="margin-top-5">Billing Rep</label>
+                                                        </div>
+                                                        <div class="col-xs-5">
+                                                            <input class="form-control" ng-change="customerDetails.saveAccounting(customerDetails.customer.CustomerAccountingInfo)" ng-model="customerDetails.customer.CustomerAccountingInfo.BillingRep"
+                                                                   ng-disabled="customerDetails.$usersService.user.Permission.CompanyDetail == 1" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                                                        </div>
+                                                    </div>
+
+                                                    <!--Company Detail Scheduling System -->
+                                                    <div id="CompanyDetail-SchedulingSystem" class="row">
+                                                        <div class="col-xs-2 padding-left-none">
+                                                            <i class="fa fa-user fa-2x"></i>
+                                                        </div>
+                                                        <div class="col-xs-5">
+                                                            <label class="margin-top-5">
+                                                                Scheduling System
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-xs-4 padding-right-none padding-left-none">
+                                                            <select class="form-control" ui-select2 ng-model="customerDetails.customer.CustomerAccountingInfo.SchedulingSystem"
+                                                                    ng-change="customerDetails.saveAccounting(customerDetails.customer.CustomerAccountingInfo)"
+                                                                    ng-disabled="customerDetails.$usersService.user.Permission.CompanyDetail == 1" ng-options="fee for fee in customerDetails.schedulingSystem">
+                                                                <option></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--  3 Drop Downs -->
+                                                <div id="CompanyDetail-AccountingTerms" class="row margin-top-5">
+                                                    <!--Company Detail Credit Card Fee-->
+                                                    <div class="inline-block col-xs-12 col-sm-4 padding-5">
+                                                        <span>C.C. Fee</span>
+                                                        <select class="no-padding form-control" ng-model="customerDetails.customer.CustomerAccountingInfo.CreditCardFee"
+                                                                ng-change="customerDetails.saveAccounting(customerDetails.customer.CustomerAccountingInfo)"
+                                                                ng-disabled="customerDetails.$usersService.user.Permission.CompanyDetail == 1" ng-options="fee for fee in customerDetails.creditCardFee">
+                                                            <option></option>
+                                                        </select>
+                                                    </div>
+
+                                                    <!--Company Detail Payment Terms -->
+                                                    <div class="inline-block col-xs-12 col-sm-4 padding-5">
+                                                        <span>Pay Terms</span>
+                                                        <select class="no-padding  form-control" ui-select2 ng-model="customerDetails.customer.CustomerAccountingInfo.PaymentTerms"
+                                                                ng-change="customerDetails.saveAccounting(customerDetails.customer.CustomerAccountingInfo)"
+                                                                ng-disabled="customerDetails.$usersService.user.Permission.CompanyDetail == 1" ng-options="term for term in customerDetails.paymentTerms">
+                                                            <option></option>
+                                                        </select>
+                                                    </div>
+
+                                                    <!--Company Detail Bill to Setup -->
+                                                    <div class="inline-block col-xs-12 col-sm-4 padding-5">
+                                                        <span>Bill to Setup</span>
+                                                        <select class="no-padding form-control" ui-select2 ng-model="customerDetails.customer.CustomerAccountingInfo.BillToSetup"
+                                                                ng-change="customerDetails.saveAccounting(customerDetails.customer.CustomerAccountingInfo)"
+                                                                ng-disabled="customerDetails.$usersService.user.Permission.CompanyDetail == 1" ng-options="setup for setup in customerDetails.billToSetup">
+                                                            <option></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row company-contacts-container no-padding margin-bottom-10">
+                                    <div class="jarviswidget" id="" data-widget-editbutton="true">
+                                        <header style="height: 38px !important" class="borderless-header">
+                                            <div class="row">
+                                                <h2 class="padding-left-5"><strong>Contacts</strong></h2>
+                                                <button type="button" href="#" ng-hide="customerDetails.$usersService.user.Permission.CompanyDetail == 1" ng-click="customerDetails.addContact()" class="btn btn-xs btn-primary margin-top-5 margin-right-5 pull-right"> Add Contact</button>
+                                            </div>
+                                        </header>
+
+                                        <div class="no-border">
+                                            <div class="widget-body no-padding">
+                                                <div>
+                                                    <div ng-if="!customerDetails.customer.Contacts">loading indicator</div>
+                                                    <div ng-if="customerDetails.savingContact">Saving Contact</div>
+                                                    <div ng-if="customerDetails.customer.Contacts && !customerDetails.savingContact">
+                                                        <table st-table="customerDetails.customer.Contacts" class="table table-responsive table-striped no-border">
+                                                            <thead>
+                                                                <tr class="padding-10 bordered-header">
+                                                                    <th>Name</th>
+                                                                    <th>Title</th>
+                                                                    <th>Phone</th>
+                                                                    <th>Contact Type</th>
+                                                                    <th class="text-right">Price Distribution Email</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="contact in customerDetails.customer.Contacts">
+
+                                                                    <td class="hidden" ng-if="contact.Id">
+                                                                        <div class="margin-top-10 padding-left-10">
+                                                                            <i class="fa fa-user fa-2x light-grey-font"></i>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td ng-if="contact.Id">
+                                                                        <div>
+                                                                            <div class="inline-block font-md padding-left-5">
+                                                                                <a ng-click="customerDetails.viewContact(contact.Id)">{{contact.LastName}}, {{contact.FirstName}} </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+
+                                                                    <td>{{contact.Title}}</td>
+
+                                                                    <td>
+                                                                        {{contact.Phone}}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{contact.ContactType}}
+                                                                    </td>
+
+                                                                    <td ng-if="contact.Id">
+                                                                        <div class="">
+                                                                            <div class="col-lg-12 smart-form no-padding">
+                                                                                <!-- Active: <input type="checkbox" ng-model="contactInfo.contact.Distribute" ng-change="contactInfo.onDistributeChanged(contactInfo.contact.Distribute)"/> -->
+                                                                                <label class="toggle">
+                                                                                    <input type="checkbox" name="checkbox-toggle"
+                                                                                           ng-disabled="customerDetails.$usersService.user.Permission.CompanyDetail == 1 || !customerDetails.$usersService.user.Permission.IsDistributionEnabled"
+                                                                                           ng-change="customerDetails.onDistributeChanged(contact)" ng-model="contact.Distribute">
+                                                                                    <i data-swchon-text="ON" data-swchoff-text="OFF"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                        <th></th>
+                                                        <th ng-if="!aircraft.Id || aircraft.IsEditingAircraft"></th>
+                                                        <td ng-if="!aircraft.Id || aircraft.IsEditingAircraft"></td>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-lg-6">
+                            <!--<form id="quoteForm" data-ng-submit="customerDetails.dispatchFuel(customerDetails.fuelOrder)" name="customerDetails.quoteForm" novalidate="novalidate">-->
+                            <div class="row">
+                                <adhoc-fuel-quote></adhoc-fuel-quote>
+                            </div>
+
+
+                            <div class="row dispatch-fuel padding-top-10">
+                                <div class="col-xs-12 col-lg-11">
+                                    <div class="pull-right ">
+                                        <button type="submit" class="btn btn-purple" id="saveFuelOrder" ng-disabled="customerDetails.savingFuelOrder" ng-if="customerDetails.fuelOrder.prices.length > 0 && customerDetails.fuelOrder.Quote != null" ng-click="customerDetails.dispatchFuel(customerDetails.fuelOrder)">Dispatch Fuel</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--</form>-->
+                            <div id="FlightScheduleDropZone" ng-if="customerDetails.flightSchedules" class="row">
+                                <div class="jarviswidget jarviswidget-color-blueDark" id="">
+                                    <header role="heading">
+                                        <div class="jarviswidget-ctrls" role="menu">
+                                            <a href="javascript:void(0);" ng-init="isCollapsed = false" ng-click="isCollapsed = !isCollapsed;" class="button-icon jarviswidget-toggle-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Collapse">
+                                                <i ng-class="{'fa-minus' : isCollapsed == false, 'fa-plus' : isCollapsed == true}" class="fa"></i>
+                                            </a>
+                                        </div>
+
+                                        <h2 class="font-md"><strong>Flight Schedule</strong><i> Drop Zone</i></h2>
+
+                                        <span class="jarviswidget-loader" style="display: none;"><i class="fa fa-refresh fa-spin"></i></span>
+                                    </header>
+                                </div>
+                                <div uib-collapse="isCollapsed">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Scheduling</th>
+                                                <th>Drop Zone</th>
+                                                <th>Status</th>
+                                                <th>Upload Date</th>
+                                                <!--<th>Delete</th>-->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="schedule in customerDetails.flightSchedules">
+                                                <td>{{schedule.Name}}</td>
+                                                <td>
+                                                    <div clas="row">
+                                                        <form action="{{'/api/files/scheduling/' + schedule.name + '/' + schedule.Id + '/' + customerDetails.customer.CustClientID}}" method="post"
+                                                              enctype="multipart/form-data" class="dropzone" id="dropzoneForm"
+                                                              ng-dropzone dropzone="customerDetails.dropzone" dropzone-config="schedule.dropZoneConfig">
+                                                            <div class="fallback">
+                                                                <input type="file" name="file" />
+                                                                <input type="submit" value="Upload" />
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="bar-holder">
+                                                        <div class="row" ng-if="!schedule.IsComplete">
+                                                            <div class="pull-left">{{schedule.ValidPricingPercentage}}%</div>
+                                                            <div class="pull-right">{{schedule.UploadState}}</div>
+                                                        </div>
+                                                        <div class="row" ng-if="schedule.IsComplete">
+                                                            <div class=""></div>
+                                                        </div>
+                                                        <div ng-if="!schedule.IsUploading && schedule.ValidPricingPercentage == 0 && !schedule.IsComplete" class="progress progress-xs progress-striped active">
+                                                            <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                                                        </div>
+                                                        <div ng-if="schedule.IsUploading && !schedule.IsComplete" class="progress progress-xs progress-striped active">
+                                                            <div class="progress-bar" role="progressbar" style="width: 50%"></div>
+                                                        </div>
+                                                        <div ng-if="!schedule.IsUploading && schedule.ValidPricingPercentage == 100 && !schedule.IsComplete" class="progress progress-xs">
+                                                            <div class="progress-bar" role="progressbar" style="width: 100%"></div>
+                                                        </div>
+                                                        <div ng-if="!schedule.IsUploading && schedule.IsComplete && schedule.UploadState == 'Completed'">
+                                                            <div style="width: 100%">
+                                                                <span type="button" style="background-color: lightgreen">Uploaded</span>
+                                                            </div>
+                                                        </div>
+                                                        <div ng-if="!schedule.IsUploading && schedule.UploadState == 'Failed'">
+                                                            <div style="width: 100%">
+                                                                <span type="button" style="background-color: red">Error</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>{{schedule.ImportDate | date : "MM/dd/y"}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Fitplan.com</td>
+                                                <td>
+                                                    <div clas="row">
+                                                        <form action="{{'/api/files/scheduling/' + schedule.name + '/' + schedule.Id + '/' + customerDetails.customer.CustClientID}}" method="post"
+                                                              enctype="multipart/form-data" class="dropzone" id="dropzoneForm"
+                                                              ng-dropzone dropzone="customerDetails.dropzone" dropzone-config="schedule.dropZoneConfig">
+                                                            <div class="fallback">
+                                                                <input type="file" name="file" />
+                                                                <input type="submit" value="Upload" />
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div>
+                                                    </div>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td><button>FOS Integration</button></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div ng-if="customerDetails.savingAircraft">Saving Aircraft</div>
+
+                            <div ng-if="!customerDetails.savingAircraft" class="row">
+                                <div class="jarviswidget jarviswidget-color-greenDark" id="" data-widget-editbutton="true">
+                                    <header class="background-darkgreen white-font">
+                                        <div class="jarviswidget-ctrls" role="menu">
+                                            <a href="javascript:void(0);" ng-init="isCollapsed = false" ng-click="isCollapsed = !isCollapsed;" class="button-icon jarviswidget-toggle-btn white-font" rel="tooltip" title="" data-placement="bottom" data-original-title="Collapse">
+                                                <i ng-class="{'fa-minus' : isCollapsed == false, 'fa-plus' : isCollapsed == true}" class="fa"></i>
+                                            </a>
+                                        </div>
+                                        <h2>
+                                            Aircraft Fleet &amp; Margin <em>List</em>
+                                        </h2>
+                                    </header>
+                                    <div uib-collapse="isCollapsed" class="widget-body" style="padding:0px;">
+                                        <div ng-if="!customerDetails.customer.Aircrafts">Loading Data Animation</div>
+                                        <div ng-if="customerDetails.customer.Aircrafts">
+                                            <table st-table="customerDetails.customer.Aircrafts" class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="12">
+                                                            <div class="row">
+                                                                <div class="inline-block pull-left">
+                                                                    <label class="search-input">
+                                                                        <span class="input-group-addon">
+                                                                            <i class="fa fa-search"></i>
+                                                                        </span>
+                                                                        <input style="height: 33px;" type="text" placeholder="Search" st-search="" class="borderless-input form-control">
+                                                                    </label>
+                                                                </div>
+                                                                <div class="inline-block pull-right">
+                                                                    <button type="button" class="btn btn-medium-green addAircraft" ng-if="customerDetails.$usersService.user.Permission.CompanyDetail == 0"
+                                                                            ng-click="customerDetails.addAircraft()">
+                                                                        Add Aircraft
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </th>
+                                                    </tr>
+                                                    <tr class="bordered-header">
+                                                        <th></th>
+                                                        <th st-sort="aircraft.TailNumber">Tail#</th>
+                                                        <th class="text-center" st-sort="MakeModelID">Make &amp; Model</th>
+                                                        <th class="text-center" st-sort="Margin">Sub Margin</th>
+                                                        <th class="text-center">Total</th>
+                                                        <th ng-if="customerDetails.$usersService.user.Permission.CompanyDetail == 0">
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <tr ng-repeat-start="aircraft in customerDetails.customer.Aircrafts | orderBy: 'TailNumber'" ng-if="!customerDetails.updatingAircraft">
+                                                        
+                                                        <!-- Plus/Minus Expand Buttons -->
+                                                        <td ng-if="aircraft.Id > 0">
+                                                            <a ng-if="aircraft.showingAcctNumbers" ng-click="isCollapsed = !isCollapsed; customerDetails.onToggleAcctNumbers(aircraft)">
+                                                                <i class="fa fa-plus-circle fa-2x"></i>
+                                                            </a>
+
+                                                            <a ng-if="!aircraft.showingAcctNumbers" ng-click="isCollapsed = isCollapsed; customerDetails.onToggleAcctNumbers(aircraft)">
+                                                                <i class="fa fa-minus-circle fa-2x"></i>
+                                                            </a>
+                                                        </td>
+
+                                                        <td class="text-center" ng-if="aircraft.Id > 0 && !aircraft.IsEditingAircraft">
+                                                            <span>{{aircraft.TailNumber}}</span>
+                                                        </td>
+
+                                                        <td colspan="2" ng-if="!aircraft.Id || aircraft.IsEditingAircraft">
+                                                            <div class="aircraftExclusionDropDown" ng-if="!aircraft.Id || aircraft.Id == 0">
+                                                                <input style="width:75px;" class="form-control borderless-input" type="text" ng-model="aircraft.TempTailNumber" ng-init="aircraft.TempTailNumber = ''" placeholder="#Tail" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }"
+                                                                       ng-change="customerDetails.changeAircraft(aircraft)" />
+                                                            </div>
+                                                            <div class="aircraftExclusionDropDown" ng-if="aircraft.Id > 0">
+                                                                <input style="width:75px;" class="form-control borderless-input" type="text" ng-model="aircraft.TailNumber" placeholder="#Tail" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }"
+                                                                       ng-change="customerDetails.changeAircraft(aircraft)" />
+                                                            </div>
+                                                        </td>
+
+
+                                                        <td class="text-center" ng-if="aircraft.Id > 0 && !aircraft.IsEditingAircraft">
+                                                            <span>{{aircraft.MakeAndModel.Make}} {{aircraft.MakeAndModel.Model}}</span>
+                                                        </td>
+                                                        <!-- 147066473 -->
+                                                        <td ng-if="!aircraft.Id || aircraft.IsEditingAircraft">    
+                                                        <!-- 146894413 alphabetical -->
+                                                            <div class="adHocDropDown">
+                                                                <select class="form-control" ui-select2 chosen id="aircraftID{{$index}}" ng-model="aircraft.MakeModelID" ng-change="customerDetails.onMakeModelChange(aircraft)"
+                                                                    ng-options="makeModel.AircraftID as (makeModel.Make + ' ' + makeModel.Model) for makeModel in customerDetails.aircraftData | orderBy: ['Make', 'Model']"
+                                                                        ng-disabled="aircraft.Id > 0 && !aircraft.IsEditingAircraft">
+                                                                    <option></option>
+                                                                </select>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-center" ng-if="aircraft.Id > 0 && !aircraft.IsEditingAircraft">
+                                                            <span ng-class="{'red': aircraft.Margin < 0}">{{aircraft.Margin | ToCurrency}}</span>
+                                                            <!--<input class="form-control borderless-input" select-on-focus decimal require-decimal="true"
+                                                                   type="text" step="0.0001" ng-model="aircraft.Margin" style="width: 75px" ng-class="{'red': aircraft.Margin < 0}"
+                                                                   ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" ng-change="customerDetails.saveAircraft(aircraft)" />-->
+                                                        </td>
+                                                        <td ng-if="!aircraft.Id || aircraft.IsEditingAircraft">
+                                                            <input style="width:70px;" class="form-control borderless-input" show-currency="true" select-on-focus decimal require-decimal="true" type="text" step="0.0001" ng-model="aircraft.Margin" style="width: 75px" ng-class="{'red': aircraft.Margin < 0}"
+                                                                   ng-change="customerDetails.changeAircraft(aircraft)" />
+                                                        </td>
+                                                        <td class="text-center" ng-if="aircraft.Id > 0">
+                                                            <span ng-class="{'red': customerDetails.selectedCompanyOptions.selectedPriceMargin.PrimaryMargin + aircraft.Margin < 0}">{{customerDetails.selectedCompanyOptions.selectedPriceMargin.PrimaryMargin + aircraft.Margin | ToCurrency}}</span>
+                                                        </td>
+                                                        <td colspan="2" ng-if="!aircraft.Id">
+                                                            <button class="btn btn-xs btn-default cancelAircraft" ng-click="customerDetails.deleteThisAircraft(aircraft)"><i class="fa fa-remove"></i></button>
+                                                            <button class="btn btn-xs btn-success saveAircraft" ng-disabled="!customerDetails.IsComplete" ng-click="customerDetails.saveAircraft(aircraft)"><i class="fa fa-save"></i></button>
+                                                        </td>
+                                                        <td class="no-wrap" ng-if="aircraft.Id > 0">
+                                                            <!--<button class="btn btn-xs btn-red deleteAircraft" ng-if="customerDetails.$usersService.user.Permission.CompanyDetail == 0" ng-click="customerDetails.deleteThisAircraft(aircraft)"><i class="fa fa-trash-o"></i></button>
+                                                            <button class="btn btn-xs btn-warning" ng-if="!aircraft.IsEditingAircraft && customerDetails.$usersService.user.Permission.CompanyDetail == 0" ng-click="customerDetails.editAircraft(aircraft)"><i class="fa fa-pencil"></i></button>
+                                                            <button class="btn btn-xs btn-success saveAircraft" ng-if="aircraft.IsEditingAircraft && customerDetails.$usersService.user.Permission.CompanyDetail == 0" ng-click="customerDetails.saveAircraft(aircraft)"><i class="fa fa-save"></i></button>-->
+                                                        </td>
+                                                    </tr>
+                                                    <tr ng-repeat-end>
+                                                        <td colspan="6" class="no-padding background-darkgray margin-sub-details">
+                                                            <div uib-collapse="isCollapsed">
+                                                                <div style="min-width: 260px;" class="no-border pull-right" ng-if="!aircraft.showingAcctNumbers">
+                                                                    <table class="background-white">
+                                                                        <tr class="table-text">
+                                                                            
+                                                                            <td class="padding-10" ng-if="!aircraft.IsEditingAircraft && login.clientName == 'EverestFuelManagement' || login.clientName == 'DegatechFuel'">
+                                                                                <div>
+                                                                                    <span class="font-600 margin-right-5">Avcard Acccount # :</span>
+                                                                                    <span>{{aircraft.AccountNumber}}</span>
+                                                                                </div>
+                                                                            </td>
+
+
+                                                                            <td class="no-border" ng-if="login.clientName == 'EverestFuelManagement' || login.clientName == 'DegatechFuel' && aircraft.IsEditingAircraft">
+                                                                                <div>
+                                                                                    <span>Avcard Account #</span>
+                                                                                    <input class="form-control" type="text" ng-model="aircraft.AccountNumber" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                                                                                </div>
+                                                                            </td>
+                                                                            
+                                                                            
+                                                                            <td class="border-right-none" ng-if="!aircraft.IsEditingAircraft && login.clientName == 'EverestFuelManagement' || login.clientName == 'DegatechFuel'">
+                                                                                <div>
+                                                                                    <span class="font-600 margin-right-5">Card # :</span>
+                                                                                    <span>{{aircraft.CardNumber}}</span>
+                                                                                </div>
+                                                                            </td>
+
+
+                                                                            <td class="no-border" ng-if="login.clientName == 'EverestFuelManagement' || login.clientName == 'DegatechFuel' && aircraft.IsEditingAircraft">
+                                                                                <div>
+                                                                                    <span>Card #</span>
+                                                                                    <input class="form-control" type="text" ng-model="aircraft.CardNumber" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                                                                                </div>
+                                                                            </td>
+
+
+                                                                   
+                                                                            <!--<td ng-if="!aircraft.IsEditingAircraft">
+                                                                                <button class="btn btn-default btn-sm no-border no-padding" ng-click="customerDetails.editAircraft(aircraft)">
+                                                                                    <i class="fa fa-pencil-square-o font-600"></i>
+                                                                                </button>
+                                                                            </td>-->
+                                                                            <td class="" ng-if="!aircraft.IsEditingAircraft">
+                                                                                <span class="font-600 margin-right-5">Size:</span>
+                                                                                <span class="mike">{{aircraft.MakeAndModel.SizeName}}</span>
+                                                                            </td>
+
+                                                                            <td ng-if="!aircraft.IsEditingAircraft">
+                                                                                <div class="smart-form">
+                                                                                    <label class="toggle">
+                                                                                        <input type="checkbox" name="checkbox-toggle" ng-disabled="customerDetails.$usersService.user.Permission.CompanyDetail == 1"
+                                                                                               ng-model="aircraft.IsMarginEnabled" ng-change="customerDetails.saveAircraft(aircraft)">
+                                                                                        <i style="width: 65px; left:-3px;" class="active-toggle" data-swchon-text="ACTIVE" data-swchoff-text="INACTIVE"></i>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </td>
+                                                                       
+
+                                                                            <td>
+                                                                                <button class="btn btn-xs btn-red deleteAircraft" ng-if="customerDetails.$usersService.user.Permission.CompanyDetail == 0" ng-click="customerDetails.deleteThisAircraft(aircraft)"><i class="fa fa-trash-o"></i></button>
+                                                                                <button class="btn btn-xs btn-warning" ng-if="!aircraft.IsEditingAircraft && customerDetails.$usersService.user.Permission.CompanyDetail == 0" ng-click="customerDetails.editAircraft(aircraft)"><i class="fa fa-pencil"></i></button>
+                                                                                <button class="btn btn-xs btn-success saveAircraft" ng-if="aircraft.IsEditingAircraft && customerDetails.$usersService.user.Permission.CompanyDetail == 0" ng-click="customerDetails.saveAircraft(aircraft)"><i class="fa fa-save"></i></button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td colspan="12">
+                                                            <div class="float-right" st-pagination="" st-items-by-page="info.CustomerRecordsPerPage" st-displayed-pages="7"></div>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div class="col-lg-12 no-padding">
+                                <div class="jarviswidget jarviswidget-color-red" id="">
+                                    <header role="heading">
+                                        <div class="jarviswidget-ctrls" role="menu">
+                                            <a href="javascript:void(0);" ng-init="isCollapsed = false" ng-click="isCollapsed = !isCollapsed" class="button-icon jarviswidget-toggle-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Collapse">
+                                                <i ng-class="{'fa-minus' : isCollapsed == false, 'fa-plus' : isCollapsed == true}" class="fa"></i>
+                                            </a>
+
+                                        </div>
+
+                                        <h2 class="font-md"><strong>Vendor</strong><i> Exclusion List</i></h2>
+
+                                        <span class="jarviswidget-loader" style="display: none;"><i class="fa fa-refresh fa-spin"></i></span>
+                                    </header>
+                                    <div uib-collapse="isCollapsed">
+                                        <div class="row">
+
+                                            <div class="col-sm-6 col-lg-6 no-padding padding-bottom-10">
+                                                <label class="search-input">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-search"></i>
+                                                    </span>
+                                                    <input style="height: 33px;" type="text" placeholder="Search" ng-model="customerDetails.vendorSearch" class="borderless-input form-control">
+                                                </label>
+                                            </div>
+
+                                            <div class="col-sm-6 col-lg-6 no-padding">
+                                                <div class="smart-form">
+                                                    <label class="toggle pull-right">
+                                                        <input type="checkbox" name="checkbox-toggle" class="ng-pristine ng-untouched ng-valid" ng-model="customerDetails.IsExcludedOnly">
+                                                        <i data-swchon-text="ON" data-swchoff-text="OFF"></i>
+                                                    </label>
+                                                    <p class="pull-right padding-top-5"><b>Excluded Only</b></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="custom-scroll table-responsive no-padding" style="height:290px; overflow-y: scroll;">
+                                            <table class="table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <td><!--<input type="checkbox" ng-model="customerDetails.IsMasterChecked" />--></td>
+                                                        <td>Edit</td>
+                                                        <td><strong>Vendor Name</strong></td>
+                                                        <td><strong>Aircraft</strong></td>
+                                                    </tr>
+
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-class="vendor.Vendor.IsDeactivated ? 'row-selected strike' : 'row-not-selected'" ng-repeat="vendor in customerDetails.vendors | filter: customerDetails.vendorExclusionFilter: vendor | filter: customerDetails.vendorSearch">
+
+                                                        <td ng-if="vendor.FBOID > 0 && customerDetails.$usersService.user.Permission.CompanyDetail == 0">
+                                                            <input type="checkbox" ng-model="vendor.IsVendorExcluded" ng-checked="vendor.IsVendorExcluded" ng-change="customerDetails.changeVendorExclusion(vendor)" ng-disabled="customerDetails.$usersService.user.Permission.CompanyDetail == 1" />
+                                                        </td>
+
+                                                        <td ng-if="!vendor.FBOID && !vendor.Vendor.IsExcluded && !vendor.Vendor.IsDeactivated">
+                                                            <input type="checkbox" ng-model="vendor.IsVendorExcluded" ng-checked="vendor.IsVendorExcluded" ng-change="customerDetails.changeVendorExclusion(vendor)" ng-disabled="customerDetails.$usersService.user.Permission.CompanyDetail == 1" />
+                                                        </td>
+
+                                                        <td>
+
+
+                                                            <!-- 145229937 -->
+                                                            <!--  save icon -->
+                                                            <button ng-if="!vendor.isVendorExclusionEditable && vendor.IsVendorExcluded" ng-click="customerDetails.vendorEditable(vendor)"><i class="fa fa-pencil-square-o default-grey-font"></i></button>
+                                                            <button ng-if="vendor.isVendorExclusionEditable && vendor.IsVendorExcluded" ng-click="customerDetails.vendorEditable(vendor)"><i class="fa fa-save default-grey-font"></i></button>
+
+
+                                                        </td>
+
+                                                        <td ng-if="!vendor.FBOID && (vendor.Vendor.IsExcluded || vendor.Vendor.IsDeactivated)">
+                                                            <input type="checkbox" ng-model="vendor.Vendor.IsExcluded" ng-checked="vendor.Vendor.IsExcluded" ng-disabled="vendor.Vendor.IsExcluded || vendor.Vendor.IsDeactivated || customerDetails.$usersService.user.Permission.CompanyDetail == 1" />
+                                                        </td>
+
+                                                        <td>{{vendor.Vendor.Name}}</td>
+
+
+                                                        <td>
+                                                            <span ng-if="vendor.IsVendorExcluded && !vendor.isVendorExclusionEditable">{{vendor.TailNumberList.sort().toString()}}</span>
+
+                                                            <!-- if edit, show this -->
+                                                            <select chosen multiple class="col-xs-12" ng-model="vendor.TailNumberList" ng-change="customerDetails.changeVendorExclusion(vendor)"
+                                                                    ng-disabled="customerDetails.$usersService.user.Permission.CompanyDetail == 1"
+                                                                    ng-if="vendor.IsVendorExcluded && vendor.isVendorExclusionEditable" ng-options="aircraft.TailNumber as aircraft.TailNumber group by (aircraft.MakeAndModel.Make + ' ' + aircraft.MakeAndModel.Model) for aircraft in customerDetails.customer.Aircrafts | orderBy: ['TailNumber','MakeAndModel.Make', 'MakeAndModel.Model', 'TailNumber']">
+                                                                <option value=""></option>
+                                                            </select>
+
+                                                        </td>
+
+
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

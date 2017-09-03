@@ -1,0 +1,15 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Exporting CSV</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div ng-if="!modal.downloadLink">
+        <h2>Downloading...</h2>
+    </div>
+    <div ng-if="modal.downloadLink">
+        <h2>Ready to download!</h2>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" type="button" ng-click="modal.cancel()">Cancel</button>
+    <a class="btn btn-success" type="button" ng-href="{{modal.downloadLink}}" ng-disabled="!modal.downloadLink" ng-click="modal.cancel()">Download</a>
+</div>

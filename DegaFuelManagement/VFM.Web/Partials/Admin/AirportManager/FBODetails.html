@@ -1,0 +1,360 @@
+﻿<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+    <h1 class="page-title">
+        <i class="fa-fw fa fa-plane"></i>
+        <a ng-click="info.$rootScope.ApplicationState.ActiveSection = 'AIRPORTS';" href="">Airport Manager</a> > <small>FBO DETAIL</small>
+    </h1>
+
+    <div class="col-lg-2 pull-right margin-bottom margin-top-10">
+        <div class="btn-group float-right margin-top-sm">
+            <button type="button" class="btn btn-sm btn-default" ng-disabled="info.HideLeft" ng-click="info.leftFBO(info.fboDetails.FBO)" disabled="disabled">
+                <i class="fa fa-chevron-left"></i>
+            </button>
+
+            <button type="button" class="btn btn-sm btn-default" ng-disabled="info.HideRight" ng-click="info.rightFBO(info.fboDetails.FBO)">
+                <i class="fa fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+    <div class="row" ng-if="!info.fboDetails.FBO">
+        <div class="text-center">Loading FBO Details...</div>
+        <loading-icon></loading-icon>
+    </div>
+
+    <div class="row" ng-if="info.fboDetails.FBO" style="display:none;" show-on-link>
+        <div class="col-sm-12">
+            <div class="jarviswidget jarviswidget-color-white light-grey-border" id="" data-widget-editbutton="false" data-widget-colorbutton="false">
+                <header class="tall-widget-header" role="heading">
+
+                    <div class="jarviswidget-ctrls" role="menu">
+                        <loading-icon ng-if="info.IsUpdating"></loading-icon>
+                        <a style="width: 44px;" ng-if="!info.IsUpdating" ng-click="info.$rootScope.ApplicationState.ActiveSection = 'AIRPORTS';" href="javascript:void(0);" class="tall-widget-header button-icon jarviswidget-delete-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Delete">
+                            <i class="position-top-5 fa fa-times"></i>
+                        </a>
+                    </div>
+
+                </header>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-5 no-padding">
+                        <div class="jarviswidget jarviswidget-color-blueDark no-margin light-grey-border" id="" data-widget-editbutton="false" data-widget-colorbutton="false">
+                            <header class=""><h2>FBO Details</h2></header>
+                            <div class="row no-padding">
+                                <div class="col-sm-12 no-padding">
+
+                                    <div class="col-sm-12">
+                                        <div class="profileInfoBlurbText">
+
+                                            <h1 class="grey-text padding-top-10">
+                                                {{info.fboDetails.FBO}}<br />
+                                                <small>{{info.fboDetails.ICAO}}, {{info.fboDetails.Airports.AirportCity}}</small>
+                                            </h1>
+
+                                            <ul class="list-unstyled">
+                                                <li>
+                                                    <div ng-if="!info.IsPhoneEditable">
+                                                        <p class="grey-text">
+                                                            <i class="fa fa-phone"></i>&nbsp;&nbsp;<span class="">{{info.fboDetails.AcukwikFBO.HandlerTelephone}}</span>
+                                                            <!--<button class="btn btn-xs btn-warning" ng-click="info.editPhone()"><i class="fa fa-gear"></i></button>-->
+                                                        </p>
+                                                    </div>
+                                                    <div ng-if="info.IsPhoneEditable">
+                                                        <input type="text" ng-model="info.fboDetails.AcukwikFBO.HandlerTelephone" />
+                                                        <button class="button button-xs btn-primary" ng-click="info.savePhone(info.fboDetails.AcukwikFBO.HandlerTelephone)">Save</button>
+                                                        <button class="button button-xs btn-primary" ng-click="info.cancelPhone(info.fboDetails.AcukwikFBO.HandlerTelephone)">Cancel</button>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div ng-if="!info.IsSupplyEditable">
+                                                        <p class="grey-text">
+                                                            <i class="fa fa-dashboard"></i>&nbsp;&nbsp;<span class="grey-text">{{info.fboDetails.AcukwikFBO.HandlerFuelSupply}}</span>
+                                                            <!--<button class="btn btn-xs btn-warning" ng-click="info.editSupply()"><i class="fa fa-gear"></i></button>-->
+                                                        </p>
+                                                    </div>
+                                                    <div ng-if="info.IsSupplyEditable">
+                                                        <input type="text" ng-model="info.fboDetails.AcukwikFBO.HandlerFuelSupply" />
+                                                        <button class="button button-xs btn-primary" ng-click="info.saveSupply(info.fboDetails.AcukwikFBO.HandlerFuelSupply)">Save</button>
+                                                        <button class="button button-xs btn-primary" ng-click="info.cancelSupply(info.fboDetails.AcukwikFBO.HandlerFuelSupply)">Cancel</button>
+                                                    </div>
+                                                </li>
+                                                <!--<li>
+                                                    <p class="grey-text">
+                                                        <i class="fa fa-calendar"></i>&nbsp;&nbsp;<span class="grey-text">Free after <a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Create an Appointment">4:30 PM</a></span>
+                                                    </p>
+                                                </li>-->
+                                            </ul>
+                                        </div>
+                                        <!--<div>
+                                            <a class="btn btn-xs btn-default" ng-click="info.addCustomField()">Add Custom Field</a>
+                                        </div>-->
+
+                                        <div ng-repeat="field in info.fboDetails.CustomFields">
+                                            <div class="grey-text profileInfoBlurbText" ng-if="!field.IsEditable">
+                                                <strong><i class="fa margin-right-5" ng-class="{'fa-envelope': field.FieldType === 'Email', 'fa-phone': field.FieldType === 'Phone'}"></i>{{field.Title}}:</strong> <a href="mailto:{{field.Content}}" target="_blank">{{field.Content}}</a>
+                                                <button ng-click="info.editFields(field)">Edit</button><button class="btn btn-xs btn-default" ng-click="info.deleteFields(field)">Delete</button>
+                                            </div>
+                                            <div class="grey-text profileInfoBlurbText" ng-if="field.IsEditable && field.Id > 0">
+                                                <input type="text" ng-model="field.Title" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" ng-disabled="field.Title" style="width: 100px" /> :
+                                                <input ng-model="field.Content" style="width: 150px" />
+                                                <button class="btn btn-xs btn-success" ng-click="info.saveFields(field)">Save</button><button class="btn btn-xs btn-default" ng-click="info.cancelFields(field)">Cancel</button>
+                                            </div>
+                                            <div class="grey-text profileInfoBlurbText" ng-if="field.IsEditable && field.FieldType === 'Phone' && !field.Id">
+                                                <input type="text" ng-model="field.Title" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" ng-disabled="field.Title" style="width: 100px" /> :
+                                                <input ng-model="field.Content" placeholder="Phone" style="width: 150px" />
+                                                <button class="btn btn-xs btn-success" ng-click="info.saveFields(field)">Save</button><button class="btn btn-xs btn-default" ng-click="info.deleteFields(field)">Cancel</button>
+                                            </div>
+                                            <div class="grey-text profileInfoBlurbText" ng-if="field.IsEditable && field.FieldType === 'Email' && !field.Id">
+                                                <input type="text" ng-model="field.Title" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" ng-disabled="field.Title" style="width: 100px" /> :
+                                                <input ng-model="field.Content" placeholder="Email" style="width: 150px" />
+                                                <button class="btn btn-xs btn-success" ng-click="info.saveFields(field)">Save</button><button class="btn btn-xs btn-default" ng-click="info.deleteFields(field)">Cancel</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="row no-border margin-top-5 margin-bottom-5">
+                                            <div class="btn-group" uib-dropdown ng-if="info.$usersService.user.Permission.AirportDetail == 0">
+                                                <button id="split-button" type="button" class="btn no-border btn-primary" uib-dropdown-toggle>Add Contact Info</button>
+                                                <button type="button" class="btn no-border btn-primary" data-toggle="dropdown">
+                                                    <span class="caret"></span>
+                                                    <span class="sr-only">Split button!</span>
+                                                </button>
+                                                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                                                    <li role="menuitem"><a ng-click="info.addCustomField('Phone')">Phone</a></li>
+                                                    <li role="menuitem"><a ng-click="info.addCustomField('Email')">Email</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <br>
+                                        <hr class="grey-text" />
+
+                                        <p class="font-md grey-text profileInfoBlurbText">
+                                            <i>Note</i>
+                                            <!--<button class="btn btn-xs btn-default" ng-click="info.editNote()"><i class="fa fa-gear"></i></button>-->
+                                        </p>
+                                        <div ng-if="!info.IsNoteEditable">
+                                            <span ng-click="info.editNote()" ng-if="info.$usersService.user.Permission.AirportDetail == 0">
+                                                <textarea disabled="disabled" style="width:100%; height:100px;" class="grey-text profileInfoBlurbText">{{info.fboDetails.Note}}</textarea>
+                                            </span>
+                                            <span ng-if="info.$usersService.user.Permission.AirportDetail == 1">
+                                                <textarea disabled="disabled" style="width:100%; height:100px;" class="grey-text profileInfoBlurbText">{{info.fboDetails.Note}}</textarea>
+                                            </span>
+                                        </div>
+                                        <div ng-if="info.IsNoteEditable">
+                                            <textarea style="width:100%; height:100px" ng-model="info.fboDetails.Note"></textarea>
+                                            <button class="btn btn-xs btn-success" ng-click="info.saveNote(info.fboDetails.Note)">Save</button>
+                                            <button class="btn btn-xs btn-default" ng-click="info.cancelNote(info.fboDetails.Note)">Cancel</button>
+                                        </div>
+                                        <!--<div>
+                                            <span ng-click="info.editNote()" ng-if="!info.IsNoteEditable && info.$usersService.user.Permission.AirportDetail == 0">
+                                                <textarea disabled="disabled" style="width:100%; height:100px;" class="grey-text profileInfoBlurbText">{{info.fboDetails.Note}}</textarea>
+                                            </span>
+                                            <span ng-if="info.IsNoteEditable && info.$usersService.user.Permission.AirportDetail == 0">
+                                                <textarea style="width:100%; height:100px" ng-model="info.fboDetails.Note"></textarea>
+                                            </span>
+                                            <span ng-if="!info.IsNoteEditable && info.$usersService.user.Permission.AirportDetail == 1">
+                                                <textarea disabled="disabled" style="width:100%; height:100px;" class="grey-text profileInfoBlurbText">{{info.fboDetails.Note}}</textarea>
+                                            </span>
+                                            <button class="btn btn-xs btn-success" ng-if="info.IsNoteEditable && info.$usersService.user.Permission.AirportDetail == 0" ng-click="info.saveNote(info.fboDetails.Note)">Save</button>
+                                            <button class="btn btn-xs btn-default" ng-if="info.IsNoteEditable && info.$usersService.user.Permission.AirportDetail == 0" ng-click="info.cancelNote(info.fboDetails.Note)">Cancel</button>
+                                        </div>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end row -->
+                        </div>
+                    </div>
+
+                    <!--<div class="col-sm-12 col-lg-6">
+                        <div class="col-sm-4 form-group no-padding">
+                            <h6 class="grey-text">Additional FBO Margin:</h6>
+                            <span class="ui-spinner ui-widget ui-widget-content ui-corner-all">
+                                <input type="text" decimal require-decimal="true" show-currency="true" step="0.0001" class="ui-spinner-input raleway-900" select-on-focus
+                                       ng-disabled="info.$usersService.user.Permission.AirportDetail == 1"
+                                       ng-model="info.fboDetails.Margin" ng-class="{'red': info.fboDetails.Margin < 0}" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" ng-change="info.onMarginChange(info.fboDetails.Margin)" />
+                                <br />
+                            </span>
+                        </div>
+                        <a class="cursor-pointer default-grey-font pull-right" ng-click="info.$rootScope.ApplicationState.ActiveSection = 'AIRPORTS';"><i class="fa fa-times"></i></a>
+                    </div>-->
+
+                    <!-- aircraft exclusion list-->
+                    <div class="col-sm-12 col-md-12 col-lg-7">
+                        <div class="jarviswidget jarviswidget-color-red" id="" data-widget-editbutton="false" data-widget-colorbutton="false">
+
+                            <header>
+                                <h2>Additional Margin or Exclusion Control</h2>
+                            </header>
+                            <div class="table-responsive no-padding">
+                                <table st-safe-src="info.aircraftExclusions" st-table="info.displayedExclusions" class="table table-text table-striped table-hover light-grey-border" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="12">
+                                                <div class="col-xs-4 no-padding">
+                                                    <div class="icon-addon addon-md">
+                                                        <input type="text" placeholder="Search" st-custom-search predicate="" ng-model="info.exclusionSearch" class="col col-sm-12 form-control">
+                                                        <label for="Search" class="glyphicon glyphicon-search" rel="tooltip" title=""></label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xs-8 no-padding" ng-if="info.$usersService.user.Permission.AirportDetail == 0">
+                                                    <a href="#" ng-disabled="info.IsDisabled" ng-click="info.addExclusion()" class="btn btn-success float-right">Add New</a>
+                                                </div>
+
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="no-wrap" st-sort="Company">Company</th>
+                                            <th class="no-wrap" st-sort="TailNumber">Tail Number</th>
+                                            <!--<th class="no-wrap" st-sort="Make">Make</th>-->
+                                            <th class="no-wrap" st-sort="Margin">Margin</th>
+                                            <th class="no-wrap text-center" st-sort="Size">Exclude</th>
+                                            <th></th>
+                                        </tr>
+                                        <!--<tr>
+                                            <th><input placeholder="Company" type="text" st-search="Company"></th>
+                                            <th><input placeholder="Tail Number" type="text" st-search="TailNumber"></th>
+                                            <th><input placeholder="Make" type="text" st-search="Make"></th>
+                                            <th><input placeholder="Model" type="text" st-search="Model"></th>
+                                            <th><input placeholder="Size" type="text" st-search="Size"></th>
+                                        </tr>-->
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-if="info.savingExclusion">
+                                            <td>
+                                                Saving Aircraft Exclusion
+                                            </td>
+                                        </tr>
+                                        <tr ng-if="!info.savingExclusion" ng-repeat="exclusion in info.aircraftExclusions" ng-class="{'strike': exclusion.IsExcluded && exclusion.Id}">
+                                            <td class="padding-top-15" ng-if="exclusion.Id"><span>{{exclusion.Client.Name}}</span></td>
+
+                                            <td ng-if="!exclusion.Id">
+                                                <span ng-if="info.updatingExclusion">Loading</span>
+                                                <div id="fboDetailDropDown">
+                                                    <select ng-if="!info.updatingExclusion" style="width: 250px;" chosen ng-model="exclusion.Client" ng-change="info.onCompanySelected(exclusion)" ng-options="company as company.Name for company in info.companies" ng-disabled="exclusion.IsExcluded">
+                                                        <option></option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td class="padding-top-15" ng-if="exclusion.Id && !exclusion.IsEditable">
+                                                <span>{{exclusion.TailNumberList.toString()}}</span>
+                                            </td>
+                                            <td ng-if="!exclusion.Id || exclusion.IsEditable">
+                                                <span ng-if="info.updatingExclusion">Loading</span>
+                                                <select chosen multiple class="col-xs-12" ng-if="!info.updatingExclusion" style="width: 100px;" ng-model="exclusion.TailNumberList" ng-change="info.onTailNumberSelected(exclusion)" ng-disabled="exclusion.IsExcluded"
+                                                        ng-options="aircraft.TailNumber as aircraft.TailNumber for aircraft in exclusion.aircrafts | orderBy: 'TailNumber'">
+                                                    <option></option>
+                                                </select>
+                                            </td>
+                                            <td class="text-center">
+                                                <input style="min-width:60px;"show-currency="true" select-on-focus decimal require-decimal="true" type="text" step="0.0001" 
+                                                       ng-model="exclusion.Margin" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }"
+                                                       ng-class="{'red': exclusion.Margin < 0}" ng-disabled="exclusion.IsExcluded" ng-change="info.exclude(exclusion)" />
+                                            </td>
+                                            <td class="text-center padding-top-15">
+                                                <input type="checkbox" ng-model="exclusion.IsExcluded" ng-change="info.exclude(exclusion)" />
+                                            </td>
+                                            <!--<td class="text-right">
+                                                <span ng-show="exclusion.Aircraft.MakeAndModel.Size > 0">{{exclusion.Aircraft.MakeAndModel.SizeName}}</span>
+                                                <span ng-show="exclusion.Aircraft.MakeAndModel.Size == 0">EXCLUDED</span>
+                                            </td>-->
+                                            <td style="padding-top:12px;" ng-if="info.$usersService.user.Permission.AirportDetail == 0 && exclusion.Id">
+                                                <a href="#" class="pull-left mbtn btn-xs btn-default raleway-900" ng-if="!exclusion.IsEditable" ng-click="info.editExclusion(exclusion)"><i class="fa fa-pencil"></i></a>
+                                                <a href="#" class="pull-left mbtn btn-xs btn-success raleway-900" ng-if="exclusion.IsEditable" ng-click="info.saveExclusion(exclusion)"><i class="fa fa-save"></i></a>
+                                                <button class="pull-right mbtn btn-xs btn-danger raleway-900" ng-disabled="info.IsDisabled" ng-click="info.deleteExclusion(exclusion)"><i class="fa fa-remove"></i></button>
+                                            </td>
+                                            <td class="no-wrap" ng-if="!exclusion.Id">
+                                                <button class="btn btn-default" ng-click="info.deleteExclusion(exclusion)">Cancel</button>
+                                                <button class="btn btn-success" ng-disabled="!exclusion.IsReadyToSave" ng-click="info.saveExclusion(exclusion)">Save</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <!--<td colspan="12">
+                                                <div class="float-left padding-5 hidden-xs">
+                                                    <select class="form-control" ng-model="" ng-options="">
+                                                        <option value="" disabled selected>Select your option</option>
+                                                    </select>
+                                                </div>
+                                                <div class="float-right" st-pagination="" st-items-by-page="info.CustomerRecordsPerPage" st-displayed-pages="7"></div>
+                                            </td>-->
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-4">
+                        <div class="jarviswidget jarviswidget-color-red" id="">
+                            <header role="heading">
+                                <div class="jarviswidget-ctrls" role="menu">
+                                    <a href="javascript:void(0);" class="button-icon jarviswidget-toggle-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Collapse"><i class="fa fa-minus"></i></a>
+                                </div>
+
+                                <h2 class="font-md"><strong>Vendor</strong><i> Exclusion List</i></h2>
+
+                                <span class="jarviswidget-loader" style="display: none;"><i class="fa fa-refresh fa-spin"></i></span>
+                            </header>
+
+                            <div class="row">
+
+                                <div class="col-sm-12 col-lg-6 no-padding padding-bottom-10">
+
+                                    <label class="search-input">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-search"></i>
+                                        </span>
+                                        <input style="height: 33px;" type="text" placeholder="Search" ng-model="info.vendorSearch" class="borderless-input form-control">
+                                    </label>
+
+                                </div>
+
+                                <div class="col-sm-12 col-lg-6 no-padding">
+
+                                    <div class="smart-form">
+                                        <label class="toggle">
+                                            <input type="checkbox" name="checkbox-toggle" class="ng-pristine ng-untouched ng-valid" ng-model="info.IsExcludedOnly">
+                                            <i data-swchon-text="ON" data-swchoff-text="OFF"></i>
+                                        </label>
+                                        <p class="padding-top-5"><b>Excluded Only</b></p>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="custom-scroll table-responsive no-padding" style="height:290px; overflow-y: scroll;">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td><!--<input type="checkbox" ng-model="info.IsMasterChecked" />--></td>
+                                            <td><span><strong>Vendor Name</strong></span></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-class="vendor.Vendor.IsDeactivated ? 'row-selected strike' : 'row-not-selected'" ng-repeat="vendor in info.vendors | filter: info.vendorExclusionFilter: vendor | filter: info.vendorSearch">
+                                            <td ng-if="vendor.FBOID > 0">
+                                                <input type="checkbox" ng-model="vendor.IsVendorExcluded" ng-checked="vendor.IsVendorExcluded"
+                                                       ng-disabled="info.$usersService.user.Permission.AirportDetail == 1"
+                                                       ng-change="info.changeVendorExclusion(vendor)" />
+                                            </td>
+                                            <td ng-if="!vendor.FBOID && !vendor.Vendor.IsExcluded && !vendor.Vendor.IsDeactivated">
+                                                <input type="checkbox" ng-model="vendor.IsVendorExcluded" ng-checked="vendor.IsVendorExcluded"
+                                                       ng-disabled="info.$usersService.user.Permission.AirportDetail == 1"
+                                                       ng-change="info.changeVendorExclusion(vendor)" />
+                                            </td>
+                                            <td ng-if="!vendor.FBOID && (vendor.Vendor.IsExcluded || vendor.Vendor.IsDeactivated)">
+                                                <input type="checkbox" ng-model="vendor.Vendor.IsExcluded" ng-checked="vendor.Vendor.IsExcluded"
+                                                       ng-disabled="vendor.Vendor.IsExcluded || vendor.Vendor.IsDeactivated || info.$usersService.user.Permission.AirportDetail == 1" />
+                                            </td>
+                                            <td>{{vendor.Vendor.Name}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

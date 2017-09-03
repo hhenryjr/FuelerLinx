@@ -1,0 +1,185 @@
+﻿<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-left-none padding-right-none">
+    <h1 ng-class="dash.user.Client.ClientType == 2 ? 'client-breadcrumb-background':''" class="page-title blue-font">
+        <i ng-class="dash.user.Client.ClientType == 2 ? 'hidden':''" class="fa-fw fa fa-group"></i>
+        DASHBOARD <span class="default-grey-font">> MY DASHBOARD</span>
+    </h1>
+
+    <div  ng-if="dash.user.Client.ClientType == 2" class="row dashboard-content-container">
+        <div class="col-xs-12 font-600">
+            <span class="">Hello! </span><span>{{dash.user.Client.Name}}</span>
+        </div>
+        <div class="col-xs-6">
+            <h6><i class="fa fa-paper-plane"></i> Get Fuel Quote</h6>
+        </div>
+        <div class="col-xs-6"><br /></div>
+    </div>
+    <div class="row dashboard-content-container">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+            <div ng-if="dash.user.Client.ClientType == 1" class="jarviswidget jarviswidget-color-white" id="" data-widget-editbutton="false" data-widget-colorbutton="false">
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+                    <h2 style="width:200px">Customer Ranking</h2>
+                </header>
+
+                <!-- widget div-->
+                <div class="no-padding no-border">
+                    <div class="padding-bottom-10 table-text">
+                        <table id="customer-rankings" class="table table-striped table-text">
+                            <thead class="no-border">
+                                <tr class="hidden-xs">
+                                    <th class="no-wrap">Account Name</th>
+                                    <th class="">Dispatches</th>
+                                    <th class="">Reconciled</th>
+                                    <th class="">Cancellations</th>
+                                    <th class="">Ranking</th>
+                                </tr>
+                                <tr class="visible-xs font-xs">
+                                    <th class="font-xs">Account Name</th>
+                                    <th class="font-xs">Disp.</th>
+                                    <th class="font-xs">Rec.</th>
+                                    <th class="font-xs">Canc.</th>
+                                    <th class="font-xs">Rank</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="ranking in dash.rankings">
+                                    <td>{{ranking.CustomerName}}</td>
+                                    <td class="">{{ranking.TotalDispatches}}</td>
+                                    <td class="">{{ranking.TotalReconciled}}</td>
+                                    <td class="">{{ranking.TotalCancelled}}</td>
+                                    <td class="">{{$index + 1}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="bar-holder pull-right margin-top-10">
+                            <button type="button" class="btn btn-default" ng-click="dash.openModal('RANKINGS')">Generate CSV</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div ng-if="dash.user.Client.ClientType == 2">
+                <div ng-controller="customerDetailsController as customerDetails">
+                    <div class="row">
+                        <adhoc-fuel-quote></adhoc-fuel-quote>
+                    </div>
+                    <div class="row dispatch-fuel padding-top-10">
+                        <div class="col-xs-12 col-lg-11">
+                            <div class="pull-right ">
+                                <button type="submit" class="btn btn-success" id="saveFuelOrder" ng-if="customerDetails.fuelOrder.prices.length > 0 && customerDetails.fuelOrder.Quote != null" ng-click="customerDetails.dispatchFuel(customerDetails.fuelOrder)">Dispatch Fuel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+          <div class="jarviswidget jarviswidget-color-white" id="" data-widget-editbutton="false" data-widget-colorbutton="false">
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+                    <h2 ng-if="dash.user.Client.ClientType == 1">Transactions Preview</h2>
+                    <h2 ng-if="dash.user.Client.ClientType == 2">Transactions Overview</h2>
+                </header>
+
+                <!-- widget div-->
+                <div>
+                    <div class="no-padding table-text">
+
+                        <div class="bar-holder no-padding-top-bottom">
+                            <p class="float-right">{{dash.total.TotalPending}}</p>
+                            <p>Pending</p>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar progress-blue"
+                                     ng-style="{width: dash.total.TotalDispatches == 0 ? '0' : ((dash.total.TotalPending / dash.total.TotalDispatches) * 100.0).toString() + '%'}"></div>
+                            </div>
+                        </div>
+                        <div class="bar-holder no-padding-top-bottom">
+                            <p class="float-right">{{dash.total.TotalCancelled}}</p>
+                            <p>Canceled</p>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar progress-light-blue"
+                                     ng-style="{width: dash.total.TotalDispatches == 0 ? '0' : ((dash.total.TotalCancelled / dash.total.TotalDispatches) * 100.0).toString() + '%'}"></div>
+                            </div>
+                        </div>
+                        <div class="bar-holder no-padding-top-bottom">
+                            <p class="float-right">{{dash.total.TotalDiscrepancies}}</p>
+                            <p>Discrepancy</p>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-color-grey"
+                                     ng-style="{width: dash.total.TotalDispatches == 0 ? '0' : ((dash.total.TotalDiscrepancies / dash.total.TotalDispatches) * 100.0).toString() + '%'}"></div>
+                            </div>
+                        </div>
+                        <div class="bar-holder no-padding-top-bottom">
+                            <p class="float-right">{{dash.total.TotalReconciled}}</p>
+                            <p>Reconciled</p>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar progress-green"
+                                     ng-style="{width: dash.total.TotalDispatches == 0 ? '0' : ((dash.total.TotalReconciled / dash.total.TotalDispatches) * 100.0).toString() + '%'}"></div>
+                            </div>
+                        </div>
+                        <div class="bar-holder margin-top-10 pull-right">
+                            <button type="button" class="btn btn-default" ng-click="dash.openModal('TOTAL')">Generate CSV</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 pull-right" ng-if="dash.user.Client.ClientType == 1">
+            <!-- new widget -->
+            <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false">
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-map-marker"></i> </span>
+                    <h2>Birds Eye</h2>
+                    <button ng-show="analysis.showButton" ng-click="analysis.handleDrillUpClick()" class="btn-primary btn-xs pull-right">
+                        <i class="glyphicon glyphicon-zoom-out"></i> Back to {{analysis.buttonLabel}}
+                    </button>
+                </header>
+
+                <!-- widget div-->
+                <div>
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <div>
+                            <label>Title:</label>
+                            <input type="text" />
+                        </div>
+                    </div>
+                    <!-- end widget edit box -->
+
+                    <div class="widget-body no-padding">
+                        <!-- content goes here -->
+                        <div class="row">
+                            <!--<div class="col-sm-12" style="height: 600px;">
+                                <vector-map class="vector-map" bg-color=""></vector-map>
+                            </div>-->
+                            <regional-dispatches></regional-dispatches>
+                        </div>
+
+                        <!-- end content -->
+
+                    </div>
+
+                </div>
+                <!-- end widget div -->
+            </div>
+            <!-- end widget -->
+        </div>
+
+
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 pull-left" ng-if="dash.user.Client.ClientType == 1">
+            <!-- new widget -->
+            <to-do-list></to-do-list>
+            <!-- end widget -->
+
+        </div>
+
+
+
+
+        <hr />
+
+    </div>
+</article>

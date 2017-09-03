@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="GetTransaction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DegaServiceID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTransactionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTransactionResult" type="tns:DegaObject" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DegaObject">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Transaction">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="AccountId" type="s1:guid" />
+              <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="TailNumber" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="DateRequested" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="AdminStatus" type="tns:AdminStatuses" />
+              <s:element minOccurs="1" maxOccurs="1" name="CustStatus" type="tns:CustStatuses" />
+              <s:element minOccurs="1" maxOccurs="1" name="QuotedPPG" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="FuelingDateTime" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProcessName" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="DegaInvoiceStatus" type="tns:InvoiceStatuses" />
+              <s:element minOccurs="0" maxOccurs="1" name="CertificateType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="FuelOn" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="InvoicedPPG" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="InvoicedVolume" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="BasePPG" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="PostedRetail" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="AdminNotes" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="RampFee" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="RampFeeWaivedAt" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="InvoiceNumber" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="NoFuel" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="RequestedBy" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Transaction">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseClass">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="OID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="member_id" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="AirportID" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="FBO" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="FuelerID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="UserAircraftID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="reconciled" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="discrepancy" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="cancelled" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="tail_number" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="eta" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="etd" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="ICAO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IATA" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="fuel_relationship_1" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="fuel_est_weight" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="fuel_est_cost" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="fbo_notes" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="creation_date" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="time_standard" type="tns:TimePreferences" />
+              <s:element minOccurs="1" maxOccurs="1" name="invoicedWholesale" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="ActualPPG" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="ActualVolume" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="basePPG" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="postedRetail" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="PlattsPrice" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="TripID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="IntegrationTripID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="forcedReconcile" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="archived" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="CompanyID" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Fueler" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="WebDispatchID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Direct" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="MemoFor" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="DiscCorrected" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="CustomNotes" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="ReqFees" type="tns:FuelReqFees" />
+              <s:element minOccurs="0" maxOccurs="1" name="TransactionFuelPriceCollection" type="tns:ArrayOfTransactionFuelPrice" />
+              <s:element minOccurs="0" maxOccurs="1" name="OtherFees" type="tns:ArrayOfOtherFee" />
+              <s:element minOccurs="0" maxOccurs="1" name="OtherTaxes" type="tns:ArrayOfOtherTax" />
+              <s:element minOccurs="1" maxOccurs="1" name="QuotedRetailOriginal" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="IntegrationInfo" type="tns:Integration" />
+              <s:element minOccurs="0" maxOccurs="1" name="InvoiceStatus" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="LegSettings" type="tns:LegSettings" />
+              <s:element minOccurs="1" maxOccurs="1" name="Oldfuel_est_cost" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="FuelMasterID" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="TransactionDetails" type="tns:TransactionDetails" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsFromDega" type="s:boolean" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BaseClass" />
+      <s:complexType name="TransactionDetails">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseClass">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="FlightType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SchedulingServiceID" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="FuelOn" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="NoFuel" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="Diverted" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="TaxStorageType" type="tns:TaxStorageTypes" />
+              <s:element minOccurs="1" maxOccurs="1" name="TaxStatus" type="tns:TaxStatuses" />
+              <s:element minOccurs="1" maxOccurs="1" name="DegaServiceID" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="TaxStorageTypes">
+        <s:restriction base="s:string">
+          <s:enumeration value="PPG" />
+          <s:enumeration value="Flat" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="TaxStatuses">
+        <s:restriction base="s:string">
+          <s:enumeration value="Unstarted" />
+          <s:enumeration value="InProcess" />
+          <s:enumeration value="Completed" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="TaxBreakdown">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseClass">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="FuelMasterID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="MinVolume" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="MaxVolume" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Price" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="UnitOfMeasure" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsEstimatedByCBVat" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="PercentagePriceOfBase" type="s:double" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="FilterableTax">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TaxBreakdown">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="IsFiltered" type="s:boolean" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="LegSettings">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseClass">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="MinReserve" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="MaxLandingWeight" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="MaxTakeoffWeight" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="BasicOperatingWeight" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="AreWeightsChanged" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="FlightLevel" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="MaxFlightLevel" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="NumberOfPassengers" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="CargoWeightInPounds" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="PassengerWeightInPounds" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="UseDirectRoute" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsETOPSFlight" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="FilterableTaxCollection" type="tns:ArrayOfFilterableTax" />
+              <s:element minOccurs="1" maxOccurs="1" name="FuelBias" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="SpeedBias" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="AlternateAirport" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="FlightType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="NextDestination" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="LandWithMaxFuel" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="UseFlightData" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="LockFuelAmount" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="HandlerName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="HandlerEmail" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="RequestID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="MinExtraReserve" type="s:double" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfFilterableTax">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FilterableTax" nillable="true" type="tns:FilterableTax" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Integration">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseClass">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="OID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="MemberID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="ProcessID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="IntegrationType" type="tns:FPIntegrations" />
+              <s:element minOccurs="0" maxOccurs="1" name="TripsAircraftID" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TripsTripNumber" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="LegsKIDdate" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="LegsKIDtime" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="LegsKIDuser" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="LegsKIDmult" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="LegsKIDcomm" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="TripsTripStatusClosed" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="TripsAircraftTypeID" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TripsDepartDateZulu" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="TripsAircraftTailNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="LegsAircraftID" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ArrivalICAO" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="ETDZulu" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="ETAZulu" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="DepartDateZULU" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="ArriveDateZulu" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="ETDLocal" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="ETALocal" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="DepartDateLocal" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="ArriveDateLocal" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="LegNumber" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Fuelburn" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="DepartICAO" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Cancelled" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="CancelCode" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="PreferFBO" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="ArrivalRequestID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="DepartureRequestID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Viewed" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="ArrivalPrefFBO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="DeparturePrefFBO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="FOSCustomerName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TripType" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="CargoLbs" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="MTOW" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="PaxCount" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Wind" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="TAS" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Altitude" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="FuelOut" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="FuelIn" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="FemalePaxCount" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="MalePaxCount" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="FPIntegrations">
+        <s:restriction base="s:string">
+          <s:enumeration value="None" />
+          <s:enumeration value="FOS" />
+          <s:enumeration value="BART" />
+          <s:enumeration value="FlightTrak" />
+          <s:enumeration value="Avinode" />
+          <s:enumeration value="IPC" />
+          <s:enumeration value="FOSFlightApps" />
+          <s:enumeration value="BARTHosted" />
+          <s:enumeration value="CAMPS" />
+          <s:enumeration value="RockwellCollins" />
+          <s:enumeration value="Avianis" />
+          <s:enumeration value="BeaconComm" />
+          <s:enumeration value="DeltaPrivateJets" />
+          <s:enumeration value="SkyService" />
+          <s:enumeration value="JoinJet" />
+          <s:enumeration value="PFM" />
+          <s:enumeration value="AVMOSYS" />
+          <s:enumeration value="LyonAviation" />
+          <s:enumeration value="FOSPrivateHosting" />
+          <s:enumeration value="GE" />
+          <s:enumeration value="BoldIQ" />
+          <s:enumeration value="FlightBridge" />
+          <s:enumeration value="IPCFosGeneric" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="otherTax">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseClass">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="RequestId" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="TaxDesc" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TaxGal" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="TaxAmt" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="TaxPcnt" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="OmitPPG" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsCustomizable" type="s:boolean" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="otherFee">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseClass">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="RequestId" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="FeeDesc" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="FeeAmount" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsStored" type="s:boolean" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="TransactionFuelPrice">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseClass">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="OID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="RequestID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="FuelerID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="MinVolume" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="MaxVolume" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Price" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="FBO" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="FuelMasterID" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="ICAO" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="FuelReqFees">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseClass">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Oid" type="s:long" />
+              <s:element minOccurs="1" maxOccurs="1" name="RequestId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="MemberId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="FedTax" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="StateTax" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="SalesTax" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="TotalExpenses" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="DispatchNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="InvoiceNumber" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="PassengerLoad" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="CateringChargeFee" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="LAVServiceFee" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="RampFee" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="ITPFee" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="LoadType" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Vat" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Mot" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="FlowFee" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="OtherFees" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="MiscTax" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Additive" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="GPUAPUFee" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="PotableWaterFee" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="LandingFee" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="TaxesOmit" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="RetailTotal" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="OilSpillFee" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="StateOilSpillFee" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="FuelerInvoiceNumber" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="RampFeeWaived" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="RampFeeWaivedAt" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="ProcessID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="RampFeeCallFBO" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="ReportedRampFee" type="s:double" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="TimePreferences">
+        <s:restriction base="s:string">
+          <s:enumeration value="Z" />
+          <s:enumeration value="L" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfTransactionFuelPrice">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransactionFuelPrice" nillable="true" type="tns:TransactionFuelPrice" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfOtherFee">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="otherFee" nillable="true" type="tns:otherFee" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfOtherTax">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="otherTax" nillable="true" type="tns:otherTax" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="AdminStatuses">
+        <s:restriction base="s:string">
+          <s:enumeration value="Pending" />
+          <s:enumeration value="FboNotified" />
+          <s:enumeration value="Confirmed" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="CustStatuses">
+        <s:restriction base="s:string">
+          <s:enumeration value="Pending" />
+          <s:enumeration value="Reconciled" />
+          <s:enumeration value="Discrepancy" />
+          <s:enumeration value="Cancelled" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="InvoiceStatuses">
+        <s:restriction base="s:string">
+          <s:enumeration value="NotSpecified" />
+          <s:enumeration value="New" />
+          <s:enumeration value="Modify" />
+          <s:enumeration value="PostVerify" />
+          <s:enumeration value="MarginAnalysis" />
+          <s:enumeration value="Discrepancy" />
+          <s:enumeration value="Accounting" />
+          <s:enumeration value="Pending" />
+          <s:enumeration value="Reconciled" />
+          <s:enumeration value="Cancelled" />
+          <s:enumeration value="NoFuel" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="UpdateTransaction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="transaction" type="tns:DegaObject" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTransactionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateTransactionResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DegaObject" nillable="true" type="tns:DegaObject" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetTransactionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTransaction" />
+  </wsdl:message>
+  <wsdl:message name="GetTransactionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTransactionSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateTransaction" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTransactionSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTransactionHttpGetIn">
+    <wsdl:part name="DegaServiceID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetTransactionHttpGetOut">
+    <wsdl:part name="Body" element="tns:DegaObject" />
+  </wsdl:message>
+  <wsdl:message name="GetTransactionHttpPostIn">
+    <wsdl:part name="DegaServiceID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetTransactionHttpPostOut">
+    <wsdl:part name="Body" element="tns:DegaObject" />
+  </wsdl:message>
+  <wsdl:portType name="DegaIntegrationSoap">
+    <wsdl:operation name="GetTransaction">
+      <wsdl:input message="tns:GetTransactionSoapIn" />
+      <wsdl:output message="tns:GetTransactionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTransaction">
+      <wsdl:input message="tns:UpdateTransactionSoapIn" />
+      <wsdl:output message="tns:UpdateTransactionSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="DegaIntegrationHttpGet">
+    <wsdl:operation name="GetTransaction">
+      <wsdl:input message="tns:GetTransactionHttpGetIn" />
+      <wsdl:output message="tns:GetTransactionHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="DegaIntegrationHttpPost">
+    <wsdl:operation name="GetTransaction">
+      <wsdl:input message="tns:GetTransactionHttpPostIn" />
+      <wsdl:output message="tns:GetTransactionHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DegaIntegrationSoap" type="tns:DegaIntegrationSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetTransaction">
+      <soap:operation soapAction="http://tempuri.org/GetTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTransaction">
+      <soap:operation soapAction="http://tempuri.org/UpdateTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DegaIntegrationSoap12" type="tns:DegaIntegrationSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetTransaction">
+      <soap12:operation soapAction="http://tempuri.org/GetTransaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTransaction">
+      <soap12:operation soapAction="http://tempuri.org/UpdateTransaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DegaIntegrationHttpGet" type="tns:DegaIntegrationHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetTransaction">
+      <http:operation location="/GetTransaction" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DegaIntegrationHttpPost" type="tns:DegaIntegrationHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetTransaction">
+      <http:operation location="/GetTransaction" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DegaIntegration">
+    <wsdl:port name="DegaIntegrationSoap" binding="tns:DegaIntegrationSoap">
+      <soap:address location="https://beta.fuelerlinx.com/Services/Transactions/DegaIntegration.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DegaIntegrationSoap12" binding="tns:DegaIntegrationSoap12">
+      <soap12:address location="https://beta.fuelerlinx.com/Services/Transactions/DegaIntegration.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DegaIntegrationHttpGet" binding="tns:DegaIntegrationHttpGet">
+      <http:address location="https://beta.fuelerlinx.com/Services/Transactions/DegaIntegration.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DegaIntegrationHttpPost" binding="tns:DegaIntegrationHttpPost">
+      <http:address location="https://beta.fuelerlinx.com/Services/Transactions/DegaIntegration.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

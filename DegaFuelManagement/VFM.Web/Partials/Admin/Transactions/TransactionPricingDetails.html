@@ -1,0 +1,100 @@
+﻿<div class="row padding-left-5 font-600" ng-class="fuelOrderInfo.fuelOrder.NoFuel ? 'nofueloption' : ''">
+    <div class="row margin-bottom-5">
+        <div class="inline-block">
+            <div style="width: 116px;" ng-if="fuelOrderInfo.$usersService.user.Client.ClientType == 1">Customer <span class="blue-font">Quoted:</span></div>
+            <div ng-if="fuelOrderInfo.$usersService.user.Client.ClientType == 2"><span class="blue-font">Dispatched PPG:</span> {{fuelOrderInfo.fuelOrder.QuotedPPG | ToCurrency}}</div>
+        </div>
+        <div ng-if="fuelOrderInfo.$usersService.user.Client.ClientType == 1" class="inline-block">{{fuelOrderInfo.fuelOrder.QuotedPPG | ToCurrency}}</div>
+    </div>
+
+
+    <div class="row margin-bottom-5" ng-if="fuelOrderInfo.$usersService.user.Client.ClientType == 1">
+        <div class="col-xs-7 padding-right-none padding-left-none">
+            <div class="inline-block" style="width: 115px;">Customer <span class="dark-blue-font">Invoiced:</span></div>
+            <div class="inline-block">
+                {{fuelOrderInfo.fuelOrder.InvoicedPPG | ToCurrency}}
+                <!--<input class="form-control" decimal show-currency="true" select-on-focus require-decimal="true" step="0.0001" type="text"
+                       ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1"
+                       ng-model="fuelOrderInfo.fuelOrder.InvoicedPPG" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 2000, 'blur': 0 } }" />-->
+            </div>
+        </div>
+        <div class="col-xs-5 padding-right-none padding-left-none">
+            <div class="inline-block">Discrepancy:</div>
+            <div class="inline-block"><span ng-class="fuelOrderInfo.fuelOrder.InvoicedPPG < fuelOrderInfo.fuelOrder.QuotedPPG ? 'green' : 'red'">{{fuelOrderInfo.fuelOrder.QuotedPPG - fuelOrderInfo.fuelOrder.InvoicedPPG | ToCurrency }}</span></div>
+        </div>
+    </div>
+
+
+
+    <div class="row margin-bottom-5" ng-if="fuelOrderInfo.$usersService.user.Client.ClientType == 2">
+        <div class="col-xs-6 padding-right-none padding-left-none">
+            <div class="inline-block" style=""><span class="green-font">Invoiced</span> PPG:</div>
+            <div class="inline-block">
+                <span>{{fuelOrderInfo.fuelOrder.InvoicedPPG}}</span>
+            </div>
+        </div>
+        <div class="col-xs-6 padding-right-none padding-left-none">
+            <div class="inline-block">
+                <span class="green-font">Invoiced</span> Volume:
+            </div>
+            <div class="inline-block">
+                <input class="margin-left margin-right pull-left form-control" type="text"
+                       ng-model="fuelOrderInfo.fuelOrder.InvoicedVolume"
+                       ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 2000, 'blur': 0 } }"
+                       ng-change="fuelOrderInfo.onVolumeChange(fuelOrderInfo.fuelOrder.InvoicedVolume)"
+                       select-on-focus />
+                <span class="green-font">gal.</span> (actual)
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="row margin-bottom-5" ng-if="fuelOrderInfo.$usersService.user.Client.ClientType == 1">
+        <div class="inline-block" style="width: 115px;">
+            <span class="orange-font">Wholesale</span> <span class="blue-font">Quoted:</span>
+        </div>
+        <div class="inline-block">
+            <input type="text" class="form-control" decimal show-currency="true" select-on-focus require-decimal="true" step="0.0001"
+                   ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1"
+                   ng-model="fuelOrderInfo.fuelOrder.WholesaleQuoted" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 2000, 'blur': 0 } }" />
+        </div>
+    </div>
+
+
+    <div class="row margin-bottom-5" ng-if="fuelOrderInfo.$usersService.user.Client.ClientType == 1">
+        <div class="col-xs-7 padding-right-none padding-left-none">
+            <div class="inline-block" style="width: 115px;">
+                <span class="orange-font">Wholesale</span> <span class="dark-blue-font">Invoiced:</span>
+            </div>
+            <div class="inline-block">
+                <input type="text" class="form-control" decimal show-currency="true" select-on-focus require-decimal="true" step="0.0001"
+                       ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1"
+                       ng-model="fuelOrderInfo.fuelOrder.WholesaleInvoiced" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 2000, 'blur': 0 } }" />
+            </div>
+        </div>
+        <div class="col-xs-5 padding-right-none padding-left-none">
+            <div class="orange-font inline-block">Discrepancy:</div>
+            <div class="inline-block"><span ng-class="fuelOrderInfo.fuelOrder.WholesaleInvoiced < fuelOrderInfo.fuelOrder.WholesaleQuoted ? 'green' : 'red'">{{fuelOrderInfo.fuelOrder.WholesaleQuoted - fuelOrderInfo.fuelOrder.WholesaleInvoiced | ToCurrency }}</span></div>
+        </div>
+    </div>
+
+
+    <div class="row margin-bottom-5" ng-if="fuelOrderInfo.$usersService.user.Client.ClientType == 1">
+        <div class="inline-block" style="width: 116px;">Volume <span class="blue-font">Quoted:</span></div>
+        <div class="inline-block">{{fuelOrderInfo.fuelOrder.QuotedVolume}} <span>gal.</span></div>
+    </div>
+
+
+    <div class="row margin-bottom-10" ng-if="fuelOrderInfo.$usersService.user.Client.ClientType == 1">
+        <div class="inline-block" style="width: 115px;">Volume <span class="dark-blue-font">Invoiced</span></div>
+        <div class="inline-block">
+            <input class="form-control" type="text"
+                   ng-model="fuelOrderInfo.fuelOrder.InvoicedVolume"
+                   ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 2000, 'blur': 0 } }"
+                   ng-change="fuelOrderInfo.onVolumeChange(fuelOrderInfo.fuelOrder.InvoicedVolume)"
+                   ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1"
+                   select-on-focus />
+        </div>
+    </div>
+</div>

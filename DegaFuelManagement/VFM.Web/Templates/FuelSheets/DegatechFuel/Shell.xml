@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FuelSheets>
+  <FuelSheet>
+    <Settings>
+      <MultipleRecordsPerRowOptions>
+        <GroupCount>2</GroupCount>
+      </MultipleRecordsPerRowOptions>
+    </Settings>
+    <Column Name="IATA">
+      <ColumnLetter>A</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">4</Filter>
+        <Filter Type="MinLength">3</Filter>
+        <Filter Type="NotEqual">IATA</Filter>
+        <Filter Type="NotEqual">ICAO</Filter>
+        <Filter Type="NotEqual">Loc</Filter>
+      </Filters>
+    </Column>
+    <Column Name="FBOName">
+      <ColumnLetter>B</ColumnLetter>
+    </Column>
+    <Column Name="Min">
+      <ColumnLetter>H</ColumnLetter>
+      <Group>2</Group>
+      <IsNumeric>true</IsNumeric>
+      <Filters>
+        <Filter Type="NotEqual">SKIP</Filter>
+        <Filter Type="NotEqual">0 - 0</Filter>
+        <Filter Type="MinLength">2</Filter>
+      </Filters>
+      <StringOperations>
+        <Operation Type="Replace" Replace="0 - 0" ReplaceWith="SKIP"></Operation>
+        <Operation Type="Split" SplitOn="-" Index="0"></Operation>
+        <Operation Type="Replace" Replace="+" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="Flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="FLAT" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="UP" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="All Quantities" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="," ReplaceWith=""></Operation>
+      </StringOperations>
+    </Column>
+    <Column Name="Max">
+      <ColumnLetter>H</ColumnLetter>
+      <Group>2</Group>
+      <IsNumeric>true</IsNumeric>
+      <StringOperations>
+        <Operation Type="Split" SplitOn="-" Index="1"></Operation>
+        <Operation Type="Replace" Replace="+" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="Flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="FLAT" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="UP" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="All Quantities" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="," ReplaceWith=""></Operation>
+      </StringOperations>
+    </Column>
+    <Column Name="TotalWithTax">
+      <ColumnLetter>I</ColumnLetter>
+      <Group>2</Group>
+      <IsNumeric>true</IsNumeric>
+      <StringOperations>
+        <Operation Type="Replace" Replace="$" ReplaceWith=""></Operation>      
+      </StringOperations>
+    </Column>
+    <Column Name="Product">
+      <Group>2</Group>
+      <StaticValue>JetA w/Additive</StaticValue>
+    </Column>
+    <Column Name="Min">
+      <ColumnLetter>J</ColumnLetter>
+      <Group>1</Group>
+      <IsNumeric>true</IsNumeric>
+      <Filters>
+        <Filter Type="NotEqual">SKIP</Filter>
+        <Filter Type="NotEqual">0 - 0</Filter>
+        <Filter Type="MinLength">2</Filter>
+      </Filters>
+      <StringOperations>
+        <Operation Type="Replace" Replace="0 - 0" ReplaceWith="SKIP"></Operation>
+        <Operation Type="Split" SplitOn="-" Index="0"></Operation>
+        <Operation Type="Replace" Replace="+" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="Flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="FLAT" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="UP" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="All Quantities" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="," ReplaceWith=""></Operation>
+      </StringOperations>
+    </Column>
+    <Column Name="Max">
+      <ColumnLetter>J</ColumnLetter>
+      <Group>1</Group>
+      <IsNumeric>true</IsNumeric>
+      <StringOperations>
+        <Operation Type="Split" SplitOn="-" Index="1"></Operation>
+        <Operation Type="Replace" Replace="+" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="Flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="FLAT" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="UP" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="All Quantities" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="," ReplaceWith=""></Operation>
+      </StringOperations>
+    </Column>
+    <Column Name="TotalWithTax">
+      <ColumnLetter>K</ColumnLetter>
+      <Group>1</Group>
+      <IsNumeric>true</IsNumeric>
+      <StringOperations>
+        <Operation Type="Replace" Replace="$" ReplaceWith=""></Operation>
+      </StringOperations>
+    </Column>
+    <Column Name="Product">
+      <Group>1</Group>
+      <StaticValue>JetA</StaticValue>
+    </Column>
+    <Column Name="AdminClientID">
+      <StaticValue>0</StaticValue>
+    </Column>
+    <Column Name="SupplierID">
+      <StaticValue>0</StaticValue>
+    </Column>
+  </FuelSheet>
+</FuelSheets>

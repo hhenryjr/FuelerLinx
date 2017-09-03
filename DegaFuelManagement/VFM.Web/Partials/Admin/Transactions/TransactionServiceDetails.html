@@ -1,0 +1,154 @@
+﻿<link rel="stylesheet" type="text/css" href="/Content/Transactions.css" />
+
+<div class="row no-space servicedetailscontainer">
+    <div class="inline-block">
+        <transaction-pricing-details></transaction-pricing-details>
+        <div class="row invoicedetailtable">
+            <div id="jarviswidget-transaction-details-taxes{{$index}}" class="jarviswidget jarviswidget-color-darken jarviswidget-sortable" data-widget-editbutton="false" role="widget">
+                <div role="content">
+                    <div class="jarviswidget-editbox"></div>
+                    <div class="widget-body no-padding">
+                        <div id="dt_basic_wrapper" class="dataTables_wrapper no-footer">
+                            <div class="dt-toolbar">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-9 padding-top-5 inline-block">
+                                        <div class="col-xs-8">
+                                            <div class="padding-right-10 inline-block font-600 blue-font">Base Price:</div>
+                                            <div class="inline-block">
+                                                <input type="text" step="0.0001" class="form-control inputxs" decimal show-currency="true" select-on-focus require-decimal="true"
+                                                       ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1"
+                                                       ng-model="fuelOrderInfo.fuelOrder.BasePPG" ng-class="{'red': fuelOrderInfo.fuelOrder.BasePPG < 0}"
+                                                       ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 2000, 'blur': 0 } }" tabindex="2" />
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <span class="inline-block">No Fuel</span>
+                                            <div class="squarecheckbox inline-block greyborder">
+                                                <input id="no-fuel" type="checkbox" class="txt-color-red" ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1"
+                                                       ng-model="fuelOrderInfo.fuelOrder.NoFuel" ng-value="true" ng-click="" />
+                                                <label for="no-fuel"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <transaction-options-dropdown-menu></transaction-options-dropdown-menu>
+                                    </div>
+                                </div>
+                            </div>
+                            <table id="dt_basic" class="transactiondetailstable table table-striped table-bordered table-hover dataTable" aria-describedby="dt_basic_info" role="grid">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="text-center numberrow" tabindex="0" aria-controls="dt_basic" rowspan="1" colspan="1">
+                                            #
+                                        </th>
+                                        <th tabindex="0" aria-controls="dt_basic" rowspan="1" colspan="1" class="" style="width: 175px;">
+                                            Item Name
+                                        </th>
+                                        <th class="text-center" tabindex="0" aria-controls="dt_basic" rowspan="1" colspan="1" style="width: 30px;">
+                                            Qty
+                                        </th>
+                                        <th tabindex="0" aria-controls="dt_basic" rowspan="1" colspan="1" style="width: 60px;">
+                                            Unit Price
+                                        </th>
+                                        <th tabindex="0" aria-controls="dt_basic" rowspan="1" colspan="1" style="width: 40px;">
+                                            Total
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr role="row" ng-repeat="fee in fuelOrderInfo.fuelOrder.FuelOrderFees">
+                                        <td class="numberpadding">{{$index + 1}}</td>
+                                        <td class="inputtablepadding">
+                                            <div class="pull-left" ng-hide="fuelOrderInfo.fuelOrder.IsStored">
+                                                <input type="text" class="form-control inputtablepadding" ng-model="fee.FeeDesc"
+                                                       ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1"
+                                                       ng-change="fuelOrderInfo.onCustomFeeChanged($index)" />
+                                            </div>
+                                            <div class="pull-left inputtablepadding" ng-show="fee.IsStored">
+                                                {{fee.FeeDesc}}:
+                                            </div>
+                                            <div class="pull-right">
+                                                <div class="btn-group blue-button-group customtaxdropdown" ng-if="fee.FeeDesc.length > 0">
+                                                    <button type="button" class="btn dropdown-toggle btn-blue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-cog"></i> <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a>
+                                                                <label class="inline" ng-click="fuelOrderInfo.storeFee(fee);">
+                                                                    <span>Store Fee</span>
+                                                                </label>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a>
+                                                                <label class="inline" ng-click="fuelOrderInfo.removeFee(fee)">
+                                                                    <span>Remove from Transaction</span>
+                                                                </label>
+                                                            </a>
+                                                        </li>
+                                                        <li ng-if="">
+                                                            <a>
+                                                                <label class="inline" ng-click="">
+                                                                    <span>Remove from Storage</span>
+                                                                </label>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="numberpadding">1</td>
+                                        <td>
+                                            <input type="text" class="form-control inputtablepadding" decimal show-currency="true" step="0.0001" select-on-focus require-decimal="true" ng-model="fee.FeeAmount" ng-change="" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control inputtablepadding" decimal show-currency="true" step="0.0001" select-on-focus require-decimal="true" ng-model="fee.FeeAmount" ng-change="" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="dt-toolbar">
+                                <div class="col-xs-12 floatleft bottompadded inline-block">
+                                    <div class="inline-block">
+                                        <button type="button" class="btn btn-sm btn-blue" ng-if="fuelOrderInfo.$usersService.user.Permission.Transactions == 0" ng-click="fuelOrderInfo.processOrder(fuelOrderInfo.fuelOrder)">Process</button>
+                                    </div>
+                                    <div class="inline-block">
+                                        <button type="button" class="btn btn-sm btn-green" ng-if="fuelOrderInfo.$usersService.user.Permission.Transactions == 0" ng-click="fuelOrderInfo.saveFuelOrder(fuelOrderInfo.fuelOrder)">Save</button>
+                                    </div>
+                                    <div class="inline-block">
+                                        <button type="button" class="btn btn-sm btn-grey" ng-click="fuelOrderInfo.closeDetails(fuelOrderInfo.fuelOrder)">Close</button>
+                                    </div>
+                                    <div class="inline-block pull-right">
+                                        <div class="inline-block font-600 padding-right-10 totalalignment">Total:</div>
+                                        <div class="inline-block padding-right-10 padding-left-10 totalalignment">{{fuelOrderInfo.calculateRetailTotal() | ToCurrency}}</div>
+                                        <div class="dropup inline-block">
+                                            <button type="button" class="btn btn-light-orange btn-circle-xs dropdown-toggle" data-toggle="dropdown">
+                                                <i class="fa fa-calculator" aria-hidden="true"></i>
+                                            </button>
+                                            <ul class="dropdown-menu padding-7">
+                                                <li class="padding-left-5 inline-block">
+                                                    <div class="font-600 inline-block">Services Total:</div>
+                                                    <div class="inline-block">{{fuelOrderInfo.getServicesTotal() | ToCurrency}}</div>
+                                                </li>
+                                                <li class="padding-left-5 inline-block">
+                                                    <div class="font-600 inline-block">Fuel Total:</div>
+                                                    <div class="inline-block">{{fuelOrderInfo.fuelOrder.InvoicedPPG * fuelOrderInfo.fuelOrder.InvoicedVolume | ToCurrency}}</div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<transaction-info-details></transaction-info-details>-->
+    <div class="inline-block" ng-if="fuelOrderInfo.$usersService.user.Permission.Transactions == 0">
+        <transactions-dropzone></transactions-dropzone>
+    </div>
+</div>

@@ -1,0 +1,1486 @@
+﻿<!--<div clas="row">
+    <iframe class="col-sm-12" style="height: 800px;" src="http://www.fuelerlinx.com/reconciliation.aspx?uid=1040&embed=1&popup=1"></iframe>
+</div>-->
+<link rel="stylesheet" type="text/css" href="/Content/Transactions.css" />
+
+<!--<managed-company-selection user="User" on-managed-company-changed="OnManagedCompanyChanged()"></managed-company-selection>-->
+<article class="col-xs-12 padding-left-none padding-right-none">
+    <h1 class="page-title blue-font">
+        <i class="fa-fw fa fa-exchange"></i>
+        TRANSACTIONS <span class="default-grey-font">> FUEL ORDERS</span>
+    </h1>
+    <div ng-if="dash.user.Client.ClientType == 2" class="row dashboard-content-container">
+
+        <div class="col-xs-12 font-600">
+            <span class="">Hello! </span><span>{{dash.user.Client.Name}}</span>
+        </div>
+    </div>
+    <section class="table-content-container" sa-jarvis-widget-grid id="jarvis-transactions-grid">
+        <div class="row padding-top-15">
+            <article class="ui-sortable">
+                <div class="jarviswidget jarviswidget-color-darken" id="jarviswidget-transactions-grid" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                    <div role="content">
+                        <div class="transactiontablecontainer widget-body no-padding">
+                            <div style="display: none;" id="divPreviewContainer"></div>
+
+                            <div ng-if="info.fuelOrders == null">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p class="table-text text-center">One Moment Please...</p>
+                                        <loading-icon></loading-icon>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!--<div loading-indicator ng-show="IsLoading"></div>-->
+                            <div ng-if="info.fuelOrders != null" ng-show="!info.isPreparingFilters">
+                                <table id="tblTransactions" st-table="info.displayedFuelOrders" st-safe-src="info.fuelOrders" class="table table-border-top" ng-show="!IsLoading" fixed-header>
+                                    <thead>
+                                        <tr class="headersizingfilter hidden-xs hidden-sm">
+                                            <th colspan="13" class="padding-5 rightbordernone">
+
+                                                <div class="pull-right">
+                                                </div>
+
+                                                <div class="pull-left searchfilter transactionfiltercontainer">
+                                                    <div class="pull-left globalsearchfilter inline-block">
+                                                        <div id="datatable_fixed_column_filter" class="dataTables_filter">
+                                                            <label>
+                                                                <span class="input-group-addon">
+                                                                    <i class="fa fa-search"></i>
+                                                                </span>
+                                                                <input st-search="" predicate="" select-on-focus placeholder="Search" ng-model="info.filter.GlobalSearch" class="form-control globalsearch" aria-controls="datatable_fixed_column" type="search" />
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="inline-block globalsearchfilter hidden-md hidden-lg">
+                                                        <!-- responsive search -->
+                                                        <div class="dataTables_filter form-group row">
+                                                            <div class="pull-left">
+                                                                <label class="select input-group">
+                                                                    <span class="input-group-addon">
+                                                                        <i class="icon-prepend fa fa-plane"></i>
+                                                                    </span>
+                                                                    <select style="height: 33px !important;" class="form-control" chosen predicate="TailNumber" ng-model="PageSettings.Filter.TailNumber" ng-options="a.TailNo as a.TailNo for a in UserAircraftCollection">
+                                                                        <option value="">--Tail Number--</option>
+                                                                    </select>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="pull-left datefilter form-group">
+                                                        <div class="pull-left inline-block" ng-if="!PageSettings.IsImporting">
+                                                            <div class="inline-block hidden-xs hidden-sm">
+                                                                <label class="green-font pull-left font-500 padding-top-10 padding-right-5">Start Date</label>
+                                                                <div class="inline-block start-date-popup">
+                                                                    <p class="input-group">
+                                                                        <input uib-datepicker-popup="{{info.dateFilter.Format}}" type="text" class="form-control date-picker"
+                                                                               ng-model="info.dateFilter.StartDate" clearable="false"
+                                                                               is-open="info.dateFilter.IsStartDateOpened"
+                                                                               datepicker-options="info.dateConfigs.StartDateOptionsConfig" />
+                                                                        <span class="input-group-btn">
+                                                                            <button type="button" class="btn btn-default" ng-click="info.dateFilter.IsStartDateOpened = !info.dateFilter.IsStartDateOpened">
+                                                                                <i class="fa fa-calendar"></i>
+                                                                            </button>
+                                                                        </span>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="inline-block">
+                                                                <label class="red-font pull-left font-500 padding-left-5 padding-top-10 padding-right-5">End Date</label>
+                                                                <div class="inline-block end-date-popup">
+                                                                    <p class="input-group">
+                                                                        <input uib-datepicker-popup="{{info.dateFilter.Format}}" type="text" class="form-control date-picker"
+                                                                               ng-model="info.dateFilter.EndDate" clearable="false"
+                                                                               is-open="info.dateFilter.IsEndDateOpened"
+                                                                               datepicker-options="info.dateConfigs.EndDateOptionsConfig" />
+                                                                        <span class="input-group-btn">
+                                                                            <button type="button" class="btn btn-default" ng-click="info.dateFilter.IsEndDateOpened = !info.dateFilter.IsEndDateOpened">
+                                                                                <i class="fa fa-calendar"></i>
+                                                                            </button>
+                                                                        </span>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="inline-block padding-5 hidden-sm hidden-md hidden-lg">
+                                                                <span class="padding-right-5"><button type="button" class="btn btn-width-sm btn-lightorange" ng-click="OnDateRangeChanged()" ng-disabled="PageSettings.DateRange.StartDateFilter == '' || PageSettings.DateRange.EndDateFilter == '' || PageSettings.DateRange.StartDateFilter == null || PageSettings.DateRange.EndDateFilter == null">Apply Date Filter</button></span>
+                                                                <span><button type="button" class="btn btn-width-sm btn-red" st-reset-search ng-click="info.clearFilters()">Clear Filters</button></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="inline-block" ng-if="Service.Filter.ProcessID > 0">
+                                                        <div class="datefilter dataTables_filter form-group row">
+                                                            <div class="pull-left padding-right-5 padding-top-5">
+                                                                <span class="font-600">Viewing Recent Import:</span>
+                                                            </div>
+                                                            <div class="pull-left padding-right-5 padding-top-5">
+                                                                <div class="inline-block green-font font-600 padding-right-5">YES</div>
+                                                                <div class="inline-block">
+                                                                    <a class="hoverlink" ng-click="OnStopViewingExpenseImportClicked()">
+                                                                        <i class="fa fa-times red-font" title="Stop viewing an expense import"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="padding-left-15 pull-left">
+                                                        <button type="button" class="btn btn-width-sm btn-light-orange padding-left-15 padding-right-10" ng-click="info.applyDateFilters()">Apply Date Filter</button>
+                                                    </div>
+
+                                                    <div class="pull-left margin-left clear-all-button">
+                                                        <button type="button" class="btn btn-width-sm btn-red" st-reset-search ng-click="info.clearFilters()">Clear Filters</button>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="padding-left-15 pull-right">
+                                                    <div class="pull-left">
+                                                        <button type="button" class="btn btn-light-blue" ng-click="info.exportTransactions()">Export Transactions</button>
+                                                    </div>
+                                                    <!--<button type="button" class="btn btn-width-sm btn-blue pull-right" ng-click="info.addTransaction()">
+                                                        <span><i class="fa fa-plus fa-lg whitefont"></i> Add New Order </span>
+                                                    </button>-->
+                                                </div>
+
+
+                                            </th>
+
+
+                                        </tr>
+                                        <!-- start mobile header -->
+                                        <tr class="visible-xs visible-sm">
+                                            <th colspan="12">
+
+                                                <div class="row">
+                                                    <!-- mobile search input -->
+                                                    <div class="col-xs-12 no-padding">
+                                                        <div class="globalsearchfilter inline-block">
+                                                            <div id="datatable_fixed_column_filter" class="dataTables_filter">
+                                                                <label>
+                                                                    <span class="input-group-addon">
+                                                                        <i class="fa fa-search"></i>
+                                                                    </span>
+                                                                    <input st-search="" predicate="" select-on-focus placeholder="Search" ng-model="info.filter.GlobalSearch" class="form-control globalsearch" aria-controls="datatable_fixed_column" type="search" />
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-xs-12 no-padding hidden">
+                                                        <div class="inline-block globalsearchfilter hidden-md hidden-lg">
+                                                            <!-- responsive search -->
+                                                            <div class="dataTables_filter">
+                                                                <div class="pull-left">
+                                                                    <label class="select input-group">
+                                                                        <span class="input-group-addon">
+                                                                            <i class="icon-prepend fa fa-plane"></i>
+                                                                        </span>
+                                                                        <select class="form-control" chosen predicate="TailNumber" ng-model="PageSettings.Filter.TailNumber" ng-options="a.TailNo as a.TailNo for a in UserAircraftCollection">
+                                                                            <option value="">--Tail Number--</option>
+                                                                        </select>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- date selector -->
+
+                                                    <div class="col-xs-12 no-padding">
+
+                                                        <div class="row" ng-if="!PageSettings.IsImporting">
+
+
+
+                                                            <div class="col-xs-12 col-sm-6 no-padding hidden-xs hidden-sm">
+                                                                <label class="green-font pull-left font-500 padding-top-10 padding-right-5">Start Date</label>
+                                                                <div class="inline-block start-date-popup">
+                                                                    <p class="input-group">
+                                                                        <input uib-datepicker-popup="{{info.dateFilter.Format}}" type="text" class="form-control date-picker"
+                                                                               ng-model="info.dateFilter.StartDate" clearable="false"
+                                                                               is-open="info.dateFilter.IsStartDateOpened"
+                                                                               datepicker-options="info.dateConfigs.StartDateOptionsConfig" />
+                                                                        <span class="input-group-btn">
+                                                                            <button type="button" class="btn btn-default" ng-click="info.dateFilter.IsStartDateOpened = !info.dateFilter.IsStartDateOpened">
+                                                                                <i class="fa fa-calendar"></i>
+                                                                            </button>
+                                                                        </span>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="col-xs-12 col-sm-6 hidden-xs hidden-sm no-padding">
+                                                                <label class="red-font pull-left font-500 padding-left-5 padding-top-10 padding-right-5">End Date</label>
+                                                                <div class="inline-block end-date-popup">
+                                                                    <p class="input-group">
+                                                                        <input uib-datepicker-popup="{{info.dateFilter.Format}}" type="text" class="form-control date-picker"
+                                                                               ng-model="info.dateFilter.EndDate" clearable="false"
+                                                                               is-open="info.dateFilter.IsEndDateOpened"
+                                                                               datepicker-options="info.dateConfigs.EndDateOptionsConfig" />
+                                                                        <span class="input-group-btn">
+                                                                            <button type="button" class="btn btn-default" ng-click="info.dateFilter.IsEndDateOpened = !info.dateFilter.IsEndDateOpened">
+                                                                                <i class="fa fa-calendar"></i>
+                                                                            </button>
+                                                                        </span>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="hidden-xs hidden-sm hidden-md hidden-lg">
+                                                                <span class="padding-right-5">
+                                                                    <button type="button" class="btn btn-width-sm btn-lightorange" ng-click="OnDateRangeChanged()" ng-disabled="PageSettings.DateRange.StartDateFilter == '' || PageSettings.DateRange.EndDateFilter == '' || PageSettings.DateRange.StartDateFilter == null || PageSettings.DateRange.EndDateFilter == null">Apply Date Filter</button>
+                                                                </span>
+                                                                <span>
+                                                                    <button type="button" class="btn btn-width-sm btn-red" st-reset-search ng-click="info.clearFilters()">Clear Filters</button>
+                                                                </span>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+
+
+
+                                                    <div class="inline-block" ng-if="Service.Filter.ProcessID > 0">
+                                                        <div class="datefilter dataTables_filter form-group row">
+                                                            <div class="pull-left padding-right-5 padding-top-5">
+                                                                <span class="font-600">Viewing Recent Import:</span>
+                                                            </div>
+                                                            <div class="pull-left padding-right-5 padding-top-5">
+                                                                <div class="inline-block green-font font-600 padding-right-5">YES</div>
+                                                                <div class="inline-block">
+                                                                    <a class="hoverlink" ng-click="OnStopViewingExpenseImportClicked()">
+                                                                        <i class="fa fa-times red-font" title="Stop viewing an expense import"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xs-12 padding-bottom-10 padding-left-none hidden-xs hidden-sm">
+                                                        <button type="button" class="btn btn-width-sm btn-light-orange padding-left-15 padding-right-10" ng-click="info.applyDateFilters()">Apply Date Filter</button>
+                                                        <button type="button" class="btn btn-width-sm btn-red" st-reset-search ng-click="info.clearFilters()">Clear Filters</button>
+                                                        <button type="button" class="btn btn-light-blue hidden-xs hidden-sm" ng-click="info.exportTransactions()">Export Transactions</button>
+
+                                                    </div>
+
+                                                </div>
+
+
+
+                                            </th>
+                                        </tr>
+                                        <!-- end mobile -->
+                                        <!-- INPUT FIELDS ROW -->
+                                        <tr class="hidden-xs hidden-sm">
+                                            <th class="tableplaceholder">
+                                                <div class="pull-left" ng-if="!info.siteSettings.AllowTransactionDetailEditing">
+                                                    <a class="hoverlink font-600" id="lnkCheckAll" onclick="$(this).hide();$('#lnkUnCheckAll').show();event.stopPropagation();" ng-click="info.OnCheckAllClicked()">
+                                                        <i class="fa fa-square-o fa-2x"></i>
+                                                    </a>
+                                                    <a class="hoverlink font-600" id="lnkUnCheckAll" style="display: none;" onclick="$(this).hide();$('#lnkCheckAll').show();event.stopPropagation();" ng-click="info.OnUnCheckAllClicked()">
+                                                        <i class="fa fa-check-square-o fa-2x"></i>
+                                                    </a>
+                                                </div>
+                                            </th>
+                                            <!-- ID input field was switched to Company -->
+
+                                            <th ng-if="User.Company.SubscriptionType != 3 && !User.Company.Settings.IsVATRecoveryEnabled && info.$usersService.user.Client.ClientType == 1" class="hidden-xs hidden-sm">
+                                                <input st-custom-search select-on-focus predicate="Client.Name" ng-model="info.filter.OID" ng-class="info.filter.OID.length > 0 ? 'active-input-highlight' : ''" placeholder="Company" class="text-left form-control" type="search" />
+                                            </th>
+
+                                            <th ng-if="User.Company.SubscriptionType == 3 || User.Company.Settings.IsVATRecoveryEnabled && info.$usersService.user.Client.ClientType == 1" st-tax-status-filter view-status-model="PageSettings.TaxStatus">
+                                                <tax-status-dropdown-menu on-status-change="FilterTaxStatuses" view-status-model="PageSettings.TaxStatus"></tax-status-dropdown-menu>
+                                            </th>
+                                            <th class="hidden" ng-if="info.$usersService.user.Client.ClientType == 2">
+                                                <input st-custom-search select-on-focus predicate="Id" placeholder="ID" class="text-left form-control" type="search" />
+                                            </th>
+                                            <!--<th class="col-lg-1 padding-5">
+                                                <input ng-if="info.$usersService.user.Client.ClientType == 1" st-custom-search select-on-focus predicate="FuelRelease" st-search="FuelRelease" placeholder="Fuel Release" class="text-left form-control" type="search" />
+                                                <input ng-if="info.$usersService.user.Client.ClientType == 2" st-custom-search select-on-focus predicate="TripID" st-search="TripID" placeholder="Trip #" class="text-left form-control" type="search" />
+                                            </th>-->
+                                            <!--Goes in the Plus after large-->
+                                            <th>
+                                                <input style="min-width:100px;" st-custom-search select-on-focus predicate="Aircraft.TailNumber" ng-model="PageSettings.Filter.TailNumber" ng-class="PageSettings.Filter.TailNumber.length > 0 ? 'active-input-highlight' : ''" placeholder="Tail Number" class="text-left form-control" type="search" />
+                                                <!--<input st-custom-search select-on-focus predicate="TailNumber" ng-model="info.filter.TailNumber" ng-class="info.filter.TailNumber.length > 0 ? 'active-input-highlight' : ''" placeholder="Tail #" class="text-left form-control" type="search"/>-->
+                                            </th>
+
+                                            <th class="search-wrapper">
+                                                <input st-custom-search select-on-focus predicate="ICAO" ng-model="info.filter.ICAO" ng-class="info.filter.ICAO.length > 0 ? 'active-input-highlight' : ''" placeholder="ICAO" class="text-left form-control" type="search" />
+                                            </th>
+
+
+                                            <th class="hidden-xs search-wrapper">
+                                                <input st-custom-search select-on-focus predicate="FBO" ng-model="info.filter.FBO" ng-class="info.filter.FBO.length > 0 ? 'active-input-highlight' : ''" placeholder="FBO" class="input-sm text-left form-control" type="search" />
+                                            </th>
+
+                                            <th class="hidden-xs hidden-sm transaction-source-column" ng-if="info.$usersService.user.Client.ClientType == 1 && info.siteSettings.AllowTransactionDetailEditing">
+                                                <input st-custom-search select-on-focus predicate="Vendor" ng-model="info.filter.Fueler" ng-class="info.filter.Fueler.length > 0 ? 'active-input-highlight' : ''" placeholder="Source" class="text-left form-control" type="search" />
+
+                                            </th>
+
+
+                                            <th class="hidden" ng-if="info.$usersService.user.Client.ClientType == 2">
+                                                <input st-custom-search select-on-focus predicate="Vendor" ng-model="info.filter.Vendor" ng-class="info.filter.Vendor.length > 0 ? 'active-input-highlight' : ''" placeholder="Vendor" class="text-left form-control" type="search" />
+                                            </th>
+
+
+                                            <th class="hidden-xs hidden-sm hidden-md search-wrapper" ng-if="info.$usersService.user.Client.ClientType == 1">
+                                                <input st-custom-search select-on-focus predicate="QuotedPPG" ng-model="info.filter.Quoted" ng-class="info.filter.Quoted.length > 0 ? 'active-input-highlight' : ''" placeholder="Price" class="text-left form-control" type="search" />
+                                            </th> <!--Goes in plus after Large-->
+
+
+                                            <th class="hidden-xs hidden-sm hidden-md search-wrapper" ng-if="info.$usersService.user.Client.ClientType == 1">
+                                                <input st-custom-search select-on-focus predicate="InvoicedPPG" ng-model="info.filter.Invoiced" ng-class="info.filter.Invoiced.length > 0 ? 'active-input-highlight' : ''" placeholder="Price" class="text-left form-control" type="search" />
+
+                                            </th>
+
+                                            <th class="hidden-xs hidden-sm hidden-md search-wrapper" ng-if="info.$usersService.user.Client.ClientType == 2">
+                                                <input st-custom-search select-on-focus predicate="PPG" ng-model="info.filter.PPG" ng-class="info.filter.PPG.length > 0 ? 'active-input-highlight' : ''" placeholder="Price" class="text-left form-control" type="search" />
+                                            </th>
+
+
+                                            <th class="hidden-xs hidden-sm hidden-md search-wrapper" ng-if="info.$usersService.user.Client.ClientType == 1">
+                                                <input st-custom-search select-on-focus predicate="PPG" ng-model="info.filter.PPG" ng-class="info.filter.PPG.length > 0 ? 'active-input-highlight' : ''" placeholder="Raw Cost" class="form-control" type="search" />
+                                            </th>
+                                            <th class="hidden-xs hidden-sm search-wrapper">
+                                                <input st-custom-search select-on-focus predicate="InvoicedVolume" ng-model="info.filter.FuelAmount" ng-class="info.filter.FuelAmount.length > 0 ? 'active-input-highlight' : ''" placeholder="Volume" class="form-control" type="search" />
+                                            </th>
+                                            <th class="hidden-xs hidden-sm search-wrapper" ng-if="!info.siteSettings.AllowTransactionDetailEditing && info.$usersService.user.Client.ClientType == 1">
+                                                <input st-custom-search select-on-focus predicate="Total" ng-model="info.filter.Total" ng-class="info.filter.Total.length > 0 ? 'active-input-highlight' : ''" placeholder="Total" class="form-control" type="search" />
+                                            </th>
+
+                                            <th colspan="2" view-status-model="PageSettings.ViewStatus">
+                                                <!-- Split button -->
+                                                    <div style="width:100%" class="btn-group dropdown" select-on-focus uib-dropdown="" predicate="TransactionStatus" st-transaction-status-filter ng-model="info.filter.InvoiceStatus">
+
+                                                        <button type="button" class="col-xs-12 btn btn-md btn-primary dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+
+
+                                                            <span class="margin-right-5">
+                                                                {{info.filter.InvoiceStatusLabel}}
+                                                            </span>
+
+
+                                                            <i class="fa fa-caret-down white-font"></i>
+                                                        </button>
+
+                                                        <ul class="dropdown-menu padding-5" uib-dropdown-menu="" role="menu" aria-labelledby="split-button" ng-model="info.filter.InvoiceStatus">
+
+                                                            <li class="margin-bottom" role="menuitem" ng-click="info.filter.InvoiceStatus = '';info.filter.InvoiceStatusLabel = 'Show All';info.filter.IsArchived = false;">
+                                                                <span class="invoicestatus showallcolor cursor-pointer">
+                                                                    <i ng-if="info.filter.InvoiceStatusLabel == 'Show All' && info.filter.IsArchived" class="fa fa-check-square-o padding-right-5 white-font"></i> Show All
+                                                                </span>
+                                                            </li>
+
+                                                            <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'"
+                                                                ng-click="info.filter.InvoiceStatus = 'New';info.filter.InvoiceStatusLabel = 'New';info.filter.IsArchived = false;">
+                                                                <span class="invoicestatus newcolor cursor-pointer">
+                                                                    <i ng-if="info.filter.InvoiceStatusLabel == 'New'" class="fa fa-check-square-o padding-right-5 white-font"></i> New
+                                                                </span>
+                                                            </li>
+
+                                                            <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'"
+                                                                ng-click="info.filter.InvoiceStatus = 'Modify';info.filter.InvoiceStatusLabel = 'Modify';info.filter.IsArchived = false;">
+                                                                <span class="invoicestatus modifycolor cursor-pointer">
+                                                                    <i ng-if="info.filter.InvoiceStatusLabel == 'Modify'" class="fa fa-check-square-o padding-right-5 white-font"></i> Modify
+                                                                </span>
+                                                            </li>
+
+                                                            <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'"
+                                                                ng-click="info.filter.InvoiceStatus = 'Post Verify';info.filter.InvoiceStatusLabel = 'Post Verify';info.filter.IsArchived = false;">
+                                                                <span class="invoicestatus postverifycolor cursor-pointer">
+                                                                    <i ng-if="info.filter.InvoiceStatusLabel == 'Post Verify'" class="fa fa-check-square-o padding-right-5 white-font"></i> Post Verify
+                                                                </span>
+                                                            </li>
+
+                                                            <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'"
+                                                                ng-click="info.filter.InvoiceStatus = 'Margin Analysis';info.filter.InvoiceStatusLabel = 'Margin Analysis';info.filter.IsArchived = false;">
+                                                                <span class="invoicestatus marginanalysiscolor cursor-pointer">
+                                                                    <i ng-if="info.filter.InvoiceStatusLabel == 'Margin Analysis'" class="fa fa-check-square-o padding-right-5 white-font"></i> Margin Analysis
+                                                                </span>
+                                                            </li>
+
+                                                            <li class="margin-bottom" role="menuitem" ng-click="info.filter.InvoiceStatus = 'Discrepancy';info.filter.InvoiceStatusLabel = 'Discrepancy';info.filter.IsArchived = false;">
+                                                                <span class="invoicestatus discrepancycolor cursor-pointer">
+                                                                    <i ng-if="info.filter.InvoiceStatusLabel == 'Discrepancy'" class="fa fa-check-square-o padding-right-5 white-font"></i> Discrepancy
+                                                                </span>
+                                                            </li>
+
+                                                            <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'"
+                                                                ng-click="info.filter.InvoiceStatus = 'Accounting';info.filter.InvoiceStatusLabel = 'Accounting';info.filter.IsArchived = false;">
+                                                                <span class="invoicestatus accountingcolor cursor-pointer">
+                                                                    <i ng-if="info.filter.InvoiceStatusLabel == 'Accounting'" class="fa fa-check-square-o padding-right-5 white-font"></i> Accounting
+                                                                </span>
+                                                            </li>
+
+                                                            <li class="margin-bottom" role="menuitem" ng-click="info.filter.InvoiceStatus = 'Pending';info.filter.InvoiceStatusLabel = 'Pending';info.filter.IsArchived = false;">
+                                                                <span class="invoicestatus pendingcolor cursor-pointer">
+                                                                    <i ng-if="info.filter.InvoiceStatusLabel == 'Pending'" class="fa fa-check-square-o padding-right-5 white-font"></i> Pending
+                                                                </span>
+                                                            </li>
+
+                                                            <li class="margin-bottom" role="menuitem" ng-click="info.filter.InvoiceStatus = 'Reconciled';info.filter.InvoiceStatusLabel = 'Reconciled';info.filter.IsArchived = false;">
+                                                                <span class="invoicestatus reconciledcolor cursor-pointer">
+                                                                    <i ng-if="info.filter.InvoiceStatusLabel == 'Reconciled'" class="fa fa-check-square-o padding-right-5 white-font"></i> Reconciled
+                                                                </span>
+                                                            </li>
+
+                                                            <li class="margin-bottom" role="menuitem" ng-click="info.filter.InvoiceStatus = 'Cancelled';info.filter.InvoiceStatusLabel = 'Cancelled';info.filter.IsArchived = false;">
+                                                                <span class="invoicestatus canceledcolor cursor-pointer">
+                                                                    <i ng-if="info.filter.InvoiceStatusLabel == 'Cancelled'" class="fa fa-check-square-o padding-right-5 white-font"></i> Cancelled
+                                                                </span>
+                                                            </li>
+
+                                                            <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'"
+                                                                ng-click="info.filter.InvoiceStatus = 'No Fuel';info.filter.InvoiceStatusLabel = 'No Fuel';info.filter.IsArchived = false;">
+                                                                <span class="invoicestatus nofuelcolor cursor-pointer">
+                                                                    <i ng-if="info.filter.InvoiceStatusLabel == 'No Fuel'" class="fa fa-check-square-o padding-right-5 white-font"></i> No Fuel
+                                                                </span>
+                                                            </li>
+
+                                                            <li class="margin-bottom" role="menuitem" ng-click="info.filter.InvoiceStatus = 'Archived';info.filter.InvoiceStatusLabel = 'Archived';info.filter.IsArchived = !info.filter.IsArchived;">
+                                                                <span class="invoicestatus archivedcolor cursor-pointer">
+                                                                    <i ng-if="info.filter.IsArchived" class="fa fa-check-square-o padding-right-5 white-font"></i> Archived
+                                                                </span>
+                                                            </li>
+                                                        </ul>
+
+                                                        <!-- INSERTING PAPER CLIP -->
+                                                    </div>
+                                                    
+                                                    <div ng-if="!info.siteSettings.AllowTransactionDetailEditing" select-on-focus uib-dropdown="" class="pull-right btn-group" predicate="HasAttachments" st-dropdown-filter ng-model="info.filter.HasAttachments">
+
+                                                        <button ng-class="{'green-font': info.filter.HasAttachments == 'true'}" class="fa fa-2x fa-paperclip transaction-clip-dropdown" data-toggle="dropdown" aria-expanded="false">
+                                                            <span class="caret"></span>
+                                                        </button>
+
+                                                        <ul class="dropdown-menu transaction-dropdown-offset" uib-dropdown-menu="" role="menu">
+
+                                                            <li role="menuitem" ng-click="info.filter.HasAttachments = ''">
+                                                                <a>Show All</a>
+                                                            </li>
+
+                                                            <li role="menuitem" ng-click="info.filter.HasAttachments = 'true'">
+                                                                <a>Attachments Only</a>
+                                                            </li>
+
+                                                            <li role="menuitem" ng-click="info.filter.HasAttachments = 'false'">
+                                                                <a>No Attachments Only</a>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                            </th> <!--This will be a dropdown-->
+
+
+                                            <th ng-if="info.siteSettings.AllowTransactionDetailEditing" class="rightbordernone movetobuttonrow">
+
+                                                <!-- paper clip drop down -->
+                                                <div class="btn-group float-right" uib-dropdown="" select-on-focus st-dropdown-filter predicate="HasAttachments" ng-model="info.filter.HasAttachments">
+
+                                                    <button ng-class="{'green-font': info.filter.HasAttachments == 'true'}" class="fa fa-2x fa-paperclip transaction-clip-dropdown" data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="caret"></span>
+                                                    </button>
+
+                                                    <ul class="dropdown-menu transaction-dropdown-offset" uib-dropdown-menu="" role="menu">
+
+                                                        <li role="menuitem" ng-click="info.filter.HasAttachments = ''">
+                                                            <a>Show All</a>
+                                                        </li>
+
+
+                                                        <li role="menuitem" ng-click="info.filter.HasAttachments = 'true'">
+                                                            <a>Attachments Only</a>
+                                                        </li>
+
+                                                        <li role="menuitem" ng-click="info.filter.HasAttachments = 'false'">
+                                                            <a>No Attachments Only</a>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+
+
+                                                <!-- Split button -->
+
+                                                <select class="hidden transaction-attachment-select form-control" st-select-search predicate="HasAttachments" ng-model="info.filter.HasAttachments" ng-class="info.filter.HasAttachments.length > 0 ? 'active-input-highlight' : ''">
+                                                    <option value="">--Show All--</option>
+                                                    <option value="true">Attachments Only</option>
+                                                    <option value="false">No Attachments Only</option>
+                                                </select>
+
+                                                <div st-sort="HasAttachments" class="hidden-xs hidden-sm"></div>
+                                            </th>
+                                        </tr>
+
+                                        <!-- second table header -->
+
+                                        <tr class="transactionheaderrow lightgreybackground">
+                                            <th st-sort="FuelingDateTime" class="col-lg-1 reset-filters">
+                                                <div class="row">
+                                                    <div class="black-font pull-left padding-left-5">Date</div>
+                                                    <div class="inline-block hidden-xs hidden-sm hidden-md hidden-lg">
+                                                        <div class="clear-all-button">
+                                                            <button type="button" class="btn btn-width-sm btn-red" st-reset-search ng-click="info.clearFilters()">Clear Filters</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pull-right margin-right-sm stackpaddedmedia">
+                                                        <a>
+                                                            <span class="fa-stack not-sorted">
+                                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                                            </span>
+                                                            <span class="descending sorted">
+                                                                <i class="fa fa-lg fa-caret-down"></i>
+                                                            </span>
+                                                            <span class="ascending sorted">
+                                                                <i class="fa fa-lg fa-caret-up"></i>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th st-sort="Client.Name" class="hidden-xs hidden-sm col-lg-1" ng-if="info.$usersService.user.Client.ClientType == 1">
+                                                <div class="row">
+                                                    <div class="black-font pull-left" ng-if="User.Company.SubscriptionType != 3 && !User.Company.Settings.IsVATRecoveryEnabled ">Company</div>
+                                                    <div class="black-font pull-left" ng-if="User.Company.SubscriptionType == 3 || User.Company.Settings.IsVATRecoveryEnabled ">TaxBack</div>
+                                                    <div class="pull-right margin-right-sm">
+                                                        <a>
+                                                            <span class="fa-stack not-sorted">
+                                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                                            </span>
+                                                            <span class="descending sorted">
+                                                                <i class="fa fa-lg fa-caret-down"></i>
+                                                            </span>
+                                                            <span class="ascending sorted">
+                                                                <i class="fa fa-lg fa-caret-up"></i>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th st-sort="Id" class="hidden-xs hidden-sm hidden col-lg-1" ng-if="info.$usersService.user.Client.ClientType == 2">
+                                                <div class="row">
+                                                    <div class="black-font pull-left">ID</div>
+                                                    <div class="pull-right margin-right-sm">
+                                                        <a>
+                                                            <span class="fa-stack not-sorted">
+                                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                                            </span>
+                                                            <span class="descending sorted">
+                                                                <i class="fa fa-lg fa-caret-down"></i>
+                                                            </span>
+                                                            <span class="ascending sorted">
+                                                                <i class="fa fa-lg fa-caret-up"></i>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </th>
+
+                                            <!--<th class="col-lg-1 padding-10 hidden-xs hidden-sm" st-sort="FuelRelease" ng-if="info.$usersService.user.Client.ClientType == 1">
+                                                <div class="row">
+                                                    <div class="black-font pull-left">Fuel Release</div>
+                                                    <div class="pull-right margin-right-sm">
+                                                        <a>
+                                                            <span class="fa-stack not-sorted">
+                                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                                            </span>
+                                                            <span class="descending sorted">
+                                                                <i class="fa fa-lg fa-caret-down"></i>
+                                                            </span>
+                                                            <span class="ascending sorted">
+                                                                <i class="fa fa-lg fa-caret-up"></i>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </th>-->
+                                            <th class="col-lg-1 hidden" st-sort="TripID" ng-if="info.$usersService.user.Client.ClientType == 2">
+                                                <div class="row">
+                                                    <div class="black-font pull-left">Trip #</div>
+                                                    <div class="pull-right margin-right-sm">
+                                                        <a>
+                                                            <span class="fa-stack not-sorted">
+                                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                                            </span>
+                                                            <span class="descending sorted">
+                                                                <i class="fa fa-lg fa-caret-down"></i>
+                                                            </span>
+                                                            <span class="ascending sorted">
+                                                                <i class="fa fa-lg fa-caret-up"></i>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </th>
+
+                                            <th class="col-lg-1" st-sort="Aircraft.TailNumber">
+                                                <div class="row">
+                                                    <div class="black-font pull-left">Tail #</div>
+                                                    <div class="pull-right margin-right-sm">
+                                                        <a>
+                                                            <span class="fa-stack not-sorted">
+                                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                                            </span>
+                                                            <span class="descending sorted">
+                                                                <i class="fa fa-lg fa-caret-down"></i>
+                                                            </span>
+                                                            <span class="ascending sorted">
+                                                                <i class="fa fa-lg fa-caret-up"></i>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </th>
+
+                                            <th class="col-lg-1" st-sort="ICAO">
+                                                <div class="row">
+                                                    <div class="black-font pull-left">ICAO</div>
+                                                    <div class="pull-right margin-right-sm">
+                                                        <a>
+                                                            <span class="fa-stack not-sorted">
+                                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                                            </span>
+                                                            <span class="descending sorted">
+                                                                <i class="fa fa-lg fa-caret-down"></i>
+                                                            </span>
+                                                            <span class="ascending sorted">
+                                                                <i class="fa fa-lg fa-caret-up"></i>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </th>
+
+                                            <th class="col-lg-1 hidden-xs hidden-sm" st-sort="FBO">
+                                                <div class="row">
+                                                    <div class="black-font pull-left">FBO</div>
+                                                    <div class="pull-right margin-right-sm">
+                                                        <a>
+                                                            <span class="fa-stack not-sorted">
+                                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                                            </span>
+                                                            <span class="descending sorted">
+                                                                <i class="fa fa-lg fa-caret-down"></i>
+                                                            </span>
+                                                            <span class="ascending sorted">
+                                                                <i class="fa fa-lg fa-caret-up"></i>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </th>
+
+                                            <th class="col-lg-1 hidden-xs hidden-sm" st-sort="Vendor" ng-if="info.$usersService.user.Client.ClientType == 1 && info.siteSettings.AllowTransactionDetailEditing">
+                                                <div class="row">
+                                                    <div class="black-font pull-left">Source</div>
+                                                    <div class="pull-right margin-right-sm">
+                                                        <a>
+                                                            <span class="fa-stack not-sorted">
+                                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                                            </span>
+                                                            <span class="descending sorted">
+                                                                <i class="fa fa-lg fa-caret-down"></i>
+                                                            </span>
+                                                            <span class="ascending sorted">
+                                                                <i class="fa fa-lg fa-caret-up"></i>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </th>
+
+
+                                            <th class="hidden col-lg-1" ng-if="info.$usersService.user.Client.ClientType == 2">
+                                                Vendor
+                                            </th>
+
+
+
+                                            <th class="col-lg-1 hidden-xs hidden-sm hidden-md" st-sort="QuotedPPG" ng-if="info.$usersService.user.Client.ClientType == 1">
+                                                <div class="row">
+                                                    <div class="black-font pull-left">Quoted</div>
+                                                    <div class="pull-right margin-right-sm">
+                                                        <a>
+                                                            <span class="fa-stack not-sorted">
+                                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                                            </span>
+                                                            <span class="descending sorted">
+                                                                <i class="fa fa-lg fa-caret-down"></i>
+                                                            </span>
+                                                            <span class="ascending sorted">
+                                                                <i class="fa fa-lg fa-caret-up"></i>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </th>
+
+
+
+                                            <th class="col-lg-1 hidden-xs hidden-sm hidden-md" st-sort="InvoicedPPG" ng-if="info.$usersService.user.Client.ClientType == 1">
+                                                <div class="row">
+                                                    <div class="black-font pull-left">Invoiced</div>
+                                                    <div class="pull-right margin-right-sm">
+                                                        <a>
+                                                            <span class="fa-stack not-sorted">
+                                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                                            </span>
+                                                            <span class="descending sorted">
+                                                                <i class="fa fa-lg fa-caret-down"></i>
+                                                            </span>
+                                                            <span class="ascending sorted">
+                                                                <i class="fa fa-lg fa-caret-up"></i>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th class="col-lg-1 hidden-xs hidden-sm hidden-md" st-sort="PPG" ng-if="info.$usersService.user.Client.ClientType == 2">
+                                                <div class="row">
+                                                    <div class="black-font pull-left">PPG</div>
+                                                    <div class="pull-right margin-right-sm">
+                                                        <a>
+                                                            <span class="fa-stack not-sorted">
+                                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                                            </span>
+                                                            <span class="descending sorted">
+                                                                <i class="fa fa-lg fa-caret-down"></i>
+                                                            </span>
+                                                            <span class="ascending sorted">
+                                                                <i class="fa fa-lg fa-caret-up"></i>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </th><!--Will be in plus after large-->
+
+
+                                            <th class="col-lg-1 hidden-xs hidden-sm hidden-md" st-sort="PPG" ng-if="info.$usersService.user.Client.ClientType == 1">
+                                                <div class="row">
+                                                    <div class="black-font pull-left">Raw Cost</div>
+                                                    <div class="pull-right margin-right-sm">
+                                                        <a>
+                                                            <span class="fa-stack not-sorted">
+                                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                                            </span>
+                                                            <span class="descending sorted">
+                                                                <i class="fa fa-lg fa-caret-down"></i>
+                                                            </span>
+                                                            <span class="ascending sorted">
+                                                                <i class="fa fa-lg fa-caret-up"></i>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th class="col-lg-1 hidden-xs hidden-sm" st-sort="PPG" ng-if="info.$usersService.user.Client.ClientType == 1">
+                                                <div class="row">
+                                                    <div class="black-font pull-left">Volume</div>
+                                                    <div class="pull-right margin-right-sm">
+                                                        <a>
+                                                            <span class="fa-stack not-sorted">
+                                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                                            </span>
+                                                            <span class="descending sorted">
+                                                                <i class="fa fa-lg fa-caret-down"></i>
+                                                            </span>
+                                                            <span class="ascending sorted">
+                                                                <i class="fa fa-lg fa-caret-up"></i>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th class="col-lg-1 hidden-xs hidden-sm" st-sort="PPG" ng-if="info.$usersService.user.Client.ClientType == 1 && !info.siteSettings.AllowTransactionDetailEditing">
+                                                <div class="row">
+                                                    <div class="black-font pull-left">Total</div>
+                                                    <div class="pull-right margin-right-sm">
+                                                        <a>
+                                                            <span class="fa-stack not-sorted">
+                                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                                            </span>
+                                                            <span class="descending sorted">
+                                                                <i class="fa fa-lg fa-caret-down"></i>
+                                                            </span>
+                                                            <span class="ascending sorted">
+                                                                <i class="fa fa-lg fa-caret-up"></i>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th class="col-lg-1 hidden-xs hidden-sm" st-sort="InvoicedVolume" ng-if="info.$usersService.user.Client.ClientType == 2">
+                                                <div class="row">
+                                                    <div class="black-font pull-left">Fuel Vol.</div>
+                                                    <div class="pull-right margin-right-sm">
+                                                        <a>
+                                                            <span class="fa-stack not-sorted">
+                                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                                            </span>
+                                                            <span class="descending sorted">
+                                                                <i class="fa fa-lg fa-caret-down"></i>
+                                                            </span>
+                                                            <span class="ascending sorted">
+                                                                <i class="fa fa-lg fa-caret-up"></i>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </th>
+
+
+
+                                            <!--in plus after large-->
+
+                                            <th colspan="2" class="col-lg-1 invoicestatus padding-10" st-sort="IsArchived">
+                                                <div class="row">
+
+                                                    <div class="black-font pull-left hidden-sm hidden-xs">Fuel Status</div>
+                                                    <div class="pull-right margin-right-sm stackpaddedmedia">
+                                                        <a>
+                                                            <span class="fa-stack not-sorted">
+                                                                <i class="fa fa-angle-up fa-stack fa-lg"></i>
+                                                                <i class="fa fa-angle-down fa-stack fa-lg"></i>
+                                                            </span>
+                                                            <span class="descending sorted">
+                                                                <i class="fa fa-lg fa-caret-down"></i>
+                                                            </span>
+                                                            <span class="ascending sorted">
+                                                                <i class="fa fa-lg fa-caret-up"></i>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="hidden-md hidden-lg" st-status-filter view-status-model="PageSettings.ViewStatus">
+                                                        <div class="btn-group dropdown" uib-dropdown="" style="width:91%" predicate="IsArchived">
+
+                                                            <button style="" type="button" class="col-xs-12 btn btn-xs btn-primary dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                                                                <span class="margin-right-5">{{info.filter.InvoiceStatusLabel}}</span>
+                                                                <i class="fa fa-caret-down white-font"></i>
+                                                            </button>
+
+                                                            <ul class="dropdown-menu padding-10" uib-dropdown-menu="" role="menu" aria-labelledby="split-button" ng-model="info.filter.InvoiceStatus">
+
+                                                                <li class="margin-bottom" role="menuitem" ng-click="info.filter.InvoiceStatus = '';info.filter.InvoiceStatusLabel = 'Show All';info.filter.IsArchived = false;">
+                                                                    <span class="invoicestatus showallcolor cursor-pointer">
+                                                                        <i ng-if="info.filter.InvoiceStatusLabel == 'Show All' && info.filter.IsArchived" class="fa fa-check-square-o padding-right-5 white-font"></i> Show All
+                                                                    </span>
+                                                                </li>
+
+                                                                <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'"
+                                                                    ng-click="info.filter.InvoiceStatus = 'New';info.filter.InvoiceStatusLabel = 'New';info.filter.IsArchived = false;">
+                                                                    <span class="invoicestatus newcolor cursor-pointer">
+                                                                        <i ng-if="info.filter.InvoiceStatusLabel == 'New'" class="fa fa-check-square-o padding-right-5 white-font"></i> New
+                                                                    </span>
+                                                                </li>
+
+                                                                <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'"
+                                                                    ng-click="info.filter.InvoiceStatus = 'Modify';info.filter.InvoiceStatusLabel = 'Modify';info.filter.IsArchived = false;">
+                                                                    <span class="invoicestatus modifycolor cursor-pointer">
+                                                                        <i ng-if="info.filter.InvoiceStatusLabel == 'Modify'" class="fa fa-check-square-o padding-right-5 white-font"></i> Modify
+                                                                    </span>
+                                                                </li>
+
+                                                                <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'"
+                                                                    ng-click="info.filter.InvoiceStatus = 'Post Verify';info.filter.InvoiceStatusLabel = 'Post Verify';info.filter.IsArchived = false;">
+                                                                    <span class="invoicestatus postverifycolor cursor-pointer">
+                                                                        <i ng-if="info.filter.InvoiceStatusLabel == 'Post Verify'" class="fa fa-check-square-o padding-right-5 white-font"></i> Post Verify
+                                                                    </span>
+                                                                </li>
+
+                                                                <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'"
+                                                                    ng-click="info.filter.InvoiceStatus = 'Margin Analysis';info.filter.InvoiceStatusLabel = 'Margin Analysis';info.filter.IsArchived = false;">
+                                                                    <span class="invoicestatus marginanalysiscolor cursor-pointer">
+                                                                        <i ng-if="info.filter.InvoiceStatusLabel == 'Margin Analysis'" class="fa fa-check-square-o padding-right-5 white-font"></i> Margin Analysis
+                                                                    </span>
+                                                                </li>
+
+                                                                <li class="margin-bottom" role="menuitem" ng-click="info.filter.InvoiceStatus = 'Discrepancy';info.filter.InvoiceStatusLabel = 'Discrepancy';info.filter.IsArchived = false;">
+                                                                    <span class="invoicestatus discrepancycolor cursor-pointer">
+                                                                        <i ng-if="info.filter.InvoiceStatusLabel == 'Discrepancy'" class="fa fa-check-square-o padding-right-5 white-font"></i> Discrepancy
+                                                                    </span>
+                                                                </li>
+
+                                                                <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'"
+                                                                    ng-click="info.filter.InvoiceStatus = 'Accounting';info.filter.InvoiceStatusLabel = 'Accounting';info.filter.IsArchived = false;">
+                                                                    <span class="invoicestatus accountingcolor cursor-pointer">
+                                                                        <i ng-if="info.filter.InvoiceStatusLabel == 'Accounting'" class="fa fa-check-square-o padding-right-5 white-font"></i> Accounting
+                                                                    </span>
+                                                                </li>
+
+                                                                <li class="margin-bottom" role="menuitem" ng-click="info.filter.InvoiceStatus = 'Pending';info.filter.InvoiceStatusLabel = 'Pending';info.filter.IsArchived = false;">
+                                                                    <span class="invoicestatus pendingcolor cursor-pointer">
+                                                                        <i ng-if="info.filter.InvoiceStatusLabel == 'Pending'" class="fa fa-check-square-o padding-right-5 white-font"></i> Pending
+                                                                    </span>
+                                                                </li>
+
+                                                                <li class="margin-bottom" role="menuitem" ng-click="info.filter.InvoiceStatus = 'Reconciled';info.filter.InvoiceStatusLabel = 'Reconciled';info.filter.IsArchived = false;">
+                                                                    <span class="invoicestatus reconciledcolor cursor-pointer">
+                                                                        <i ng-if="info.filter.InvoiceStatusLabel == 'Reconciled'" class="fa fa-check-square-o padding-right-5 white-font"></i> Reconciled
+                                                                    </span>
+                                                                </li>
+
+                                                                <li class="margin-bottom" role="menuitem" ng-click="info.filter.InvoiceStatus = 'Cancelled';info.filter.InvoiceStatusLabel = 'Cancelled';info.filter.IsArchived = false;">
+                                                                    <span class="invoicestatus canceledcolor cursor-pointer">
+                                                                        <i ng-if="info.filter.InvoiceStatusLabel == 'Cancelled'" class="fa fa-check-square-o padding-right-5 white-font"></i> Cancelled
+                                                                    </span>
+                                                                </li>
+
+                                                                <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'"
+                                                                    ng-click="info.filter.InvoiceStatus = 'No Fuel';info.filter.InvoiceStatusLabel = 'No Fuel';info.filter.IsArchived = false;">
+                                                                    <span class="invoicestatus nofuelcolor cursor-pointer">
+                                                                        <i ng-if="info.filter.InvoiceStatusLabel == 'No Fuel'" class="fa fa-check-square-o padding-right-5 white-font"></i> No Fuel
+                                                                    </span>
+                                                                </li>
+
+                                                                <li class="margin-bottom" role="menuitem" ng-click="info.filter.InvoiceStatus = 'Archived';info.filter.InvoiceStatusLabel = 'Archived';info.filter.IsArchived = !info.filter.IsArchived;">
+                                                                    <span class="invoicestatus archivedcolor cursor-pointer">
+                                                                        <i ng-if="info.filter.IsArchived" class="fa fa-check-square-o padding-right-5 white-font"></i> Archived
+                                                                    </span>
+                                                                </li>
+                                                            </ul>
+
+                                                        </div>
+                                                        <!--<status-dropdown-menu class="status-dropdown-menu" on-status-change="FilterStatuses" view-status-model="PageSettings.ViewStatus" page-settings="PageSettings"></status-dropdown-menu>-->
+                                                    </div>
+
+
+                                                </div>
+                                            </th>
+
+                                            <th class="rightbordernone col-lg-1 padding-10" ng-if="info.siteSettings.AllowTransactionDetailEditing">
+                                                <div class="padding-left-5">
+                                                    <a class="hoverlink font-600" id="lnkCheckAll" onclick="$(this).hide();$('#lnkUnCheckAll').show();" ng-click="info.OnCheckAllClicked()">
+                                                        <i class="fa fa-square-o fa-2x"></i>
+                                                    </a>
+                                                    <a class="hoverlink font-600" id="lnkUnCheckAll" style="display: none;" onclick="$(this).hide();$('#lnkCheckAll').show();" ng-click="info.OnUnCheckAllClicked()">
+                                                        <i class="fa fa-check-square-o fa-2x"></i>
+                                                    </a>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <!-- TABLE DATA -->
+
+                                    <tbody style="overflow-y: scroll;" ng-if="info.isFuelOrdersReady">
+                                        <tr ng-repeat-start="transaction in info.displayedFuelOrders | filter:info.filterArchived:transaction" dropzone="DropzoneConfig">
+                                            <td ng-if="info.siteSettings.AllowTransactionDetailEditing" ng-click="info.onToggleRowSubDetailsClicked($index, transaction)" onclick="$(this).find('i').toggleClass('fa-plus-circle').toggleClass('fa-minus-circle');$(this).toggleClass('active');event.stopPropagation();">
+
+                                                <div class="row" style="margin-top:4px;" ng-if="info.siteSettings.AllowTransactionDetailEditing">
+                                                    <div class="padding-left-5 circlepadding pull-left">
+                                                        <a id="lnkToggleSubDetails{{$index}}">
+                                                            <span class=""><i class="fa fa-plus-circle fa-2x"></i></span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="pull-right margin-right-sm padding-top-5">{{::transaction.FuelingDateString}}</div>
+                                                </div>
+                                            </td>
+                                            <td ng-if="!info.siteSettings.AllowTransactionDetailEditing" ng-click="info.onToggleRowSubDetailsClicked($index, transaction)" onclick="$(this).find('i').toggleClass('fa-plus-circle').toggleClass('fa-minus-circle');$(this).toggleClass('active');event.stopPropagation();">
+                                                <div class="row smart-form" ng-if="!info.siteSettings.AllowTransactionDetailEditing" onclick="event.stopPropagation();">
+
+                                                    <div class="text-left inline-block checkboxattachmentrow padding-top-5">
+                                                        <input id="chkFlaggedToMove{{$index}}" ng-init="transaction.IsFlaggedToMove = false" ng-model="transaction.IsFlaggedToMove" type="checkbox" ng-value="true" ng-click="OnFlaggedToMoveChanged(transaction)" />
+                                                        <label for="chkFlaggedToMove{{$index}}"></label>
+                                                    </div>
+
+                                                    <div style="position:relative; top:4px;" class="pull-right margin-right-sm padding-top-5">{{::transaction.FuelingDateString}}</div>
+
+                                                </div>
+                                            </td>
+
+                                            <td class="hidden-xs hidden-sm td-truncate-200" ng-if="info.$usersService.user.Client.ClientType == 1">
+                                                    <!--<a ng-click="OnEditTransactionClicked(transaction)" class="font-600">-->
+                                                    <a class="no-wrap" ng-click="info.toCompanyDetails(transaction)">{{::transaction.Client.Name}}</a>
+                                                    <!--</a>-->
+                                                <span ng-if="User.Company.SubscriptionType == 3 || User.Company.Settings.IsVATRecoveryEnabled ">
+                                                    <span class="invoicestatus" ng-class="GetTaxStatusCssClass(transaction.TaxStatus)">{{::GetTaxStatusDisplayText(transaction.TaxStatus)}}</span>
+                                                </span>
+                                            </td>
+                                            <!--in plus after large-->
+                                            <td ng-click="info.getDetails(transaction)">
+                                                <span>{{::transaction.Aircraft.TailNumber}}</span>
+                                            </td>
+                                            <td ng-click="info.getDetails(transaction)">
+                                                <span>{{::transaction.ICAO}}</span>
+                                            </td>
+
+
+                                            <td class="div-fbo-fueler hidden-xs hidden-sm" ng-click="info.getDetails(transaction)">
+                                                <span>{{::transaction.FBO}}</span>
+                                            </td>
+
+
+                                            <td ng-click="info.getDetails(transaction)" ng-if="info.$usersService.user.Client.ClientType == 1 && info.siteSettings.AllowTransactionDetailEditing" class="hidden-xs hidden-sm">
+                                                <span>{{::transaction.Vendor}}</span>
+                                            </td>
+
+
+
+                                            <td ng-click="info.getDetails(transaction)" class="div-fbo-fueler hidden-xs hidden-sm hidden-md" ng-if="info.$usersService.user.Client.ClientType == 1">
+                                                <span class="hidden-xs hidden-sm">{{::transaction.QuotedPPG | ToCurrency}}</span>
+                                            </td><!--in plus after large-->
+
+
+
+                                            <td ng-click="info.getDetails(transaction)" class="hidden-xs hidden-sm hidden-md" ng-if="info.$usersService.user.Client.ClientType == 1">
+                                                <div ng-if="!info.siteSettings.AllowTransactionDetailEditing">
+                                                    <input type="text" decimal show-currency="true" select-on-focus require-decimal="true" step="0.0001"
+                                                           ng-change="info.checkStatus(transaction)" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }"
+                                                           ng-class="{'red': transaction.InvoicedPPG < 0}" ng-model="transaction.InvoicedPPG" />
+                                                </div>
+                                                <span ng-if="info.siteSettings.AllowTransactionDetailEditing">{{::transaction.InvoicedPPG | ToCurrency}}</span>
+                                            </td>
+
+
+                                            <td ng-click="info.getDetails(transaction)" class="hidden-xs hidden-sm hidden-md" ng-if="info.$usersService.user.Client.ClientType == 2">
+                                                <span>
+                                                    {{::transaction.PPG}}
+                                                </span>
+                                            </td>
+
+                                            <td ng-click="info.getDetails(transaction)" class="hidden-xs hidden-sm hidden-md" ng-if="info.$usersService.user.Client.ClientType == 1">
+
+                                                <span class="no-wrap">{{::transaction.PPG | ToCurrency }}</span> <!-- raw cost -->
+                                            </td>
+                                            <td ng-click="info.getDetails(transaction)" class="hidden-xs hidden-sm" ng-if="info.$usersService.user.Client.ClientType == 1">
+                                                <div ng-if="!info.siteSettings.AllowTransactionDetailEditing">
+                                                    <input type="text" select-on-focus ng-model="transaction.InvoicedVolume" ng-change="info.calculateTotal(transaction)"
+                                                           ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                                                </div>
+                                                <span ng-if="info.siteSettings.AllowTransactionDetailEditing">
+                                                    {{::transaction.InvoicedVolume }} gal.
+                                                </span>
+                                            </td>
+                                            <td ng-click="info.getDetails(transaction)" class="hidden-xs hidden-sm" ng-if="info.$usersService.user.Client.ClientType == 1 && !info.siteSettings.AllowTransactionDetailEditing">
+                                                <input style="min-width:75px;" decimal show-currency="true" select-on-focus require-decimal="true" step="0.0001" type="text" ng-model="transaction.Total"
+                                                       ng-change="info.saveTotal(transaction)" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                                            </td>
+
+                                            <td ng-click="info.getDetails(transaction)" class="hidden-xs hidden-sm hidden-md" ng-if="info.$usersService.user.Client.ClientType == 2">
+                                                <span class="no-wrap">{{::transaction.InvoicedVolume }} gal.</span>
+                                            </td><!--in plus after large-->
+
+
+                                            <td colspan="2" class="hidden-md hidden-lg" onclick="event.stopPropagation();">
+                                                <div class="btn-group dropdown" uib-dropdown="">
+
+                                                    <button style="" type="button" class="btn btn-xs btn-primary dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="invoicestatus" ng-class="info.getInvoiceStatusClass(transaction.InvoiceStatus)">{{transaction.TransactionStatus}}</span>
+                                                        <i class="fa fa-caret-down white-font"></i>
+                                                    </button>
+
+                                                    <ul class="dropdown-menu padding-5 ng-pristine ng-untouched ng-valid ng-isolate-scope ng-empty" uib-dropdown-menu="" role="menu" aria-labelledby="split-button">
+
+                                                        <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'">
+                                                            <span class="invoicestatus newcolor cursor-pointer" ng-click="transaction.TransactionStatus = 'New';info.changeStatus(transaction);">
+                                                                New
+                                                            </span>
+                                                        </li>
+                                                        <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'">
+                                                            <span class="invoicestatus modifycolor cursor-pointer" ng-click="transaction.TransactionStatus = 'Modify';info.changeStatus(transaction);">
+                                                                Modify
+                                                            </span>
+                                                        </li>
+                                                        <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'">
+                                                            <span class="invoicestatus postverifycolor cursor-pointer" ng-click="transaction.TransactionStatus = 'Post Verify';info.changeStatus(transaction);">
+                                                                Post Verify
+                                                            </span>
+                                                        </li>
+                                                        <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'">
+                                                            <span class="invoicestatus marginanalysiscolor cursor-pointer" ng-click="transaction.TransactionStatus = 'Margin Analysis';info.changeStatus(transaction);">
+                                                                Margin Analysis
+                                                            </span>
+                                                        </li>
+                                                        <li class="margin-bottom" role="menuitem">
+                                                            <span class="invoicestatus discrepancycolor cursor-pointer" ng-click="transaction.TransactionStatus = 'Discrepancy';info.changeStatus(transaction);">
+                                                                Discrepancy
+                                                            </span>
+                                                        </li>
+
+                                                        <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'">
+                                                            <span class="invoicestatus accountingcolor cursor-pointer" ng-click="transaction.TransactionStatus = 'Accounting';info.changeStatus(transaction);">
+                                                                Accounting
+                                                            </span>
+                                                        </li>
+
+                                                        <li class="margin-bottom" role="menuitem">
+                                                            <span class="invoicestatus pendingcolor cursor-pointer" ng-click="transaction.TransactionStatus = 'Pending';info.changeStatus(transaction);">
+                                                                Pending
+                                                            </span>
+                                                        </li>
+
+                                                        <li class="margin-bottom" role="menuitem">
+                                                            <span class="invoicestatus reconciledcolor cursor-pointer" ng-click="transaction.TransactionStatus = 'Reconciled';info.changeStatus(transaction);">
+                                                                Reconciled
+                                                            </span>
+                                                        </li>
+
+                                                        <li class="margin-bottom" role="menuitem">
+                                                            <span class="invoicestatus canceledcolor cursor-pointer" ng-click="transaction.TransactionStatus = 'Cancelled';info.changeStatus(transaction);">
+                                                                Cancelled
+                                                            </span>
+                                                        </li>
+
+                                                        <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'">
+                                                            <span class="invoicestatus nofuelcolor cursor-pointer" ng-click="transaction.TransactionStatus = 'No Fuel';info.changeStatus(transaction);">
+                                                                No Fuel
+                                                            </span>
+                                                        </li>
+                                                        <li class="margin-bottom" role="menuitem">
+                                                            <span class="invoicestatus archivedcolor cursor-pointer" ng-click="info.archiveFuelOrder(transaction);">
+                                                                Archived
+                                                            </span>
+                                                        </li>
+                                                        <li class="margin-bottom" role="menuitem">
+                                                            <span class="invoicestatus discrepancycolor cursor-pointer" ng-click="info.deleteFuelOrder(transaction);">
+                                                                Delete
+                                                            </span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+
+                                            <td colspan="2" class="hidden-xs hidden-sm" onclick="event.stopPropagation();">
+                                                <div style="width: 140px;">
+                                                    <div class="float-left btn-group dropdown" uib-dropdown="">
+
+                                                        <button type="button" ng-class="info.getInvoiceStatusClass(transaction)" class="btn btn-xs dropdown-toggle invoiceStatusButton" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+
+
+                                                            <span class="invoicestatus">{{transaction.TransactionStatus}}</span>
+
+
+                                                            <i class="fa fa-caret-down white-font"></i>
+                                                        </button>
+
+                                                        <ul class="dropdown-menu padding-5 ng-pristine ng-untouched ng-valid ng-isolate-scope ng-empty" uib-dropdown-menu="" role="menu" aria-labelledby="split-button">
+
+                                                            <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'">
+                                                                <span class="invoicestatus newcolor cursor-pointer" ng-click="transaction.TransactionStatus = 'New';info.changeStatus(transaction);">
+                                                                    New
+                                                                </span>
+                                                            </li>
+                                                            <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'">
+                                                                <span class="invoicestatus modifycolor cursor-pointer" ng-click="transaction.TransactionStatus = 'Modify';info.changeStatus(transaction);">
+                                                                    Modify
+                                                                </span>
+                                                            </li>
+                                                            <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'">
+                                                                <span class="invoicestatus postverifycolor cursor-pointer" ng-click="transaction.TransactionStatus = 'Post Verify';info.changeStatus(transaction);">
+                                                                    Post Verify
+                                                                </span>
+                                                            </li>
+                                                            <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'">
+                                                                <span class="invoicestatus marginanalysiscolor cursor-pointer" ng-click="transaction.TransactionStatus = 'Margin Analysis';info.changeStatus(transaction);">
+                                                                    Margin Analysis
+                                                                </span>
+                                                            </li>
+                                                            <li class="margin-bottom" role="menuitem">
+                                                                <span class="invoicestatus discrepancycolor cursor-pointer" ng-click="transaction.TransactionStatus = 'Discrepancy';info.changeStatus(transaction);">
+                                                                    Discrepancy
+                                                                </span>
+                                                            </li>
+
+                                                            <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'">
+                                                                <span class="invoicestatus accountingcolor cursor-pointer" ng-click="transaction.TransactionStatus = 'Accounting';info.changeStatus(transaction);">
+                                                                    Accounting
+                                                                </span>
+                                                            </li>
+
+                                                            <li class="margin-bottom" role="menuitem">
+                                                                <span class="invoicestatus pendingcolor cursor-pointer" ng-click="transaction.TransactionStatus = 'Pending';info.changeStatus(transaction);">
+                                                                    Pending
+                                                                </span>
+                                                            </li>
+
+                                                            <li class="margin-bottom" role="menuitem">
+                                                                <span class="invoicestatus reconciledcolor cursor-pointer" ng-click="transaction.TransactionStatus = 'Reconciled';info.changeStatus(transaction);">
+                                                                    Reconciled
+                                                                </span>
+                                                            </li>
+
+                                                            <li class="margin-bottom" role="menuitem">
+                                                                <span class="invoicestatus canceledcolor cursor-pointer" ng-click="transaction.TransactionStatus = 'Cancelled';info.changeStatus(transaction);">
+                                                                    Cancelled
+                                                                </span>
+                                                            </li>
+
+                                                            <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Domain == 'Everest Fuel Management'">
+                                                                <span class="invoicestatus nofuelcolor cursor-pointer" ng-click="transaction.TransactionStatus = 'No Fuel';info.changeStatus(transaction);">
+                                                                    No Fuel
+                                                                </span>
+                                                            </li>
+                                                            <li class="margin-bottom" role="menuitem">
+                                                                <span class="invoicestatus archivedcolor cursor-pointer" ng-click="info.archiveFuelOrder(transaction);">
+                                                                    Archived
+                                                                </span>
+                                                            </li>
+                                                            <li class="margin-bottom" role="menuitem">
+                                                                <span class="invoicestatus discrepancycolor cursor-pointer" ng-click="info.deleteFuelOrder(transaction);">
+                                                                    Delete
+                                                                </span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div ng-click="info.getDetails(transaction)" ng-if="!info.siteSettings.AllowTransactionDetailEditing" class="float-right inline-block">
+
+                                                    <div class="btn-group dropdown" uib-dropdown="">
+
+                                                        <button type="button" class="fa fa-2x transaction-clip-dropdown dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                                                            <span><i class="fa fa-paperclip" ng-class="{'green-font bold': transaction.HasAttachments}"></i></span>
+                                                        </button>
+
+                                                        <ul class="dropdown-menu transaction-dropdown-offset padding-10 ng-pristine ng-untouched ng-valid ng-isolate-scope ng-empty" uib-dropdown-menu="" role="menu" aria-labelledby="split-button" predicate="InvoiceStatusLabel">
+
+                                                            <li class="margin-bottom" role="menuitem" ng-if="transaction.HasAttachments" ng-click="info.downloadInvoice(transaction);">
+                                                                <span class="cursor-pointer">
+                                                                    Download
+                                                                </span>
+                                                            </li>
+
+                                                            <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Client.ClientType == 1 && transaction.HasAttachments"
+                                                                ng-click="info.deleteInvoice(transaction);">
+                                                                <span class="cursor-pointer">
+                                                                    Delete
+                                                                </span>
+                                                            </li>
+                                                            <!--<li class="divider" ng-if="!transaction.HasAttachments"></li>-->
+                                                            <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Client.ClientType == 1 && !transaction.HasAttachments"
+                                                                ng-click="info.uploadInvoice(transaction);">
+                                                                <span class="cursor-pointer">
+                                                                    Upload
+                                                                </span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                            <td ng-click="info.getDetails(transaction)" class="hidden" ng-if="!info.siteSettings.AllowTransactionDetailEditing">
+                                                <!--<div class="text-left inline-block checkboxattachmentrow padding-top-5" onclick="event.stopPropagation()">
+                                                    <input id="chkFlaggedToMove{{$index}}" ng-init="transaction.IsFlaggedToMove = false" ng-model="transaction.IsFlaggedToMove" type="checkbox" ng-value="true" ng-click="OnFlaggedToMoveChanged(transaction)"/>
+                                                    <label for="chkFlaggedToMove{{$index}}"></label>
+                                                </div>-->
+                                                <div ng-if="!info.siteSettings.AllowTransactionDetailEditing" class="inline-block">
+                                                    <div class="btn-group dropdown" uib-dropdown="" style="width: 100%;">
+
+                                                        <button type="button" ng-class="{'green-font bold': transaction.HasAttachments}" class="fa fa-2x transaction-clip-dropdown dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                                                            <span><i class="fa fa-paperclip"></i></span>
+                                                        </button>
+
+                                                        <ul class="dropdown-menu transaction-dropdown-offset" padding-10 ng-pristine ng-untouched ng-valid ng-isolate-scope ng-empty" uib-dropdown-menu="" role="menu" aria-labelledby="split-button" predicate="InvoiceStatusLabel">
+
+                                                            <li class="margin-bottom" role="menuitem" ng-if="transaction.HasAttachments" ng-click="info.downloadInvoice(transaction);">
+                                                                <span class="cursor-pointer">
+                                                                    Download
+                                                                </span>
+                                                            </li>
+
+                                                            <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Client.ClientType == 1 && transaction.HasAttachments"
+                                                                ng-click="info.deleteInvoice(transaction);">
+                                                                <span class="cursor-pointer">
+                                                                    Delete
+                                                                </span>
+                                                            </li>
+                                                            <!--<li class="divider" ng-if="!transaction.HasAttachments"></li>-->
+                                                            <li class="margin-bottom" role="menuitem" ng-if="info.$usersService.user.Client.ClientType == 1 && !transaction.HasAttachments"
+                                                                ng-click="info.uploadInvoice(transaction);">
+                                                                <span class="cursor-pointer">
+                                                                    Upload
+                                                                </span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <!-- #143088671 -->
+
+                                                <div class="inline-block hidden-xs hidden-sm padding-top-5" ng-if="!PageSettings.ViewStatus.IsPendingShown && !PageSettings.ViewStatus.IsArchivedShown" onclick="event.stopPropagation()" ng-click="OnMoveBackToPendingClicked(transaction)">
+                                                    <button ng-if="transaction.IsFlaggedToMove == true" class="btn btn-xs btn-red"><i class="fa fa-trash"></i></button>
+                                                </div>
+                                            </td>
+
+                                            <td ng-click="info.getDetails(transaction)" ng-if="info.siteSettings.AllowTransactionDetailEditing">
+                                                <div class="text-left inline-block checkboxattachmentrow padding-top-5" onclick="event.stopPropagation()">
+                                                    <input id="chkFlaggedToMove{{$index}}" ng-init="transaction.IsFlaggedToMove = false" ng-model="transaction.IsFlaggedToMove" type="checkbox" ng-value="true" ng-click="OnFlaggedToMoveChanged(transaction)" />
+                                                    <label for="chkFlaggedToMove{{$index}}"></label>
+                                                </div>
+
+                                                <div class="inline-block hidden-xs hidden-sm padding-top-5">
+                                                    <span ng-if="transaction.HasAttachments" uib-tooltip="Has Attachment"><i class="fa fa-paperclip fa-lg"></i></span>
+                                                </div>
+
+                                                <!-- #143088671 -->
+
+                                                <div class="inline-block hidden-xs hidden-sm padding-top-5" ng-if="!PageSettings.ViewStatus.IsPendingShown && !PageSettings.ViewStatus.IsArchivedShown" onclick="event.stopPropagation()" ng-click="OnMoveBackToPendingClicked(transaction)">
+                                                    <button ng-if="transaction.IsFlaggedToMove == true" class="btn btn-xs btn-red"><i class="fa fa-trash"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="sub-details" id="divTransactionSubDetails{{$index}}" ng-repeat-end style="display: none;">
+                                            <td colspan="13" class="col-xs-12">
+                                                <div class="padding-top-5" ng-if="transaction.ShowingSubDetails">
+                                                    <div class="col-xs-6 col-md-4">
+                                                        <div class="row">
+                                                            <div class="font-600 inline-block" style="width: 101px;">ID:</div>
+                                                            <div class="inline-block">
+                                                                <a ng-click="OnEditTransactionClicked(transaction)" class="font-600">
+                                                                    <span>{{::transaction.Id}}</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="font-600 inline-block" style="width: 101px;">Company Name:</div>
+                                                            <div class="inline-block">{{transaction.Client.Name}}</div>
+                                                        </div>
+                                                        <div class="hidden-sm hidden-md hidden-lg xsdivfbo">
+                                                            <div class="font-600 inline-block" style="width: 101px;">FBO:</div>
+                                                            <div class="inline-block">{{::transaction.FBO}}</div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="padding-top-5 font-600 inline-block" style="width: 101px;">Invoice #:</div>
+                                                            <div class="inline-block">
+                                                                <input class="form-control invoienuminput" select-on-focus ng-model="transaction.InvoiceNumber" ng-disabled="info.$usersService.user.Permission.Transactions == 1"
+                                                                       ng-change="OnGeneralInfoEdited(transaction)" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+
+                                                    <div class="col-xs-6 col-md-4">
+                                                        <div class="row">
+                                                            <div class="darkgreen-font font-600 inline-block" style="width: 101px;">Quoted PPG:</div>
+                                                            <div class="darkgreen-font inline-block">{{transaction.QuotedPPG | ToCurrency}}</div>
+                                                        </div>
+                                                        <div class="invoicedppg row">
+                                                            <div class="darkgreen-font font-600 inline-block padding-top-5" style="width: 101px;">Invoiced PPG:</div>
+                                                            <div class="inline-block">
+                                                                <input decimal require-decimal="true" show-symbol class="darkgreen-font form-control green-font" select-on-focus ng-disabled="info.$usersService.user.Permission.Transactions == 1"
+                                                                       ng-model="transaction.InvoicedPPG" ng-change="info.checkStatus(transaction)" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="font-600 inline-block" style="width: 101px;">Invoiced Vol:</div>
+                                                            <div class="inline-block">{{::transaction.InvoicedVolume}} gal.</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6 col-md-4">
+                                                        <div class="row">
+                                                            <div class="font-600 darkbluefont inline-block" style="width: 101px;">Quoted Qty:</div>
+                                                            <div class="darkbluefont inline-block">{{::transaction.QuotedVolume}} gal.</div>
+                                                        </div>
+                                                        <div class="invoicedqty">
+                                                            <div class="inline-block darkbluefont padding-top-5 font-600" style="width: 101px;">Invoiced Qty:</div>
+                                                            <div class="inline-block">
+                                                                <input class="form-control darkbluefont" select-on-focus ng-disabled="info.$usersService.user.Permission.Transactions == 1"
+                                                                       ng-model="transaction.InvoicedVolume" ng-change="OnGeneralInfoEdited(transaction);OnInvoiceVolumeChanged(transaction);"
+                                                                       numeric ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1500, 'blur': 0 } }" />
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="form-group hidden-sm hidden-md hidden-lg">
+                                                            <div class="font-600 inline-block" style="width: 101px;">Price:</div>
+                                                            <div class="inline-block">{{::transaction.Price | ToCurrency}}</div>
+                                                        </div>
+                                                        <button type="button" ng-if="transaction.InvoicedPPG > 0 || transaction.InvoicedVolume > 0" class="float-right btn btn-green" ng-click="info.processOrder(transaction)">Process</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                            <td class="hidden col-xs-12 sub-details-process">
+                                                <div class="padding-5">
+                                                    <div class="text-right">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr st-filtered-row-length class="table-text" ng-show="FilteredRowLength == 0 || info.filteredRows.length == 0">
+                                            <td colspan="13">
+                                                <div class="row">
+                                                    <h2 class="text-center padding-10">No records found!</h2>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                    <tfoot>
+                                        <!--<tr ng-if="info.fuelOrders.length == 0">
+                                            <td>No transactions match that criteria</td>
+                                        </tr>-->
+                                        <tr class="lightgreybackground" ng-if="info.showButtons">
+                                            <td colspan="13">
+                                                <div>
+                                                    <button type="button" class="btn btn-sm btn-danger" ng-click="info.deleteFilteredFuelOrders()">Delete</button>
+                                                    <button type="button" class="btn btn-sm btn-white" ng-click="info.archiveFilteredFuelOrders()">Archive</button>
+                                                </div>
+                                                <!--<div class="hidden btn-group dropdown" uib-dropdown="" style="">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="margin-right-5">Transaction Tools</span>
+                                                        <i class="fa fa-caret-down white-font"></i>
+                                                    </button>
+                                                    <ul style="top:-70px !important;" class="dropdown-menu" uib-dropdown-menu="" role="menu" aria-labelledby="split-button" st-dropdown-filter predicate="InvoiceStatusLabel">
+                                                        <li class="" role="menuitem"><a ng-click="info.exportTransactions()">Export Transactions</a></li>
+                                                        <li class="" role="menuitem"><a ng-click="info.addTransaction()">Enter Direct</a></li>
+                                                    </ul>
+                                                </div>-->
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="13">
+                                                <!--<div class="pull-left">
+                                                    <button type="button" class="btn btn-light-blue" ng-click="info.fuelOrders.exportCompany()">Export Transactions</button>
+                                                </div>-->
+
+                                                <div class="pull-right hidden-xs">
+                                                    <select class="form-control font-600" ng-model="info.FuelOrderRecordsPerPage" ng-options="record as record + ' Records Per Page' for record in info.RecordsPerPage">
+                                                        <option value="" disabled selected>Select your option</option>
+                                                    </select>
+                                                </div>
+                                                <div class="pull-right margin-right" st-pagination="" st-items-by-page="info.FuelOrderRecordsPerPage" st-displayed-pages="7"></div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </article>
+        </div>
+    </section>
+</article>

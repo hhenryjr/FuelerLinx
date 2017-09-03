@@ -1,0 +1,12 @@
+﻿<div class="divMessageBox animated fadeIn fast" id="MsgBoxBack">
+    <div class="MessageBoxContainer animated fadeIn fast" id="Msg1">
+        <div class="MessageBoxMiddle">
+            <span class="MsgTitle">Please confirm!</span>
+            <p class="pText">{{message}}</p>
+            <div class="MessageBoxButtonSection">
+                <button id="bot1-Msg1" class="btn btn-default btn-sm botTempo" ng-click="cancel()"> No</button>
+                <button id="bot2-Msg1" class="btn btn-default btn-sm botTempo" ng-click="confirm()" ng-disabled="isConfirming"> Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

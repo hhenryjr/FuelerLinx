@@ -1,0 +1,300 @@
+﻿<link rel="stylesheet" type="text/css" href="/Content/Transactions.css" />
+
+<div class="floatright">
+    <div class="transactioninfo-popout activate">
+        <span onclick="$(this).parent().toggleClass('activate');" ng-click="OnTransactionInfoToggled()">
+            <i class="fa fa-folder-o fa-2x txt-color-darken foldericon"></i>
+            <i class="fa  fa-times fa-2x txt-color-darken"></i>
+        </span>
+        <div class="details">
+            <!--<ul class="nav nav-tabs pull-left fullwidth" tabset>
+                <li>
+                    <a data-toggle="tab">
+                        <span>Transaction Information</span>
+                    </a>
+                </li>
+                <li ng-show="PageSettings.CanEdit">
+                    <a data-toggle="tab">
+                        <span class="hidden-xs">Recent Changes</span>
+                    </a>
+                </li>
+            </ul>-->
+            <uib-tabset active="active">
+                <uib-tab index="0">
+                    <uib-tab-heading>
+                        <span class="bluefont bold">
+                            <i class="fa-lg fa fa-file-text-o"></i>
+                            Transaction Information
+                        </span>
+                    </uib-tab-heading>
+                    <div>
+                        <div class="row padding-top-5">
+                            <div ng-hide="fuelOrderInfo.fuelOrder.Id == 0" class="col-xs-4 font-600 text-right">Fuel Order ID:</div>
+                            <div ng-hide="fuelOrderInfo.fuelOrder.Id == 0" class="inline-block padding-left-10">{{fuelOrderInfo.fuelOrder.Id}}</div>
+                            <div class="inline-block btn-group green-button-group pull-right rightpadded4x" auto-close="always" uib-dropdown>
+                                <button type="button" ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1"
+                                        ng-class="fuelOrderInfo.getInvoiceStatusClass(fuelOrderInfo.fuelOrder.InvoiceStatus)" class="btn btn-sm dropdown-toggle" uib-dropdown-toggle>
+                                    <span>{{fuelOrderInfo.TransactionStatus}}</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                                    <li role="menuitem" ng-click="fuelOrderInfo.getTransactionStatus(1, true)" ng-if="fuelOrderInfo.$usersService.user.Domain == 'Everest Fuel Management'">
+                                        <span class="newcolor invoicestatus cursor-pointer" value="1" ng-model="fuelOrderInfo.fuelOrder.InvoiceStatus">New</span>
+                                    </li>
+                                    <li role="menuitem" ng-click="fuelOrderInfo.getTransactionStatus(2, true)" ng-if="fuelOrderInfo.$usersService.user.Domain == 'Everest Fuel Management'">
+                                        <span class="modifycolor invoicestatus cursor-pointer" value="2" ng-model="fuelOrderInfo.fuelOrder.InvoiceStatus">Modify</span>
+                                    </li>
+                                    <li role="menuitem" ng-click="fuelOrderInfo.getTransactionStatus(3, true)" ng-if="fuelOrderInfo.$usersService.user.Domain == 'Everest Fuel Management'">
+                                        <span class="postverifycolor invoicestatus cursor-pointer" value="3" ng-model="fuelOrderInfo.fuelOrder.InvoiceStatus">Post Verify</span>
+                                    </li>
+                                    <li role="menuitem" ng-click="fuelOrderInfo.getTransactionStatus(4, true)" ng-if="fuelOrderInfo.$usersService.user.Domain == 'Everest Fuel Management'">
+                                        <span class="marginanalysiscolor no-wrap invoicestatus cursor-pointer" value="4" ng-model="fuelOrderInfo.fuelOrder.InvoiceStatus">Margin Analysis</span>
+                                    </li>
+                                    <li role="menuitem" ng-click="fuelOrderInfo.getTransactionStatus(5, true)">
+                                        <span class="discrepancycolor invoicestatus cursor-pointer" value="5" ng-model="fuelOrderInfo.fuelOrder.InvoiceStatus">Discrepancy</span>
+                                    </li>
+                                    <li role="menuitem" ng-click="fuelOrderInfo.getTransactionStatus(6, true)" ng-if="fuelOrderInfo.$usersService.user.Domain == 'Everest Fuel Management'">
+                                        <span class="accountingcolor invoicestatus cursor-pointer" value="6" ng-model="fuelOrderInfo.fuelOrder.InvoiceStatus">Accounting</span>
+                                    </li>
+                                    <li role="menuitem" ng-click="fuelOrderInfo.getTransactionStatus(7, true)">
+                                        <span class="pendingcolor invoicestatus cursor-pointer" value="7" ng-model="fuelOrderInfo.fuelOrder.InvoiceStatus">Pending</span>
+                                    </li>
+                                    <li role="menuitem" ng-click="fuelOrderInfo.getTransactionStatus(8, true)">
+                                        <span class="reconciledcolor invoicestatus cursor-pointer" value="8" ng-model="fuelOrderInfo.fuelOrder.InvoiceStatus">Reconciled</span>
+                                    </li>
+                                    <li role="menuitem" ng-click="fuelOrderInfo.getTransactionStatus(9, true)">
+                                        <span class="canceledcolor invoicestatus cursor-pointer" value="9" ng-model="fuelOrderInfo.fuelOrder.InvoiceStatus">Cancelled</span>
+                                    </li>
+                                    <li role="menuitem" ng-click="fuelOrderInfo.getTransactionStatus(10, true)" ng-if="fuelOrderInfo.$usersService.user.Domain == 'Everest Fuel Management'">
+                                        <span class="nofuelcolor invoicestatus cursor-pointer" value="10" ng-model="fuelOrderInfo.fuelOrder.InvoiceStatus">No Fuel</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="fuelOrderInfo.fuelOrder.Id == 0">
+                            <div class="col-xs-4 font-600 text-right">Fueler Inv. #:</div>
+                            <div class="inline-block padding-left-10">
+                                <input ng-model="fuelOrderInfo.fuelOrder.InvoiceNumber" />
+                            </div>
+                        </div>
+                        <div class="row" ng-show="fuelOrderInfo.fuelOrder.Id == 0">
+                            <div class="col-xs-4 font-600 text-right">ICAO:</div>
+                            <div class="inline-block padding-left-10">
+                                <input ng-model="fuelOrderInfo.fuelOrder.ICAO" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 font-600 text-right">FBO:</div>
+                            <div class="inline-block padding-left-10" ng-if="fuelOrderInfo.fuelOrder.Id == 0">
+                                <input ng-model="fuelOrderInfo.fuelOrder.FBO" />
+                            </div>
+                            <div class="inline-block padding-left-10" ng-if="fuelOrderInfo.fuelOrder.Id > 0">
+                                {{fuelOrderInfo.fuelOrder.FBO}}
+                            </div>
+                        </div>
+                        <div class="row" ng-show="fuelOrderInfo.fuelOrder.Id == 0">
+                            <div class="col-xs-4 font-600 text-right">Company Name:</div>
+                            <div class="inline-block padding-left-10 tailnumberselect">
+                                <select class="form-control" ng-model="fuelOrderInfo.fuelOrder.CustClientID" ng-change="fuelOrderInfo.changeCompany(fuelOrderInfo.fuelOrder.CustClientID)" user-tailnumber-selection ng-options="customer.CustClientID as customer.Name for customer in fuelOrderInfo.customers">
+                                    <option>--Select One--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row" ng-hide="fuelOrderInfo.fuelOrder.Id == 0">
+                            <div class="col-xs-4 font-600 text-right">FBO Phone:</div>
+                            <div class="inline-block padding-left-10">
+                                {{fuelOrderInfo.fuelOrder.FBOPhone}}
+                            </div>
+                        </div>
+
+                        <div class="row padding-top-5">
+                            <div class="col-xs-4 font-600 text-right">
+                                <span>Dispatched PPG:</span>
+                            </div>
+                            <div class="inline-block padding-left-10">
+                                {{fuelOrderInfo.fuelOrder.QuotedPPG | ToCurrency}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 font-600 text-right">
+                                Dispatched Vol:
+                            </div>
+                            <div class="inline-block padding-left-10">
+                                {{fuelOrderInfo.fuelOrder.InvoicedVolume}} <span class="green-font">gal.</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 inline-block font-600 text-right padding-top-5">Trip ID:</div>
+                            <div class="inline-block padding-left-10">
+                                <input type="text" class="form-control" ng-change="" ng-model="fuelOrderInfo.fuelOrder.TripID"
+                                       ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="inline-block font-600 text-right col-xs-4 padding-top-5">Leg Number:</div>
+                            <div class="inline-block padding-left-10">
+                                <input type="text" class="form-control" ng-change="" ng-model="fuelOrderInfo.fuelOrder.LegNumber"
+                                       ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-4 font-600 text-right padding-top-5">Tail Number:</div>
+                            <div class="inline-block padding-left-10 tailnumberselect">
+                                <select class="form-control" ng-model="fuelOrderInfo.fuelOrder.Aircraft"
+                                        ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1"
+                                        ng-change="fuelOrderInfo.fuelOrder.AircraftID = fuelOrderInfo.fuelOrder.Aircraft.Id"
+                                        user-tailnumber-selection ng-options="aircraft as aircraft.TailNumber for aircraft in fuelOrderInfo.aircrafts">
+                                    <option>--Select One--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--<div class="row padding-bottom-5 padding-top-5">
+                            <div class="col-xs-4 font-600 text-right padding-top-5">Fuel Vendor:</div>
+                            <div class="inline-block padding-left-10">
+                                <select ng-model="Transaction.SelectedFueler" class="form-control popoutselectionmaxwidth" ng-options="fueler as GetFuelVendorDisplayName(fueler) for fueler in PageSettings.AvailableFuelVendors" ng-change="OnSelectedFuelerChanged()"></select>
+                            </div>
+                            <div class="inline-block padding-left-10">
+                                {{::GetFuelVendorDisplayName(Transaction.SelectedFueler)}}
+                            </div>
+                        </div>
+                            <div ng-if="Transaction.FuelerID == 0">
+                            <div class="col-xs-4 font-600 text-right padding-top-5"></div>
+                            <div class="inline-block padding-left-10">
+                                <input type="text" class="form-control" placeholder="Fuel Vendor" ng-model="Transaction.fuel_relationship_1"/>
+                            </div>
+                        </div>-->
+                        <div class="row padding-bottom-5">
+                            <div class="col-xs-4 font-600 text-right padding-top-5 padding-top-5">Certificate Type:</div>
+                            <div class="inline-block padding-left-10">
+                                <select class="form-control" chosen
+                                        ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1"
+                                        ng-model="fuelOrderInfo.fuelOrder.CertificateType" flight-type-options></select>
+                            </div>
+                            <!--<div class="inline-block padding-left-10">
+                                {{::Transaction.TransactionDetails.FlightType}}
+                            </div>-->
+                        </div>
+                        <div class="row" ng-if="!fuelOrderInfo.fuelOrder.NoFuel">
+                            <div class="col-xs-4 font-600 text-right padding-top-5">Fuel On:</div>
+                            <div class="inline-block padding-left-10">
+                                <select class="form-control" ng-model="fuelOrderInfo.fuelOrder.FuelOn"
+                                        ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1">
+                                    <option value="">-Select One-</option>
+                                    <option value="Departure">Departure</option>
+                                    <option value="Arrival">Arrival</option>
+                                </select>
+                            </div>
+                            <!--<div class="inline-block padding-left-10">
+                                {{fuelOrderInfo.fuelOrder.FuelOn}}
+                            </div>-->
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 font-600 text-right padding-top-5">Fueling Date:</div>
+                            <div class="inline-block padding-left-10">
+                                <div class="inline-block input-group">
+                                    <input type="text" class="form-control" datepicker-append-to-body="true" uib-datepicker-popup="{{fuelOrderInfo.dateFormat}}"
+                                           ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1"
+                                           ng-model="fuelOrderInfo.fuelOrder.FuelingDateString" min-date="{{fuelOrderInfo.fuelOrder.FuelingDateString}}" max-date="{{''}}"
+                                           is-open="fuelOrderInfo.isDateOpened" />
+                                    <!--<input type="date" class="form-control" ng-model="fuelOrderInfo.fuelOrder.FuelingDateTime" uib-datepicker-popup min-date="{{fuelOrderInfo.fuelOrder.FuelingDateTime}}" max-date="{{''}}" />-->
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar" ng-click="fuelOrderInfo.isDateOpened = true"></i>
+                                    </span>
+                                </div>
+                                <div class="inline-block select-time">
+                                    <select class="form-control"
+                                            ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1"
+                                            ng-model="fuelOrderInfo.fuelOrder.FuelingTimeString" time-options></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 inline-block font-600 text-right padding-top-5">Posted Retail:</div>
+                            <div class="inline-block padding-left-10">
+                                <input decimal show-currency="true" select-on-focus require-decimal="true" type="text" class="form-control"
+                                       ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1"
+                                       ng-model="fuelOrderInfo.fuelOrder.PostedRetail" ng-change="CalculateEverything()" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 font-600 text-right inline-block padding-top-5">Platts Price:</div>
+                            <div class="inline-block padding-left-10">
+                                <input decimal show-currency="true" select-on-focus require-decimal="true" type="text" class="form-control"
+                                       ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1"
+                                       ng-model="fuelOrderInfo.fuelOrder.PlattsPrice" />
+                            </div>
+                        </div>
+                        <div class="row" ng-if="fuelOrderInfo.$usersService.user.Client.ClientType === 1">
+                            <div class="col-xs-4 font-600 inline-block text-right padding-top-5">Vendor Notes:</div>
+                            <div class="inline-block padding-left-10">
+                                <textarea id="txtNotes" class="form-control marginbottomnone" ng-model="fuelOrderInfo.fuelOrder.AdminNotes"
+                                          ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1"></textarea>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="fuelOrderInfo.$usersService.user.Client.ClientType === 2">
+                            <div class="col-xs-4 font-600 inline-block text-right padding-top-5">Customer Notes:</div>
+                            <div class="inline-block padding-left-10">
+                                <textarea id="txtNotes" class="form-control marginbottomnone" ng-model="fuelOrderInfo.fuelOrder.CustomerNotes"
+                                          ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 text-right font-600 inline-block redfont padding-top-5">Ramp Fee:</div>
+                            <div class="inline-block padding-left-10">
+                                <input type="text" class="form-control" decimal show-currency="true" select-on-focus require-decimal="true"
+                                       ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1"
+                                       ng-model="fuelOrderInfo.fuelOrder.RampFee" ng-change="CalculateEverything()" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="font-600 inline-block col-xs-4 green-font text-right padding-top-5">Waived At:</div>
+                            <div class="inline-block padding-left-10">
+                                <input type="text" class="form-control" select-on-focus
+                                       ng-disabled="fuelOrderInfo.$usersService.user.Permission.Transactions == 1"
+                                       ng-model="fuelOrderInfo.fuelOrder.RampFeeWaivedAt" ng-change="CalculateEverything()" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 font-600 text-right">Requested By:</div>
+                            <div class="inline-block padding-left-10" ng-show="fuelOrderInfo.fuelOrder.Id > 0 && fuelOrderInfo.fuelOrder.RequestedBy !== ''">
+                                {{fuelOrderInfo.fuelOrder.RequestedBy}}
+                            </div>
+                            <div class="inline-block padding-left-10" ng-show="!fuelOrderInfo.fuelOrder.RequestedBy || fuelOrderInfo.fuelOrder.RequestedBy == ''">
+                                N/A
+                            </div>
+                        </div>
+                        <div class="row" ng-show="fuelOrderInfo.fuelOrder.Id > 0">
+                            <div class="col-xs-4 font-600 text-right">
+                                <span>Dispatched On:</span>
+                            </div>
+                            <div class="inline-block padding-left-10">
+                                {{fuelOrderInfo.fuelOrder.DateRequested | date: "MM/dd/yyyy"}}
+                            </div>
+                            <!--<div class="inline-block input-group" ng-if="fuelOrderInfo.fuelOrder.Id == 0">
+                                <input type="date" ng-model="fuelOrderInfo.fuelOrder.DateRequested"/>
+                               <input type="text" class="form-control" datepicker-append-to-body="true" uib-datepicker-popup="{{fuelOrderInfo.dateFormat}}"
+                                       ng-model="fuelOrderInfo.fuelOrder.DateRequested" min-date="{{fuelOrderInfo.fuelOrder.DateRequested}}" max-date="{{''}}"
+                                       is-open="fuelOrderInfo.isDateOpened" />
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar" ng-click="fuelOrderInfo.isDateOpened = true"></i>
+                                </span>
+                            </div>-->
+                        </div>
+                    </div>
+
+                </uib-tab>
+                <uib-tab ng-if="1==0" index="1">
+                    <uib-tab-heading>
+                        <i class="fa fa-lg fa-history hidden"></i>
+                        <span class="hidden-xs hidden">Recent Changes</span>
+                    </uib-tab-heading>
+                    <div>
+                        <transaction-history-details></transaction-history-details>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+</div>

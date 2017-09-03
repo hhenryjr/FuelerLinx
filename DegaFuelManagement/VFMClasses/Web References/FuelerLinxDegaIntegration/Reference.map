@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="https://beta.fuelerlinx.com/Services/Transactions/DegaIntegration.asmx?wsdl" filename="DegaIntegration.wsdl" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="https://beta.fuelerlinx.com/Services/Transactions/DegaIntegration.asmx?disco" filename="DegaIntegration.disco" />
+  </Results>
+</DiscoveryClientResultsFile>

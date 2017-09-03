@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FuelSheets>
+  <FuelSheet>
+    <Settings>
+      <Section>
+         <Separator>EPIC Aviation, LLC</Separator>
+         <SeparatorIndex>3</SeparatorIndex>
+         <SectionValues>
+            <Column Name="EffectiveDate">
+                <StringOperations>
+                  <Operation Type="Split" SplitOn=" to " Index="0"></Operation>
+                </StringOperations>
+               <Index>5</Index>
+               <DateParse>en-US</DateParse> 
+            </Column>
+            <Column Name="Expires">
+              <StringOperations>
+                <Operation Type="Split" SplitOn=" to " Index="2"></Operation>
+              </StringOperations>
+              <Index>5</Index>
+              <DateParse>en-US</DateParse>
+            </Column>
+        </SectionValues>
+      </Section>
+    </Settings>
+    <Column Name="IATA">
+      <ColumnLetter>C</ColumnLetter>
+      <Filters>
+        <Filter Type="MaxLength">4</Filter>
+        <Filter Type="MinLength">3</Filter>
+        <Filter Type="NotEqual">IATA</Filter>
+        <Filter Type="NotEqual">ICAO</Filter>
+        <Filter Type="NotEqual">Loc</Filter>
+      </Filters>
+    </Column>
+    <Column Name="FBOName">
+      <ColumnLetter>D</ColumnLetter>
+    </Column>
+    <Column Name="Notes">
+      <ColumnLetter>S</ColumnLetter>
+    </Column>
+    <Column Name="Min">
+      <ColumnLetter>E</ColumnLetter>
+      <IsNumeric>True</IsNumeric>
+      <StringOperations>
+        <Operation Type="Split" SplitOn="-" Index="0"></Operation>
+        <Operation Type="Replace" Replace="+" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="Flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="FLAT" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="UP" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="(DC9+)" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="," ReplaceWith=""></Operation>
+      </StringOperations>
+    </Column>
+    <Column Name="Max">
+      <ColumnLetter>E</ColumnLetter>
+      <IsNumeric>True</IsNumeric>
+      <StringOperations>
+        <Operation Type="Split" SplitOn="-" Index="1"></Operation>
+        <Operation Type="Replace" Replace="+" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="Flat" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="FLAT" ReplaceWith="0"></Operation>
+        <Operation Type="Replace" Replace="UP" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="(DC9+)" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="," ReplaceWith=""></Operation>
+      </StringOperations>
+    </Column>
+    <Column Name="TotalWithTax">
+      <ColumnLetter>R</ColumnLetter>
+      <StringOperations>
+        <Operation Type="Replace" Replace="$" ReplaceWith=""></Operation>
+        <Operation Type="Replace" Replace="Call for pricing" ReplaceWith="0.0"></Operation>
+      </StringOperations>
+      <IsNumeric>true</IsNumeric>
+    </Column>
+    <Column Name="AdminClientID">
+      <StaticValue>0</StaticValue>
+    </Column>
+    <Column Name="SupplierID">
+      <StaticValue>0</StaticValue>
+    </Column>
+  </FuelSheet>
+</FuelSheets>
